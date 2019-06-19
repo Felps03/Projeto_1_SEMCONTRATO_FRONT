@@ -411,36 +411,47 @@ register.addEventListener('click', function(event) {
             var lastName = document.getElementById('lastname').value;
             var dateOfBirth = document.getElementById('birthdate').value;
 			var email = document.getElementById('email').value;
+<<<<<<< HEAD
 			// var file_photo = new FormData($('#file_photo')[0]);
 			var file_photo = document.getElementById('photo').value;
+=======
+			
+			var file_photo = document.getElementById('photo').files[0];
+>>>>>>> 61c0b0ac033f61c5ea9b668fbce7e3d9e82c3314
             var userName = document.getElementById('username').value;  
             var password = document.getElementById('password').value;  
 	}
 
     let User = {
         name,
-        lastName, 
-        dateOfBirth, 
-        email,  
-        file_photo,
-        userName, 
-        password
+		lastName, 
+		userName, 
+		email,  
+		password,
+		file_photo,
+        dateOfBirth       
     }
+<<<<<<< HEAD
 
 	console.log(User.file_photo);
 
 	// const URL = 'http://localhost:3000/users/user/';
+=======
+	console.log('USER: ', User);
+	
+	const URL =  "https://semcontrato.herokuapp.com/users/user";
+	//const URL = 'http://localhost:3000/users/user/';
+>>>>>>> 61c0b0ac033f61c5ea9b668fbce7e3d9e82c3314
 
     $.ajax({
         type: "POST",
-		url: "https://semcontrato.herokuapp.com/users/user",
-		enctype: 'multipart/form-data',
-        processData: false,  // Important!
-        contentType: false,
-        cache: false,
+		url:URL,
+		contentType: false,
+		processData: false,
+		cache: false,
+		data: { User },
         success: function(data) {
 			console.log(data);
-			debugger;
             document.querySelector("#register").innerHTML = `
                 <div class="alert alert-success alert-dismissible mt-4 border-0 input-circle" id="errormessage">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>Você foi cadastrado com sucesso!
@@ -449,7 +460,6 @@ register.addEventListener('click', function(event) {
 			`;
         },
          error: function (request, status, error) {
-
 			 console.log("error: ", error);
 			 console.log("resque: ", request.responseText);
         }
