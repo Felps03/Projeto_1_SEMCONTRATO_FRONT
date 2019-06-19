@@ -23,7 +23,7 @@ access.addEventListener('click', function(event) {
         data: Login,
         success: function(data) {
             console.log('data: ', data);
-            location.replace("user-login.html");
+            location.replace("home.html");
         },
          error: function (request, status, error) {
              console.log(error);
