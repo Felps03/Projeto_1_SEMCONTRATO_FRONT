@@ -176,22 +176,22 @@ function photoValidator() {
 
 	if (extension != 'png' || extension != 'jpg' || extension != 'jpeg') isExtension = true;
 
-	// if (value == null || !isExtension || extension == undefined) {
-	// 	status = false;
-	// 	photo.classList.add("is-invalid");
+	if (value == null || !isExtension || extension == undefined) {
+		status = false;
+		photo.classList.add("is-invalid");
 
-	// 	photomessage.classList.add("invalid-feedback");
-	// 	photomessage.textContent = "Arquivo inválido!";
-	// } else {
-	// 	status = true;
-	// 	photo.classList.remove("is-invalid");
-	// 	photo.classList.add("is-valid");
+		photomessage.classList.add("invalid-feedback");
+		photomessage.textContent = "Arquivo inválido!";
+	} else {
+		status = true;
+		photo.classList.remove("is-invalid");
+		photo.classList.add("is-valid");
 
-	// 	photomessage.classList.remove("invalid-feedback");
-	// 	photomessage.classList.add("valid-feedback");
+		photomessage.classList.remove("invalid-feedback");
+		photomessage.classList.add("valid-feedback");
 
-	// 	photomessage.textContent = null;
-	// }
+		photomessage.textContent = null;
+	}
 
 	return status;
 }
