@@ -295,10 +295,7 @@ function formValidator() {
 
 //Integration
 let register = document.getElementById('register-new-user');
-
 register.addEventListener('click', function (event) {
-
-
 	event.preventDefault();
 
 	inputsValidator();
@@ -326,8 +323,9 @@ register.addEventListener('click', function (event) {
 	console.log(User);
 
 	let dataForm = document.getElementById("user-register");
+	console.log(User);
 
-	const URL = 'http://semcontrato.herokuapp.com/users/user/';
+	const URL = 'http://semcontrato.herokuapp.com/users/user'
 
 	var formData = new FormData(dataForm);
 
