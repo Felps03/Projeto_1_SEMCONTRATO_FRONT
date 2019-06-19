@@ -320,14 +320,12 @@ register.addEventListener('click', function (event) {
 		dateOfBirth
 	}
 
-	console.log(User);
 
 	let dataForm = document.getElementById("user-register");
-	console.log(User);
 
 	const URL = 'http://semcontrato.herokuapp.com/users/user'
 
-	var formData = new FormData(dataForm);
+	let formData = new FormData(dataForm);
 
 	$.ajax({
 		type: 'POST',
@@ -336,12 +334,7 @@ register.addEventListener('click', function (event) {
 		data: formData,
 		success: function (data) {
 			console.log(data);
-			document.querySelector("#register").innerHTML = `
-                <div class="alert alert-success alert-dismissible mt-4 border-0 input-circle" id="errormessage">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>Você foi cadastrado com sucesso!
-			    </div>
-			    <span><a class="menu-item float-right mt-2" href="user-login.html">Ir para a página de acesso</a></span>
-			`;
+			location.replace("index.html");
 		},
 		cache: false,
 		processData: false,
@@ -353,20 +346,20 @@ register.addEventListener('click', function (event) {
 });
 
 //File
-// const photo = document.getElementById("photo");
-// const send = document.getElementById("file_send");
-// const customTxt = document.getElementById("custom-text");
+const photo = document.getElementById("photo");
+const send = document.getElementById("file_send");
+const customTxt = document.getElementById("custom-text");
 
-// send.addEventListener("click", function() {
-//   photo.click();
-// });
+send.addEventListener("click", function() {
+  photo.click();
+});
 
-// photo.addEventListener("change", function() {
-//   if (photo.value) {
-//     customTxt.innerHTML = photo.value.match(
-//       /[\/\\]([\w\d\s\.\-\(\)]+)$/
-//     )[1];
-//   } else {
-//     customTxt.innerHTML = "Nenhuma imagem selecionada.";
-//   }
-// });
+photo.addEventListener("change", function() {
+  if (photo.value) {
+    customTxt.innerHTML = photo.value.match(
+      /[\/\\]([\w\d\s\.\-\(\)]+)$/
+    )[1];
+  } else {
+    customTxt.innerHTML = "Nenhuma imagem selecionada.";
+  }
+});
