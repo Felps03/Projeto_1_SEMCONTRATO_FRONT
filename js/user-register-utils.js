@@ -345,7 +345,7 @@ register.addEventListener('click', function (event) {
 		var file_photo = document.getElementById('photo').value;
 		var userName = document.getElementById('username').value;
 		var password = document.getElementById('password').value;
-	}
+	
 
 				let User = {
 					name,
@@ -387,5 +387,3 @@ register.addEventListener('click', function (event) {
 					}
 				});
 			});
-	});
-});
