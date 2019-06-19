@@ -334,9 +334,9 @@ register.addEventListener('click', function (event) {
 
 	event.preventDefault();
 
-	inputsValidator();
+	//inputsValidator();
 
-	if (formValidator()) {
+	//if (formValidator()) {
 		var name = document.getElementById('name').value;
 		var lastName = document.getElementById('lastname').value;
 		var dateOfBirth = document.getElementById('birthdate').value;
@@ -347,12 +347,6 @@ register.addEventListener('click', function (event) {
 		var password = document.getElementById('password').value;
 	}
 
-
-	grecaptcha.ready(function () {
-
-		grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_register' })
-			.then(function (token) {
-
 				let User = {
 					name,
 					lastName,
@@ -360,15 +354,14 @@ register.addEventListener('click', function (event) {
 					email,
 					password,
 					file_photo,
-					dateOfBirth,
-					recaptchaToken: token
+        dateOfBirth       
 				}
 
 				console.log(User);
 
 				let dataForm = document.getElementById("user-register");
 
-				const URL = 'http://localhost:3000/users/user/';
+	const URL = 'http://semcontrato.herokuapp.com/users/user/';
 
 				var formData = new FormData(dataForm);
 
