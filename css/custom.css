@@ -26,6 +26,12 @@
 
 .btn-warning { border: 1px solid #ffc107 !important }
 
+.btn-secondary { 
+    border: 1px solid #dddddd !important; 
+    background: #dddddd;
+    color: #292b2c !important;
+}
+
 .btn-danger:hover {
     background: #ffffff !important;
     color: #d9534f !important;
@@ -42,6 +48,12 @@
     background: #ffffff !important;
     color: #ffc107 !important;
     border: 1px solid #ffc107 !important;
+}
+
+.btn-secondary:hover {
+    background: #ffffff !important;
+    color: #dddddd !important;
+    border: 1px solid #dddddd !important;
 }
 
 .input-circle {
