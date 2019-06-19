@@ -160,12 +160,12 @@ function emailValidator() {
 	let value = document.querySelector("#email").value;
 	let emailmessage = document.querySelector("#emailvalidator");
 
-	let cltEmail = value.match(/^[a-z]+.[a-z]+@+compasso+\.+com+\.+br$/);
-	let bolsEmail = value.match(/^[a-z]+.[a-z]+_bols+@+compasso+\.+com+\.+br$/);
+
+	let myEmail = value.match(/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}/);
 
 	let isEmail = false;
 
-	if (cltEmail || bolsEmail) isEmail = true;
+	if (myEmail) isEmail = true;
 
 	if (value == null || hasNumber(value) || !isEmail) {
 		status = false;
@@ -402,6 +402,8 @@ $(function () {
 let register = document.getElementById('register-new-user');
 
 register.addEventListener('click', function (event) {
+
+
 	event.preventDefault();
 
 	inputsValidator();
@@ -416,6 +418,7 @@ register.addEventListener('click', function (event) {
 		var userName = document.getElementById('username').value;
 		var password = document.getElementById('password').value;
 	}
+
 
 	grecaptcha.ready(function () {
 
@@ -433,27 +436,30 @@ register.addEventListener('click', function (event) {
 					recaptchaToken: token
 				}
 
-				console.log('USER: ', User);
+				console.log(User);
 
-				const URL = "https://semcontrato.herokuapp.com/users/user";
-				//const URL = 'http://localhost:3000/users/user/';
+				let dataForm = document.getElementById("user-register");
+
+				const URL = 'http://localhost:3000/users/user/';
+
+				var formData = new FormData(dataForm);
 
 				$.ajax({
-					type: "POST",
+					type: 'POST',
 					url: URL,
 					contentType: false,
-					processData: false,
-					cache: false,
-					data: { User },
+					data: formData,
 					success: function (data) {
 						console.log(data);
 						document.querySelector("#register").innerHTML = `
                 <div class="alert alert-success alert-dismissible mt-4 border-0 input-circle" id="errormessage">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>Você foi cadastrado com sucesso!
-				</div>
-				<span><a class="menu-item float-right mt-2" href="user-login.html">Ir para a página de acesso</a></span>
-					`;
+			    </div>
+			    <span><a class="menu-item float-right mt-2" href="user-login.html">Ir para a página de acesso</a></span>
+			`;
 					},
+					cache: false,
+					processData: false,
 					error: function (request, status, error) {
 						console.log("error: ", error);
 						console.log("resque: ", request.responseText);
