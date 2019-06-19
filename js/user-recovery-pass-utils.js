@@ -8,8 +8,6 @@ function hasNumber(value) {
 
 //Validators
 
-var errors = [];
-
 //Email
 function emailValidator() {
 	let status;
@@ -17,12 +15,11 @@ function emailValidator() {
 	let value = document.querySelector("#email").value;
 	let emailmessage = document.querySelector("#emailvalidator");
 
-	let cltEmail = value.match(/^[a-z]+.[a-z]+@+compasso+\.+com+\.+br$/);
-	let bolsEmail = value.match(/^[a-z]+.[a-z]+_bols+@+compasso+\.+com+\.+br$/);
+	let myEmail = value.match(/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}/);
 
 	let isEmail = false;
 
-	if (cltEmail || bolsEmail) isEmail = true;
+	if (myEmail) isEmail = true;
 
 	if (value == null || hasNumber(value) || !isEmail) {
 		status = false;
@@ -30,9 +27,6 @@ function emailValidator() {
 
 		emailmessage.classList.add("invalid-feedback");
 		emailmessage.textContent = "E-mail inválido e/ou não encontrado!";
-
-		errors[0] = "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.";
-		headerError();
 	} else {
 		status = true;
 		email.classList.remove("is-invalid");
@@ -40,31 +34,10 @@ function emailValidator() {
 
 		emailmessage.classList.remove("invalid-feedback");
 		emailmessage.classList.add("valid-feedback");
-		emailmessage.textContent = "E-mail válido!";
-
-		if (errors[0] === "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.")
-			errors[0] = "";
-		headerError();
+		emailmessage.textContent = null;
 	}
 
 	return status;
-}
-
-function headerError() {
-	let errorsView = `
-		<div class="alert alert-danger alert-dismissible mt-4 border-0 input-circle" id="error">
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-		`;
-
-	for (let aux = 0; aux < errors.length; aux++) {
-		if (!errors[aux] == "" || errors[aux] == null) {
-			errorsView += `${errors[aux]}<br>`;
-		}
-	}
-
-	errorsView += `</div>`;
-
-	document.querySelector("#error").innerHTML = errorsView;
 }
 
 //Validator test
@@ -76,14 +49,6 @@ recovery.addEventListener('click', function (event) {
 	emailValidator();
 
 	if (emailValidator()) {
-
-		grecaptcha.ready(function () {
-
-			grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_login' })
-				.then(function (token) {
-
-					location.replace("user-login.html");
-				});
-		});
+		location.replace("recovery.html");
 	}
 });
