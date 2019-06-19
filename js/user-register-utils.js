@@ -1,32 +1,32 @@
-import $ from 'jquery';
+//import $ from 'jquery';
 
 function hasNumber(value) {
-	for(let aux = 0; aux <= value.length; aux++) {
-		if(value.charAt(aux).match(/^[0-9]$/)) {
+	for (let aux = 0; aux <= value.length; aux++) {
+		if (value.charAt(aux).match(/^[0-9]$/)) {
 			return true;
 		}
 	}
 }
 
 function hasSpace(value) {
-	for(let aux = 0; aux <= value.length; aux++) {
-		if(value.charAt(aux).match(/^\s$/)) {
+	for (let aux = 0; aux <= value.length; aux++) {
+		if (value.charAt(aux).match(/^\s$/)) {
 			return true;
 		}
 	}
 };
 
 function hasMoreSpace(value) {
-	for(let aux = 0; aux <= value.length; aux++) {
-		if(value.charAt(aux).match(/^\s$/) && value.charAt(aux-1).match(/^\s$/)) {
+	for (let aux = 0; aux <= value.length; aux++) {
+		if (value.charAt(aux).match(/^\s$/) && value.charAt(aux - 1).match(/^\s$/)) {
 			return true;
 		}
 	}
 }
 
 function hasSolitaryChar(value) {
-	for(let aux = 0; aux <= value.length; aux++) {
-		if(value.charAt(aux-1).match(/^\s$/) && value.charAt(aux).match(/^[a-z0.9]$/) && value.charAt(aux+1).match(/^\s$/)) {
+	for (let aux = 0; aux <= value.length; aux++) {
+		if (value.charAt(aux - 1).match(/^\s$/) && value.charAt(aux).match(/^[a-z0.9]$/) && value.charAt(aux + 1).match(/^\s$/)) {
 			return true;
 		}
 	}
@@ -42,8 +42,8 @@ function nameValidator() {
 	let name = document.querySelector("#name");
 	let value = document.querySelector("#name").value;
 	let namemessage = document.querySelector("#namevalidator");
-	
-	if(value == null || value.length < 2 || hasNumber(value) || hasMoreSpace(value) || hasSolitaryChar(value)) {
+
+	if (value == null || value.length < 2 || hasNumber(value) || hasMoreSpace(value) || hasSolitaryChar(value)) {
 		status = false;
 
 		name.classList.add("is-invalid");
@@ -63,9 +63,9 @@ function nameValidator() {
 		namemessage.classList.add("valid-feedback");
 		namemessage.textContent = "Nome válido!";
 
-		if(errors[0] === "<strong>Primeiro Nome</strong> deve conter mais caracteres.")
+		if (errors[0] === "<strong>Primeiro Nome</strong> deve conter mais caracteres.")
 			errors[0] = ""
-			headerError();
+		headerError();
 	}
 
 	return status;
@@ -78,7 +78,7 @@ function lastnameValidator() {
 	let value = document.querySelector("#lastname").value;
 	let lastnamemessage = document.querySelector("#lastnamevalidator");
 
-	if(value == null || value.length < 2 || hasNumber(value) || hasMoreSpace(value) || hasSolitaryChar(value)) {
+	if (value == null || value.length < 2 || hasNumber(value) || hasMoreSpace(value) || hasSolitaryChar(value)) {
 		status = false;
 		lastname.classList.add("is-invalid");
 
@@ -96,13 +96,13 @@ function lastnameValidator() {
 		lastnamemessage.classList.add("valid-feedback");
 		lastnamemessage.textContent = "Sobrenome válido!";
 
-		if(errors[1] === "<strong>Sobrenome Nome</strong> deve conter mais caracteres.")
+		if (errors[1] === "<strong>Sobrenome Nome</strong> deve conter mais caracteres.")
 			errors[1] = "";
-			headerError();
+		headerError();
 	}
 
 	return status;
-}	
+}
 
 //Birthdate
 function birthdateValidator() {
@@ -110,24 +110,24 @@ function birthdateValidator() {
 	let birthdate = document.querySelector("#birthdate");
 	let value = document.querySelector("#birthdate").value;
 	let birthdatemessage = document.querySelector("#birthdatevalidator");
-	
+
 	let birthdateValue = new Date(value);
 	let nowValue = new Date(Date.now());
 
-	let day = birthdateValue.getDate(); 
+	let day = birthdateValue.getDate();
 	let month = birthdateValue.getMonth();
 	let year = birthdateValue.getFullYear();
 
 	let isDate = true;
 
 	if (isNaN(day) || isNaN(month) || isNaN(year)) isDate = false;
-	if (month+1 == 4 || month+1 == 6 || month+1 == 9 || month+1 == 11 && day+1 > 30) isDate = false;
-	if ((year % 4) != 0 && month+1 == 2 && day+1 > 28) isDate = false;
-	if ((year % 4) == 0 && month+1 == 2 && day+1 > 29) isDate = false;
+	if (month + 1 == 4 || month + 1 == 6 || month + 1 == 9 || month + 1 == 11 && day + 1 > 30) isDate = false;
+	if ((year % 4) != 0 && month + 1 == 2 && day + 1 > 28) isDate = false;
+	if ((year % 4) == 0 && month + 1 == 2 && day + 1 > 29) isDate = false;
 
 	birthdate.classList.remove("ext-placeholder");
 
-	if(!isDate || (birthdateValue.getTime() >= nowValue.getTime())) {
+	if (!isDate || (birthdateValue.getTime() >= nowValue.getTime())) {
 		status = false;
 		birthdate.classList.add("is-invalid");
 
@@ -145,9 +145,9 @@ function birthdateValidator() {
 		birthdatemessage.classList.add("valid-feedback");
 		birthdatemessage.textContent = "Data de nascimento válida!";
 
-		if(errors[2] === "<strong>Data de Nascimento</strong> deve conter 'dia/mês/ano' e deve ser menor que a data atual.")
+		if (errors[2] === "<strong>Data de Nascimento</strong> deve conter 'dia/mês/ano' e deve ser menor que a data atual.")
 			errors[2] = "";
-			headerError();
+		headerError();
 	};
 
 	return status;
@@ -159,15 +159,15 @@ function emailValidator() {
 	let email = document.querySelector("#email");
 	let value = document.querySelector("#email").value;
 	let emailmessage = document.querySelector("#emailvalidator");
-	
+
 	let cltEmail = value.match(/^[a-z]+.[a-z]+@+compasso+\.+com+\.+br$/);
 	let bolsEmail = value.match(/^[a-z]+.[a-z]+_bols+@+compasso+\.+com+\.+br$/);
-	
+
 	let isEmail = false;
 
-	if(cltEmail || bolsEmail) isEmail = true;
+	if (cltEmail || bolsEmail) isEmail = true;
 
-	if(value == null || hasNumber(value) || !isEmail) {
+	if (value == null || hasNumber(value) || !isEmail) {
 		status = false;
 		email.classList.add("is-invalid");
 
@@ -185,13 +185,13 @@ function emailValidator() {
 		emailmessage.classList.add("valid-feedback");
 		emailmessage.textContent = "E-mail válido!";
 
-		if(errors[3] === "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.")
+		if (errors[3] === "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.")
 			errors[3] = "";
-			headerError();
+		headerError();
 	}
 
 	return status;
-}	
+}
 
 //Photo
 function photoValidator() {
@@ -199,14 +199,14 @@ function photoValidator() {
 	let photo = document.querySelector("#photo");
 	let value = document.querySelector("#photo").value;
 	let photomessage = document.querySelector("#photovalidator");
-	
+
 	let archive = value.split(".");
 	let extension = archive[1];
 	let isExtension = false;
 
-	if(extension != 'png' || extension != 'jpg' || extension != 'jpeg') isExtension = true;
+	if (extension != 'png' || extension != 'jpg' || extension != 'jpeg') isExtension = true;
 
-	if(value == null || !isExtension || extension == undefined) {
+	if (value == null || !isExtension || extension == undefined) {
 		status = false;
 		photo.classList.add("is-invalid");
 
@@ -224,9 +224,9 @@ function photoValidator() {
 		photomessage.classList.add("valid-feedback");
 		photomessage.textContent = "Arquivo válido!";
 
-		if(errors[4] === "<strong>Foto de Perfil</strong> deve conter formatos jpg, jpeg ou png.")
+		if (errors[4] === "<strong>Foto de Perfil</strong> deve conter formatos jpg, jpeg ou png.")
 			errors[4] = "";
-			headerError();
+		headerError();
 	}
 
 	return status;
@@ -239,7 +239,7 @@ function usernameValidator() {
 	let value = document.querySelector("#username").value;
 	let usernamemessage = document.querySelector("#usernamevalidator");
 
-	if(value == null || value.length < 2 || hasSpace(value) || hasSolitaryChar(value)) {
+	if (value == null || value.length < 2 || hasSpace(value) || hasSolitaryChar(value)) {
 		status = false;
 		username.classList.add("is-invalid");
 
@@ -257,9 +257,9 @@ function usernameValidator() {
 		usernamemessage.classList.add("valid-feedback");
 		usernamemessage.textContent = "Nome usuário válido!";
 
-		if(errors[5] === "<strong>Nome de Usuário</strong> deve conter mais caracteres.")
+		if (errors[5] === "<strong>Nome de Usuário</strong> deve conter mais caracteres.")
 			errors[5] = "";
-			headerError();
+		headerError();
 	}
 
 	return status;
@@ -272,7 +272,7 @@ function passwordValidator() {
 	let value = document.querySelector("#password").value;
 	let passwordmessage = document.querySelector("#passwordvalidator");
 
-	if(value == null || (value.length < 6 || value.length > 8) || hasSpace(value) || hasSolitaryChar(value)) {
+	if (value == null || (value.length < 6 || value.length > 8) || hasSpace(value) || hasSolitaryChar(value)) {
 		status = false;
 		password.classList.add("is-invalid");
 
@@ -290,9 +290,9 @@ function passwordValidator() {
 		passwordmessage.classList.add("valid-feedback");
 		passwordmessage.textContent = "Senha válida!";
 
-		if(errors[6] === "<strong>Senha</strong> deve conter de 6 a 8 caracteres.")
+		if (errors[6] === "<strong>Senha</strong> deve conter de 6 a 8 caracteres.")
 			errors[6] = "";
-			headerError();
+		headerError();
 	}
 
 	return status;
@@ -306,7 +306,7 @@ function passwordConfirmValidator() {
 	let passwordConfirmmessage = document.querySelector("#passwordconfirmvalidator");
 	let getPassword = document.querySelector("#password").value;
 
-	if(value == null || (value.length < 6 || value.length > 8) || !value === getPassword || hasSpace(value) || hasSolitaryChar(value)) {
+	if (value == null || (value.length < 6 || value.length > 8) || !value === getPassword || hasSpace(value) || hasSolitaryChar(value)) {
 		status = false;
 		password.classList.add("is-invalid");
 
@@ -324,9 +324,9 @@ function passwordConfirmValidator() {
 		passwordConfirmmessage.classList.add("valid-feedback");
 		passwordConfirmmessage.textContent = "As senhas conferem!";
 
-		if(errors[7] === "<strong>Confirmação</strong> deve ser igual a Senha.")
+		if (errors[7] === "<strong>Confirmação</strong> deve ser igual a Senha.")
 			errors[7] = "";
-			headerError();
+		headerError();
 	}
 
 	return status;
@@ -338,14 +338,14 @@ function headerError() {
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 		`;
 
-	 	for(let aux=0; aux < errors.length; aux++) {
-			if(!errors[aux] == "" || errors[aux] == null) {
-				errorsView += `${errors[aux]}<br>`;
-			}
+	for (let aux = 0; aux < errors.length; aux++) {
+		if (!errors[aux] == "" || errors[aux] == null) {
+			errorsView += `${errors[aux]}<br>`;
 		}
-		
-		errorsView += `</div>`;
-	
+	}
+
+	errorsView += `</div>`;
+
 	document.querySelector("#error").innerHTML = errorsView;
 }
 
@@ -361,7 +361,7 @@ function inputsValidator() {
 }
 
 function formValidator() {
-	return nameValidator() && lastnameValidator() && birthdateValidator() && emailValidator() 
+	return nameValidator() && lastnameValidator() && birthdateValidator() && emailValidator()
 		&& photoValidator() && usernameValidator() && passwordValidator() && passwordConfirmValidator();
 }
 
@@ -369,22 +369,22 @@ function formValidator() {
 
 function bs_input_file() {
 	$(".input-file").before(
-		function() {
-			if ( ! $(this).prev().hasClass('input-ghost') ) {
+		function () {
+			if (!$(this).prev().hasClass('input-ghost')) {
 				var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
-				element.attr("name",$(this).attr("name"));
-				element.change(function(){
+				element.attr("name", $(this).attr("name"));
+				element.change(function () {
 					element.next(element).find('input').val((element.val()).split('\\').pop());
 				});
-				$(this).find("button.btn-choose").click(function(){
+				$(this).find("button.btn-choose").click(function () {
 					element.click();
 				});
-				$(this).find("button.btn-reset").click(function(){
+				$(this).find("button.btn-reset").click(function () {
 					element.val(null);
 					$(this).parents(".input-file").find('input').val('');
 				});
-				$(this).find('input').css("cursor","pointer");
-				$(this).find('input').mousedown(function() {
+				$(this).find('input').css("cursor", "pointer");
+				$(this).find('input').mousedown(function () {
 					$(this).parents('.input-file').prev().click();
 					return false;
 				});
@@ -394,63 +394,71 @@ function bs_input_file() {
 	);
 }
 
-$(function() {
+$(function () {
 	bs_input_file();
 });
 
 //Integration
 let register = document.getElementById('register-new-user');
 
-register.addEventListener('click', function(event) {
-    event.preventDefault();
+register.addEventListener('click', function (event) {
+	event.preventDefault();
 
-    inputsValidator();
-    
-    if(formValidator()) {
-            var name = document.getElementById('name').value;
-            var lastName = document.getElementById('lastname').value;
-            var dateOfBirth = document.getElementById('birthdate').value;
-			var email = document.getElementById('email').value;
-			// var file_photo = new FormData($('#file_photo')[0]);
-			var file_photo = document.getElementById('photo').value;
-            var userName = document.getElementById('username').value;  
-            var password = document.getElementById('password').value;  
+	inputsValidator();
+
+	if (formValidator()) {
+		var name = document.getElementById('name').value;
+		var lastName = document.getElementById('lastname').value;
+		var dateOfBirth = document.getElementById('birthdate').value;
+		var email = document.getElementById('email').value;
+		// var file_photo = new FormData($('#file_photo')[0]);
+		var file_photo = document.getElementById('photo').value;
+		var userName = document.getElementById('username').value;
+		var password = document.getElementById('password').value;
 	}
 
-    let User = {
-        name,
-		lastName, 
-		userName, 
-		email,  
-		password,
-		file_photo,
-        dateOfBirth       
-    }
+	grecaptcha.ready(function () {
 
-	console.log('USER: ', User);
-	
-	const URL =  "https://semcontrato.herokuapp.com/users/user";
-	//const URL = 'http://localhost:3000/users/user/';
+		grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_register' })
+			.then(function (token) {
 
-    $.ajax({
-        type: "POST",
-		url:URL,
-		contentType: false,
-		processData: false,
-		cache: false,
-		data: { User },
-        success: function(data) {
-			console.log(data);
-            document.querySelector("#register").innerHTML = `
+				let User = {
+					name,
+					lastName,
+					userName,
+					email,
+					password,
+					file_photo,
+					dateOfBirth,
+					recaptchaToken: token
+				}
+
+				console.log('USER: ', User);
+
+				const URL = "https://semcontrato.herokuapp.com/users/user";
+				//const URL = 'http://localhost:3000/users/user/';
+
+				$.ajax({
+					type: "POST",
+					url: URL,
+					contentType: false,
+					processData: false,
+					cache: false,
+					data: { User },
+					success: function (data) {
+						console.log(data);
+						document.querySelector("#register").innerHTML = `
                 <div class="alert alert-success alert-dismissible mt-4 border-0 input-circle" id="errormessage">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>Você foi cadastrado com sucesso!
-			    </div>
-			    <span><a class="menu-item float-right mt-2" href="user-login.html">Ir para a página de acesso</a></span>
-			`;
-        },
-         error: function (request, status, error) {
-			 console.log("error: ", error);
-			 console.log("resque: ", request.responseText);
-        }
-    });
+				</div>
+				<span><a class="menu-item float-right mt-2" href="user-login.html">Ir para a página de acesso</a></span>
+					`;
+					},
+					error: function (request, status, error) {
+						console.log("error: ", error);
+						console.log("resque: ", request.responseText);
+					}
+				});
+			});
+	});
 });

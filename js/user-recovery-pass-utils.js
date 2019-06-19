@@ -1,6 +1,6 @@
 function hasNumber(value) {
-	for(let aux = 0; aux <= value.length; aux++) {
-		if(value.charAt(aux).match(/^[0-9]$/)) {
+	for (let aux = 0; aux <= value.length; aux++) {
+		if (value.charAt(aux).match(/^[0-9]$/)) {
 			return true;
 		}
 	}
@@ -16,15 +16,15 @@ function emailValidator() {
 	let email = document.querySelector("#email");
 	let value = document.querySelector("#email").value;
 	let emailmessage = document.querySelector("#emailvalidator");
-	
+
 	let cltEmail = value.match(/^[a-z]+.[a-z]+@+compasso+\.+com+\.+br$/);
 	let bolsEmail = value.match(/^[a-z]+.[a-z]+_bols+@+compasso+\.+com+\.+br$/);
-	
+
 	let isEmail = false;
 
-	if(cltEmail || bolsEmail) isEmail = true;
+	if (cltEmail || bolsEmail) isEmail = true;
 
-	if(value == null || hasNumber(value) || !isEmail) {
+	if (value == null || hasNumber(value) || !isEmail) {
 		status = false;
 		email.classList.add("is-invalid");
 
@@ -42,13 +42,13 @@ function emailValidator() {
 		emailmessage.classList.add("valid-feedback");
 		emailmessage.textContent = "E-mail válido!";
 
-		if(errors[0] === "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.")
+		if (errors[0] === "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.")
 			errors[0] = "";
-			headerError();
+		headerError();
 	}
 
 	return status;
-}	
+}
 
 function headerError() {
 	let errorsView = `
@@ -56,26 +56,34 @@ function headerError() {
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 		`;
 
-	 	for(let aux=0; aux < errors.length; aux++) {
-			if(!errors[aux] == "" || errors[aux] == null) {
-				errorsView += `${errors[aux]}<br>`;
-			}
+	for (let aux = 0; aux < errors.length; aux++) {
+		if (!errors[aux] == "" || errors[aux] == null) {
+			errorsView += `${errors[aux]}<br>`;
 		}
-		
-		errorsView += `</div>`;
-	
+	}
+
+	errorsView += `</div>`;
+
 	document.querySelector("#error").innerHTML = errorsView;
 }
 
 //Validator test
 let recovery = document.getElementById('recovery');
 
-recovery.addEventListener('click', function(event) {
-    event.preventDefault();
+recovery.addEventListener('click', function (event) {
+	event.preventDefault();
 
 	emailValidator();
 
-	if(emailValidator()) {
-		location.replace("user-login.html");
+	if (emailValidator()) {
+
+		grecaptcha.ready(function () {
+
+			grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_login' })
+				.then(function (token) {
+
+					location.replace("user-login.html");
+				});
+		});
 	}
 });

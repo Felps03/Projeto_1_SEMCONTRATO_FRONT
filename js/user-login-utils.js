@@ -2,24 +2,24 @@ import $ from 'jquery';
 
 
 function hasNumber(value) {
-	for(let aux = 0; aux <= value.length; aux++) {
-		if(value.charAt(aux).match(/^[0-9]$/)) {
+	for (let aux = 0; aux <= value.length; aux++) {
+		if (value.charAt(aux).match(/^[0-9]$/)) {
 			return true;
 		}
 	}
 }
 
 function hasSpace(value) {
-	for(let aux = 0; aux <= value.length; aux++) {
-		if(value.charAt(aux).match(/^\s$/)) {
+	for (let aux = 0; aux <= value.length; aux++) {
+		if (value.charAt(aux).match(/^\s$/)) {
 			return true;
 		}
 	}
 };
 
 function hasSolitaryChar(value) {
-	for(let aux = 0; aux <= value.length; aux++) {
-		if(value.charAt(aux-1).match(/^\s$/) && value.charAt(aux).match(/^[a-z0.9]$/) && value.charAt(aux+1).match(/^\s$/)) {
+	for (let aux = 0; aux <= value.length; aux++) {
+		if (value.charAt(aux - 1).match(/^\s$/) && value.charAt(aux).match(/^[a-z0.9]$/) && value.charAt(aux + 1).match(/^\s$/)) {
 			return true;
 		}
 	}
@@ -34,15 +34,15 @@ function emailValidator() {
 	let email = document.querySelector("#email");
 	let value = document.querySelector("#email").value;
 	let emailmessage = document.querySelector("#emailvalidator");
-	
+
 	let cltEmail = value.match(/^[a-z]+.[a-z]+@+compasso+\.+com+\.+br$/);
 	let bolsEmail = value.match(/^[a-z]+.[a-z]+_bols+@+compasso+\.+com+\.+br$/);
-	
+
 	let isEmail = false;
 
-	if(cltEmail || bolsEmail) isEmail = true;
+	if (cltEmail || bolsEmail) isEmail = true;
 
-	if(value == null || hasNumber(value) || !isEmail) {
+	if (value == null || hasNumber(value) || !isEmail) {
 		status = false;
 		email.classList.add("is-invalid");
 
@@ -53,7 +53,7 @@ function emailValidator() {
 		headerError();
 	} else {
 		status = true;
-		
+
 		email.classList.remove("is-invalid");
 		email.classList.add("is-valid");
 
@@ -61,13 +61,13 @@ function emailValidator() {
 		emailmessage.classList.add("valid-feedback");
 		emailmessage.textContent = "E-mail válido!";
 
-		if(errors[0] === "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.")
+		if (errors[0] === "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.")
 			errors[0] = "";
-			headerError();
+		headerError();
 	}
 
 	return status;
-}	
+}
 
 //Password
 function passwordValidator() {
@@ -76,7 +76,7 @@ function passwordValidator() {
 	let value = document.querySelector("#password").value;
 	let passwordmessage = document.querySelector("#passwordvalidator");
 
-	if(value == null || (value.length < 6 || value.length > 8) || hasSpace(value) || hasSolitaryChar(value)) {
+	if (value == null || (value.length < 6 || value.length > 8) || hasSpace(value) || hasSolitaryChar(value)) {
 		status = false;
 		password.classList.add("is-invalid");
 
@@ -94,9 +94,9 @@ function passwordValidator() {
 		passwordmessage.classList.add("valid-feedback");
 		passwordmessage.textContent = "Senha válida!";
 
-		if(errors[1] === "<strong>Senha</strong> deve conter de 6 a 8 caracteres.")
+		if (errors[1] === "<strong>Senha</strong> deve conter de 6 a 8 caracteres.")
 			errors[1] = "";
-			headerError();
+		headerError();
 	}
 
 	return status;
@@ -108,14 +108,14 @@ function headerError() {
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 		`;
 
-	 	for(let aux=0; aux < errors.length; aux++) {
-			if(!errors[aux] == "" || errors[aux] == null) {
-				errorsView += `${errors[aux]}<br>`;
-			}
+	for (let aux = 0; aux < errors.length; aux++) {
+		if (!errors[aux] == "" || errors[aux] == null) {
+			errorsView += `${errors[aux]}<br>`;
 		}
-		
-		errorsView += `</div>`;
-	
+	}
+
+	errorsView += `</div>`;
+
 	document.querySelector("#error").innerHTML = errorsView;
 }
 
@@ -132,52 +132,52 @@ export function formValidator() {
 
 let access = document.getElementById('access');
 
-access.addEventListener('click', function(event) {
-    event.preventDefault();
+access.addEventListener('click', function (event) {
+	event.preventDefault();
 
-    inputsValidator();
-    
-    if(formValidator()) {
-        var email = document.getElementById('email').value;  
-        var password = document.getElementById('password').value;  
+	inputsValidator();
+
+	if (formValidator()) {
+		var email = document.getElementById('email').value;
+		var password = document.getElementById('password').value;
 	}
 
-    let Login = {
-        email, 
-        password
+	let Login = {
+		email,
+		password
 	}
-	
-    var URL = 'https://semcontrato.herokuapp.com/users/authenticate'
 
-    $.ajax({
-        type: "POST",
-        url: URL,
-        data: Login,
-        success: function(data) {
+	var URL = 'https://semcontrato.herokuapp.com/users/authenticate'
+
+	$.ajax({
+		type: "POST",
+		url: URL,
+		data: Login,
+		success: function (data) {
 			console.log('data: ', data);
-			window.location.href="home.html";
-        },
-         error: function (request, status, error) {
-             console.log(error);
-            alert(request.responseText);
-        }
-    });
+			window.location.href = "home.html";
+		},
+		error: function (request, status, error) {
+			console.log(error);
+			alert(request.responseText);
+		}
+	});
 });
 
 let alterar = document.getElementById('alterar');
 
-alterar.addEventListener('click', function(event) {
-    event.preventDefault();
-	
+alterar.addEventListener('click', function (event) {
+	event.preventDefault();
+
 	let accmodalpassword = document.querySelector("#modalpassword");
 	let modalpassword = document.getElementById('modalpassword').value;
 	let modalpasswordmessage = document.querySelector("#modalpasswordvalidator");
-	console.log(modalpassword); 
+	console.log(modalpassword);
 
 
-	if(modalpassword == null || (modalpassword.length < 6 || modalpassword.length > 8) || hasSpace(modalpassword) || hasSolitaryChar(modalpassword)) {
+	if (modalpassword == null || (modalpassword.length < 6 || modalpassword.length > 8) || hasSpace(modalpassword) || hasSolitaryChar(modalpassword)) {
 		accmodalpassword.classList.add("is-invalid");
-	
+
 		modalpasswordmessage.classList.add("invalid-feedback");
 		modalpasswordmessage.textContent = "Senha inválida e/ou não encontrada!";
 	} else {
@@ -189,15 +189,14 @@ alterar.addEventListener('click', function(event) {
 		modalpasswordmessage.textContent = "Senha válida!";
 	}
 
-
 	let accmodalnewpassword = document.querySelector("#modalnewpassword");
 	let modalnewpassword = document.getElementById('modalnewpassword').value;
 	let modalnewpasswordmessage = document.querySelector("#modalnewpasswordvalidator");
-	console.log(modalpassword); 
+	console.log(modalpassword);
 
-	if(modalnewpassword == null || (modalnewpassword.length < 6 || modalnewpassword.length > 8) || hasSpace(modalnewpassword) || hasSolitaryChar(modalnewpassword)) {
+	if (modalnewpassword == null || (modalnewpassword.length < 6 || modalnewpassword.length > 8) || hasSpace(modalnewpassword) || hasSolitaryChar(modalnewpassword)) {
 		accmodalnewpassword.classList.add("is-invalid");
-	
+
 		modalnewpasswordmessage.classList.add("invalid-feedback");
 		modalnewpasswordmessage.textContent = "Senha inválida e/ou não encontrada!";
 	} else {
@@ -213,11 +212,11 @@ alterar.addEventListener('click', function(event) {
 	let accmodalnewpasswordConfirm = document.querySelector("#modalnewpasswordConfirm");
 	let modalnewpasswordConfirm = document.getElementById('modalnewpasswordConfirm').value;
 	let modalnewpasswordmessageConfirm = document.querySelector("#modalnewpasswordvalidatorConfirm");
-	console.log(modalpassword); 
+	console.log(modalpassword);
 
-	if(modalnewpassword == modalnewpasswordConfirm) {
+	if (modalnewpassword == modalnewpasswordConfirm) {
 		accmodalnewpasswordConfirm.classList.add("is-invalid");
-	
+
 		modalnewpasswordmessageConfirm.classList.add("invalid-feedback");
 		modalnewpasswordmessageConfirm.textContent = "As senhas conferem!";
 	} else {
@@ -228,4 +227,12 @@ alterar.addEventListener('click', function(event) {
 		modalnewpasswordmessageConfirm.classList.add("valid-feedback");
 		modalnewpasswordmessageConfirm.textContent = "As senhas não conferem!";
 	}
+
+	grecaptcha.ready(function () {
+
+		grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_login' })
+			.then(function (token) {
+				//
+			});
+	});
 });
