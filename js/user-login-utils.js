@@ -1,3 +1,11 @@
+function hasNumber(value) {
+	for(let aux = 0; aux <= value.length; aux++) {
+		if(value.charAt(aux).match(/^[0-9]$/)) {
+			return true;
+		}
+	}
+}
+
 function hasSpace(value) {
 	for(let aux = 0; aux <= value.length; aux++) {
 		if(value.charAt(aux).match(/^\s$/)) {
@@ -15,41 +23,47 @@ function hasSolitaryChar(value) {
 };
 
 //Validators
-
 var errors = [];
 
-//Username
-function usernameValidator() {
+//Email
+function emailValidator() {
 	let status;
-	let username = document.querySelector("#username");
-	let value = document.querySelector("#username").value;
-	let usernamemessage = document.querySelector("#usernamevalidator");
+	let email = document.querySelector("#email");
+	let value = document.querySelector("#email").value;
+	let emailmessage = document.querySelector("#emailvalidator");
+	
+	let cltEmail = value.match(/^[a-z]+.[a-z]+@+compasso+\.+com+\.+br$/);
+	let bolsEmail = value.match(/^[a-z]+.[a-z]+_bols+@+compasso+\.+com+\.+br$/);
+	
+	let isEmail = false;
 
-	if(value == null || value.length < 2 || hasSpace(value) || hasSolitaryChar(value)) {
+	if(cltEmail || bolsEmail) isEmail = true;
+
+	if(value == null || hasNumber(value) || !isEmail) {
 		status = false;
-		username.classList.add("is-invalid");
+		email.classList.add("is-invalid");
 
-		usernamemessage.classList.add("invalid-feedback");
-		usernamemessage.textContent = "Nome de usuário inválido e/ou não encontrado!";
+		emailmessage.classList.add("invalid-feedback");
+		emailmessage.textContent = "E-mail inválido e/ou não cadastrado!";
 
-		errors[0] = "<strong>Nome de Usuário</strong> deve conter mais caracteres.";
+		errors[0] = "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.";
 		headerError();
 	} else {
 		status = true;
-		username.classList.remove("is-invalid");
-		username.classList.add("is-valid");
+		email.classList.remove("is-invalid");
+		email.classList.add("is-valid");
 
-		usernamemessage.classList.remove("invalid-feedback");
-		usernamemessage.classList.add("valid-feedback");
-		usernamemessage.textContent = "Nome usuário válido!";
+		emailmessage.classList.remove("invalid-feedback");
+		emailmessage.classList.add("valid-feedback");
+		emailmessage.textContent = "E-mail válido!";
 
-		if(errors[0] === "<strong>Nome de Usuário</strong> deve conter mais caracteres.")
+		if(errors[0] === "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.")
 			errors[0] = "";
 			headerError();
 	}
 
 	return status;
-}
+}	
 
 //Password
 function passwordValidator() {
@@ -102,10 +116,46 @@ function headerError() {
 }
 
 function inputsValidator() {
-	usernameValidator();
+	emailValidator();
 	passwordValidator();
 }
 
 function formValidator() {
-	return usernameValidator() && passwordValidator();
+	return emailValidator() && passwordValidator();
 }
+
+//Integration
+let access = document.getElementById('access');
+
+access.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    inputsValidator();
+    
+    if(formValidator()) {
+        let email = document.getElementById('email').value;  
+        let password = document.getElementById('password').value;  
+	}
+
+    let Login = {
+        email, 
+        password
+    }
+
+    console.log(Login);
+
+    const URL = 'http://localhost:3000/users/authenticate';
+
+    $.ajax({
+        type: "POST",
+        url: URL,
+        data: User,
+        success: function(data) {
+            console.log(data);
+            location.replace("user-login.html");
+        },
+         error: function (request, status, error) {
+            //alert(request.responseText);
+        }
+    });
+});

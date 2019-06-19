@@ -362,3 +362,88 @@ function formValidator() {
 	return nameValidator() && lastnameValidator() && birthdateValidator() && emailValidator() 
 		&& photoValidator() && usernameValidator() && passwordValidator() && passwordConfirmValidator();
 }
+
+//Get image name
+
+function bs_input_file() {
+	$(".input-file").before(
+		function() {
+			if ( ! $(this).prev().hasClass('input-ghost') ) {
+				var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
+				element.attr("name",$(this).attr("name"));
+				element.change(function(){
+					element.next(element).find('input').val((element.val()).split('\\').pop());
+				});
+				$(this).find("button.btn-choose").click(function(){
+					element.click();
+				});
+				$(this).find("button.btn-reset").click(function(){
+					element.val(null);
+					$(this).parents(".input-file").find('input').val('');
+				});
+				$(this).find('input').css("cursor","pointer");
+				$(this).find('input').mousedown(function() {
+					$(this).parents('.input-file').prev().click();
+					return false;
+				});
+				return element;
+			}
+		}
+	);
+}
+
+$(function() {
+	bs_input_file();
+});
+
+//Integration
+let register = document.getElementById('register-new-user');
+
+register.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    inputsValidator();
+    
+    if(formValidator()) {
+            let name = document.getElementById('name').value;
+            let lastName = document.getElementById('lastname').value;
+            let dateOfBirth = document.getElementById('birthdate').value;
+            let email = document.getElementById('email').value;
+            let photo = document.getElementById('photo').value;
+            let userName = document.getElementById('username').value;  
+            let password = document.getElementById('password').value;  
+	}
+
+
+    let User = {
+        name,
+        lastName, 
+        dateOfBirth, 
+        email,  
+        photo,
+        userName, 
+        password
+    }
+
+    console.log(User);
+
+    const URL = 'http://localhost:3000/users/user/';
+
+    $.ajax({
+        type: "POST",
+        url: URL,
+        data: User,
+        success: function(data) {
+            console.log(data);
+            document.querySelector("#register").innerHTML = `
+                <div class="alert alert-success alert-dismissible mt-4 border-0 input-circle" id="errormessage">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>Você foi cadastrado com sucesso!
+			    </div>
+			    <span><a class="menu-item float-right mt-2" href="user-login.html">Ir para a página de acesso</a></span>
+			`;
+        },
+         error: function (request, status, error) {
+            //alert(request.responseText);
+        }
+    });
+});
