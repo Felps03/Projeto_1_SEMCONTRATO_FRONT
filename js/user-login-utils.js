@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 function hasNumber(value) {
 	for(let aux = 0; aux <= value.length; aux++) {
 		if(value.charAt(aux).match(/^[0-9]$/)) {
@@ -124,9 +126,9 @@ function formValidator() {
 	return emailValidator() && passwordValidator();
 }
 
-//Integration
 let access = document.getElementById('access');
 
+//Integration
 access.addEventListener('click', function(event) {
     event.preventDefault();
 
@@ -144,17 +146,18 @@ access.addEventListener('click', function(event) {
 
     console.log(Login);
 
-    const URL = 'http://localhost:3000/users/authenticate';
+    // const URL = 'http://localhost:3000/users/authenticate';
+    var URL = 'https://semcontrato.herokuapp.com/users/authenticate'
 
     $.ajax({
         type: "POST",
         url: URL,
-        data: User,
+        data: Login,
         success: function(data) {
-            console.log(data);
-            location.replace("user-login.html");
+            console.log('data: ', data);
         },
          error: function (request, status, error) {
+             console.log(error);
             //alert(request.responseText);
         }
     });

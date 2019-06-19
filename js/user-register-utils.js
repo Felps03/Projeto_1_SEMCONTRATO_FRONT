@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 function hasNumber(value) {
 	for(let aux = 0; aux <= value.length; aux++) {
 		if(value.charAt(aux).match(/^[0-9]$/)) {
@@ -413,7 +415,6 @@ register.addEventListener('click', function(event) {
             let userName = document.getElementById('username').value;  
             let password = document.getElementById('password').value;  
 	}
-
 
     let User = {
         name,
