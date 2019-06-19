@@ -1,4 +1,4 @@
-//import $ from 'jquery';
+import $ from 'jquery';
 
 function hasNumber(value) {
 	for (let aux = 0; aux <= value.length; aux++) {
@@ -176,22 +176,22 @@ function photoValidator() {
 
 	if (extension != 'png' || extension != 'jpg' || extension != 'jpeg') isExtension = true;
 
-	if (value == null || !isExtension || extension == undefined) {
-		status = false;
-		photo.classList.add("is-invalid");
+	// if (value == null || !isExtension || extension == undefined) {
+	// 	status = false;
+	// 	photo.classList.add("is-invalid");
 
-		photomessage.classList.add("invalid-feedback");
-		photomessage.textContent = "Arquivo inválido!";
-	} else {
-		status = true;
-		photo.classList.remove("is-invalid");
-		photo.classList.add("is-valid");
+	// 	photomessage.classList.add("invalid-feedback");
+	// 	photomessage.textContent = "Arquivo inválido!";
+	// } else {
+	// 	status = true;
+	// 	photo.classList.remove("is-invalid");
+	// 	photo.classList.add("is-valid");
 
-		photomessage.classList.remove("invalid-feedback");
-		photomessage.classList.add("valid-feedback");
+	// 	photomessage.classList.remove("invalid-feedback");
+	// 	photomessage.classList.add("valid-feedback");
 
-		photomessage.textContent = null;
-	}
+	// 	photomessage.textContent = null;
+	// }
 
 	return status;
 }
@@ -293,39 +293,6 @@ function formValidator() {
 		&& photoValidator() && usernameValidator() && passwordValidator() && passwordConfirmValidator();
 }
 
-//Get image name
-
-function bs_input_file() {
-	$(".input-file").before(
-		function () {
-			if (!$(this).prev().hasClass('input-ghost')) {
-				var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
-				element.attr("name", $(this).attr("name"));
-				element.change(function () {
-					element.next(element).find('input').val((element.val()).split('\\').pop());
-				});
-				$(this).find("button.btn-choose").click(function () {
-					element.click();
-				});
-				$(this).find("button.btn-reset").click(function () {
-					element.val(null);
-					$(this).parents(".input-file").find('input').val('');
-				});
-				$(this).find('input').css("cursor", "pointer");
-				$(this).find('input').mousedown(function () {
-					$(this).parents('.input-file').prev().click();
-					return false;
-				});
-				return element;
-			}
-		}
-	);
-}
-
-$(function () {
-	bs_input_file();
-});
-
 //Integration
 let register = document.getElementById('register-new-user');
 
@@ -334,58 +301,74 @@ register.addEventListener('click', function (event) {
 
 	event.preventDefault();
 
-	//inputsValidator();
+	inputsValidator();
 
-	//if (formValidator()) {
+	if (formValidator()) {
 		var name = document.getElementById('name').value;
 		var lastName = document.getElementById('lastname').value;
 		var dateOfBirth = document.getElementById('birthdate').value;
 		var email = document.getElementById('email').value;
-		// var file_photo = new FormData($('#file_photo')[0]);
 		var file_photo = document.getElementById('photo').value;
 		var userName = document.getElementById('username').value;
 		var password = document.getElementById('password').value;
 	}
 
-				let User = {
-					name,
-					lastName,
-					userName,
-					email,
-					password,
-					file_photo,
-        dateOfBirth       
-				}
+	let User = {
+		name,
+		lastName,
+		userName,
+		email,
+		password,
+		file_photo,
+		dateOfBirth
+	}
 
-				console.log(User);
+	console.log(User);
 
-				let dataForm = document.getElementById("user-register");
+	let dataForm = document.getElementById("user-register");
 
 	const URL = 'http://semcontrato.herokuapp.com/users/user/';
 
-				var formData = new FormData(dataForm);
+	var formData = new FormData(dataForm);
 
-				$.ajax({
-					type: 'POST',
-					url: URL,
-					contentType: false,
-					data: formData,
-					success: function (data) {
-						console.log(data);
-						document.querySelector("#register").innerHTML = `
+	$.ajax({
+		type: 'POST',
+		url: URL,
+		contentType: false,
+		data: formData,
+		success: function (data) {
+			console.log(data);
+			document.querySelector("#register").innerHTML = `
                 <div class="alert alert-success alert-dismissible mt-4 border-0 input-circle" id="errormessage">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>Você foi cadastrado com sucesso!
 			    </div>
 			    <span><a class="menu-item float-right mt-2" href="user-login.html">Ir para a página de acesso</a></span>
 			`;
-					},
-					cache: false,
-					processData: false,
-					error: function (request, status, error) {
-						console.log("error: ", error);
-						console.log("resque: ", request.responseText);
-					}
-				});
-			});
+		},
+		cache: false,
+		processData: false,
+		error: function (request, status, error) {
+			console.log("error: ", error);
+			console.log("resquest: ", request.responseText);
+		}
 	});
 });
+
+//File
+// const photo = document.getElementById("photo");
+// const send = document.getElementById("file_send");
+// const customTxt = document.getElementById("custom-text");
+
+// send.addEventListener("click", function() {
+//   photo.click();
+// });
+
+// photo.addEventListener("change", function() {
+//   if (photo.value) {
+//     customTxt.innerHTML = photo.value.match(
+//       /[\/\\]([\w\d\s\.\-\(\)]+)$/
+//     )[1];
+//   } else {
+//     customTxt.innerHTML = "Nenhuma imagem selecionada.";
+//   }
+// });
