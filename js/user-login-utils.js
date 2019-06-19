@@ -52,13 +52,14 @@ function emailValidator() {
 		headerError();
 	} else {
 		status = true;
+		/*
 		email.classList.remove("is-invalid");
 		email.classList.add("is-valid");
 
 		emailmessage.classList.remove("invalid-feedback");
 		emailmessage.classList.add("valid-feedback");
 		emailmessage.textContent = "E-mail válido!";
-
+*/
 		if(errors[0] === "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.")
 			errors[0] = "";
 			headerError();
@@ -132,21 +133,18 @@ let access = document.getElementById('access');
 access.addEventListener('click', function(event) {
     event.preventDefault();
 
-    inputsValidator();
+    //inputsValidator();
     
-    if(formValidator()) {
+    //if(formValidator()) {
         let email = document.getElementById('email').value;  
         let password = document.getElementById('password').value;  
-	}
+	//}
 
     let Login = {
         email, 
         password
-    }
-
-    console.log(Login);
-
-    // const URL = 'http://localhost:3000/users/authenticate';
+	}
+	
     var URL = 'https://semcontrato.herokuapp.com/users/authenticate'
 
     $.ajax({
@@ -154,11 +152,12 @@ access.addEventListener('click', function(event) {
         url: URL,
         data: Login,
         success: function(data) {
-            console.log('data: ', data);
+			console.log('data: ', data);
+			window.location.href="home.html";
         },
          error: function (request, status, error) {
              console.log(error);
-            //alert(request.responseText);
+            alert(request.responseText);
         }
     });
 });
