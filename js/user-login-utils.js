@@ -163,3 +163,69 @@ access.addEventListener('click', function(event) {
         }
     });
 });
+
+let alterar = document.getElementById('alterar');
+
+alterar.addEventListener('click', function(event) {
+    event.preventDefault();
+	
+	let accmodalpassword = document.querySelector("#modalpassword");
+	let modalpassword = document.getElementById('modalpassword').value;
+	let modalpasswordmessage = document.querySelector("#modalpasswordvalidator");
+	console.log(modalpassword); 
+
+
+	if(modalpassword == null || (modalpassword.length < 6 || modalpassword.length > 8) || hasSpace(modalpassword) || hasSolitaryChar(modalpassword)) {
+		accmodalpassword.classList.add("is-invalid");
+	
+		modalpasswordmessage.classList.add("invalid-feedback");
+		modalpasswordmessage.textContent = "Senha inválida e/ou não encontrada!";
+	} else {
+		accmodalpassword.classList.remove("is-invalid");
+		accmodalpassword.classList.add("is-valid");
+
+		modalpasswordmessage.classList.remove("invalid-feedback");
+		modalpasswordmessage.classList.add("valid-feedback");
+		modalpasswordmessage.textContent = "Senha válida!";
+	}
+
+
+	let accmodalnewpassword = document.querySelector("#modalnewpassword");
+	let modalnewpassword = document.getElementById('modalnewpassword').value;
+	let modalnewpasswordmessage = document.querySelector("#modalnewpasswordvalidator");
+	console.log(modalpassword); 
+
+	if(modalnewpassword == null || (modalnewpassword.length < 6 || modalnewpassword.length > 8) || hasSpace(modalnewpassword) || hasSolitaryChar(modalnewpassword)) {
+		accmodalnewpassword.classList.add("is-invalid");
+	
+		modalnewpasswordmessage.classList.add("invalid-feedback");
+		modalnewpasswordmessage.textContent = "Senha inválida e/ou não encontrada!";
+	} else {
+		accmodalnewpassword.classList.remove("is-invalid");
+		accmodalnewpassword.classList.add("is-valid");
+
+		modalnewpasswordmessage.classList.remove("invalid-feedback");
+		modalnewpasswordmessage.classList.add("valid-feedback");
+		modalnewpasswordmessage.textContent = "Senha válida!";
+	}
+
+
+	let accmodalnewpasswordConfirm = document.querySelector("#modalnewpasswordConfirm");
+	let modalnewpasswordConfirm = document.getElementById('modalnewpasswordConfirm').value;
+	let modalnewpasswordmessageConfirm = document.querySelector("#modalnewpasswordvalidatorConfirm");
+	console.log(modalpassword); 
+
+	if(modalnewpassword == modalnewpasswordConfirm) {
+		accmodalnewpasswordConfirm.classList.add("is-invalid");
+	
+		modalnewpasswordmessageConfirm.classList.add("invalid-feedback");
+		modalnewpasswordmessageConfirm.textContent = "As senhas conferem!";
+	} else {
+		accmodalnewpasswordConfirm.classList.remove("is-invalid");
+		accmodalnewpasswordConfirm.classList.add("is-valid");
+
+		modalnewpasswordmessageConfirm.classList.remove("invalid-feedback");
+		modalnewpasswordmessageConfirm.classList.add("valid-feedback");
+		modalnewpasswordmessageConfirm.textContent = "As senhas não conferem!";
+	}
+});

@@ -91,35 +91,38 @@
                     </button>
                 </div>
                 <div class="modal-body">
-        
+
+                <form class="form" method="post" action="#" id="login-form" autocomplete="off">
                     <div class="col-sm">
                         <div class="form-group">
-                            <label for="password">Senha:</label>
-                            <input type="password" name="pass_password" class="form-control input-circle" id="password"
+                            <label for="modalpassword">Senha:</label>
+                            <input type="password" name="modalpass_password" class="form-control input-circle" id="modalpassword"
                                 placeholder="Informe uma senha" maxlength="8">
-                            <div id="passwordvalidator"></div>
+                            <div id="modalpasswordvalidator"></div>
                         </div>
 
                         <div class="form-group">
-                            <label for="newpassword">Nova Senha:</label>
-                            <input type="newpassword" name="newpass_password" class="form-control input-circle" id="newpassword"
-                                placeholder="Informe uma senha" maxlength="8">
-                            <div id="passwordvalidator"></div>
+                            <label for="modalnewpassword">Nova Senha:</label>
+                            <input type="password" name="modalnewpass_password" class="form-control input-circle" id="modalnewpassword"
+                                placeholder="Informe uma nova senha" maxlength="8">
+                            <div id="modalnewpasswordvalidator"></div>
                         </div>
                 
                         <div class="form-group">
-                            <label for="password">Confirmação:</label>
-                            <input type="password" name="pass_passwordConfirm" class="form-control input-circle"
-                                id="passwordConfirm" placeholder="Informe a senha novamente" maxlength="8">
-                            <div id="passwordconfirmvalidator"></div>
+                            <label for="modalpassword">Confirmação de Nova Senha:</label>
+                            <input type="password" name="modalnewpass_passwordConfirm" class="form-control input-circle"
+                                id="modalnewpasswordConfirm" placeholder="Confirme a nova senha" maxlength="8">
+                            <div id="modalnewpasswordconfirmvalidator"></div>
                         </div>
                     </div>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger pr-4 pl-4" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-warning pr-4 pl-4" onclick="redirect()">Alterar</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger pr-4 pl-4" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-warning pr-4 pl-4" id="alterar">Alterar</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
