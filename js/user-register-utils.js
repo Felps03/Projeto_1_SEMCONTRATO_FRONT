@@ -1,4 +1,6 @@
 import $ from 'jquery';
+const { check } = require('express-validator/check');
+
 
 function hasNumber(value) {
 	for(let aux = 0; aux <= value.length; aux++) {
@@ -159,13 +161,12 @@ function emailValidator() {
 	let email = document.querySelector("#email");
 	let value = document.querySelector("#email").value;
 	let emailmessage = document.querySelector("#emailvalidator");
-	
-	let cltEmail = value.match(/^[a-z]+.[a-z]+@+compasso+\.+com+\.+br$/);
-	let bolsEmail = value.match(/^[a-z]+.[a-z]+_bols+@+compasso+\.+com+\.+br$/);
-	
+		
+	let myEmail = value.match(/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}/);
+		
 	let isEmail = false;
 
-	if(cltEmail || bolsEmail) isEmail = true;
+	if(myEmail) isEmail = true;
 
 	if(value == null || hasNumber(value) || !isEmail) {
 		status = false;
