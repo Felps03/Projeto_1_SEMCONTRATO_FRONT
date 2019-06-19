@@ -354,7 +354,7 @@ function inputsValidator() {
 	lastnameValidator();
 	birthdateValidator();
 	emailValidator();
-	//photoValidator();
+	photoValidator();
 	usernameValidator();
 	passwordValidator();
 	passwordConfirmValidator();
@@ -404,19 +404,18 @@ let register = document.getElementById('register-new-user');
 register.addEventListener('click', function(event) {
     event.preventDefault();
 
-    //inputsValidator();
+    inputsValidator();
     
-    // if(formValidator()) {
+    if(formValidator()) {
             var name = document.getElementById('name').value;
             var lastName = document.getElementById('lastname').value;
             var dateOfBirth = document.getElementById('birthdate').value;
 			var email = document.getElementById('email').value;
 			// var file_photo = new FormData($('#file_photo')[0]);
-
 			var file_photo = document.getElementById('photo').value;
             var userName = document.getElementById('username').value;  
             var password = document.getElementById('password').value;  
-	// }
+	}
 
     let User = {
         name,
@@ -429,9 +428,6 @@ register.addEventListener('click', function(event) {
     }
 
 	console.log(User.file_photo);
-	debugger;
-	
-	
 
 	// const URL = 'http://localhost:3000/users/user/';
 

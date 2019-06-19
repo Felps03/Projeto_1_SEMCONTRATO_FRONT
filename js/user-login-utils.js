@@ -1,5 +1,6 @@
 import $ from 'jquery';
 
+
 function hasNumber(value) {
 	for(let aux = 0; aux <= value.length; aux++) {
 		if(value.charAt(aux).match(/^[0-9]$/)) {
@@ -52,14 +53,14 @@ function emailValidator() {
 		headerError();
 	} else {
 		status = true;
-		/*
+		
 		email.classList.remove("is-invalid");
 		email.classList.add("is-valid");
 
 		emailmessage.classList.remove("invalid-feedback");
 		emailmessage.classList.add("valid-feedback");
 		emailmessage.textContent = "E-mail válido!";
-*/
+
 		if(errors[0] === "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.")
 			errors[0] = "";
 			headerError();
@@ -118,27 +119,28 @@ function headerError() {
 	document.querySelector("#error").innerHTML = errorsView;
 }
 
-function inputsValidator() {
+export function inputsValidator() {
 	emailValidator();
 	passwordValidator();
 }
 
-function formValidator() {
+export function formValidator() {
 	return emailValidator() && passwordValidator();
 }
 
+//Integration
+
 let access = document.getElementById('access');
 
-//Integration
 access.addEventListener('click', function(event) {
     event.preventDefault();
 
-    //inputsValidator();
+    inputsValidator();
     
-    //if(formValidator()) {
-        let email = document.getElementById('email').value;  
-        let password = document.getElementById('password').value;  
-	//}
+    if(formValidator()) {
+        var email = document.getElementById('email').value;  
+        var password = document.getElementById('password').value;  
+	}
 
     let Login = {
         email, 
