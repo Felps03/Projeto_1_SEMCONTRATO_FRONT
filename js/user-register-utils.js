@@ -354,7 +354,7 @@ function inputsValidator() {
 	lastnameValidator();
 	birthdateValidator();
 	emailValidator();
-	photoValidator();
+	//photoValidator();
 	usernameValidator();
 	passwordValidator();
 	passwordConfirmValidator();
@@ -404,38 +404,47 @@ let register = document.getElementById('register-new-user');
 register.addEventListener('click', function(event) {
     event.preventDefault();
 
-    inputsValidator();
+    //inputsValidator();
     
-    if(formValidator()) {
-            let name = document.getElementById('name').value;
-            let lastName = document.getElementById('lastname').value;
-            let dateOfBirth = document.getElementById('birthdate').value;
-            let email = document.getElementById('email').value;
-            let photo = document.getElementById('photo').value;
-            let userName = document.getElementById('username').value;  
-            let password = document.getElementById('password').value;  
-	}
+    // if(formValidator()) {
+            var name = document.getElementById('name').value;
+            var lastName = document.getElementById('lastname').value;
+            var dateOfBirth = document.getElementById('birthdate').value;
+			var email = document.getElementById('email').value;
+			// var file_photo = new FormData($('#file_photo')[0]);
+
+			var file_photo = document.getElementById('photo').value;
+            var userName = document.getElementById('username').value;  
+            var password = document.getElementById('password').value;  
+	// }
 
     let User = {
         name,
         lastName, 
         dateOfBirth, 
         email,  
-        photo,
+        file_photo,
         userName, 
         password
     }
 
-    console.log(User);
+	console.log(User.file_photo);
+	debugger;
+	
+	
 
-    const URL = 'http://localhost:3000/users/user/';
+	// const URL = 'http://localhost:3000/users/user/';
 
     $.ajax({
         type: "POST",
-        url: URL,
-        data: User,
+		url: "https://semcontrato.herokuapp.com/users/user",
+		enctype: 'multipart/form-data',
+        processData: false,  // Important!
+        contentType: false,
+        cache: false,
         success: function(data) {
-            console.log(data);
+			console.log(data);
+			debugger;
             document.querySelector("#register").innerHTML = `
                 <div class="alert alert-success alert-dismissible mt-4 border-0 input-circle" id="errormessage">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>Você foi cadastrado com sucesso!
@@ -444,7 +453,9 @@ register.addEventListener('click', function(event) {
 			`;
         },
          error: function (request, status, error) {
-            //alert(request.responseText);
+
+			 console.log("error: ", error);
+			 console.log("resque: ", request.responseText);
         }
     });
 });
