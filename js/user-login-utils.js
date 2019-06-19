@@ -168,7 +168,7 @@ access.addEventListener('click', function (event) {
 		password
 	}
 
-	var URL = 'https://semcontrato.herokuapp.com/users/authenticate'
+	var URL = 'http://semcontrato.herokuapp.com/users/authenticate'
 
 	$.ajax({
 		type: "POST",

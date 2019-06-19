@@ -323,7 +323,7 @@ register.addEventListener('click', function (event) {
 
 	let dataForm = document.getElementById("user-register");
 
-	const URL = 'http://semcontrato.herokuapp.com/users/user'
+	const URL = 'https://semcontrato.herokuapp.com/users/user'
 
 	let formData = new FormData(dataForm);
 
