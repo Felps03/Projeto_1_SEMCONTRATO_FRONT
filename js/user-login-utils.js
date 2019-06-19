@@ -26,7 +26,6 @@ function hasSolitaryChar(value) {
 };
 
 //Validators
-var errors = [];
 
 //Email
 function emailValidator() {
@@ -48,9 +47,6 @@ function emailValidator() {
 
 		emailmessage.classList.add("invalid-feedback");
 		emailmessage.textContent = "E-mail inválido e/ou não cadastrado!";
-
-		errors[0] = "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.";
-		headerError();
 	} else {
 		status = true;
 		
@@ -59,11 +55,7 @@ function emailValidator() {
 
 		emailmessage.classList.remove("invalid-feedback");
 		emailmessage.classList.add("valid-feedback");
-		emailmessage.textContent = "E-mail válido!";
-
-		if(errors[0] === "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.")
-			errors[0] = "";
-			headerError();
+		emailmessage.textContent = null;
 	}
 
 	return status;
@@ -82,9 +74,6 @@ function passwordValidator() {
 
 		passwordmessage.classList.add("invalid-feedback");
 		passwordmessage.textContent = "Senha inválida e/ou não encontrada!";
-
-		errors[1] = "<strong>Senha</strong> deve conter de 6 a 8 caracteres.";
-		headerError();
 	} else {
 		status = true;
 		password.classList.remove("is-invalid");
@@ -92,31 +81,10 @@ function passwordValidator() {
 
 		passwordmessage.classList.remove("invalid-feedback");
 		passwordmessage.classList.add("valid-feedback");
-		passwordmessage.textContent = "Senha válida!";
-
-		if(errors[1] === "<strong>Senha</strong> deve conter de 6 a 8 caracteres.")
-			errors[1] = "";
-			headerError();
+		passwordmessage.textContent = null;
 	}
 
 	return status;
-}
-
-function headerError() {
-	let errorsView = `
-		<div class="alert alert-danger alert-dismissible mt-4 border-0 input-circle" id="error">
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-		`;
-
-	 	for(let aux=0; aux < errors.length; aux++) {
-			if(!errors[aux] == "" || errors[aux] == null) {
-				errorsView += `${errors[aux]}<br>`;
-			}
-		}
-		
-		errorsView += `</div>`;
-	
-	document.querySelector("#error").innerHTML = errorsView;
 }
 
 export function inputsValidator() {
@@ -126,6 +94,60 @@ export function inputsValidator() {
 
 export function formValidator() {
 	return emailValidator() && passwordValidator();
+}
+
+function updatePassValidator() {
+	let accmodalpassword = document.querySelector("#modalpassword");
+	let modalpassword = document.getElementById('modalpassword').value;
+	let modalpasswordmessage = document.querySelector("#modalpasswordvalidator");
+
+	if(modalpassword == null || (modalpassword.length < 6 || modalpassword.length > 8) || hasSpace(modalpassword) || hasSolitaryChar(modalpassword)) {
+		accmodalpassword.classList.add("is-invalid");
+	
+		modalpasswordmessage.classList.add("invalid-feedback");
+		modalpasswordmessage.textContent = "Senha incorreta!";
+	} else {
+		accmodalpassword.classList.remove("is-invalid");
+		accmodalpassword.classList.add("is-valid");
+
+		modalpasswordmessage.classList.remove("invalid-feedback");
+		modalpasswordmessage.classList.add("valid-feedback");
+	}
+
+	let accmodalnewpassword = document.querySelector("#modalnewpassword");
+	let modalnewpassword = document.getElementById('modalnewpassword').value;
+	let modalnewpasswordmessage = document.querySelector("#modalnewpasswordvalidator");
+
+	if(modalnewpassword == null || (modalnewpassword.length < 6 || modalnewpassword.length > 8) || hasSpace(modalnewpassword) || hasSolitaryChar(modalnewpassword)) {
+		accmodalnewpassword.classList.add("is-invalid");
+	
+		modalnewpasswordmessage.classList.add("invalid-feedback");
+		modalnewpasswordmessage.textContent = "Senha inválida!";
+	} else {
+		accmodalnewpassword.classList.remove("is-invalid");
+		accmodalnewpassword.classList.add("is-valid");
+
+		modalnewpasswordmessage.classList.remove("invalid-feedback");
+		modalnewpasswordmessage.classList.add("valid-feedback");
+	}
+
+	let accmodalnewpasswordConfirm = document.querySelector("#modalnewpasswordConfirm");
+	let modalnewpasswordConfirm = document.getElementById('modalnewpasswordConfirm').value;
+	let modalnewpasswordmessageConfirm = document.querySelector("#modalnewpasswordconfirmvalidator");
+
+	if((modalnewpasswordConfirm != modalnewpassword) || modalnewpasswordConfirm.length == 0) {
+		accmodalnewpasswordConfirm.classList.add("is-invalid");
+	
+		modalnewpasswordmessageConfirm.classList.add("invalid-feedback");
+		modalnewpasswordmessageConfirm.textContent = "As senhas não conferem!";
+		
+	} else {
+		accmodalnewpasswordConfirm.classList.remove("is-invalid");
+		accmodalnewpasswordConfirm.classList.add("is-valid");
+
+		modalnewpasswordmessageConfirm.classList.remove("invalid-feedback");
+		modalnewpasswordmessageConfirm.classList.add("valid-feedback");	
+	}
 }
 
 //Integration
@@ -168,64 +190,6 @@ let alterar = document.getElementById('alterar');
 
 alterar.addEventListener('click', function(event) {
     event.preventDefault();
-	
-	let accmodalpassword = document.querySelector("#modalpassword");
-	let modalpassword = document.getElementById('modalpassword').value;
-	let modalpasswordmessage = document.querySelector("#modalpasswordvalidator");
-	console.log(modalpassword); 
 
-
-	if(modalpassword == null || (modalpassword.length < 6 || modalpassword.length > 8) || hasSpace(modalpassword) || hasSolitaryChar(modalpassword)) {
-		accmodalpassword.classList.add("is-invalid");
-	
-		modalpasswordmessage.classList.add("invalid-feedback");
-		modalpasswordmessage.textContent = "Senha inválida e/ou não encontrada!";
-	} else {
-		accmodalpassword.classList.remove("is-invalid");
-		accmodalpassword.classList.add("is-valid");
-
-		modalpasswordmessage.classList.remove("invalid-feedback");
-		modalpasswordmessage.classList.add("valid-feedback");
-		modalpasswordmessage.textContent = "Senha válida!";
-	}
-
-
-	let accmodalnewpassword = document.querySelector("#modalnewpassword");
-	let modalnewpassword = document.getElementById('modalnewpassword').value;
-	let modalnewpasswordmessage = document.querySelector("#modalnewpasswordvalidator");
-	console.log(modalpassword); 
-
-	if(modalnewpassword == null || (modalnewpassword.length < 6 || modalnewpassword.length > 8) || hasSpace(modalnewpassword) || hasSolitaryChar(modalnewpassword)) {
-		accmodalnewpassword.classList.add("is-invalid");
-	
-		modalnewpasswordmessage.classList.add("invalid-feedback");
-		modalnewpasswordmessage.textContent = "Senha inválida e/ou não encontrada!";
-	} else {
-		accmodalnewpassword.classList.remove("is-invalid");
-		accmodalnewpassword.classList.add("is-valid");
-
-		modalnewpasswordmessage.classList.remove("invalid-feedback");
-		modalnewpasswordmessage.classList.add("valid-feedback");
-		modalnewpasswordmessage.textContent = "Senha válida!";
-	}
-
-
-	let accmodalnewpasswordConfirm = document.querySelector("#modalnewpasswordConfirm");
-	let modalnewpasswordConfirm = document.getElementById('modalnewpasswordConfirm').value;
-	let modalnewpasswordmessageConfirm = document.querySelector("#modalnewpasswordvalidatorConfirm");
-	console.log(modalpassword); 
-
-	if(modalnewpassword == modalnewpasswordConfirm) {
-		accmodalnewpasswordConfirm.classList.add("is-invalid");
-	
-		modalnewpasswordmessageConfirm.classList.add("invalid-feedback");
-		modalnewpasswordmessageConfirm.textContent = "As senhas conferem!";
-	} else {
-		accmodalnewpasswordConfirm.classList.remove("is-invalid");
-		accmodalnewpasswordConfirm.classList.add("is-valid");
-
-		modalnewpasswordmessageConfirm.classList.remove("invalid-feedback");
-		modalnewpasswordmessageConfirm.classList.add("valid-feedback");
-		modalnewpasswordmessageConfirm.textContent = "As senhas não conferem!";
-	}
+	updatePassValidator();
 });

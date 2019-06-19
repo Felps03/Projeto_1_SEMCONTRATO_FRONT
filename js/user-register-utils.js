@@ -34,8 +34,6 @@ function hasSolitaryChar(value) {
 
 //Validators
 
-var errors = [];
-
 //Name validator
 function nameValidator() {
 	let status;
@@ -50,9 +48,6 @@ function nameValidator() {
 
 		namemessage.classList.add("invalid-feedback");
 		namemessage.textContent = "Nome inválido!";
-
-		errors[0] = "<strong>Primeiro Nome</strong> deve conter mais caracteres.";
-		headerError();
 	} else {
 		status = true;
 
@@ -61,11 +56,7 @@ function nameValidator() {
 
 		namemessage.classList.remove("invalid-feedback");
 		namemessage.classList.add("valid-feedback");
-		namemessage.textContent = "Nome válido!";
-
-		if(errors[0] === "<strong>Primeiro Nome</strong> deve conter mais caracteres.")
-			errors[0] = ""
-			headerError();
+		namemessage.textContent = null;
 	}
 
 	return status;
@@ -84,9 +75,6 @@ function lastnameValidator() {
 
 		lastnamemessage.classList.add("invalid-feedback");
 		lastnamemessage.textContent = "Sobrenome inválido!";
-
-		errors[1] = "<strong>Sobrenome Nome</strong> deve conter mais caracteres.";
-		headerError();
 	} else {
 		status = true;
 		lastname.classList.remove("is-invalid");
@@ -94,11 +82,7 @@ function lastnameValidator() {
 
 		lastnamemessage.classList.remove("invalid-feedback");
 		lastnamemessage.classList.add("valid-feedback");
-		lastnamemessage.textContent = "Sobrenome válido!";
-
-		if(errors[1] === "<strong>Sobrenome Nome</strong> deve conter mais caracteres.")
-			errors[1] = "";
-			headerError();
+		lastnamemessage.textContent = null;
 	}
 
 	return status;
@@ -133,9 +117,6 @@ function birthdateValidator() {
 
 		birthdatemessage.classList.add("invalid-feedback");
 		birthdatemessage.textContent = "Data de nascimento inválida!";
-
-		errors[2] = "<strong>Data de Nascimento</strong> deve conter 'dia/mês/ano' e deve ser menor que a data atual.";
-		headerError();
 	} else {
 		status = true;
 		birthdate.classList.remove("is-invalid");
@@ -143,12 +124,8 @@ function birthdateValidator() {
 
 		birthdatemessage.classList.remove("invalid-feedback");
 		birthdatemessage.classList.add("valid-feedback");
-		birthdatemessage.textContent = "Data de nascimento válida!";
-
-		if(errors[2] === "<strong>Data de Nascimento</strong> deve conter 'dia/mês/ano' e deve ser menor que a data atual.")
-			errors[2] = "";
-			headerError();
-	};
+		birthdatemessage.textContent = null;
+	}
 
 	return status;
 }
@@ -173,9 +150,6 @@ function emailValidator() {
 
 		emailmessage.classList.add("invalid-feedback");
 		emailmessage.textContent = "E-mail inválido!";
-
-		errors[3] = "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.";
-		headerError();
 	} else {
 		status = true;
 		email.classList.remove("is-invalid");
@@ -183,11 +157,7 @@ function emailValidator() {
 
 		emailmessage.classList.remove("invalid-feedback");
 		emailmessage.classList.add("valid-feedback");
-		emailmessage.textContent = "E-mail válido!";
-
-		if(errors[3] === "<strong>E-mail</strong> deve conter 'nome.sobrenome' ou 'nome.sobrenome_bols' seguido do domínio Compasso.")
-			errors[3] = "";
-			headerError();
+		emailmessage.textContent = null;
 	}
 
 	return status;
@@ -212,9 +182,6 @@ function photoValidator() {
 
 		photomessage.classList.add("invalid-feedback");
 		photomessage.textContent = "Arquivo inválido!";
-
-		errors[4] = "<strong>Foto de Perfil</strong> deve conter formatos jpg, jpeg ou png.";
-		headerError();
 	} else {
 		status = true;
 		photo.classList.remove("is-invalid");
@@ -222,11 +189,7 @@ function photoValidator() {
 
 		photomessage.classList.remove("invalid-feedback");
 		photomessage.classList.add("valid-feedback");
-		photomessage.textContent = "Arquivo válido!";
-
-		if(errors[4] === "<strong>Foto de Perfil</strong> deve conter formatos jpg, jpeg ou png.")
-			errors[4] = "";
-			headerError();
+		photomessage.textContent = null;
 	}
 
 	return status;
@@ -245,9 +208,6 @@ function usernameValidator() {
 
 		usernamemessage.classList.add("invalid-feedback");
 		usernamemessage.textContent = "Nome de usuário inválido!";
-
-		errors[5] = "<strong>Nome de Usuário</strong> deve conter mais caracteres.";
-		headerError();
 	} else {
 		status = true;
 		username.classList.remove("is-invalid");
@@ -255,11 +215,7 @@ function usernameValidator() {
 
 		usernamemessage.classList.remove("invalid-feedback");
 		usernamemessage.classList.add("valid-feedback");
-		usernamemessage.textContent = "Nome usuário válido!";
-
-		if(errors[5] === "<strong>Nome de Usuário</strong> deve conter mais caracteres.")
-			errors[5] = "";
-			headerError();
+		usernamemessage.textContent = null;
 	}
 
 	return status;
@@ -278,9 +234,6 @@ function passwordValidator() {
 
 		passwordmessage.classList.add("invalid-feedback");
 		passwordmessage.textContent = "Senha inválida!";
-
-		errors[6] = "<strong>Senha</strong> deve conter de 6 a 8 caracteres.";
-		headerError();
 	} else {
 		status = true;
 		password.classList.remove("is-invalid");
@@ -288,11 +241,7 @@ function passwordValidator() {
 
 		passwordmessage.classList.remove("invalid-feedback");
 		passwordmessage.classList.add("valid-feedback");
-		passwordmessage.textContent = "Senha válida!";
-
-		if(errors[6] === "<strong>Senha</strong> deve conter de 6 a 8 caracteres.")
-			errors[6] = "";
-			headerError();
+		passwordmessage.textContent = null;
 	}
 
 	return status;
@@ -312,9 +261,6 @@ function passwordConfirmValidator() {
 
 		passwordConfirmmessage.classList.add("invalid-feedback");
 		passwordConfirmmessage.textContent = "As senhas não conferem!";
-
-		errors[7] = "<strong>Confirmação</strong> deve ser igual a Senha.";
-		headerError();
 	} else {
 		status = true;
 		password.classList.remove("is-invalid");
@@ -322,31 +268,10 @@ function passwordConfirmValidator() {
 
 		passwordConfirmmessage.classList.remove("invalid-feedback");
 		passwordConfirmmessage.classList.add("valid-feedback");
-		passwordConfirmmessage.textContent = "As senhas conferem!";
-
-		if(errors[7] === "<strong>Confirmação</strong> deve ser igual a Senha.")
-			errors[7] = "";
-			headerError();
+		passwordConfirmmessage.textContent = null;
 	}
 
 	return status;
-}
-
-function headerError() {
-	let errorsView = `
-		<div class="alert alert-danger alert-dismissible mt-4 border-0 input-circle" id="error">
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-		`;
-
-	 	for(let aux=0; aux < errors.length; aux++) {
-			if(!errors[aux] == "" || errors[aux] == null) {
-				errorsView += `${errors[aux]}<br>`;
-			}
-		}
-		
-		errorsView += `</div>`;
-	
-	document.querySelector("#error").innerHTML = errorsView;
 }
 
 function inputsValidator() {
