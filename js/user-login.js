@@ -8,23 +8,18 @@ access.addEventListener('click', function(event) {
     // inputsValidator();
     
     //if(formValidator()) {
-        let userName = document.getElementById('username').value;  
+        let email = document.getElementById('email').value;  
         let password = document.getElementById('password').value;  
 	//}
 
     let Login = {
-        userName, 
+        email, 
         password
-    }
-
-    console.log(Login);
-
-    // const URL = 'http://localhost:3000/users/authenticate';
-    var URL = 'https://semcontrato.herokuapp.com/users/authenticate'
+    }    
 
     $.ajax({
         type: "POST",
-        url: URL,
+        url: 'https://semcontrato.herokuapp.com/users/authenticate',
         data: Login,
         success: function(data) {
             console.log('data: ', data);
@@ -32,7 +27,8 @@ access.addEventListener('click', function(event) {
         },
          error: function (request, status, error) {
              console.log(error);
-            //alert(request.responseText);
+            alert(request.responseText);
         }
     });
+    
 });
