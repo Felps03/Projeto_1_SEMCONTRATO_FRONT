@@ -49,9 +49,19 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="recovery_password">
-                                <span><a class="menu-item" href="user-recovery-password.html">Esqueceu sua senha?</a></span>
-                            </label><br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="recovery_password">
+                                        <span><a class="menu-item" href="user-recovery-password.html">Esqueceu sua senha?</a></span>
+                                    </label><br>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="recovery" class="float-right">
+                                        <span><a class="menu-item" href="#!" data-toggle="modal" data-target="#cancelModal">Alterar Senha</a></span>
+                                    </label><br>
+                                </div>
+                            </div>
 
                             <label for="register">
                                 <span><a class="menu-item" href="user-register.html">Cadastre-se</a></span>
@@ -60,6 +70,26 @@
 
                         <button type="submit" name="send" class="btn btn-success float-right pr-4 pl-4 input-circle" id="access">Acessar</button>
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="vt-line mb-2 mt-2">
+                            <h5 class="modal-title" id="cancelTitle"><strong>Alteração de Senha</strong></h5>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Alteração de Senha</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger pr-4 pl-4" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success pr-4 pl-4" onclick="redirect()">Alterar</button>
+                    </div>
                 </div>
             </div>
         </div>
