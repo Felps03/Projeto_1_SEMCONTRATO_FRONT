@@ -1,5 +1,7 @@
 import $ from 'jquery';
 
+import { HOST } from '../config/index.js'
+
 document.getElementById('birthdate').onkeyup = function() {
 	let dateHolder = document.getElementById('birthdate');
 	let dateValue = document.getElementById('birthdate').value;
@@ -334,13 +336,11 @@ register.addEventListener('click', function (event) {
 
 	let dataForm = document.getElementById("user-register");
 
-	const URL = 'https://semcontrato.herokuapp.com/users/user'
-
 	let formData = new FormData(dataForm);
-
+	
 	$.ajax({
 		type: 'POST',
-		url: URL,
+		url: `${HOST}users/user`,
 		contentType: false,
 		data: formData,
 		success: function (data) {

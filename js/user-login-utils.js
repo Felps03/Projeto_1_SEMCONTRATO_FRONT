@@ -1,5 +1,6 @@
 import $ from 'jquery';
 
+import { HOST } from '../config/index.js'
 
 function hasNumber(value) {
 	for (let aux = 0; aux <= value.length; aux++) {
@@ -171,11 +172,9 @@ access.addEventListener('click', function (event) {
 		password
 	}
 
-	var URL = 'http://semcontrato.herokuapp.com/users/authenticate'
-
 	$.ajax({
 		type: "POST",
-		url: URL,
+		url: `${HOST}users/authenticate`,
 		data: Login,
 		success: function (data) {
 			console.log('data: ', data);
