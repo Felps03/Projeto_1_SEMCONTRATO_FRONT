@@ -67,6 +67,11 @@
     outline: 0px !important;
 } 
 
+.image-error {
+    font-size: 12px;
+    color: #e2504b;
+}
+
 /* Lines */
 
 .vt-line {

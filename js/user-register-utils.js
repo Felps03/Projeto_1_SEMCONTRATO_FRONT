@@ -12,7 +12,7 @@ document.getElementById('birthdate').onkeyup = function() {
 document.getElementById('file_send').onblur = function() {
 	let photoHolder = document.getElementById('custom-text');
 	let photoValue = photoHolder.textContent;
-	
+
 	if(photoValue != 'Nenhuma imagem selecionada.') {
 		photoHolder.classList.remove("ext-placeholder");
 	}
@@ -183,8 +183,9 @@ function emailValidator() {
 function photoValidator() {
 	let status;
 	let photo = document.querySelector("#photo");
-	let value = document.querySelector("#photo").value;
+	let value = document.querySelector("#custom-text").textContent;
 	let photomessage = document.querySelector("#photovalidator");
+	let send = document.querySelector("#file_send");
 
 	let archive = value.split(".");
 	let extension = archive[1];
@@ -192,20 +193,14 @@ function photoValidator() {
 
 	if (extension != 'png' || extension != 'jpg' || extension != 'jpeg') isExtension = true;
 
-	if (value == null || !isExtension || extension == undefined) {
+	if (value == null || value == 'Nenhuma imagem selecionada.' || !isExtension || extension == undefined) {
 		status = false;
-		photo.classList.add("is-invalid");
 
-		photomessage.classList.add("invalid-feedback");
+		photomessage.classList.add("image-error");
 		photomessage.textContent = "Arquivo inválido!";
 	} else {
 		status = true;
-		photo.classList.remove("is-invalid");
-		photo.classList.add("is-valid");
-
-		photomessage.classList.remove("invalid-feedback");
-		photomessage.classList.add("valid-feedback");
-
+		photo.classList.remove("image-error");
 		photomessage.textContent = null;
 	}
 
