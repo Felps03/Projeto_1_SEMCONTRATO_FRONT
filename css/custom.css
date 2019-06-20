@@ -80,6 +80,10 @@
     color: #283772;
 }
 
+.custom-bx {
+    margin-bottom: 150px;
+}
+
 /* Menu */
 
 .custom-icon {color: #f1be1d }
@@ -106,3 +110,11 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+    /* body {
+        background: #292b2c;
+    }
+
+    #register {
+        background: #d9534f;
+    } */
