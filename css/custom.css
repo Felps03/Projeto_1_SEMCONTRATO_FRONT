@@ -24,6 +24,8 @@
 
 .btn-success { border: 1px solid #5cb85c !important }
 
+.btn-outline-success { border: 1px solid #5cb85c !important }
+
 .btn-warning { border: 1px solid #ffc107 !important }
 
 .btn-secondary { 
@@ -111,10 +113,20 @@
     cursor: pointer;
 }
 
-    /* body {
-        background: #292b2c;
-    }
+/* Background */
 
-    #register {
-        background: #d9534f;
-    } */
+body {
+    background: #0e1e24;
+}
+
+.section {
+    background: #f8f9fa;
+    border-radius: 20px;
+}
+
+.centered {
+    height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
