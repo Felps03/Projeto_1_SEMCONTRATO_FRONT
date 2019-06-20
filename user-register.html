@@ -158,8 +158,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger pr-4 pl-4 input-circle"
                         data-dismiss="modal">Não</button>
-                    <button type="button" class="btn btn-success pr-4 pl-4 input-circle"
-                        onclick="redirect()">Sim</button>
+                    <button type="button" class="btn btn-success pr-4 pl-4 input-circle" id="cancelRegister">Sim</button>
                 </div>
             </div>
         </div>
@@ -171,9 +170,10 @@
     <script src="js/user-register-utils.js"></script>
 
     <script>
-        function redirect() {
-            location.replace("index.html");
-        }
+        let cancelar = document.getElementById('cancelRegister');
+        cancelar.addEventListener('click', function() {
+            window.location.href = "index.html"; 
+        });
     </script>
 </body>
 
