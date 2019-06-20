@@ -111,6 +111,7 @@ function updatePassValidator() {
 
 		modalpasswordmessage.classList.remove("invalid-feedback");
 		modalpasswordmessage.classList.add("valid-feedback");
+		modalpasswordmessage.textContent = null;
 	}
 
 	let accmodalnewpassword = document.querySelector("#modalnewpassword");
@@ -128,6 +129,7 @@ function updatePassValidator() {
 
 		modalnewpasswordmessage.classList.remove("invalid-feedback");
 		modalnewpasswordmessage.classList.add("valid-feedback");
+		modalnewpasswordmessage.textContent = null;
 	}
 
 	let accmodalnewpasswordConfirm = document.querySelector("#modalnewpasswordConfirm");
@@ -146,6 +148,7 @@ function updatePassValidator() {
 
 		modalnewpasswordmessageConfirm.classList.remove("invalid-feedback");
 		modalnewpasswordmessageConfirm.classList.add("valid-feedback");
+		modalnewpasswordmessageConfirm.textContent = null;
 	}
 }
 
