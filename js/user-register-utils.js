@@ -1,6 +1,7 @@
 import $ from 'jquery';
 
 import { HOST } from '../config/index.js'
+import { hasNumber, hasSpace, hasMoreSpace, hasSolitaryChar } from '../utils/index.js';
 
 document.getElementById('birthdate').onkeyup = function() {
 	let dateHolder = document.getElementById('birthdate');
@@ -19,38 +20,6 @@ document.getElementById('file_send').onblur = function() {
 		photoHolder.classList.remove("ext-placeholder");
 	}
 }
-
-function hasNumber(value) {
-	for (let aux = 0; aux <= value.length; aux++) {
-		if (value.charAt(aux).match(/^[0-9]$/)) {
-			return true;
-		}
-	}
-}
-
-function hasSpace(value) {
-	for (let aux = 0; aux <= value.length; aux++) {
-		if (value.charAt(aux).match(/^\s$/)) {
-			return true;
-		}
-	}
-};
-
-function hasMoreSpace(value) {
-	for (let aux = 0; aux <= value.length; aux++) {
-		if (value.charAt(aux).match(/^\s$/) && value.charAt(aux - 1).match(/^\s$/)) {
-			return true;
-		}
-	}
-}
-
-function hasSolitaryChar(value) {
-	for (let aux = 0; aux <= value.length; aux++) {
-		if (value.charAt(aux - 1).match(/^\s$/) && value.charAt(aux).match(/^[a-z0.9]$/) && value.charAt(aux + 1).match(/^\s$/)) {
-			return true;
-		}
-	}
-};
 
 //Validators
 

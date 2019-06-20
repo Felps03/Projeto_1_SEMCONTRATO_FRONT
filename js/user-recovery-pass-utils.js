@@ -1,10 +1,4 @@
-function hasNumber(value) {
-	for (let aux = 0; aux <= value.length; aux++) {
-		if (value.charAt(aux).match(/^[0-9]$/)) {
-			return true;
-		}
-	}
-}
+import { hasNumber } from '../utils/index.js';
 
 //Validators
 
