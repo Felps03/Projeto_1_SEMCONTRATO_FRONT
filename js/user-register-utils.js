@@ -9,6 +9,15 @@ document.getElementById('birthdate').onkeyup = function() {
 	}
 }
 
+document.getElementById('file_send').onblur = function() {
+	let photoHolder = document.getElementById('custom-text');
+	let photoValue = photoHolder.textContent;
+	
+	if(photoValue != 'Nenhuma imagem selecionada.') {
+		photoHolder.classList.remove("ext-placeholder");
+	}
+}
+
 function hasNumber(value) {
 	for (let aux = 0; aux <= value.length; aux++) {
 		if (value.charAt(aux).match(/^[0-9]$/)) {
