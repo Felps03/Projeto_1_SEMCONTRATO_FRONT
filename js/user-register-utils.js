@@ -1,5 +1,14 @@
 import $ from 'jquery';
 
+document.getElementById('birthdate').onkeyup = function() {
+	let dateHolder = document.getElementById('birthdate');
+	let dateValue = document.getElementById('birthdate').value;
+
+	if(dateValue.length != 0) {
+		dateHolder.classList.remove("ext-placeholder");
+	}
+}
+
 function hasNumber(value) {
 	for (let aux = 0; aux <= value.length; aux++) {
 		if (value.charAt(aux).match(/^[0-9]$/)) {
@@ -108,8 +117,6 @@ function birthdateValidator() {
 	if (month + 1 == 4 || month + 1 == 6 || month + 1 == 9 || month + 1 == 11 && day + 1 > 30) isDate = false;
 	if ((year % 4) != 0 && month + 1 == 2 && day + 1 > 28) isDate = false;
 	if ((year % 4) == 0 && month + 1 == 2 && day + 1 > 29) isDate = false;
-
-	birthdate.classList.remove("ext-placeholder");
 
 	if (!isDate || (birthdateValue.getTime() >= nowValue.getTime())) {
 		status = false;
