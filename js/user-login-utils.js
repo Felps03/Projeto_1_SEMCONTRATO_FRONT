@@ -164,10 +164,10 @@ access.addEventListener('click', function (event) {
 	});
 });
 
-let alterar = document.getElementById('alterar');
+// let alterar = document.getElementById('alterar');
 
-alterar.addEventListener('click', function (event) {
-	event.preventDefault();
+// alterar.addEventListener('click', function (event) {
+// 	event.preventDefault();
 
-	updatePassValidator();
-});
+// 	updatePassValidator();
+// });

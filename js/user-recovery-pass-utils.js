@@ -1,3 +1,6 @@
+import $ from 'jquery';
+
+import { HOST } from '../config/index.js'
 import { hasNumber } from '../utils/index.js';
 
 //Validators
@@ -34,7 +37,8 @@ function emailValidator() {
 	return status;
 }
 
-//Validator test
+//Integration
+
 let recovery = document.getElementById('recovery');
 
 recovery.addEventListener('click', function (event) {
@@ -43,6 +47,24 @@ recovery.addEventListener('click', function (event) {
 	emailValidator();
 
 	if (emailValidator()) {
-		location.replace("recovery.html");
+		var email = document.getElementById('email').value;
 	}
+
+	let Recovery = {
+		email
+	}
+
+	$.ajax({
+		type: "POST",
+		url: `${HOST}users/user/recover`,
+		data: Recovery,
+		success: function (data) {
+			console.log('data: ', data);
+			window.location.href = "recovery.html";
+		},
+		error: function (request, status, error) {
+			console.log(error);
+			alert(request.responseText);
+		}
+	});
 });
