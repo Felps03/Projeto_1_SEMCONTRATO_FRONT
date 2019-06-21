@@ -132,6 +132,11 @@ body {
     padding-bottom: 50px;
 }
 
+.section-recovery {
+    background: #f8f9fa;
+    border-radius: 20px;
+}
+
 .centered {
     height: calc(100vh - 80px);
     display: flex;

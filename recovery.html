@@ -49,15 +49,18 @@
         
 
         <div class="row justify-content-center align-items-center">
-            <div class="col-md-5">
-                <div class="alert alert-success mt-5 text-center" role="alert">
-                    Um código de verificação foi enviado para o seu e-mail, <strong>verifique sua caixa de entrada</strong>.
-                </div>
+            <div class="alert alert-success mt-5 mb-4 text-center col-11 col-md-5 input-circle" role="alert">
+                Um código de verificação foi enviado para o seu e-mail, <strong>verifique sua caixa de entrada</strong>.
+            </div>
+        </div>
+
+        <div class="row justify-content-center align-items-center">
+            <div class="col-11 col-md-5 section-recovery">
                 <div class="ml-2 mr-2" id="error"></div>
                 <div class="col-12">
-                    <form class="form" method="post" action="#" id="recovery-code-form" autocomplete="off">
+                    <form class="form" method="post"  id="recovery-code-form" autocomplete="off">
 
-                        <div class="vt-line mt-5 mb-3">
+                        <div class="vt-line mt-4 mb-3">
                             <h3><strong>Recuperar Senha</strong></h3>
                         </div>
 
@@ -65,11 +68,11 @@
                             <label for="code">Código:</label>
                             <input type="text" name="txt_code" class="form-control input-circle" id="code"
                                 placeholder="Informe o código" autofocus>
-                            <div id="emailvalidator"></div>
+                            <div id="codevalidator"></div>
                         </div>
 
                         <button type="submit" name="send"
-                            class="btn btn-warning float-right mt-3 pr-4 pl-4 input-circle" id="recovery-code">Enviar
+                            class="btn btn-outline-warning float-right mb-3 mt-3 pr-4 pl-4 input-circle" id="recovery-code">Enviar
                             Código</button>
                     </form>
                 </div>

@@ -37,9 +37,29 @@ function emailValidator_rec() {
 	return status;
 }
 
-//Integration
+function codeValidator() {
+	let code = document.querySelector("#code");
+	let value = document.querySelector("#code").value;
+	let codemessage = document.querySelector("#codevalidator");
 
-let recovery = document.getElementById('recovery');
+	if (value.length == 0) {
+		email.classList.add("is-invalid");
+
+		emailmessage.classList.add("invalid-feedback");
+		emailmessage.textContent = "Código inválido!";
+	} else {
+		email.classList.remove("is-invalid");
+		email.classList.add("is-valid");
+
+		emailmessage.classList.remove("invalid-feedback");
+		emailmessage.classList.add("valid-feedback");
+		emailmessage.textContent = null;
+	}
+}
+
+//Integration - insert email
+
+let recovery = document.getElementById('recovery-pass');
 
 recovery.addEventListener('click', function (event) {
 	event.preventDefault();
@@ -61,6 +81,41 @@ recovery.addEventListener('click', function (event) {
 		success: function (data) {
 			console.log('data: ', data);
 			window.location.href = "recovery.html";
+		},
+		error: function (request, status, error) {
+			console.log(error);
+			alert(request.responseText);
+		}
+	});
+});
+
+//Integration - insert code
+
+let recoveryCode = document.getElementById('recovery-code');
+
+recoveryCode.addEventListener('click', function (event) {
+	event.preventDefault();
+
+	codeValidator();
+	
+	if (codeValidator()) {
+		var code = document.getElementById('code').value;
+		//obter email
+	}
+
+	let Recovery = {
+		emailCode,
+		email
+	}
+
+	$.ajax({
+		type: "POST",
+		url: `${HOST}users/code/verify`,
+		data: Recovery,
+		success: function (data) {
+			console.log('data: ', data);
+			//qual local ir?
+			//window.location.href = "recovery.html";
 		},
 		error: function (request, status, error) {
 			console.log(error);
