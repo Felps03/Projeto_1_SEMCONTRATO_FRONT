@@ -6,11 +6,11 @@ import { hasNumber } from '../utils/index.js';
 //Validators
 
 //Email
-function emailValidator() {
+function emailValidator_rec() {
 	let status;
-	let email = document.querySelector("#email");
-	let value = document.querySelector("#email").value;
-	let emailmessage = document.querySelector("#emailvalidator");
+	let email = document.querySelector("#email_rec");
+	let value = document.querySelector("#email_rec").value;
+	let emailmessage = document.querySelector("#emailvalidator_rec");
 
 	let myEmail = value.match(/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}/);
 
@@ -44,10 +44,10 @@ let recovery = document.getElementById('recovery');
 recovery.addEventListener('click', function (event) {
 	event.preventDefault();
 
-	emailValidator();
+	emailValidator_rec();
 
-	if (emailValidator()) {
-		var email = document.getElementById('email').value;
+	if (emailValidator_rec()) {
+		var email = document.getElementById('email_rec').value;
 	}
 
 	let Recovery = {
