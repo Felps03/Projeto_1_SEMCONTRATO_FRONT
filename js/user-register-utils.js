@@ -16,7 +16,7 @@ document.getElementById('file_send').onblur = function() {
 	let photoHolder = document.getElementById('custom-text');
 	let photoValue = photoHolder.textContent;
 
-	if(photoValue != 'Nenhuma imagem selecionada.') {
+	if(photoValue != 'Selecione foto.') {
 		photoHolder.classList.remove("ext-placeholder");
 	}
 }
@@ -164,7 +164,7 @@ function photoValidator() {
 
 	if (extension != 'png' || extension != 'jpg' || extension != 'jpeg') isExtension = true;
 
-	if (value == null || value == 'Nenhuma imagem selecionada.' || !isExtension || extension == undefined) {
+	if (value == null || value == 'Selecione foto.' || !isExtension || extension == undefined) {
 		status = false;
 
 		photomessage.classList.add("image-error");

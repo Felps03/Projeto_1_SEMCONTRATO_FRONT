@@ -48,10 +48,12 @@
         </div>
     </nav>
 
-    <div class="container page-position col-md-5" id="register">
-        <form class="mt-5" method="post" id="user-register" autocomplete="off" enctype="multipart/form-data">
+<div class="container page-position col-md-5" id="register">
 
-            <div class="vt-line mb-3">
+    <section class="section custom-bx">
+        <form class="mt-5 pt-4 pl-4 pr-4 pb-4" method="post" id="user-register" autocomplete="off" enctype="multipart/form-data">
+
+            <div class="vt-line mb-3 mt-3">
                 <h3>
                     <strong>Dados pessoais</strong>
                 </h3>
@@ -101,7 +103,7 @@
                 <div name="photo">
                     <input type="file"id="photo" name="file_photo" hidden="hidden"/>
                         <button type="button" class="btn btn-secondary input-circle" id="file_send">Escolher foto</button>
-                    <span class="ext-placeholder" id="custom-text">Nenhuma imagem selecionada.</span>
+                    <span class="ext-placeholder" id="custom-text">Selecione foto.</span>
                     <div id="photovalidator" class="mt-1"></div>
                 </div>
             </div>
@@ -133,16 +135,19 @@
                 </div>
             </div>
 
-            <div class="custom-bx">
-                <button type="submit" name="send" class="btn btn-success float-right mt-4 ml-2 pr-4 pl-4 input-circle"
-                    id="register-new-user">Cadastrar</button>
-                <button type="reset" name="reset"
-                    class="btn btn-outline-danger float-right mt-4 pr-4 pl-4 input-circle" data-toggle="modal"
-                    data-target="#cancelModal">Cancelar</button>
-            </div>
-
+            <button type="reset" name="reset"
+                class="btn btn-outline-danger mt-2 pr-4 pl-4 input-circle" data-toggle="modal"
+                data-target="#cancelModal">Cancelar</button>
+            
+            <button type="submit" name="send" class="btn btn-outline-success mt-2 pr-4 pl-4 float-right input-circle"
+                id="register-new-user">Cadastrar</button>
+            
         </form>
-    </div>
+
+    </section>
+</div>
+
+
 
     <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelTitle"
         aria-hidden="true">
