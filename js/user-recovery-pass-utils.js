@@ -95,35 +95,40 @@ recovery.addEventListener('click', function (event) {
 
 //Integration - insert code
 
-let recoveryCode = document.getElementById('recovery-code');
 
+let recoveryCode = document.getElementById('recoverycodeF');
 recoveryCode.addEventListener('click', function (event) {
 	event.preventDefault();
 
-	codeValidator();
-	
-	if (codeValidator()) {
-		var code = document.getElementById('code').value;
-		//obter email
-	}
+	alert('aqui');
 
-	let Recovery = {
-		emailCode,
-		email
-	}
+	// codeValidator();
+	
+	// if (codeValidator()) {
+		var code = document.getElementById('code').value;
+		var email = document.getElementById('email_rec').value;
+		var senha = document.getElementById('password_rec').value;
+		
+		//obter email
+	// }
 
 	$.ajax({
 		type: "POST",
 		url: `${HOST}users/code/verify`,
-		data: Recovery,
+		data: {
+			"email" : email,
+			"emailCode" : code,
+			"senha" : senha
+		},
 		success: function (data) {
-			console.log('data: ', data);
+			alert("Senha trocada com sucesso");
 			//qual local ir?
-			window.location.href = "recovery.html";
+			window.location.href = "index.html";
 		},
 		error: function (request, status, error) {
 			console.log(error);
 			alert(request.responseText);
+			alert(erro);
 		}
 	});
 });

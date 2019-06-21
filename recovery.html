@@ -71,8 +71,24 @@
                             <div id="codevalidator"></div>
                         </div>
 
+
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="text" name="email" class="form-control input-circle" id="email_rec"
+                                placeholder="Informe o código" autofocus>
+                            <div id="codevalidator"></div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="password">Senha:</label>
+                            <input type="password" name="password" class="form-control input-circle" id="password_rec"
+                                placeholder="Informe o código" autofocus>
+                            <div id="codevalidator"></div>
+                        </div>
+
                         <button type="submit" name="send"
-                            class="btn btn-outline-warning float-right mb-3 mt-3 pr-4 pl-4 input-circle" id="recovery-code">Enviar
+                            class="btn btn-outline-warning float-right mb-3 mt-3 pr-4 pl-4 input-circle" id="recoverycodeT">Enviar
                             Código</button>
                     </form>
                 </div>
@@ -80,10 +96,51 @@
         </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/user-recovery-pass-utils.js"></script>
+
+    <script>
+    let recoveryCode = document.getElementById('recoverycodeT');
+    recoveryCode.addEventListener('click', function() {
+        event.preventDefault();
+
+
+	// codeValidator();
+	
+	// if (codeValidator()) {
+		var code = document.getElementById('code').value;
+		var email = document.getElementById('email_rec').value;
+		var senha = document.getElementById('password_rec').value;
+		
+		//obter email
+	// }
+
+	$.ajax({
+		type: "POST",
+		url: `https://semcontrato.herokuapp.com/users/code/verify`,
+		data: {
+			"email" : email,
+			"emailCode" : code,
+			"password" : senha
+		},
+		success: function (data) {
+			alert("Senha trocada com sucesso");
+			//qual local ir?
+			window.location.href = "index.html";
+		},
+		error: function (request, status, error) {
+			console.log(error);
+			alert(request.responseText);
+			alert(erro);
+		}
+	});
+    });    
+    </script>
 </body>
 
 </html>

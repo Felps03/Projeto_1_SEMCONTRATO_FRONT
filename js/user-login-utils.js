@@ -152,13 +152,17 @@ access.addEventListener('click', function (event) {
 	$.ajax({
 		type: "POST",
 		url: `${HOST}users/authenticate`,
-		data: Login,
+		data: {
+			"email" : email,
+			"password" : password
+		},
 		success: function (data) {
 			console.log('data: ', data);
 			window.location.href = "home.html";
 		},
-		error: function (request, status, error) {
+		error: function (request, status, error, data) {
 			console.log(error);
+			alertco(data);
 			alert(request.responseText);
 		}
 	});

@@ -78,7 +78,7 @@
                
 
                         <button type="submit" name="send" class="btn btn-outline-success float-right pr-4 pl-4 mb-4 input-circle"
-                            id="access">Acessar</button>
+                            id="accessT">Acessar</button>
                     </form>
                 </div>
             </div>
@@ -174,11 +174,51 @@
         </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/user-login-utils.js"></script>
     <script src="js/user-recovery-pass-utils.js"></script>
+
+
+    <script>
+    
+    
+
+let access = document.getElementById('accessT');
+
+access.addEventListener('click', function (event) {
+	event.preventDefault();
+
+	//inputsValidator();
+
+	//if (formValidator()) {
+		var email = document.getElementById('email').value;
+		var password = document.getElementById('password').value;
+	//}
+
+
+	$.ajax({
+		type: "POST",
+		url: `https://semcontrato.herokuapp.com/users/authenticate`,
+		data: {
+			"email" : email,
+			"password" : password
+		},
+		success: function (data) {
+			console.log('data: ', data);
+			window.location.href = "home.html";
+		},
+		error: function (request, status, error) {
+			console.log(error);
+			alert(request.responseText);
+		}
+	});
+});
+
+    </script>
 </body>
 
 </html>
