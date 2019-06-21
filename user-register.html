@@ -50,7 +50,7 @@
 
 <div class="container page-position col-md-5" id="register">
 
-    <section class="section custom-bx">
+    <section class="section-register custom-bx">
         <form class="mt-5 pt-4 pl-4 pr-4 pb-4" method="post" id="user-register" autocomplete="off" enctype="multipart/form-data">
 
             <div class="vt-line mb-3 mt-3">
@@ -135,12 +135,12 @@
                 </div>
             </div>
 
-            <button type="reset" name="reset"
-                class="btn btn-outline-danger mt-2 pr-4 pl-4 input-circle" data-toggle="modal"
+            <button type="submit" name="send" class="btn btn-outline-success mt-3 pr-3 pl-3 float-right input-circle"
+                id="register-new-user">Cadastrar</button>
+            <button type="button" name="reset"
+                class="btn btn-outline-danger mt-3 pr-3 pl-3 mr-2 float-right input-circle" data-toggle="modal"
                 data-target="#cancelModal">Cancelar</button>
             
-            <button type="submit" name="send" class="btn btn-outline-success mt-2 pr-4 pl-4 float-right input-circle"
-                id="register-new-user">Cadastrar</button>
             
         </form>
 
@@ -159,7 +159,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">Deseja cancelar processo de cadastro?</div>
+                <div class="modal-body">Deseja cancelar o processo de cadastro?</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger pr-4 pl-4 input-circle"
                         data-dismiss="modal">Não</button>
