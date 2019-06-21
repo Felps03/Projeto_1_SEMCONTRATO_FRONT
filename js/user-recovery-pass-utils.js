@@ -62,22 +62,26 @@ function codeValidator() {
 let recovery = document.getElementById('recovery-pass');
 
 recovery.addEventListener('click', function (event) {
+
+	
 	event.preventDefault();
 
-	emailValidator_rec();
+	// emailValidator_rec();
 
-	if (emailValidator_rec()) {
+	// if (emailValidator_rec()) {
 		var email = document.getElementById('email_rec').value;
-	}
+	// }
 
-	let Recovery = {
-		email
-	}
+	alert(email);
+		
+	
 
 	$.ajax({
 		type: "POST",
 		url: `${HOST}users/user/recover`,
-		data: Recovery,
+		data: {
+			"email": email
+		},
 		success: function (data) {
 			console.log('data: ', data);
 			window.location.href = "recovery.html";
@@ -115,7 +119,7 @@ recoveryCode.addEventListener('click', function (event) {
 		success: function (data) {
 			console.log('data: ', data);
 			//qual local ir?
-			//window.location.href = "recovery.html";
+			window.location.href = "recovery.html";
 		},
 		error: function (request, status, error) {
 			console.log(error);
