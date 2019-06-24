@@ -1,6 +1,14 @@
-define(["require", "exports", "./validate/index"], function (require, exports, index_1) {
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+define(["require", "exports", "./validate/index", "./config/index", "./validate-fns"], function (require, exports, index_1, index_2, val) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    val = __importStar(val);
     var dateInput = index_1.InputWrapper.fromId('birthdate');
     var emailInput = index_1.InputWrapper.fromId('email');
     var lastNameInput = index_1.InputWrapper.fromId('lastname');
@@ -9,14 +17,14 @@ define(["require", "exports", "./validate/index"], function (require, exports, i
     var passwordConfirmInput = index_1.InputWrapper.fromId('passwordConfirm');
     var photoInput = index_1.InputWrapper.fromId('photo');
     var usernameInput = index_1.InputWrapper.fromId('username');
-    index_1.validate(dateInput, valDate);
-    index_1.validate(emailInput, valEmail);
-    index_1.validate(lastNameInput, valLastName);
-    index_1.validate(nameInput, valName);
-    index_1.validate(passwordInput, valPassword);
-    index_1.validate(passwordConfirmInput, valPasswordConfirm, passwordInput);
-    index_1.validate(photoInput, valPhoto);
-    index_1.validate(usernameInput, valUserName);
+    index_1.validate(dateInput, val.date);
+    index_1.validate(emailInput, val.email);
+    index_1.validate(lastNameInput, val.lastName);
+    index_1.validate(nameInput, val.name);
+    index_1.validate(passwordInput, val.password);
+    index_1.validate(passwordConfirmInput, val.passwordConfirm, passwordInput);
+    index_1.validate(photoInput, val.photo);
+    index_1.validate(usernameInput, val.username);
     var send = document.getElementById("file_send");
     var customTxt = document.getElementById("custom-text");
     send.addEventListener("click", function () {
@@ -34,7 +42,7 @@ define(["require", "exports", "./validate/index"], function (require, exports, i
     form.addEventListener('submit', function (event) {
         event.preventDefault();
         var formData = new FormData(form);
-        fetch('https://100contrato.azurewebsites.net/' + 'users/user', {
+        fetch(index_2.HOST + 'users/user', {
             method: 'POST',
             body: formData
         })
@@ -45,95 +53,5 @@ define(["require", "exports", "./validate/index"], function (require, exports, i
         })
             .catch(console.log);
     });
-    function valDate(date) {
-        var inputDate = new Date(date.value);
-        var day = inputDate.getDate();
-        var month = inputDate.getMonth();
-        var year = inputDate.getFullYear();
-        var isDate = true;
-        if (isNaN(day) || isNaN(month) || isNaN(year))
-            isDate = false;
-        if (month + 1 == 4 || month + 1 == 6 || month + 1 == 9 || month + 1 == 11 && day + 1 > 30)
-            isDate = false;
-        if ((year % 4) != 0 && month + 1 == 2 && day + 1 > 28)
-            isDate = false;
-        if ((year % 4) == 0 && month + 1 == 2 && day + 1 > 29)
-            isDate = false;
-        if (!isDate) {
-            return 'Data inválida.';
-        }
-        if (inputDate > new Date()) {
-            return 'Obrigatório já ter nascido.';
-        }
-        return null;
-    }
-    function valEmail(email) {
-        if (!email.value) {
-            return 'Email vazio.';
-        }
-        else if (!/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9_-])+(\.([a-zA-Z0-9_-])+)+$/.test(email.value)) {
-            return 'Email inválido. Exemplo: abc123@def.gh';
-        }
-    }
-    function valLastName(lastName) {
-        if (!(lastName.value.length > 2)) {
-            return 'Sobrenome muito curto.';
-        }
-        else if (!/[A-Z]([a-z]|\s)+$/.test(lastName.value)) {
-            return 'Sobrenome inválido: Use uma letra maiúscula seguida de letras minúsculas.';
-        }
-        else if (/\s\s/.test(lastName.value)) {
-            return 'Sobrenome inválido: Dois ou mais espaços consecutivos.';
-        }
-        else if (/\s[A-z]\s/.test(lastName.value)) {
-            return 'Sobrenome inválido: Caracter solitário :(.';
-        }
-        return null;
-    }
-    function valName(name) {
-        if (!(name.value.length > 2)) {
-            return 'Nome muito curto.';
-        }
-        else if (!/[A-Z]([a-z]|\s)+$/.test(name.value)) {
-            return 'Nome inválido: Use uma letra maiúscula seguida de letras minúsculas.';
-        }
-        else if (/\s\s/.test(name.value)) {
-            return 'Nome inválido: Dois ou mais espaços consecutivos.';
-        }
-        else if (/\s[A-z]\s/.test(name.value)) {
-            return 'Nome inválido: Caracter solitário :(.';
-        }
-        return null;
-    }
-    function valPassword(pw) {
-        if (pw.value.length < 6 || pw.value.length > 8) {
-            return 'Senha deve ter tamanho entre 6 e 8 dígitos.';
-        }
-        else if (pw.value.indexOf(' ') !== -1) {
-            return 'Senha não pode conter espaços.';
-        }
-        return null;
-    }
-    function valPasswordConfirm(pw, confirm) {
-        return pw.value !== confirm.value ? 'Senhas não batem' : null;
-    }
-    var ALLOWED_EXTS = ['png', 'jpg', 'jpeg'];
-    function valPhoto(file) {
-        var fileExt = file.value.split('.').pop();
-        if (ALLOWED_EXTS.indexOf(fileExt) !== -1) {
-            return 'Formato de arquivo de imagem inválido.';
-        }
-        else {
-            return null;
-        }
-    }
-    function valUserName(username) {
-        if (!(username.value.length > 2)) {
-            return 'Nome de usuário muito curto.';
-        }
-        else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(username.value)) {
-            return 'Nome de usuário inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".';
-        }
-    }
 });
 //# sourceMappingURL=user-register-utils.js.map
