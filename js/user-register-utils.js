@@ -131,7 +131,7 @@ function emailValidator() {
 
 	if (myEmail) isEmail = true;
 
-	if (value == null || hasNumber(value) || !isEmail) {
+	if (value == null || !isEmail) {
 		status = false;
 		email.classList.add("is-invalid");
 

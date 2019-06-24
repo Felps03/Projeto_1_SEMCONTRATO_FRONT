@@ -16,7 +16,8 @@
 </head>
 
 <body>
-    <!-- particles.js --><div id="particles-js"></div> 
+    <!-- particles.js -->
+    <div id="particles-js"></div>
 
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container">
@@ -40,13 +41,16 @@
 
                         <div class="form-group">
                             <label for="email">E-mail:</label>
-                            <input type="text" name="txt_email" class="form-control form-control-sm input-circle" id="email" placeholder="Informe seu e-mail" autofocus>
+                            <input type="text" name="txt_email" class="form-control form-control-sm input-circle"
+                                id="email" placeholder="Informe seu e-mail" autofocus>
                             <div id="emailvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="password">Senha:</label>
-                            <input type="password" name="pass_password" class="form-control form-control-sm input-circle" id="password" placeholder="Informe sua senha" maxlength="8">
+                            <input type="password" name="pass_password"
+                                class="form-control form-control-sm input-circle" id="password"
+                                placeholder="Informe sua senha" maxlength="8">
                             <div id="passwordvalidator"></div>
                         </div>
 
@@ -56,13 +60,13 @@
                                     <label for="recovery_password">
                                         <span>
                                             <a class="menu-item" href="#!" data-toggle="modal"
-                                            data-target="#recoveryModal">Esqueceu sua senha?</a>
+                                                data-target="#recoveryModal">Esqueceu sua senha?</a>
                                         </span>
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class=" row">
                                 <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                                     <label for="register" class="float-left">
                                         <span>
@@ -72,21 +76,25 @@
                                 </div>
                             </div>
                         </div>
-
-                        <button type="submit" name="send" class="btn btn-outline-success btn-sm float-right pr-4 pl-4 mb-4 input-circle" id="access">Acessar</button>
-                    </form>
                 </div>
+
+                <button type="submit" name="send"
+                    class="btn btn-outline-success btn-sm float-right pr-4 pl-4 mb-4 input-circle"
+                    id="access">Acessar</button>
+                </form>
             </div>
         </div>
-
-        <a href="user-recovery-password.html"></a>
-        <a href="user-register.html"></a>
-        <a href="user-recovery.html"></a>
-        <a href="app-daily-note.html"></a>
-        <a href="home.html"></a>
     </div>
 
-    <div class="modal fade" id="recoveryModal" tabindex="-1" role="dialog" aria-labelledby="recoveryTitle" aria-hidden="true">
+    <a href="user-recovery-password.html"></a>
+    <a href="user-register.html"></a>
+    <a href="user-recovery.html"></a>
+    <a href="app-daily-note.html"></a>
+    <a href="home.html"></a>
+    </div>
+
+    <div class="modal fade" id="recoveryModal" tabindex="-1" role="dialog" aria-labelledby="recoveryTitle"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -103,11 +111,16 @@
                     <form class="form" method="post" action="#" id="recovery-pass-form" autocomplete="off">
                         <div class="form-group">
                             <label for="email_rec">E-mail:</label>
-                            <input type="text" name="txt_email-rec" class="form-control form-control-sm input-circle" id="email_rec" placeholder="Informe seu e-mail" autofocus>
+                            <input type="text" name="txt_email-rec" class="form-control form-control-sm input-circle"
+                                id="email_rec" placeholder="Informe seu e-mail" autofocus>
                             <div id="emailvalidator_rec"></div>
                         </div>
-                        <button type="submit" name="send" class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle" id="recovery-pass">Recuperar</button>
-                        <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" name="send"
+                            class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle"
+                            id="recovery-pass">Recuperar</button>
+                        <button type="button"
+                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle"
+                            data-dismiss="modal">Cancelar</button>
                     </form>
                 </div>
             </div>
@@ -115,7 +128,8 @@
     </div>
 
 
-    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelTitle" aria-hidden="true">
+    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelTitle"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -132,26 +146,31 @@
                         <div class="col-sm">
                             <div class="form-group">
                                 <label for="modalpassword">Senha:</label>
-                                <input type="password" name="modalpass_password" class="form-control input-circle" id="modalpassword" placeholder="Informe uma senha" maxlength="8">
+                                <input type="password" name="modalpass_password" class="form-control input-circle"
+                                    id="modalpassword" placeholder="Informe uma senha" maxlength="8">
                                 <div id="modalpasswordvalidator"></div>
                             </div>
 
                             <div class="form-group">
                                 <label for="modalnewpassword" class="mt-4">Nova Senha:</label>
-                                <input type="password" name="modalnewpass_password" class="form-control input-circle" id="modalnewpassword" placeholder="Informe uma nova senha" maxlength="8">
+                                <input type="password" name="modalnewpass_password" class="form-control input-circle"
+                                    id="modalnewpassword" placeholder="Informe uma nova senha" maxlength="8">
                                 <div id="modalnewpasswordvalidator"></div>
                             </div>
 
                             <div class="form-group">
                                 <label for="modalpassword">Confirmação de Nova Senha:</label>
-                                <input type="password" name="modalnewpass_passwordConfirm" class="form-control input-circle" id="modalnewpasswordConfirm" placeholder="Confirme a nova senha" maxlength="8">
+                                <input type="password" name="modalnewpass_passwordConfirm"
+                                    class="form-control input-circle" id="modalnewpasswordConfirm"
+                                    placeholder="Confirme a nova senha" maxlength="8">
                                 <div id="modalnewpasswordconfirmvalidator"></div>
                             </div>
                         </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger pr-4 pl-4 input-circle" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-outline-danger pr-4 pl-4 input-circle"
+                        data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-warning pr-4 pl-4 input-circle" id="alterar">Alterar</button>
                 </div>
                 </form>
@@ -165,7 +184,9 @@
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/user-login-utils.js"></script>
+    <script data-main="js/dist/user-login-utils.js"
+        src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
+    <!--<script src="js/user-login-utils.js"></script>-->
     <script src="js/user-recovery-pass-utils.js"></script>
     <script src="lib/particle.js/particle.min.js"></script>
     <script src="lib/particle.js/particle.js"></script>
