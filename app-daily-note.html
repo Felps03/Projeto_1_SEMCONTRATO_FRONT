@@ -34,6 +34,7 @@
     <div class="container page-position col-12 col-sm-7" id="register">
 
         <section class="section-register custom-bx">
+
             <form class="pt-1 pl-4 pr-4 pb-4" method="post" id="user-register" autocomplete="off" enctype="multipart/form-data">
 
                 <div class="vt-line mt-4 mb-4">
@@ -44,76 +45,10 @@
                 <button type="button" name="new_daily"
                     class="btn btn-outline-success btn-sm mt-3 pr-4 pl-4 mr-2 float-right input-circle" data-toggle="modal"
                     data-target="#dailyModal">Adicionar Daily</button>
-
-
-
-
-
-
-
-
-
-
-                <div class="vt-line mb-3 mt-5">
-                    <h5>
-                        <strong>Dados pessoais</strong>
-                    </h5>
-                </div>
-
-                <div class="row">
-                    <div class="col-12 col-sm-6">
-                        <div class="form-group">
-                            <label for="name">Primeiro Nome:</label>
-                            <input type="text" name="name" class="form-control form-control-sm input-circle" id="name"
-                                placeholder="Informe seu nome" autofocus>
-                            <div id="namevalidator"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                        <div class="form-group">
-                            <label for="lastname">Sobrenome:</label>
-                            <input type="text" name="lastName" class="form-control form-control-sm input-circle" id="lastname"
-                                placeholder="Informe seu sobrenome">
-                            <div id="lastnamevalidator"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="birthdate">Data de nascimento:</label>
-                    <input type="date" name="dateOfBirth" class="form-control form-control-sm ext-placeholder input-circle" id="birthdate">
-                    <div id="birthdatevalidator"></div>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">E-mail:</label>
-                    <input type="text" name="email" class="form-control form-control-sm input-circle" id="email"
-                        placeholder="Informe seu e-mail">
-                    <div id="emailvalidator"></div>
-                </div>
-
-
-
-                
-
-
-
-                
-                
-                
             </form>
-
-
-
 
         </section>
     </div>
-
-    <a href="user-recovery-password.html"></a>
-    <a href="user-register.html"></a>
-    </div>
-
 
     <div class="modal fade" id="dailyModal" tabindex="-1" role="dialog" aria-labelledby="dailyTitle"
         aria-hidden="true">
@@ -132,26 +67,26 @@
                     <form class="form" method="post" id="daily-form" autocomplete="off">
 
                         <div class="form-group">
-                            <label for="first">O que eu fiz ontem?</label>
+                            <label for="first"><strong>1. </strong>O que eu fiz ontem?</label>
                             <textarea name="first" class="form-control form-control-sm input-circle" id="first" placeholder="Informe sua resposta aqui" autofocus></textarea>
                             <div id="firstvalidator"></div>
                         </div>
 
                         <div class="form-group">
-                            <label for="second">O que eu vou fazer hoje?</label>
+                            <label for="second"><strong>2. </strong>O que eu vou fazer hoje?</label>
                             <textarea name="second" class="form-control form-control-sm input-circle" id="second" placeholder="Informe sua resposta aqui"></textarea>
                             <div id="secondvalidator"></div>
                         </div>
 
                         <div class="form-group">
-                            <label for="third">Eu tenho impedimentos? Se sim, qual(is)?</label>
+                            <label for="third"><strong>3. </strong>Eu tenho impedimentos? Se sim, qual(is)?</label>
                             <textarea name="third" class="form-control form-control-sm input-circle" id="third" placeholder="Informe sua resposta aqui"></textarea>
                             <div id="thirdvalidator"></div>
                         </div>
 
 
 
-                        <button type="submit" name="send" class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle" id="recovery-pass">Recuperar</button>
+                        <button type="submit" name="send" class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle" id="recovery-pass">Adicionar</button>
                         <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle" data-dismiss="modal">Cancelar</button>
                     </form>
 
