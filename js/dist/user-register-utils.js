@@ -34,7 +34,7 @@ define(["require", "exports", "./validate/index"], function (require, exports, i
     form.addEventListener('submit', function (event) {
         event.preventDefault();
         var formData = new FormData(form);
-        fetch('https://semcontrato.herokuapp.com/' + 'users/user', {
+        fetch('https://100contrato.azurewebsites.net/' + 'users/user', {
             method: 'POST',
             body: formData
         })
@@ -71,7 +71,7 @@ define(["require", "exports", "./validate/index"], function (require, exports, i
         if (!email.value) {
             return 'Email vazio.';
         }
-        else if (!/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}?/.test(email.value)) {
+        else if (!/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9_-])+(\.([a-zA-Z0-9_-])+)+$/.test(email.value)) {
             return 'Email inválido. Exemplo: abc123@def.gh';
         }
     }

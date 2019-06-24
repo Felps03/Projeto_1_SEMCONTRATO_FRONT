@@ -44,7 +44,7 @@ form.addEventListener('submit', (event: Event) => {
 
     let formData = new FormData(form)
 
-    fetch('https://semcontrato.herokuapp.com/' + 'users/user', {
+    fetch('https://100contrato.azurewebsites.net/' + 'users/user', {
         method: 'POST',
         body: formData
     })
@@ -85,7 +85,7 @@ function valDate(date: InputWrapper): string {
 function valEmail(email: InputWrapper): string {
     if (!email.value) {
         return 'Email vazio.'
-    } else if (!/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}?/.test(email.value)) {
+    } else if (!/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9_-])+(\.([a-zA-Z0-9_-])+)+$/.test(email.value)) {
         return 'Email inválido. Exemplo: abc123@def.gh'
     }
 }

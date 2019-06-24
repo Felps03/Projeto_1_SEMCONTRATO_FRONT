@@ -61,7 +61,7 @@ function codeValidator() {
 
 let recovery = document.getElementById('recovery-pass');
 
-recovery.addEventListener('click', function(event) {
+recovery.addEventListener('click', function (event) {
 
 
     event.preventDefault();
@@ -81,11 +81,11 @@ recovery.addEventListener('click', function(event) {
         data: {
             "email": email
         },
-        success: function(data) {
+        success: function (data) {
             console.log('data: ', data);
             window.location.href = "recovery.html";
         },
-        error: function(request, status, error) {
+        error: function (request, status, error) {
             console.log(error);
             alert(request.responseText);
         }
@@ -96,7 +96,7 @@ recovery.addEventListener('click', function(event) {
 
 
 let recoveryCode = document.getElementById('recoverycodeF');
-recoveryCode.addEventListener('click', function(event) {
+recoveryCode.addEventListener('click', function (event) {
     event.preventDefault();
 
     alert('aqui');
@@ -119,12 +119,12 @@ recoveryCode.addEventListener('click', function(event) {
             "emailCode": code,
             "senha": senha
         },
-        success: function(data) {
+        success: function (data) {
             alert("Senha trocada com sucesso");
             //qual local ir?
             window.location.href = "index.html";
         },
-        error: function(request, status, error) {
+        error: function (request, status, error) {
             console.log(error);
             alert(request.responseText);
             alert(erro);
