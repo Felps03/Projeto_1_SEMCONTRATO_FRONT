@@ -78,14 +78,17 @@
 
 /* Lines */
 
+.custom-bx { margin-bottom: 90px; }
+
+.login-line { width: 50vh; margin-left: -1.90rem; }
+
+.register-line { width: 120%; margin-left: -1.90rem; }
+
 .vt-line {
+    padding-top: 2px;
     border-left: 8px solid #f1be1d;
     text-indent: 8px;
     color: #283772;
-}
-
-.custom-bx {
-    margin-bottom: 90px;
 }
 
 /* Menu */
@@ -123,18 +126,15 @@ body {
 
 .section-login {
     background: #f8f9fa;
-    border-radius: 20px;
 }
 
 .section-register {
     background: #f8f9fa;
-    border-radius: 20px;
     padding-bottom: 50px;
 }
 
 .section-recovery {
     background: #f8f9fa;
-    border-radius: 20px;
 }
 
 .centered {
@@ -142,4 +142,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Elements */
+
+.card-size { 
+    width: 18rem; 
+    border: none;
+    border-radius: none; 
+    box-shadow: 0 1px 8px 0 #0e1e24, 0 1px 8px 0 #0e1e24 !important; 
 }

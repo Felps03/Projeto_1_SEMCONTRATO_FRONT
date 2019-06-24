@@ -9,40 +9,44 @@
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link href="lib/materialize/icons/icons.css" rel="stylesheet">
     <link href="lib/materialize/fonts/fonts.css" rel="stylesheet">
+    <link href="lib/particle.js/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="css/custom.css">
     <title>Área de Acesso</title>
     <script src="https://www.google.com/recaptcha/api.js?render=6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn"></script>
 </head>
 
 <body>
+    <!-- particles.js --><div id="particles-js"></div> 
+
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container">
             <div class="navbar-header ml-n3">
                 <img src="img/logo_compasso.png" href="#!">
             </div>
-            <h5 class="txt-primary">Área de Acesso</h5>
+            <h5 class="txt-primary"><strong>Apps</strong></h5>
         </div>
     </nav>
 
     <div class="container page-position">
         <div class="row centered">
-            <div class="col-11 col-sm-5 section-login">
+            <div class="col-10 col-sm-4 section-login">
                 <div class="col-12">
                     <form class="form" method="post" id="login-form" autocomplete="off">
 
                         <div class="vt-line mt-4 mb-4">
                             <h3><strong>Login</strong></h3>
                         </div>
+                        <hr class="login-line">
 
                         <div class="form-group">
                             <label for="email">E-mail:</label>
-                            <input type="text" name="txt_email" class="form-control input-circle" id="email" placeholder="Informe seu e-mail" autofocus>
+                            <input type="text" name="txt_email" class="form-control form-control-sm input-circle" id="email" placeholder="Informe seu e-mail" autofocus>
                             <div id="emailvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="password">Senha:</label>
-                            <input type="password" name="pass_password" class="form-control input-circle" id="password" placeholder="Informe sua senha" maxlength="8">
+                            <input type="password" name="pass_password" class="form-control form-control-sm input-circle" id="password" placeholder="Informe sua senha" maxlength="8">
                             <div id="passwordvalidator"></div>
                         </div>
 
@@ -52,7 +56,7 @@
                                     <label for="recovery_password">
                                         <span>
                                             <a class="menu-item" href="#!" data-toggle="modal"
-                                            data-target="#recoveryModal"">Esqueceu sua senha?</a>
+                                            data-target="#recoveryModal">Esqueceu sua senha?</a>
                                         </span>
                                     </label>
                                 </div>
@@ -67,15 +71,9 @@
                                     </label>
                                 </div>
                             </div>
-                            <!-- 
-                            <label for="register">
-                                <span><a class="menu-item" href="user-register.html">Cadastre-se</a></span>
-                            </label>
-                             -->
                         </div>
 
-
-                        <button type="submit" name="send" class="btn btn-outline-success float-right pr-4 pl-4 mb-4 input-circle" id="accessT">Acessar</button>
+                        <button type="submit" name="send" class="btn btn-outline-success btn-sm float-right pr-4 pl-4 mb-4 input-circle" id="access">Acessar</button>
                     </form>
                 </div>
             </div>
@@ -83,8 +81,9 @@
 
         <a href="user-recovery-password.html"></a>
         <a href="user-register.html"></a>
+        <a href="user-recovery.html"></a>
+        <a href="app-daily-note.html"></a>
         <a href="home.html"></a>
-        <a href="recovery.html"></a>
     </div>
 
     <div class="modal fade" id="recoveryModal" tabindex="-1" role="dialog" aria-labelledby="recoveryTitle" aria-hidden="true">
@@ -104,11 +103,11 @@
                     <form class="form" method="post" action="#" id="recovery-pass-form" autocomplete="off">
                         <div class="form-group">
                             <label for="email_rec">E-mail:</label>
-                            <input type="text" name="txt_email-rec" class="form-control input-circle" id="email_rec" placeholder="Informe seu e-mail" autofocus>
+                            <input type="text" name="txt_email-rec" class="form-control form-control-sm input-circle" id="email_rec" placeholder="Informe seu e-mail" autofocus>
                             <div id="emailvalidator_rec"></div>
                         </div>
-                        <button type="submit" name="send" class="btn btn-outline-warning float-right mt-2 pr-3 pl-3 ml-2 input-circle" id="recovery-pass">Recuperar</button>
-                        <button type="button" class="btn btn-outline-danger float-right mt-2 pr-3 pl-3 input-circle" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" name="send" class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle" id="recovery-pass">Recuperar</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle" data-dismiss="modal">Cancelar</button>
                     </form>
                 </div>
             </div>
@@ -168,7 +167,8 @@
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/user-login-utils.js"></script>
     <script src="js/user-recovery-pass-utils.js"></script>
-
+    <script src="lib/particle.js/particle.min.js"></script>
+    <script src="lib/particle.js/particle.js"></script>
 </body>
 
 </html>

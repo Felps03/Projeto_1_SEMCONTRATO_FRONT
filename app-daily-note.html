@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="img/logo_compasso.ico">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link href="lib/materialize/icons/icons.css" rel="stylesheet">
+    <link href="lib/materialize/fonts/fonts.css" rel="stylesheet">
+    <link href="lib/particle.js/particle.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/custom.css">
+    <title>Daily Note</title>
+
+    <!-- intentional -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn"></script>
+</head>
+
+<body>
+    <!-- particles.js --><div id="particles-js"></div> 
+    
+    <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
+        <div class="container">
+            <div class="navbar-header ml-n3">
+                <a href="home.html">
+                    <img src="img/logo_compasso.png">
+                </a>
+            </div>
+            <h5 class="txt-primary ml-n3"><strong>Daily Note</strong></h5>
+        </div>
+    </nav>
+
+    <div class="container page-position col-12 col-sm-7" id="register">
+
+        <section class="section-register custom-bx">
+            <form class="pt-1 pl-4 pr-4 pb-4" method="post" id="user-register" autocomplete="off" enctype="multipart/form-data">
+
+                <div class="vt-line mt-4 mb-4">
+                    <h3><strong>Reuniões Diárias</strong></h3>
+                </div>
+                <hr class="register-line">
+
+                <button type="button" name="new_daily"
+                    class="btn btn-outline-success btn-sm mt-3 pr-4 pl-4 mr-2 float-right input-circle" data-toggle="modal"
+                    data-target="#dailyModal">Adicionar Daily</button>
+
+
+
+
+
+
+
+
+
+
+                <div class="vt-line mb-3 mt-5">
+                    <h5>
+                        <strong>Dados pessoais</strong>
+                    </h5>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="name">Primeiro Nome:</label>
+                            <input type="text" name="name" class="form-control form-control-sm input-circle" id="name"
+                                placeholder="Informe seu nome" autofocus>
+                            <div id="namevalidator"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="lastname">Sobrenome:</label>
+                            <input type="text" name="lastName" class="form-control form-control-sm input-circle" id="lastname"
+                                placeholder="Informe seu sobrenome">
+                            <div id="lastnamevalidator"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="birthdate">Data de nascimento:</label>
+                    <input type="date" name="dateOfBirth" class="form-control form-control-sm ext-placeholder input-circle" id="birthdate">
+                    <div id="birthdatevalidator"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="text" name="email" class="form-control form-control-sm input-circle" id="email"
+                        placeholder="Informe seu e-mail">
+                    <div id="emailvalidator"></div>
+                </div>
+
+
+
+                
+
+
+
+                
+                
+                
+            </form>
+
+
+
+
+        </section>
+    </div>
+
+    <a href="user-recovery-password.html"></a>
+    <a href="user-register.html"></a>
+    </div>
+
+
+    <div class="modal fade" id="dailyModal" tabindex="-1" role="dialog" aria-labelledby="dailyTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title vt-line mt-2" id="dailyTitle">
+                        <h3><strong>Nova Daily</strong></h3>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form" method="post" id="daily-form" autocomplete="off">
+
+                        <div class="form-group">
+                            <label for="first">O que eu fiz ontem?</label>
+                            <textarea name="first" class="form-control form-control-sm input-circle" id="first" placeholder="Informe sua resposta aqui" autofocus></textarea>
+                            <div id="firstvalidator"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="second">O que eu vou fazer hoje?</label>
+                            <textarea name="second" class="form-control form-control-sm input-circle" id="second" placeholder="Informe sua resposta aqui"></textarea>
+                            <div id="secondvalidator"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="third">Eu tenho impedimentos? Se sim, qual(is)?</label>
+                            <textarea name="third" class="form-control form-control-sm input-circle" id="third" placeholder="Informe sua resposta aqui"></textarea>
+                            <div id="thirdvalidator"></div>
+                        </div>
+
+
+
+                        <button type="submit" name="send" class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle" id="recovery-pass">Recuperar</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle" data-dismiss="modal">Cancelar</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/particle.js/particle.min.js"></script>
+    <script src="lib/particle.js/particle.js"></script>
+</body>
+
+</html>
