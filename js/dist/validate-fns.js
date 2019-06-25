@@ -1,6 +1,13 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    function code(code) {
+        if (!code.value) {
+            return 'Código obrigatório.';
+        }
+        return null;
+    }
+    exports.code = code;
     function date(date) {
         var inputDate = new Date(date.value);
         var day = inputDate.getDate();

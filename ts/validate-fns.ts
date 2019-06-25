@@ -1,5 +1,13 @@
 import { InputWrapper } from './validate/index'
 
+export function code(code: InputWrapper): string {
+    if (!code.value) {
+        return 'Código obrigatório.'
+    }
+
+    return null
+}
+
 export function date(date: InputWrapper): string {
     const inputDate = new Date(date.value)
 

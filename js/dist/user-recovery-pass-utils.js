@@ -9,49 +9,32 @@ define(["require", "exports", "./validate/index", "./config/index", "./validate-
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     val = __importStar(val);
-    var emailInput = index_1.InputWrapper.fromId('email');
-    var passwordInput = index_1.InputWrapper.fromId('password');
-    var emailRecInput = index_1.InputWrapper.fromId('email_rec');
+    var codeInput = index_1.InputWrapper.fromId('code');
+    var emailInput = index_1.InputWrapper.fromId('email_rec');
+    var passwordInput = index_1.InputWrapper.fromId('password_rec');
+    var passwordConfirmInput = index_1.InputWrapper.fromId('password_rec_conf');
     var valFns = [
+        index_1.validate(codeInput, val.code),
         index_1.validate(emailInput, val.email),
         index_1.validate(passwordInput, val.password),
+        index_1.validate(passwordConfirmInput, val.passwordConfirm, passwordInput),
     ];
-    var valFnsRec = [
-        index_1.validate(emailRecInput, val.email),
-    ];
-    var form = document.getElementById('login-form');
+    var form = document.getElementById('recovery-code-form');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
         if (listCheck_1.noFalse(valFns)) {
             var formData = new FormData(form);
-            fetch(index_2.HOST + "users/user", {
+            fetch(index_2.HOST + "users/code/verify", {
                 method: 'POST',
                 body: formData
             })
                 .then(function (res) { return res.json(); })
                 .then(function (data) {
                 console.log(data);
-                location.replace("home.html");
-            })
-                .catch(console.log);
-        }
-    });
-    var recForm = document.getElementById('recovery-pass-form');
-    recForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        if (listCheck_1.noFalse(valFnsRec)) {
-            var formData = new FormData(recForm);
-            fetch(index_2.HOST + "users/user/recover", {
-                method: 'POST',
-                body: formData,
-            })
-                .then(function (res) { return res.json(); })
-                .then(function (data) {
-                console.log(data);
-                location.replace("recovery.html");
+                location.replace("index.html");
             })
                 .catch(console.log);
         }
     });
 });
-//# sourceMappingURL=user-login-utils.js.map
+//# sourceMappingURL=user-recovery-pass-utils.js.map
