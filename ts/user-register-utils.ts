@@ -50,7 +50,7 @@ form.addEventListener('submit', (event: Event) => {
     if (noFalse(valFns)) {
 
         let formData = new FormData(form)
-
+        
         fetch(`${HOST}users/user`, {
             method: 'POST',
             body: formData
