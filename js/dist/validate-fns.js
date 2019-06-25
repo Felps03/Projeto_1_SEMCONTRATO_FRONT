@@ -1,6 +1,13 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    function code(code) {
+        if (!code.value) {
+            return 'Código obrigatório.';
+        }
+        return null;
+    }
+    exports.code = code;
     function date(date) {
         var inputDate = new Date(date.value);
         var day = inputDate.getDate();
@@ -9,7 +16,7 @@ define(["require", "exports"], function (require, exports) {
         var isDate = true;
         if (isNaN(day) || isNaN(month) || isNaN(year))
             isDate = false;
-        if (month + 1 == 4 || month + 1 == 6 || month + 1 == 9 || month + 1 == 11 && day + 1 > 30)
+        if ((month + 1 == 4 || month + 1 == 6 || month + 1 == 9 || month + 1 == 11) && day > 30)
             isDate = false;
         if ((year % 4) != 0 && month + 1 == 2 && day + 1 > 28)
             isDate = false;

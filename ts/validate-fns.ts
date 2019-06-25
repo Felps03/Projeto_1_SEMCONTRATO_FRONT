@@ -1,5 +1,13 @@
 import { InputWrapper } from './validate/index'
 
+export function code(code: InputWrapper): string {
+    if (!code.value) {
+        return 'Código obrigatório.'
+    }
+
+    return null
+}
+
 export function date(date: InputWrapper): string {
     const inputDate = new Date(date.value)
 
@@ -10,7 +18,7 @@ export function date(date: InputWrapper): string {
     let isDate = true
 
     if (isNaN(day) || isNaN(month) || isNaN(year)) isDate = false
-    if (month + 1 == 4 || month + 1 == 6 || month + 1 == 9 || month + 1 == 11 && day + 1 > 30) isDate = false
+    if ((month + 1 == 4 || month + 1 == 6 || month + 1 == 9 || month + 1 == 11) && day > 30) isDate = false
     if ((year % 4) != 0 && month + 1 == 2 && day + 1 > 28) isDate = false
     if ((year % 4) == 0 && month + 1 == 2 && day + 1 > 29) isDate = false
 
