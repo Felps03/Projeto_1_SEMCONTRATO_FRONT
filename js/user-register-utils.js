@@ -343,3 +343,7 @@ photo.addEventListener("change", function() {
     customTxt.innerHTML = "Nenhuma imagem selecionada.";
   }
 });
+
+
+
+

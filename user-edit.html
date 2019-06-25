@@ -11,7 +11,7 @@
     <link href="lib/materialize/fonts/fonts.css" rel="stylesheet">
     <link href="lib/particle.js/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="css/custom.css">
-    <title>Área de Cadastro do Usuário</title>
+    <title>Dados do Usuário</title>
 
     <!-- intentional -->
     <script src="https://www.google.com/recaptcha/api.js?render=6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn"></script>
@@ -50,19 +50,19 @@
                     </ul>
                 </div>
             </div>
+
         </div>
     </nav>
 
     <div class="container page-position col-12 col-sm-7" id="register">
-
         <section class="section-register custom-bx">
-            <form class="pt-1 pl-4 pr-4 pb-4" method="post" id="user-register" autocomplete="off" enctype="multipart/form-data">
-
+            <form class="pt-1 pl-4 pr-4 pb-4" method="post" id="form-user-edit" autocomplete="off" enctype="multipart/form-data">
                 <div class="vt-line mt-4 mb-4">
                     <h3>
-                        <strong>Área de Cadastro</strong>
+                        <strong>Dados do Usuário</strong>
                     </h3>
                 </div>
+
                 <hr class="register-line">
 
                 <div class="vt-line mb-3 mt-5">
@@ -74,8 +74,8 @@
                 <div class="row">
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
-                            <label for="name">Primeiro Nome:</label>
-                            <input type="text" name="name" class="form-control form-control-sm input-circle" id="name" placeholder="Informe seu nome"
+                            <label for="name">Nome:</label>
+                            <input type="text" name="name" value="${userController.name}" class="form-control form-control-sm input-circle" id="name" placeholder="Informe seu nome"
                                 autofocus>
                             <div id="namevalidator"></div>
                         </div>
@@ -84,7 +84,7 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="lastname">Sobrenome:</label>
-                            <input type="text" name="lastName" class="form-control form-control-sm input-circle" id="lastname" placeholder="Informe seu sobrenome">
+                            <input type="text" name="lastName" value="${userController.lastName}" class="form-control form-control-sm input-circle" id="lastname" placeholder="Informe seu sobrenome">
                             <div id="lastnamevalidator"></div>
                         </div>
                     </div>
@@ -92,13 +92,14 @@
 
                 <div class="form-group">
                     <label for="birthdate">Data de nascimento:</label>
-                    <input type="date" name="dateOfBirth" class="form-control form-control-sm ext-placeholder input-circle" id="birthdate">
+                    <input type="date" name="dateOfBirth" value="${userController.dateOfBirth}" class="form-control form-control-sm ext-placeholder input-circle" id="birthdate">
                     <div id="birthdatevalidator"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="email">E-mail:</label>
-                    <input type="text" name="email" class="form-control form-control-sm input-circle" id="email" placeholder="Informe seu e-mail">
+                    <input type="text" name="email" value="${userController.email}" class="form-control form-control-sm input-circle" id="email" placeholder="Informe seu e-mail"
+                        disabled>
                     <div id="emailvalidator"></div>
                 </div>
 
@@ -111,17 +112,17 @@
                 <div class="form-group">
                     <label for="photo">Foto de Perfil:</label>
                     <div name="photo">
-                        <input type="file" id="photo" name="file_photo" hidden="hidden" class="form-control" />
-                        <div id="photovalidator" class="mt-1"></div>
-                        <button type="button" class="btn btn-secondary btn-sm input-circle" id="file_send">Escolher
-                            foto</button>
+                        <input type="file" id="photo" name="file_photo" hidden="hidden" />
+                        <button type="button" class="btn btn-secondary btn-sm input-circle" id="file_send">Escolher foto
+                        </button>
                         <span class="ext-placeholder" id="custom-text">Clique para escolher.</span>
+                        <div id="photovalidator" class="mt-1"></div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="username">Nome de usuário:</label>
-                    <input type="text" name="userName" class="form-control form-control-sm input-circle" id="username" placeholder="Informe um nome de usuário">
+                    <input type="text" name="userName" value="${userController.userName}" class="form-control form-control-sm input-circle" id="username" placeholder="Informe um nome de usuário">
                     <div id="usernamevalidator"></div>
                 </div>
 
@@ -129,7 +130,7 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="password">Senha:</label>
-                            <input type="password" name="password" class="form-control form-control-sm input-circle" id="password" placeholder="Informe uma senha"
+                            <input type="password" name="password" value="${userController.password}" class="form-control form-control-sm input-circle" id="password" placeholder="Informe uma senha"
                                 maxlength="8">
                             <div id="passwordvalidator"></div>
                         </div>
@@ -138,14 +139,14 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="password">Confirmação:</label>
-                            <input type="password" name="pass_passwordConfirm" class="form-control form-control-sm input-circle" id="passwordConfirm"
+                            <input type="password" name="pass_passwordConfirm" value="${userController.password}" class="form-control form-control-sm input-circle" id="passwordConfirm"
                                 placeholder="Informe a senha novamente" maxlength="8">
                             <div id="passwordconfirmvalidator"></div>
                         </div>
                     </div>
                 </div>
 
-                <button type="submit" name="send" class="btn btn-outline-success btn-sm mt-3 pr-3 pl-3 float-right input-circle" id="register-new-user">Cadastrar</button>
+                <button type="submit" name="send" class="btn btn-outline-success btn-sm mt-3 pr-3 pl-3 float-right input-circle" id="edit-user">salvar</button>
                 <button type="button" name="reset" class="btn btn-outline-danger btn-sm mt-3 pr-3 pl-3 mr-2 float-right input-circle" data-toggle="modal"
                     data-target="#cancelModal">Cancelar</button>
 
@@ -159,14 +160,14 @@
                 <div class="modal-header">
                     <div class="modal-title vt-line mt-2" id="recoveryTitle">
                         <h3>
-                            <strong>Cancelar Processo</strong>
+                            <strong>Cancelar Edição</strong>
                         </h3>
                     </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">Deseja cancelar o processo de cadastro?</div>
+                <div class="modal-body">Deseja cancelar a edição?</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger btn-sm pr-4 pl-4 input-circle" data-dismiss="modal">Não</button>
                     <button type="button" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle" id="cancelRegister">Sim</button>
@@ -178,7 +179,6 @@
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    </script>
     <script src="lib/particle.js/particle.min.js"></script>
     <script src="lib/particle.js/particle.js"></script>
     <script data-main="js/dist/user-register-utils.js" src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
