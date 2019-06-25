@@ -152,3 +152,7 @@ body {
     border-radius: none; 
     box-shadow: 0 1px 8px 0 #0e1e24, 0 1px 8px 0 #0e1e24 !important; 
 }
+
+.mt-add-daily {
+    margin-top: 36px;
+}

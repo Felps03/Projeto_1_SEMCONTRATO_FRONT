@@ -5,7 +5,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-define(["require", "exports", "./validate/index", "./config/index", "./validate-fns"], function (require, exports, index_1, index_2, val) {
+define(["require", "exports", "./validate/index", "./config/index", "./validate-fns", "./utils/listCheck"], function (require, exports, index_1, index_2, val, listCheck_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     val = __importStar(val);
@@ -17,14 +17,16 @@ define(["require", "exports", "./validate/index", "./config/index", "./validate-
     var passwordConfirmInput = index_1.InputWrapper.fromId('passwordConfirm');
     var photoInput = index_1.InputWrapper.fromId('photo');
     var usernameInput = index_1.InputWrapper.fromId('username');
-    index_1.validate(dateInput, val.date);
-    index_1.validate(emailInput, val.email);
-    index_1.validate(lastNameInput, val.lastName);
-    index_1.validate(nameInput, val.name);
-    index_1.validate(passwordInput, val.password);
-    index_1.validate(passwordConfirmInput, val.passwordConfirm, passwordInput);
-    index_1.validate(photoInput, val.photo);
-    index_1.validate(usernameInput, val.username);
+    var valFns = [
+        index_1.validate(dateInput, val.date),
+        index_1.validate(emailInput, val.email),
+        index_1.validate(lastNameInput, val.lastName),
+        index_1.validate(nameInput, val.name),
+        index_1.validate(passwordInput, val.password),
+        index_1.validate(passwordConfirmInput, val.passwordConfirm, passwordInput),
+        index_1.validate(photoInput, val.photo),
+        index_1.validate(usernameInput, val.username),
+    ];
     var send = document.getElementById("file_send");
     var customTxt = document.getElementById("custom-text");
     send.addEventListener("click", function () {
@@ -41,17 +43,19 @@ define(["require", "exports", "./validate/index", "./config/index", "./validate-
     var form = document.getElementById('user-register');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
-        var formData = new FormData(form);
-        fetch(index_2.HOST + 'users/user', {
-            method: 'POST',
-            body: formData
-        })
-            .then(function (res) { return res.json(); })
-            .then(function (data) {
-            console.log(data);
-            location.replace("index.html");
-        })
-            .catch(console.log);
+        if (listCheck_1.noFalse(valFns)) {
+            var formData = new FormData(form);
+            fetch(index_2.HOST + "users/user", {
+                method: 'POST',
+                body: formData
+            })
+                .then(function (res) { return res.json(); })
+                .then(function (data) {
+                console.log(data);
+                location.replace("index.html");
+            })
+                .catch(console.log);
+        }
     });
 });
 //# sourceMappingURL=user-register-utils.js.map

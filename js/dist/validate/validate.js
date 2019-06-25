@@ -6,16 +6,17 @@ define(["require", "exports"], function (require, exports) {
         for (var _i = 2; _i < arguments.length; _i++) {
             opts[_i - 2] = arguments[_i];
         }
-        input.el.addEventListener('input', function (event) {
+        var handle = function () {
             var msg = fn.apply(void 0, [input].concat(opts));
             if (msg) {
                 input.setValid(false, msg);
-                event.preventDefault();
                 return false;
             }
             input.setValid(true, '');
             return true;
-        });
+        };
+        input.el.addEventListener('input', handle);
+        return handle;
     }
     exports.validate = validate;
 });
