@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link href="lib/materialize/icons/icons.css" rel="stylesheet">
     <link href="lib/materialize/fonts/fonts.css" rel="stylesheet">
-    <link href="lib/particle.js/particle.css" rel="stylesheet">
+    <!-- <link href="lib/particle.js/particle.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="css/custom.css">
     <title>Daily Note</title>
 
@@ -19,7 +19,7 @@
 
 <body>
     <!-- particles.js -->
-    <div id="particles-js"></div>
+    <!-- <div id="particles-js"></div> -->
 
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container">
@@ -209,13 +209,16 @@
         </div>
     </div>
 
-    <!-- View Daily modal -->
-    <div class="modal fade" id="viewdailyModal" tabindex="-1" role="dialog" aria-labelledby="viewdailyTitle" aria-hidden="true">
+
+
+
+    <!-- Update Daily modal -->
+    <div class="modal fade" id="editdailyModal" tabindex="-1" role="dialog" aria-labelledby="editdailyTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="modal-title vt-line mt-2" id="viewdailyTitle">
-                        <h3><strong>Daily</strong></h3>
+                    <div class="modal-title vt-line mt-2" id="editdailyTitle">
+                        <h3><strong>Editar Daily</strong></h3>
                     </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
@@ -223,7 +226,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <form class="form" method="post" id="viewdaily-form" autocomplete="off">
+                    <form class="form" method="post" id="editdaily-form" autocomplete="off">
 
 
                         <div class="row">
@@ -246,27 +249,30 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="first"><strong>1. </strong>O que fez ontem?</label>
-                            <textarea name="first" class="form-control form-control-sm input-circle" id="first"readonly></textarea>
+                            <label for="first"><strong>1. </strong>O que eu fiz ontem?</label>
+                            <textarea name="first" class="form-control form-control-sm input-circle" id="first"
+                                placeholder="Informe sua resposta aqui" autofocus></textarea>
                             <div id="firstvalidator"></div>
                         </div>
 
                         <div class="form-group">
-                            <label for="second"><strong>2. </strong>O que vai fazer hoje?</label>
-                            <textarea name="second" class="form-control form-control-sm input-circle" id="second" readonly></textarea>
+                            <label for="second"><strong>2. </strong>O que eu vou fazer hoje?</label>
+                            <textarea name="second" class="form-control form-control-sm input-circle" id="second"></textarea>
                             <div id="secondvalidator"></div>
                         </div>
 
                         <div class="form-group">
-                            <label for="third"><strong>3. </strong>Tem impedimentos? Se sim, qual(is)?</label>
-                            <textarea name="third" class="form-control form-control-sm input-circle" id="third" readonly></textarea>
+                            <label for="third"><strong>3. </strong>Eu tenho impedimentos? Se sim, qual(is)?</label>
+                            <textarea name="third" class="form-control form-control-sm input-circle" id="third"></textarea>
                             <div id="thirdvalidator"></div>
                         </div>
 
+                        <button type="submit" name="send"
+                            class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle"
+                            id="recovery-pass">Adicionar</button>
                         <button type="button"
-                        
                             class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle"
-                            data-dismiss="modal">Voltar</button>
+                            data-dismiss="modal">Cancelar</button>
                     </form>
 
                 </div>
@@ -277,8 +283,8 @@
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/particle.js/particle.min.js"></script>
-    <script src="lib/particle.js/particle.js"></script>
+    <!-- <script src="lib/particle.js/particle.min.js"></script>
+    <script src="lib/particle.js/particle.js"></script> -->
 </body>
 
 </html>
