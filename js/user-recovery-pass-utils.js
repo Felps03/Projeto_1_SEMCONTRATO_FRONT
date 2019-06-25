@@ -133,37 +133,37 @@ recoveryCode.addEventListener('click', function (event) {
 });
 
 let recoveryCode = document.getElementById('recoverycodeT');
-    recoveryCode.addEventListener('click', function() {
-        event.preventDefault();
+recoveryCode.addEventListener('click', function () {
+    event.preventDefault();
 
 
-	// codeValidator();
-	
-	// if (codeValidator()) {
-		var code = document.getElementById('code').value;
-		var email = document.getElementById('email_rec').value;
-		var senha = document.getElementById('password_rec').value;
-		
-		//obter email
-	// }
+    // codeValidator();
 
-	$.ajax({
-		type: "POST",
-		url: `https://semcontrato.herokuapp.com/users/code/verify`,
-		data: {
-			"email" : email,
-			"emailCode" : code,
-			"password" : senha
-		},
-		success: function (data) {
-			alert("Senha trocada com sucesso");
-			//qual local ir?
-			window.location.href = "index.html";
-		},
-		error: function (request, status, error) {
-			console.log(error);
-			alert(request.responseText);
-			alert(erro);
-		}
-	});
-    });   
+    // if (codeValidator()) {
+    var code = document.getElementById('code').value;
+    var email = document.getElementById('email_rec').value;
+    var senha = document.getElementById('password_rec').value;
+
+    //obter email
+    // }
+
+    $.ajax({
+        type: "POST",
+        url: `https://semcontrato.herokuapp.com/users/code/verify`,
+        data: {
+            "email": email,
+            "emailCode": code,
+            "password": senha
+        },
+        success: function (data) {
+            alert("Senha trocada com sucesso");
+            //qual local ir?
+            window.location.href = "index.html";
+        },
+        error: function (request, status, error) {
+            console.log(error);
+            alert(request.responseText);
+            alert(erro);
+        }
+    });
+});   

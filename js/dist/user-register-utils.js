@@ -5,7 +5,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-define(["require", "exports", "./validate/index", "./config/index", "./validate-fns"], function (require, exports, index_1, index_2, val) {
+define(["require", "exports", "./validate/index", "./config/index", "./validate-fns", "./utils/check"], function (require, exports, index_1, index_2, val, check_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     val = __importStar(val);
@@ -43,14 +43,9 @@ define(["require", "exports", "./validate/index", "./config/index", "./validate-
     var form = document.getElementById('user-register');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
-        var isValid = true;
-        valFns.forEach(function (valFn) {
-            if (!valFn())
-                isValid = false;
-        });
-        if (isValid) {
+        if (check_1.noFalse(valFns)) {
             var formData = new FormData(form);
-            fetch(index_2.HOST + 'users/user', {
+            fetch(index_2.HOST + "users/user", {
                 method: 'POST',
                 body: formData
             })

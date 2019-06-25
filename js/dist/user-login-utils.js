@@ -11,23 +11,32 @@ define(["require", "exports", "./validate/index", "./config/index", "./validate-
     val = __importStar(val);
     var emailInput = index_1.InputWrapper.fromId('email');
     var passwordInput = index_1.InputWrapper.fromId('password');
-    index_1.validate(emailInput, val.email);
-    index_1.validate(passwordInput, val.password);
+    var valFns = [
+        index_1.validate(emailInput, val.email),
+        index_1.validate(passwordInput, val.password)
+    ];
     var form = document.getElementById('login-form');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
-        var formData = new FormData(form);
-        console.log(formData);
-        fetch(index_2.HOST + 'users/authenticate', {
-            method: 'POST',
-            body: formData
-        })
-            .then(function (res) { return res.json(); })
-            .then(function (data) {
-            console.log(data);
-            location.replace("home.html");
-        })
-            .catch(console.log);
+        var isValid = true;
+        valFns.forEach(function (valFn) {
+            if (!valFn())
+                isValid = false;
+        });
+        if (isValid) {
+            var formData = new FormData(form);
+            console.log(formData);
+            fetch(index_2.HOST + 'users/authenticate', {
+                method: 'POST',
+                body: formData
+            })
+                .then(function (res) { return res.json(); })
+                .then(function (data) {
+                console.log(data);
+                location.replace("home.html");
+            })
+                .catch(console.log);
+        }
     });
 });
 //# sourceMappingURL=user-login-utils.js.map
