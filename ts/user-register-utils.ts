@@ -1,6 +1,7 @@
 import { validate, InputWrapper } from './validate/index'
 import { HOST } from './config/index'
 import * as val from './validate-fns'
+import { noFalse } from './utils/check'
 
 const dateInput = InputWrapper.fromId('birthdate')
 const emailInput = InputWrapper.fromId('email')
@@ -46,18 +47,11 @@ const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-reg
 form.addEventListener('submit', (event: Event) => {
     event.preventDefault()
 
-    let isValid = true
-
-    valFns.forEach((valFn) => {
-        if (!valFn())
-            isValid = false
-    })
-
-    if (isValid) {
+    if (noFalse(valFns)) {
 
         let formData = new FormData(form)
 
-        fetch(HOST + 'users/user', {
+        fetch(`${HOST}users/user`, {
             method: 'POST',
             body: formData
         })
