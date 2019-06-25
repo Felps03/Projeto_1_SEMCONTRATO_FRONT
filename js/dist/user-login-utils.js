@@ -17,6 +17,7 @@ define(["require", "exports", "./validate/index", "./config/index", "./validate-
     form.addEventListener('submit', function (event) {
         event.preventDefault();
         var formData = new FormData(form);
+        console.log(formData);
         fetch(index_2.HOST + 'users/authenticate', {
             method: 'POST',
             body: formData

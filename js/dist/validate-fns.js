@@ -76,13 +76,22 @@ define(["require", "exports"], function (require, exports) {
     }
     exports.password = password;
     function passwordConfirm(pw, confirm) {
-        return pw.value !== confirm.value ? 'Senhas não batem' : null;
+        if (!pw.value) {
+            return 'Confirmação obrigatória.';
+        }
+        else if (pw.value !== confirm.value) {
+            return 'Senhas não batem';
+        }
+        return null;
     }
     exports.passwordConfirm = passwordConfirm;
     var ALLOWED_EXTS = ['png', 'jpg', 'jpeg'];
     function photo(file) {
+        if (!file.value) {
+            return 'Imagem obrigatória.';
+        }
         var fileExt = file.value.split('.').pop();
-        if (ALLOWED_EXTS.indexOf(fileExt) !== -1) {
+        if (ALLOWED_EXTS.indexOf(fileExt) === -1) {
             return 'Formato de arquivo de imagem inválido.';
         }
         else {

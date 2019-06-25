@@ -14,6 +14,7 @@ form.addEventListener('submit', (event: Event) => {
     event.preventDefault()
 
     let formData = new FormData(form)
+    console.log(formData)
 
     fetch(HOST + 'users/authenticate', {
         method: 'POST',

@@ -11,14 +11,17 @@ const passwordConfirmInput = InputWrapper.fromId('passwordConfirm')
 const photoInput = InputWrapper.fromId('photo')
 const usernameInput = InputWrapper.fromId('username')
 
-validate(dateInput, val.date)
-validate(emailInput, val.email)
-validate(lastNameInput, val.lastName)
-validate(nameInput, val.name)
-validate(passwordInput, val.password)
-validate(passwordConfirmInput, val.passwordConfirm, passwordInput)
-validate(photoInput, val.photo)
-validate(usernameInput, val.username)
+// automatically sets oninput validation
+const valFns = [
+    validate(dateInput, val.date),
+    validate(emailInput, val.email),
+    validate(lastNameInput, val.lastName),
+    validate(nameInput, val.name),
+    validate(passwordInput, val.password),
+    validate(passwordConfirmInput, val.passwordConfirm, passwordInput),
+    validate(photoInput, val.photo),
+    validate(usernameInput, val.username),
+]
 
 //File
 const send = document.getElementById("file_send");
@@ -43,16 +46,27 @@ const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-reg
 form.addEventListener('submit', (event: Event) => {
     event.preventDefault()
 
-    let formData = new FormData(form)
+    let isValid = true
 
-    fetch(HOST + 'users/user', {
-        method: 'POST',
-        body: formData
+    valFns.forEach((valFn) => {
+        if (!valFn())
+            isValid = false
     })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            location.replace("index.html")
+
+    if (isValid) {
+
+        let formData = new FormData(form)
+
+        fetch(HOST + 'users/user', {
+            method: 'POST',
+            body: formData
         })
-        .catch(console.log)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                location.replace("index.html")
+            })
+            .catch(console.log)
+
+    }
 })

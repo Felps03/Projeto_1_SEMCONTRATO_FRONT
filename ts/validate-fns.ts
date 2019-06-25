@@ -72,14 +72,24 @@ export function password(pw: InputWrapper): string {
 }
 
 export function passwordConfirm(pw: InputWrapper, confirm: InputWrapper): string {
-    return pw.value !== confirm.value ? 'Senhas não batem' : null
+    if (!pw.value) {
+        return 'Confirmação obrigatória.'
+    } else if (pw.value !== confirm.value) {
+        return 'Senhas não batem'
+    }
+
+    return null
 }
 
 const ALLOWED_EXTS = ['png', 'jpg', 'jpeg']
 export function photo(file: InputWrapper): string {
+    if (!file.value) {
+        return 'Imagem obrigatória.'
+    }
+
     const fileExt = file.value.split('.').pop()
 
-    if (ALLOWED_EXTS.indexOf(fileExt) !== -1) {
+    if (ALLOWED_EXTS.indexOf(fileExt) === -1) {
         return 'Formato de arquivo de imagem inválido.'
     } else {
         return null
