@@ -56,8 +56,8 @@ form.addEventListener('submit', (event: Event) => {
     if (isValid) {
 
         let formData = new FormData(form)
-
-        fetch(HOST + 'users/user', {
+        
+        fetch(`${HOST}users/user`, {
             method: 'POST',
             body: formData
         })
