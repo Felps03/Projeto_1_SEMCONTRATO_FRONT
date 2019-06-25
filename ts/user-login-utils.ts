@@ -1,7 +1,7 @@
 import { validate, InputWrapper } from './validate/index'
 import { HOST } from './config/index'
 import * as val from './validate-fns'
-import { noFalse } from './utils/check';
+import { noFalse } from './utils/listCheck';
 
 const emailInput = InputWrapper.fromId('email')
 const passwordInput = InputWrapper.fromId('password')
