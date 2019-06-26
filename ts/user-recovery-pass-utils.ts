@@ -26,7 +26,7 @@ form.addEventListener('submit', (event: Event) => {
 
         grecaptcha.ready(function () {
 
-            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_register' })
+            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_pass_rec_2' })
                 .then(function (token: string) {
 
                     let formData = new FormData(form)

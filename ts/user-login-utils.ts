@@ -27,7 +27,7 @@ form.addEventListener('submit', (event: Event) => {
 
         grecaptcha.ready(function () {
 
-            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_register' })
+            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_login' })
                 .then(function (token: string) {
 
                     let formData = new FormData(form)
@@ -59,7 +59,7 @@ recForm.addEventListener('submit', (event: Event) => {
 
         grecaptcha.ready(function () {
 
-            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_register' })
+            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_pass_rec_1' })
                 .then(function (token: string) {
 
                     let formData = new FormData(form)

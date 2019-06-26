@@ -26,7 +26,7 @@ form.addEventListener('submit', function (event) {
     event.preventDefault();
     if (listCheck_1.noFalse(valFns)) {
         grecaptcha.ready(function () {
-            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_register' })
+            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_login' })
                 .then(function (token) {
                 var formData = new FormData(form);
                 formData.append('recaptchaToken', token);
@@ -49,7 +49,7 @@ recForm.addEventListener('submit', function (event) {
     event.preventDefault();
     if (listCheck_1.noFalse(valFnsRec)) {
         grecaptcha.ready(function () {
-            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_register' })
+            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_pass_rec_1' })
                 .then(function (token) {
                 var formData = new FormData(form);
                 formData.append('recaptchaToken', token);
