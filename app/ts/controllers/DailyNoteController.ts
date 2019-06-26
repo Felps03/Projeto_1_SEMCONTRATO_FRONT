@@ -15,12 +15,11 @@ class DailyNoteController {
     adiciona(event: Event) {
         event.preventDefault();
 
-        const negociacao = new DailyNote(
+        const dailyNote = new DailyNote(
             this._yesterday,
             this._today,
             this._impediment,
             new Date(this._date.value)
         );
     }
-
 }
