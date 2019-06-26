@@ -9,6 +9,11 @@ class UserController {
 
     constructor() {
         this._name = <HTMLInputElement>document.querySelector('#name');
+        this._lastName = <HTMLInputElement>document.querySelector('#lastName');
+        this._userName = <HTMLInputElement>document.querySelector('#userName');
+        this._email = <HTMLInputElement>document.querySelector('#email');
+        this._password = <HTMLInputElement>document.querySelector('#password');
+        this._dateOfBirth = <HTMLInputElement>document.querySelector('#dateOfBirth');
     }
 
 
@@ -16,7 +21,12 @@ class UserController {
         event.preventDefault();
 
         const user = new User(
-         
+            this._name.value,
+            this._lastName.value,
+            this._userName.value,
+            this._email,
+            this._password.value,
+            new Date(this._dateOfBirth.value)
         );
 
         console.log(user);
