@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "amd",
+        "module": "commonjs",
         "esModuleInterop": true,
         "target": "es5",
         "noImplicitAny": true,
@@ -9,8 +9,13 @@
         "outDir": "js/dist",
         "baseUrl": ".",
         "paths": {
-            "*": ["node_modules/*"]
+            "*": [
+                "node_modules/*"
+            ]
         }
     },
-    "include": ["ts/*", "ts/validate/validate.ts"]
+    "include": [
+        "ts/*",
+        "ts/validate/validate.ts"
+    ]
 }
