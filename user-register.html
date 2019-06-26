@@ -182,8 +182,28 @@
     <script src="./js/dist/user-register-utils.js"></script>
 
     <script>
-        alert("teste");
+        $(document).ready(function () {
+            alert("alert depois de carregar a pagina");
+            event.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: `http://localhost:3000/users/teste@gmail.com`,
+                success: function (data) {
+                    $("#name").val(data.email);
+                    $("#lastName").val(data.email);
+                    $("#dateOfBirth").val(data.email);
+                    $("#email").val(data.email);
+                    $("#userName").val(data.email);
+                    $("#password").val(data.email);
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+                }
+            });
+        })
+    </script>
 
+    <script>
         let cancelar = document.getElementById('cancelRegister');
         cancelar.addEventListener('click', function () {
             window.location.href = "index.html";
@@ -207,6 +227,7 @@
             }
         }
     </script>
+
 </body>
 
 </html>
