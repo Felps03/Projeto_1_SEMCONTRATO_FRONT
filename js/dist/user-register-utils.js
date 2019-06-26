@@ -46,17 +46,23 @@ var form = document.getElementById('user-register');
 form.addEventListener('submit', function (event) {
     event.preventDefault();
     if (listCheck_1.noFalse(valFns)) {
-        var formData = new FormData(form);
-        fetch(index_2.HOST + "users/user", {
-            method: 'POST',
-            body: formData
-        })
-            .then(function (res) { return res.json(); })
-            .then(function (data) {
-            console.log(data);
-            location.replace("index.html");
-        })
-            .catch(console.log);
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_register' })
+                .then(function (token) {
+                var formData = new FormData(form);
+                formData.append('recaptchaToken', token);
+                fetch(index_2.HOST + "users/user", {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(function (res) { return res.json(); })
+                    .then(function (data) {
+                    console.log(data);
+                    location.replace("index.html");
+                })
+                    .catch(console.log);
+            });
+        });
     }
 });
 //# sourceMappingURL=user-register-utils.js.map
