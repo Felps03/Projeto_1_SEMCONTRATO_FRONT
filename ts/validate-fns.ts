@@ -1,5 +1,13 @@
 import { InputWrapper } from './validate/index'
 
+export function code(code: InputWrapper): string {
+    if (!code.value) {
+        return 'Código obrigatório.'
+    }
+
+    return null
+}
+
 export function date(date: InputWrapper): string {
     const inputDate = new Date(date.value)
 
@@ -10,7 +18,7 @@ export function date(date: InputWrapper): string {
     let isDate = true
 
     if (isNaN(day) || isNaN(month) || isNaN(year)) isDate = false
-    if (month + 1 == 4 || month + 1 == 6 || month + 1 == 9 || month + 1 == 11 && day + 1 > 30) isDate = false
+    if ((month + 1 == 4 || month + 1 == 6 || month + 1 == 9 || month + 1 == 11) && day > 30) isDate = false
     if ((year % 4) != 0 && month + 1 == 2 && day + 1 > 28) isDate = false
     if ((year % 4) == 0 && month + 1 == 2 && day + 1 > 29) isDate = false
 
@@ -101,5 +109,29 @@ export function username(username: InputWrapper): string {
         return 'Nome de usuário muito curto.'
     } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(username.value)) {
         return 'Nome de usuário inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
+    }
+}
+
+export function yesterday(first: InputWrapper): string {
+    if (!(first.value.length > 3)) {
+        return 'Descrição muito pequena.'
+    } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(first.value)) {
+        return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
+    }
+}
+
+export function today(today: InputWrapper): string {
+    if (!(today.value.length > 3)) {
+        return 'Descrição muito pequena.'
+    } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(today.value)) {
+        return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
+    }
+}
+
+export function impediment(third: InputWrapper): string {
+    if (!(third.value.length > 3)) {
+        return 'Descrição muito pequena.'
+    } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(third.value)) {
+        return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
     }
 }
