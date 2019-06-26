@@ -183,27 +183,9 @@
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./js/dist/user-login-utils.js" data-main=""></script>
 
-    <script src="lib/particlejs/particle.min.js"></script>
-    <script src="lib/particlejs/particle-config.js"></script>
-
-    <script>
-        $(document).ready(function () {
-
-
-            $.ajax({
-                type: "GET",
-                url: `http://localhost:3000/users/oleiro87@gmail.com`,
-                success: function (data) {
-                    $("#email").val(data.email);
-                },
-                error: function (request, status, error) {
-                    console.log(error);
-                    alert(request.responseText);
-                    alert(erro);
-                }
-            });
-        })
-    </script>
+    <!-- <script src="lib/particlejs/particle.min.js"></script>
+    <script src="lib/particlejs/particle.js"></script> -->
+    
 </body>
 
 </html>
