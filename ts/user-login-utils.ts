@@ -1,7 +1,9 @@
 import { validate, InputWrapper } from './validate/index'
 import { HOST } from './config/index'
 import * as val from './validate-fns'
-import { noFalse } from './utils/listCheck';
+import { noFalse } from './utils/listCheck'
+
+declare const grecaptcha: any;
 
 const emailInput = InputWrapper.fromId('email')
 const passwordInput = InputWrapper.fromId('password')
@@ -23,18 +25,27 @@ form.addEventListener('submit', (event: Event) => {
 
     if (noFalse(valFns)) {
 
-        let formData = new FormData(form)
+        grecaptcha.ready(function () {
 
-        fetch(`${HOST}users/user`, {
-            method: 'POST',
-            body: formData
+            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_login' })
+                .then(function (token: string) {
+
+                    let formData = new FormData(form)
+                    formData.append('recaptchaToken', token)
+
+                    fetch(`${HOST}users/user`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data)
+                            location.replace("home.html")
+                        })
+                        .catch(console.log)
+
+                })
         })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                location.replace("home.html")
-            })
-            .catch(console.log)
 
     }
 })
@@ -46,18 +57,27 @@ recForm.addEventListener('submit', (event: Event) => {
 
     if (noFalse(valFnsRec)) {
 
-        let formData = new FormData(recForm)
+        grecaptcha.ready(function () {
 
-        fetch(`${HOST}users/user/recover`, {
-            method: 'POST',
-            body: formData,
+            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_pass_rec_1' })
+                .then(function (token: string) {
+
+                    let formData = new FormData(form)
+                    formData.append('recaptchaToken', token)
+
+                    fetch(`${HOST}users/user/recover`, {
+                        method: 'POST',
+                        body: formData,
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data)
+                            location.replace("recovery.html")
+                        })
+                        .catch(console.log)
+
+                })
         })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                location.replace("recovery.html")
-            })
-            .catch(console.log)
 
     }
 })

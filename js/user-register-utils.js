@@ -279,7 +279,6 @@ function formValidator() {
 let register = document.getElementById('register-new-user');
 register.addEventListener('click', function (event) {
 	event.preventDefault();
-
 	inputsValidator();
 
 	if (formValidator()) {
@@ -301,7 +300,6 @@ register.addEventListener('click', function (event) {
 		file_photo,
 		dateOfBirth
 	}
-
 
 	let dataForm = document.getElementById("user-register");
 
