@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link href="lib/materialize/icons/icons.css" rel="stylesheet">
     <link href="lib/materialize/fonts/fonts.css" rel="stylesheet">
-    <!-- <link href="lib/particle.js/particle.css" rel="stylesheet"> -->
+    <link href="lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="css/custom.css">
     <title>Daily Note</title>
 
@@ -19,28 +19,27 @@
 
 <body>
     <!-- particles.js -->
-    <!-- <div id="particles-js"></div> -->
+    <div id="particles-js"></div>
 
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container-fluid">
             <div class="navbar-header ml-n3">
-                <a href="home.html">
-                    <img src="img/logo_compasso.png">
-                </a>
+                <a href="home.html"><img src="img/logo_compasso.png"></a>
             </div>
-            
+
             <div class="dropdown">
-                <div class="dropdown-toggle txt-primary" id="dropdownMenuButton"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Juliana Sequeira
-                    <img src="img/teste.jpg"class="rounded-circle ml-2" width="50px" href="#!">
+                <div class="dropdown-toggle txt-primary mr-2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Juliana123
+                    <img src="img/teste.jpg"class="rounded-circle ml-2" width="50px">
                 </div>
 
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Alterar Cadastro</a>
+                    <a class="dropdown-item" href="user-edit.html">Alterar Cadastro</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Daily Note</a>
+                    <a class="dropdown-item" href="home.html">Home</a>
+                    <a class="dropdown-item" href="app-daily-note.html">Daily Note</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"><strong>Sair</strong></a>
+                    <a class="dropdown-item"><strong>Sair</strong></a>
                 </div>
             </div>
 
@@ -329,8 +328,9 @@
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="lib/particle.js/particle.min.js"></script>
-    <script src="lib/particle.js/particle.js"></script> -->
+    
+    <script src="lib/particlejs/particle.min.js"></script>
+    <script src="lib/particlejs/particle-config.js"></script>
 </body>
 
 </html>
