@@ -176,7 +176,7 @@
         </div>
     </div>
 
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -184,6 +184,25 @@
 
     <!-- <script src="lib/particlejs/particle.min.js"></script>
     <script src="lib/particlejs/particle.js"></script> -->
+
+    <script>
+        $(document).ready(function () {
+
+
+            $.ajax({
+                type: "GET",
+                url: `http://localhost:3000/users/oleiro87@gmail.com`,
+                success: function (data) {
+                    $("#email").val(data.email);
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+                    alert(request.responseText);
+                    alert(erro);
+                }
+            });
+        })
+    </script>
 </body>
 
 </html>
