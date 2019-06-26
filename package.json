@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel serve  index.html -p 8080",
+    "start": "parcel serve index.html -p 8080",
     "build": "parcel build index.html",
     "tsc": "./node_modules/.bin/tsc",
     "watch": "./node_modules/.bin/tsc -w"
