@@ -3,6 +3,8 @@ import { HOST } from './config/index'
 import * as val from './validate-fns'
 import { noFalse } from './utils/listCheck';
 
+declare const grecaptcha: any;
+
 const codeInput = InputWrapper.fromId('code')
 const emailInput = InputWrapper.fromId('email_rec')
 const passwordInput = InputWrapper.fromId('password_rec')
@@ -22,18 +24,27 @@ form.addEventListener('submit', (event: Event) => {
 
     if (noFalse(valFns)) {
 
-        let formData = new FormData(form)
+        grecaptcha.ready(function () {
 
-        fetch(`${HOST}users/code/verify`, {
-            method: 'POST',
-            body: formData
+            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_register' })
+                .then(function (token: string) {
+
+                    let formData = new FormData(form)
+                    formData.append('recaptchaToken', token)
+
+                    fetch(`${HOST}users/code/verify`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data)
+                            location.replace("index.html")
+                        })
+                        .catch(console.log)
+
+                })
         })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                location.replace("index.html")
-            })
-            .catch(console.log)
 
         /*
             $.ajax({
