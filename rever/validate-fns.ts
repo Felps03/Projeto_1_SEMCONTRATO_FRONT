@@ -1,4 +1,5 @@
-import { InputWrapper } from './validate/index'
+//atualizar
+import { InputWrapper } from '../app/ts/validate/index'
 
 export function code(code: InputWrapper): string {
     if (!code.value) {
@@ -39,6 +40,8 @@ export function email(email: InputWrapper): string {
     } else if (!/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9_-])+(\.([a-zA-Z0-9_-])+)+$/.test(email.value)) {
         return 'Email inválido. Exemplo: abc123@def.gh'
     }
+
+    return null
 }
 
 export function lastName(lastName: InputWrapper): string {
@@ -53,6 +56,7 @@ export function lastName(lastName: InputWrapper): string {
     }
 
     return null
+
 }
 
 export function name(name: InputWrapper): string {
@@ -99,9 +103,9 @@ export function photo(file: InputWrapper): string {
 
     if (ALLOWED_EXTS.indexOf(fileExt) === -1) {
         return 'Formato de arquivo de imagem inválido.'
-    } else {
-        return null
     }
+
+    return null
 }
 
 export function username(username: InputWrapper): string {
@@ -110,28 +114,6 @@ export function username(username: InputWrapper): string {
     } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(username.value)) {
         return 'Nome de usuário inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
     }
-}
 
-export function yesterday(first: InputWrapper): string {
-    if (!(first.value.length > 3)) {
-        return 'Descrição muito pequena.'
-    } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(first.value)) {
-        return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
-    }
-}
-
-export function today(today: InputWrapper): string {
-    if (!(today.value.length > 3)) {
-        return 'Descrição muito pequena.'
-    } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(today.value)) {
-        return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
-    }
-}
-
-export function impediment(third: InputWrapper): string {
-    if (!(third.value.length > 3)) {
-        return 'Descrição muito pequena.'
-    } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(third.value)) {
-        return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
-    }
+    return null
 }

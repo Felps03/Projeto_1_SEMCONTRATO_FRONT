@@ -27,7 +27,7 @@ export class UserController {
     adiciona(event: Event) {
         event.preventDefault();
 
-        let data = new Date(this._date.val().replace(/-/g, ','));
+        let dataOfBirth = new Date(this._dateOfBirth.val().replace(/-/g, ','));
 
         const user = new User(
             this._name,
@@ -35,7 +35,7 @@ export class UserController {
             this._userName,
             this._email,
             this._password,
-            data
+            dataOfBirth
         );
 
         console.log(user);
