@@ -3,7 +3,11 @@ import { HOST } from '../config/index';
 
 export class AuthenticateService {
 
-    //autenticação de usuário
+    /**
+     * 
+     * @param email para validar usuario
+     * @param password para validar usuario
+     */
     authenticate(email: string, password: string) {
         const form: HTMLFormElement = <HTMLFormElement>document.getElementById('login-form')
         
@@ -48,7 +52,11 @@ export class AuthenticateService {
         })
     }
     
-    //verificar código de recuperação e email
+    /**
+     * 
+     * @param codigo para recuperar senha de usuario
+     * @param email para validar usuario
+     */
     verifyCode(codigo: string, email: string) {
         const form: HTMLFormElement = <HTMLFormElement>document.getElementById('recovery-code-form')
         

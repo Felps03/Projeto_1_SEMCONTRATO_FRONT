@@ -3,7 +3,9 @@ import { HOST } from '../config/index';
 
 export class UserService {
     
-    //listar usuários
+    /**
+     * listar todos usuários
+     */
     lista() {
         
         $.ajax({
@@ -20,8 +22,10 @@ export class UserService {
         })
     }
 
-    //TODO> refazerverificar sobre foto
-    //cadastrar usuário
+    /**
+     * cadastrar um usuário
+     * TODO: verificar como tratar foto
+     */
     cadastro() {
 
         const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-register')
@@ -44,8 +48,11 @@ export class UserService {
 
     }
 
-    //editar dados do usuário -recebe id
-    editar() {
+    /**
+     * 
+     * @param id para alterar dados do usuário dessa id
+     */
+    editar(id: string) {
 
         const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-edit')
         
@@ -53,7 +60,7 @@ export class UserService {
             
         $.ajax({
             type: 'PUT',
-            url: `${HOST}users/user/d`,
+            url: `${HOST}users/user/${id}`,
             contentType: false,
             cache: false,
             processData: false,
@@ -67,7 +74,10 @@ export class UserService {
             
     }
 
-    //remover usuário
+    /**
+     * 
+     * @param id para remover usuário
+     */
     remove(id : string) {
             
         $.ajax({
@@ -85,8 +95,12 @@ export class UserService {
 
     }
 
-    //alterar senha de usuário - email faltou
-    changePassword(password: string) {
+    /**
+     * 
+     * @param email para alterar senha do usuário
+     * @param password nova senha
+     */
+    changePassword(email: string, password: string) {
         const form: HTMLFormElement = <HTMLFormElement>document.getElementById('recovery-code-form')
         
         let formData = new FormData(form)
@@ -106,7 +120,10 @@ export class UserService {
         })
     }
 
-    //buscar email de usuário
+    /**
+     * 
+     * @param email para buscar se cadastro ja existe
+     */
     findByEmail(email : string) {
         
         $.ajax({
