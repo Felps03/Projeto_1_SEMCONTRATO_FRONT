@@ -1,21 +1,15 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "esModuleInterop": true,
-        "target": "es5",
+        "target": "es6",
+        "outDir": "app/js",
+        "noEmitOnError": true, 
         "noImplicitAny": true,
         "removeComments": true,
-        "sourceMap": true,
-        "outDir": "js/dist",
-        "baseUrl": ".",
-        "paths": {
-            "*": [
-                "node_modules/*"
-            ]
-        }
+        "module": "system",
+        "strictNullChecks": true,
+        "experimentalDecorators": true
     },
     "include": [
-        "ts/*",
-        "ts/validate/validate.ts"
+        "app/ts/**/*"
     ]
 }

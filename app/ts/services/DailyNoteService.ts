@@ -1,4 +1,4 @@
-import { DailyNote, DailyNoteParcial } from '../models/index';
+import { DailyNote } from '../models/index';
 export class DailyNoteService {
 
     obterDailyNotes(handler: HandlerFunction): Promise<DailyNote[]> {
