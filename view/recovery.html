@@ -5,27 +5,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="img/logo_compasso.ico">
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="icon" href="../img/logo_compasso.ico">
+    <link rel="stylesheet" href="./../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link href="lib/materialize/icons/icons.css" rel="stylesheet">
     <link href="lib/materialize/fonts/fonts.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="../css/custom.css">
     <title>Recuperação de Senha</title>
-
-    <!-- intentional -->
-    <script src="https://www.google.com/recaptcha/api.js?render=6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn"></script>
 </head>
 
 <body>
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container">
             <div class="navbar-header ml-n2">
-                <i class="navbar-toggle material-icons menu-icon align-middle ml-n2" data-toggle="collapse"
-                    data-target="#navbar">menu</i>
-                <img src="img/logo_compasso.png" href="#!">
+                <i class="navbar-toggle material-icons menu-icon align-middle ml-n2" data-toggle="collapse" data-target="#navbar">menu</i>
+                <img src="../img/logo_compasso.png" href="#!">
             </div>
             <h5 class="txt-primary ml-n3">Recuperação de Senha</h5>
-
+        
             <div class="collapse navbar-collapse ml-n5 mb-n3" id="navbar">
                 <div class="list-inline ml-n2">
                     <ul class="justify-center">
@@ -34,8 +30,8 @@
                                 <i class="material-icons align-middle custom-icon mr-1 mb-1">account_circle</i>
                                 <strong>Área de Acesso</strong>
                             </a>
-                        </li>
-
+                        </li> 
+                        
                         <li class="list-inline-item ml-sm-3">
                             <a href="user-register.html" class="menu-item">
                                 <i class="material-icons align-middle custom-icon mr-1 mb-1">add_circle</i>
@@ -49,7 +45,9 @@
     </nav>
 
     <div class="container page-position">
-
+        <div class="alert alert-success mt-5 text-center" role="alert">
+            Um código de verificação foi enviado para o seu e-mail, <strong>verifique sua caixa de entrada</strong>.
+        </div>
 
         <div class="row justify-content-center align-items-center">
             <div class="col-md-5">
@@ -62,24 +60,23 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="email">E-mail:</label>
-                            <input type="text" name="txt_email" class="form-control input-circle" id="email"
-                                placeholder="Informe seu e-mail">
+                            <label for="code">Código:</label>
+                            <input type="text" name="txt_code" class="form-control input-circle" id="code"
+                                placeholder="Informe o código">
                             <div id="emailvalidator"></div>
                         </div>
 
-                        <button type="submit" name="send" class="btn btn-warning float-right pr-4 pl-4 input-circle"
-                            id="recovery">Recuperar</button>
+                        <button type="submit" name="send" class="btn btn-warning float-right mt-3 pr-4 pl-4 input-circle" id="recovery">Enviar Código</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/user-recovery-pass-utils.js"></script>
+    <script src="./../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/user-recovery-pass-utils.js"></script>
 </body>
 
 </html>

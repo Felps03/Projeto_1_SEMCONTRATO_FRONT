@@ -329,7 +329,7 @@ $(function () {
 //Integration
 let register = document.getElementById('register-new-user');
 
-register.addEventListener('click', function (event) {
+register.addEventListener('click', function(event) {
 
 
 	event.preventDefault();
@@ -355,24 +355,24 @@ register.addEventListener('click', function (event) {
 					password,
 					file_photo,
         dateOfBirth       
-				}
+	}
 
-				console.log(User);
+	console.log(User);
+	
+	let dataForm = document.getElementById("user-register");
 
-				let dataForm = document.getElementById("user-register");
+	const URL = 'https://semcontrato.herokuapp.com/users/user/';
 
-	const URL = 'http://semcontrato.herokuapp.com/users/user/';
+	var formData = new FormData(dataForm);
 
-				var formData = new FormData(dataForm);
-
-				$.ajax({
-					type: 'POST',
-					url: URL,
-					contentType: false,
-					data: formData,
-					success: function (data) {
-						console.log(data);
-						document.querySelector("#register").innerHTML = `
+	$.ajax({
+        type: 'POST',
+        url: URL,
+		contentType: false,
+        data: formData,
+        success: function(data) {
+			console.log(data);
+            document.querySelector("#register").innerHTML = `
                 <div class="alert alert-success alert-dismissible mt-4 border-0 input-circle" id="errormessage">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>Você foi cadastrado com sucesso!
 			    </div>
