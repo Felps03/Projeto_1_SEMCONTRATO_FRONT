@@ -28,7 +28,6 @@ export class DailyNoteController {
     constructor() { }
 
     add(event: Event) {
-
         event.preventDefault();
 
         if (noFalse(this.valFns)) {
