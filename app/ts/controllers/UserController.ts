@@ -1,6 +1,6 @@
 import { User } from '../models/User';
 import { domInject } from '../helpers/decorators/index';
-import { name } from '../validate-fns';
+import { name, lastName, username, email, photo, password, passwordConfirm, code, date } from '../validate/userValidate';
 
 export class UserController {
 
@@ -28,7 +28,6 @@ export class UserController {
     add(event: Event) {
         event.preventDefault();
 
-<<<<<<< HEAD
         let data = new Date(this._dateOfBirth.val().replace(/-/g, ','));
 
         const user = new User(
@@ -38,17 +37,6 @@ export class UserController {
             this._email.toString(),
             this._password.toString(),
             data
-=======
-        let dataOfBirth = new Date(this._dateOfBirth.val().replace(/-/g, ','));
-
-        const user = new User(
-            this._name,
-            this._lastName,
-            this._userName,
-            this._email,
-            this._password,
-            dataOfBirth
->>>>>>> 60da5cc4532eb5bd18fe61ff69f7b736a53b2bdd
         );
 
         console.log(user);
