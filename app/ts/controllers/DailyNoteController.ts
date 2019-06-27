@@ -15,8 +15,7 @@ export class DailyNoteController {
     @domInject('#date')
     private _date: JQuery;
     
-    constructor() {
-    }
+    constructor() {}
 
     adiciona(event: Event) {
         event.preventDefault();
@@ -29,5 +28,8 @@ export class DailyNoteController {
             this._impediment,
             data
         );
+
+        
+        console.log(dailyNote);
     }
 }
