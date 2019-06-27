@@ -1,13 +1,13 @@
-import { InputWrapper } from '../app/ts/validate/index'
+import { InputWrapper } from '../validate/index'
 
 export function yesterday(first: InputWrapper): string {
     if (!(first.value.length > 3)) {
         return 'Descrição muito pequena.'
     } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(first.value)) {
         return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
+    } else{
+        return ''
     }
-
-    return null
 }
 
 export function today(today: InputWrapper): string {
@@ -15,9 +15,9 @@ export function today(today: InputWrapper): string {
         return 'Descrição muito pequena.'
     } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(today.value)) {
         return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
+    } else{
+        return ''
     }
-
-    return null
 }
 
 export function impediment(third: InputWrapper): string {
@@ -25,7 +25,8 @@ export function impediment(third: InputWrapper): string {
         return 'Descrição muito pequena.'
     } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(third.value)) {
         return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
+    } else {
+        return ''
     }
-
-    return null
+    
 }
