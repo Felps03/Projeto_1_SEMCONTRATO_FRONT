@@ -37,7 +37,7 @@ export class DailyNoteController {
                 new Date()
             );
 
-            this._service.cadastro(dailyNote);
+            this._service.add();
 
             console.log(dailyNote);
         } else {
@@ -46,22 +46,7 @@ export class DailyNoteController {
     }
 
     list(event: Event) {
-        event.preventDefault();
 
-        if (noFalse(this.valFns)) {
-            const dailyNote = new DailyNote(
-                this._yesterday.toString(),
-                this._today.toString(),
-                this._impediment.toString(),
-                new Date()
-            );
-
-            this._service.cadastro(dailyNote);
-
-            console.log(dailyNote);
-        } else {
-            console.log(this.valFns);
-        }
     }
 
     update(event: Event) {

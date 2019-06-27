@@ -6,11 +6,11 @@ export class DailyNoteService {
     /**
      * adicionar uma daily
      */
-    cadastrar() {
+    add() {
         const form: HTMLFormElement = <HTMLFormElement>document.getElementById('daily-form')
-        
+
         let formData = new FormData(form)
-            
+
         $.ajax({
             type: 'POST',
             url: `${HOST}dailys/daily`,
@@ -30,12 +30,11 @@ export class DailyNoteService {
      * 
      * @param id para alterar dados do usuário dessa id
      */
-    editar(id: string) {
-
+    update(id: string) {
         const form: HTMLFormElement = <HTMLFormElement>document.getElementById('editdaily-form')
-        
+
         let formData = new FormData(form)
-            
+
         $.ajax({
             type: 'PUT',
             url: `${HOST}dailys/daily/${id}`,
@@ -49,14 +48,14 @@ export class DailyNoteService {
                 console.log("resquest: ", request.responseText)
             }
         })
-           
+
     }
 
     /**
      * 
      * @param data para buscar a daily da data informada
      */
-    listDate(data : Date) {
+    listDate(data: Date) {
         $.ajax({
             type: 'GET',
             url: `${HOST}dailys/daily/${data}`,
