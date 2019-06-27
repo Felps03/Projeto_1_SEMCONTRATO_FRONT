@@ -1,8 +1,9 @@
 import { User } from '../models/User';
 import { domInject } from '../helpers/decorators/index';
+import { name } from '../validate-fns';
 
 export class UserController {
-    
+
     @domInject('#name')
     private _name: JQuery;
 
@@ -24,21 +25,40 @@ export class UserController {
     constructor() {}
 
 
-    adiciona(event: Event) {
+    add(event: Event) {
         event.preventDefault();
 
-        let data = new Date(this._date.val().replace(/-/g, ','));
+        let data = new Date(this._dateOfBirth.val().replace(/-/g, ','));
 
         const user = new User(
-            this._name,
-            this._lastName,
-            this._userName,
-            this._email,
-            this._password,
+            this._name.toString(),
+            this._lastName.toString(),
+            this._userName.toString(),
+            this._email.toString(),
+            this._password.toString(),
             data
         );
 
         console.log(user);
     }
 
+    list() {
+
+    }
+
+    update() {
+
+    }
+
+    remove() {
+
+    }
+
+    findById() {
+
+    }
+
+    changePassword() {
+
+    }
 }
