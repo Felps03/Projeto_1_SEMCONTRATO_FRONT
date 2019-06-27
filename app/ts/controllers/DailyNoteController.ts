@@ -21,7 +21,7 @@ export class DailyNoteController {
 
     constructor() {}
 
-    adiciona(event: Event) {
+    add(event: Event) {
         event.preventDefault();
 
         let data = new Date(this._date.val().replace(/-/g, ','));
@@ -36,7 +36,7 @@ export class DailyNoteController {
         console.log(dailyNote);
     }
 
-    lista(event: Event) {
+    list(event: Event) {
         event.preventDefault();
 
         // this._service.obterDailyNotes(res => {
@@ -50,7 +50,7 @@ export class DailyNoteController {
         // );
     }
 
-    edita(event: Event) {
+    update(event: Event) {
         event.preventDefault();
 
 

@@ -1,4 +1,5 @@
-import { InputWrapper } from './validate/index'
+//atualizar
+import { InputWrapper } from '../app/ts/validate/index'
 
 export function code(code: InputWrapper): string {
     if (!code.value) {
@@ -36,33 +37,36 @@ export function date(date: InputWrapper): string {
 export function email(email: InputWrapper): string {
     if (!email.value) {
         return 'Email vazio.'
-    } else (!/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9_-])+(\.([a-zA-Z0-9_-])+)+$/.test(email.value)) {
+    } else if (!/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9_-])+(\.([a-zA-Z0-9_-])+)+$/.test(email.value)) {
         return 'Email inválido. Exemplo: abc123@def.gh'
-    }
-}
-
-export function lastName(lastName: InputWrapper): string {
-    if (!(lastName.value.length > 2)) {
-        return 'Sobrenome muito curto.'
-    } else (!/[A-Z]([a-z]|\s)+$/.test(lastName.value)) {
-        return 'Sobrenome inválido: Use uma letra maiúscula seguida de letras minúsculas.'
-    } else (/\s\s/.test(lastName.value)) {
-        return 'Sobrenome inválido: Dois ou mais espaços consecutivos.'
-    } else (/\s[A-z]\s/.test(lastName.value)) {
-        return 'Sobrenome inválido: Caracter solitário :(.'
     }
 
     return null
 }
 
+export function lastName(lastName: InputWrapper): string {
+    if (!(lastName.value.length > 2)) {
+        return 'Sobrenome muito curto.'
+    } else if (!/[A-Z]([a-z]|\s)+$/.test(lastName.value)) {
+        return 'Sobrenome inválido: Use uma letra maiúscula seguida de letras minúsculas.'
+    } else if (/\s\s/.test(lastName.value)) {
+        return 'Sobrenome inválido: Dois ou mais espaços consecutivos.'
+    } else if (/\s[A-z]\s/.test(lastName.value)) {
+        return 'Sobrenome inválido: Caracter solitário :(.'
+    }
+
+    return null
+
+}
+
 export function name(name: InputWrapper): string {
     if (!(name.value.length > 2)) {
         return 'Nome muito curto.'
-    } else (!/[A-Z]([a-z]|\s)+$/.test(name.value)) {
+    } else if (!/[A-Z]([a-z]|\s)+$/.test(name.value)) {
         return 'Nome inválido: Use uma letra maiúscula seguida de letras minúsculas.'
-    } else (/\s\s/.test(name.value)) {
+    } else if (/\s\s/.test(name.value)) {
         return 'Nome inválido: Dois ou mais espaços consecutivos.'
-    } else (/\s[A-z]\s/.test(name.value)) {
+    } else if (/\s[A-z]\s/.test(name.value)) {
         return 'Nome inválido: Caracter solitário :(.'
     }
 
@@ -72,7 +76,7 @@ export function name(name: InputWrapper): string {
 export function password(pw: InputWrapper): string {
     if (pw.value.length < 6 || pw.value.length > 8) {
         return 'Senha deve ter tamanho entre 6 e 8 dígitos.'
-    } else (pw.value.indexOf(' ') !== -1) {
+    } else if (pw.value.indexOf(' ') !== -1) {
         return 'Senha não pode conter espaços.'
     }
 
@@ -82,7 +86,7 @@ export function password(pw: InputWrapper): string {
 export function passwordConfirm(pw: InputWrapper, confirm: InputWrapper): string {
     if (!pw.value) {
         return 'Confirmação obrigatória.'
-    } else (pw.value !== confirm.value) {
+    } else if (pw.value !== confirm.value) {
         return 'Senhas não batem'
     }
 
@@ -99,39 +103,17 @@ export function photo(file: InputWrapper): string {
 
     if (ALLOWED_EXTS.indexOf(fileExt) === -1) {
         return 'Formato de arquivo de imagem inválido.'
-    } else {
-        return null
     }
+
+    return null
 }
 
 export function username(username: InputWrapper): string {
     if (!(username.value.length > 2)) {
         return 'Nome de usuário muito curto.'
-    } else (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(username.value)) {
+    } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(username.value)) {
         return 'Nome de usuário inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
     }
-}
 
-export function yesterday(first: InputWrapper): string {
-    if (!(first.value.length > 3)) {
-        return 'Descrição muito pequena.'
-    } else (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(first.value)) {
-        return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
-    }
-}
-
-export function today(today: InputWrapper): string {
-    if (!(today.value.length > 3)) {
-        return 'Descrição muito pequena.'
-    } else (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(today.value)) {
-        return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
-    }
-}
-
-export function impediment(third: InputWrapper): string {
-    if (!(third.value.length > 3)) {
-        return 'Descrição muito pequena.'
-    } else (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(third.value)) {
-        return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
-    }
+    return null
 }
