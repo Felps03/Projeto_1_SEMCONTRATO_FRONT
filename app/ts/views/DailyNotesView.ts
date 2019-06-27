@@ -1,8 +1,8 @@
 import { View } from './View';
-import { DailyNote } from '../models/index';
+import { DailyNote, User } from '../models/index';
 import { DailyNotes } from '../models/DailyNotes';
 
-export class DailyNoteView extends View<DailyNote> {
+export class DailyNotesView extends View<DailyNotes> {
 
     template(model: DailyNotes): string {
 
@@ -15,7 +15,7 @@ export class DailyNoteView extends View<DailyNote> {
                         <label for="name">Nome:</label>
                         <input type="text" name="name"
                             class="form-control form-control-sm input-circle"
-                            id="name" value="${dailyNote.name}" disabled>
+                            id="name" value="${User.name}" disabled>
                         <div id="namevalidator"></div>
                     </div>
                 </div>

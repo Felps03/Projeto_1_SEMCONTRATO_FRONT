@@ -3,7 +3,6 @@ import { DailyNoteService } from '../services/DailyNoteService';
 import { domInject } from '../helpers/decorators/index';
 import * as val from '../validate/DailyNoteValidate'
 import { noFalse } from '../utils/listCheck';
-//import { yesterday, today, impediment } from '../validate/DailyNoteValidate';
 import { InputWrapper, validate } from '../validate/index'
 
 
