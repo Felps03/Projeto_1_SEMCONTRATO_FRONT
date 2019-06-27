@@ -1,13 +1,12 @@
 import { DailyNote } from '../models/index';
+
 export class DailyNoteService {
 
-    obterDailyNotes(handler: HandlerFunction): Promise<DailyNote[]> {
+    lista() {}
 
-        //TODO VAI AJAX
-    }
-}
+    cadastro() {}
 
-export interface HandlerFunction {
+    editar() {}
 
-    (res: Response): Response
+    remove() { }
 }
