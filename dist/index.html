@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="/logo_compasso.5389069a.ico">
+    <link rel="stylesheet" href="/bootstrap.min.2e858bcc.css">
+    <link href="/icons.e82e3869.css" rel="stylesheet">
+    <link href="/fonts.e8154e6e.css" rel="stylesheet">
+    <link href="/particle.b9739245.css" rel="stylesheet">
+    <link rel="stylesheet" href="/custom.59417457.css">
+    <title>Área de Acesso</title>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn"></script>
+<script src="/bootstrap.min.2e858bcc.js"></script><script src="/icons.e82e3869.js"></script><script src="/fonts.e8154e6e.js"></script><script src="/particle.b9739245.js"></script><script src="/custom.59417457.js"></script></head>
+
+<body>
+    <!-- particles.js -->
+    <div id="particles-js"></div>
+
+    <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
+        <div class="container-fluid">
+            <div class="navbar-header ml-n3">
+                <img src="/logo_compasso.4607fb91.png">
+            </div>
+            <h5 class="txt-primary"><strong>Apps</strong></h5>
+        </div>
+    </nav>
+
+    <div class="container page-position">
+        <div class="row centered">
+            <div class="col-10 col-sm-4 section-login">
+                <div class="col-12">
+                    <form class="form" method="post" id="login-form" autocomplete="off">
+
+                        <div class="vt-line mt-4 mb-4">
+                            <h3><strong>Login</strong></h3>
+                        </div>
+                        <hr class="login-line">
+
+                        <div class="form-group">
+                            <label for="email">E-mail:</label>
+                            <input type="text" name="txt_email" class="form-control form-control-sm input-circle" id="email" placeholder="Informe seu e-mail" autofocus="">
+                            <div id="emailvalidator"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Senha:</label>
+                            <input type="password" name="pass_password" class="form-control form-control-sm input-circle" id="password" placeholder="Informe sua senha" maxlength="8">
+                            <div id="passwordvalidator"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                    <label for="recovery_password">
+                                        <span>
+                                            <a class="menu-item" href="#!" data-toggle="modal" data-target="#recoveryModal">Esqueceu sua senha?</a>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class=" row">
+                                <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                    <label for="register" class="float-left">
+                                        <span>
+                                            <a class="menu-item" href="/user-register.html">Cadastre-se</a>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" name="send" class="btn btn-outline-success btn-sm float-right pr-4 pl-4 mb-4 input-circle" id="access">Acessar</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <a href="/user-register.html"></a>
+    <a href="/user-recovery.html"></a>
+    <a href="/user-edit.html"></a>
+    <a href="/app-daily-note.html"></a>
+    <a href="/home.html"></a>
+    
+
+    <div class="modal fade" id="recoveryModal" tabindex="-1" role="dialog" aria-labelledby="recoveryTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <div class="modal-title vt-line mt-2" id="recoveryTitle">
+                        <h3><strong>Recuperar Senha</strong></h3>
+                    </div>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form" method="post" action="#" id="recovery-pass-form" autocomplete="off">
+                        <div class="form-group">
+                            <label for="email_rec">E-mail:</label>
+                            <input type="text" name="email" class="form-control form-control-sm input-circle" id="email_rec" placeholder="Informe seu e-mail" autofocus="">
+                            <div id="emailvalidator_rec"></div>
+                        </div>
+                        <button type="submit" name="send" class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle" id="recovery-pass">Recuperar</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle" data-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="vt-line mb-2 mt-2">
+                        <h5 class="modal-title" id="cancelTitle"><strong>Alteração de Senha</strong></h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form" method="post" action="#" id="recovery-form" autocomplete="off">
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="modalpassword">Senha:</label>
+                                <input type="password" name="modalpass_password" class="form-control input-circle" id="modalpassword" placeholder="Informe uma senha" maxlength="8">
+                                <div id="modalpasswordvalidator"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="modalnewpassword" class="mt-4">Nova Senha:</label>
+                                <input type="password" name="senha" class="form-control input-circle" id="modalnewpassword" placeholder="Informe uma nova senha" maxlength="8">
+                                <div id="modalnewpasswordvalidator"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="modalpassword">Confirmação de Nova Senha:</label>
+                                <input type="password" name="modalnewpass_passwordConfirm" class="form-control input-circle" id="modalnewpasswordConfirm" placeholder="Confirme a nova senha" maxlength="8">
+                                <div id="modalnewpasswordconfirmvalidator"></div>
+                            </div>
+                        </div>
+
+                </form></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger pr-4 pl-4 input-circle" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-warning pr-4 pl-4 input-circle" id="alterar">Alterar</button>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <script src="/jquery.min.1e3ea97e.js"></script>
+    <script src="/bootstrap.min.45389b0b.js"></script>
+    <script src="/user-login-utils.4dda07ac.js"></script>
+
+    <script src="/particle.min.fd23771b.js"></script>
+    <script src="/particle-config.e2b04964.js"></script>
+
+    <script>$(document).ready(function () {
+  $.ajax({
+    type: "GET",
+    url: "http://localhost:3000/users/oleiro87@gmail.com",
+    success: function success(data) {
+      $("#email").val(data.email);
+    },
+    error: function error(request, status, _error) {
+      console.log(_error);
+      alert(request.responseText);
+      alert(_error);
+    }
+  });
+});</script>
+</body>
+
+</html>
