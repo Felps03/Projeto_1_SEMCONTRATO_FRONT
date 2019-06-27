@@ -1,4 +1,4 @@
-import { InputWrapper } from '../app/ts/validate/index'
+import { InputWrapper } from '../validate/index'
 
 export function yesterday(first: InputWrapper): string {
     if (!(first.value.length > 3)) {
@@ -7,7 +7,7 @@ export function yesterday(first: InputWrapper): string {
         return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
     }
 
-    return null
+    return 'validacao do yesterday ta ok'
 }
 
 export function today(today: InputWrapper): string {
@@ -17,7 +17,7 @@ export function today(today: InputWrapper): string {
         return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
     }
 
-    return null
+    return 'validacao do today ta ok'
 }
 
 export function impediment(third: InputWrapper): string {
@@ -27,5 +27,5 @@ export function impediment(third: InputWrapper): string {
         return 'Nome de daily inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
     }
 
-    return null
+    return 'validacao do impediment ta ok'
 }
