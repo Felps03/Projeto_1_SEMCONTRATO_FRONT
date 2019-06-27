@@ -25,34 +25,46 @@ var form = document.getElementById('login-form');
 form.addEventListener('submit', function (event) {
     event.preventDefault();
     if (listCheck_1.noFalse(valFns)) {
-        var formData = new FormData(form);
-        fetch(index_2.HOST + "users/user", {
-            method: 'POST',
-            body: formData
-        })
-            .then(function (res) { return res.json(); })
-            .then(function (data) {
-            console.log(data);
-            location.replace("home.html");
-        })
-            .catch(console.log);
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_login' })
+                .then(function (token) {
+                var formData = new FormData(form);
+                formData.append('recaptchaToken', token);
+                fetch(index_2.HOST + "users/user", {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(function (res) { return res.json(); })
+                    .then(function (data) {
+                    console.log(data);
+                    location.replace("home.html");
+                })
+                    .catch(console.log);
+            });
+        });
     }
 });
 var recForm = document.getElementById('recovery-pass-form');
 recForm.addEventListener('submit', function (event) {
     event.preventDefault();
     if (listCheck_1.noFalse(valFnsRec)) {
-        var formData = new FormData(recForm);
-        fetch(index_2.HOST + "users/user/recover", {
-            method: 'POST',
-            body: formData,
-        })
-            .then(function (res) { return res.json(); })
-            .then(function (data) {
-            console.log(data);
-            location.replace("recovery.html");
-        })
-            .catch(console.log);
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_pass_rec_1' })
+                .then(function (token) {
+                var formData = new FormData(form);
+                formData.append('recaptchaToken', token);
+                fetch(index_2.HOST + "users/user/recover", {
+                    method: 'POST',
+                    body: formData,
+                })
+                    .then(function (res) { return res.json(); })
+                    .then(function (data) {
+                    console.log(data);
+                    location.replace("recovery.html");
+                })
+                    .catch(console.log);
+            });
+        });
     }
 });
 //# sourceMappingURL=user-login-utils.js.map

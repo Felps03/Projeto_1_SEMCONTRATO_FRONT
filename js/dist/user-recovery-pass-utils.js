@@ -25,17 +25,23 @@ var form = document.getElementById('recovery-code-form');
 form.addEventListener('submit', function (event) {
     event.preventDefault();
     if (listCheck_1.noFalse(valFns)) {
-        var formData = new FormData(form);
-        fetch(index_2.HOST + "users/code/verify", {
-            method: 'POST',
-            body: formData
-        })
-            .then(function (res) { return res.json(); })
-            .then(function (data) {
-            console.log(data);
-            location.replace("index.html");
-        })
-            .catch(console.log);
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6LemuakUAAAAALHHE5_7NL8FwKzEvCXLXzUUqahn', { action: 'user_pass_rec_2' })
+                .then(function (token) {
+                var formData = new FormData(form);
+                formData.append('recaptchaToken', token);
+                fetch(index_2.HOST + "users/code/verify", {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(function (res) { return res.json(); })
+                    .then(function (data) {
+                    console.log(data);
+                    location.replace("index.html");
+                })
+                    .catch(console.log);
+            });
+        });
     }
 });
 //# sourceMappingURL=user-recovery-pass-utils.js.map
