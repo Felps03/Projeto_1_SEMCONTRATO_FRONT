@@ -1,6 +1,5 @@
 import { validate, InputWrapper } from './validate/index'
 import { HOST } from './config/index'
-import * as val from './validate-fns'
 import { noFalse } from './utils/listCheck'
 
 const yesterday = InputWrapper.fromId('first')

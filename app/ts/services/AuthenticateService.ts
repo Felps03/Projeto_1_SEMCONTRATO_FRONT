@@ -1,19 +1,21 @@
-import { DailyNote } from '../models/index';
+import { User } from '../models/index';
 import { HOST } from '../config/index';
 
-export class DailyNoteService {
+export class AuthenticateService {
 
     /**
-     * adicionar uma daily
+     * 
+     * @param email para validar usuario
+     * @param password para validar usuario
      */
-    add() {
-        const form: HTMLFormElement = <HTMLFormElement>document.getElementById('daily-form')
-
+    authenticate(email: string, password: string) {
+        const form: HTMLFormElement = <HTMLFormElement>document.getElementById('login-form')
+        
         let formData = new FormData(form)
-
+            
         $.ajax({
             type: 'POST',
-            url: `${HOST}dailys/daily`,
+            url: `${HOST}users/authenticate`,
             contentType: false,
             cache: false,
             processData: false,
@@ -25,19 +27,19 @@ export class DailyNoteService {
             }
         })
     }
-
+    
     /**
      * 
-     * @param id para alterar dados do usuário dessa id
+     * @param email para recuperação de senha
      */
-    update(id: string) {
-        const form: HTMLFormElement = <HTMLFormElement>document.getElementById('editdaily-form')
-
+    resetPassword(email: string) {
+        const form: HTMLFormElement = <HTMLFormElement>document.getElementById('recovery-pass-form')
+        
         let formData = new FormData(form)
-
+            
         $.ajax({
-            type: 'PUT',
-            url: `${HOST}dailys/daily/${id}`,
+            type: 'POST',
+            url: `${HOST}users/user/recover`,
             contentType: false,
             cache: false,
             processData: false,
@@ -48,39 +50,25 @@ export class DailyNoteService {
                 console.log("resquest: ", request.responseText)
             }
         })
-
     }
-
+    
     /**
      * 
-     * @param data para buscar a daily da data informada
+     * @param codigo para recuperar senha de usuario
+     * @param email para validar usuario
      */
-    listDate(data: Date) {
+    verifyCode(codigo: string, email: string) {
+        const form: HTMLFormElement = <HTMLFormElement>document.getElementById('recovery-code-form')
+        
+        let formData = new FormData(form)
+            
         $.ajax({
-            type: 'GET',
-            url: `${HOST}dailys/daily/${data}`,
+            type: 'POST',
+            url: `${HOST}users/code/verify`,
             contentType: false,
             cache: false,
             processData: false,
-            success: function (data) { console.log(data) },
-            error: function (request, status, error) {
-                console.log("error: ", error)
-                console.log("resquest: ", request.responseText)
-            }
-        })
-    }
-
-    /**
-     * 
-     * listar todas as dailys
-     */
-    listAll() {
-        $.ajax({
-            type: 'GET',
-            url: `${HOST}dailys`,
-            contentType: false,
-            cache: false,
-            processData: false,
+            data: formData,
             success: function (data) { console.log(data) },
             error: function (request, status, error) {
                 console.log("error: ", error)
@@ -90,3 +78,5 @@ export class DailyNoteService {
     }
 
 }
+
+

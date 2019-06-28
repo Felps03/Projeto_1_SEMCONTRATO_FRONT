@@ -1,8 +1,9 @@
 import { User } from '../models/User';
 import { domInject } from '../helpers/decorators/index';
+import { name, lastName, username, email, photo, password, passwordConfirm, code, date } from '../validate/userValidate';
 
 export class UserController {
-    
+
     @domInject('#name')
     private _name: JQuery;
 
@@ -24,7 +25,7 @@ export class UserController {
     constructor() {}
 
 
-    adiciona(event: Event) {
+    add(event: Event) {
         event.preventDefault();
 
         let dataOfBirth = new Date(this._dateOfBirth.val().replace(/-/g, ','));
@@ -41,4 +42,23 @@ export class UserController {
         console.log(user);
     }
 
+    list() {
+
+    }
+
+    update() {
+
+    }
+
+    remove() {
+
+    }
+
+    findById() {
+
+    }
+
+    changePassword() {
+
+    }
 }
