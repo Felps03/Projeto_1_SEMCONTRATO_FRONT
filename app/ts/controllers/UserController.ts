@@ -14,7 +14,7 @@ export class UserController {
     constructor() {
         this.name =  <HTMLInputElement>document.querySelector('#name');
         this.lastName =  <HTMLInputElement>document.querySelector('#lastName');
-        this.userName =  <HTMLInputElement>document.querySelector('#euserNamemail');
+        this.userName =  <HTMLInputElement>document.querySelector('#userName');
         this.email =  <HTMLInputElement>document.querySelector('#email');
         this.photo =  <HTMLInputElement>document.querySelector('#photo');
         this.password =  <HTMLInputElement>document.querySelector('#password');
@@ -22,6 +22,7 @@ export class UserController {
     }
 
     add(event: Event) {
+        alert("chegou");
         event.preventDefault();
 
         let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
