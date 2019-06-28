@@ -26,20 +26,36 @@
             <div class="navbar-header ml-n3">
                 <a href="/home.html"><img src="/logo_compasso.4607fb91.png"></a>
             </div>
-            
-            <div class="dropdown">
-                <div class="dropdown-toggle txt-primary mr-2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Juliana123
-                    <img src="/teste.217df351.jpg" class="rounded-circle ml-2" width="50px">
-                </div>
 
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/user-edit.html">Alterar Cadastro</a>
+            <!-- User menu -->
+            <div class="dropdown mr-n4 txt-user" style="float:right;">
+                <div class="d-flex align-items-center btn" data-toggle="dropdown">
+                    <img src="/teste.217df351.jpg" class="rounded-circle" width="50px">
+                    <i class="material-icons">arrow_drop_down</i>
+                </div>
+                <div class="dropdown-menu dropdown-menu-right align-user">
+
+                    <a class="dropdown-item">
+                        <span>Juliana Sequeira </span>
+                        <span>(juliana123)</span>
+                    </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/home.html">Home</a>
-                    <a class="dropdown-item" href="/app-daily-note.html">Daily Note</a>
+
+                    <a class="dropdown-item d-flex align-items-center" href="/user-edit.html">
+                        <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item"><strong>Sair</strong></a>
+
+                    <a class="dropdown-item d-flex align-items-center" href="/home.html">
+                        <i class="material-icons mr-2">home</i>Home</a>
+
+                    <a class="dropdown-item d-flex align-items-center" href="/app-daily-note.html">
+                        <i class="material-icons mr-2">event_note</i>Daily Note</a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <i class="material-icons mr-2">lightbulb_outline</i>Help Center</a>
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item d-flex align-items-center">
+                        <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
                 </div>
             </div>
 
@@ -67,7 +83,7 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="name">Nome:</label>
-                            <input type="text" name="name" class="form-control form-control-sm input-circle" id="name" placeholder="Informe seu nome" autofocus="">
+                            <input type="text" name="name" class="form-control form-control-sm input-circle" id="name">
                             <div id="namevalidator"></div>
                         </div>
                     </div>
@@ -75,7 +91,7 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="lastname">Sobrenome:</label>
-                            <input type="text" name="lastName" class="form-control form-control-sm input-circle" id="lastname" placeholder="Informe seu sobrenome">
+                            <input type="text" name="lastName" class="form-control form-control-sm input-circle" id="lastname">
                             <div id="lastnamevalidator"></div>
                         </div>
                     </div>
@@ -83,13 +99,13 @@
 
                 <div class="form-group">
                     <label for="birthdate">Data de nascimento:</label>
-                    <input type="date" name="dateOfBirth" class="form-control form-control-sm ext-placeholder input-circle" id="birthdate">
+                    <input type="date" name="dateOfBirth" class="form-control form-control-sm input-circle" id="birthdate">
                     <div id="birthdatevalidator"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="email">E-mail:</label>
-                    <input type="text" name="email" class="form-control form-control-sm input-circle" id="email" placeholder="Informe seu e-mail" disabled="">
+                    <input type="text" name="email" class="form-control form-control-sm input-circle" id="email" disabled="">
                     <div id="emailvalidator"></div>
                 </div>
 
@@ -103,16 +119,16 @@
                     <label for="photo">Foto de Perfil:</label>
                     <div name="photo">
                         <input type="file" id="photo" name="file_photo" hidden="hidden">
-                        <button type="button" class="btn btn-secondary btn-sm input-circle" id="file_send">Escolher foto
-                        </button>
-                        <span class="ext-placeholder" id="custom-text">Clique para escolher.</span>
+                        <button type="button" class="btn btn-secondary btn-sm input-circle" id="file_send">Escolher
+                            foto</button>
+                        <span id="custom-text">Clique para escolher.</span>
                         <div id="photovalidator" class="mt-1"></div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="username">Nome de usuário:</label>
-                    <input type="text" name="userName" class="form-control form-control-sm input-circle" id="username" placeholder="Informe um nome de usuário">
+                    <input type="text" name="userName" class="form-control form-control-sm input-circle" id="username">
                     <div id="usernamevalidator"></div>
                 </div>
 
@@ -120,7 +136,7 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="password">Senha:</label>
-                            <input type="password" name="password" class="form-control form-control-sm input-circle" id="password" placeholder="Informe uma senha" maxlength="8">
+                            <input type="password" name="password" class="form-control form-control-sm input-circle" id="password">
                             <div id="passwordvalidator"></div>
                         </div>
                     </div>
@@ -128,7 +144,7 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="password">Confirmação:</label>
-                            <input type="password" name="pass_passwordConfirm" class="form-control form-control-sm input-circle" id="passwordConfirm" placeholder="Informe a senha novamente" maxlength="8">
+                            <input type="password" name="pass_passwordConfirm" class="form-control form-control-sm input-circle" id="passwordConfirm">
                             <div id="passwordconfirmvalidator"></div>
                         </div>
                     </div>
@@ -168,7 +184,8 @@
     <script src="/bootstrap.bundle.min.e7f96d99.js"></script>
     <script src="/particle.min.fd23771b.js"></script>
     <script src="/particle-config.e2b04964.js"></script>
-    <script data-main="js/dist/user-register-utils.js" src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
+    <!-- <script data-main="js/dist/user-register-utils.js"
+        src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script> -->
 
     <script>var cancelar = document.getElementById('cancelRegister');
 cancelar.addEventListener('click', function () {
@@ -192,9 +209,6 @@ document.getElementById('file_send').onblur = function () {
     photoHolder.classList.remove("ext-placeholder");
   }
 };</script>
-
-    
-
 </body>
 
 </html>
