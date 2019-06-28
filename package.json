@@ -29,7 +29,7 @@
         "concurrently": "^3.4.0",
         "jquery": "^3.4.1",
         "lite-server": "^2.3.0",
-        "parcel": "^1.12.3",
+        "parcel": "1.9.7",
         "parcel-bundler": "^1.9.7",
         "typescript": "^3.5.2"
     },
