@@ -30,11 +30,11 @@ export class UserController {
         let dataOfBirth = new Date(this._dateOfBirth.val().replace(/-/g, ','));
 
         const user = new User(
-            this._name,
-            this._lastName,
-            this._userName,
-            this._email,
-            this._password,
+            this._name.toString(),
+            this._lastName.toString(),
+            this._userName.toString(),
+            this._email.toString(),
+            this._password.toString(),
             dataOfBirth
         );
 
