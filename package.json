@@ -9,7 +9,8 @@
         "tsc": "./node_modules/.bin/tsc",
         "watch": "./node_modules/.bin/tsc -w",
         "serverType": "lite-server --baseDir=app",
-        "startType": "concurrently \"npm run watch\" \"npm run server\""
+        "startType": "concurrently \"npm run watch\" \"npm run server\"",
+        "startTeste": "tsc -w"
     },
     "keywords": [],
     "author": "",
@@ -25,12 +26,12 @@
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.8.1",
         "@types/jquery": "^2.0.42",
-        "jquery": "^3.4.1",
-        "parcel": "^1.12.3",
-        "parcel-bundler": "^1.12.3",
-        "typescript": "^3.5.2",
         "concurrently": "^3.4.0",
-        "lite-server": "^2.3.0"
+        "jquery": "^3.4.1",
+        "lite-server": "^2.3.0",
+        "parcel": "^1.12.3",
+        "parcel-bundler": "^1.9.7",
+        "typescript": "^3.5.2"
     },
     "directories": {
         "lib": "lib"
