@@ -1,6 +1,4 @@
 import { User } from '../models/User';
-import { domInject } from '../helpers/decorators/index';
-import { name, lastName, username, email, photo, password, passwordConfirm, code, date } from '../validate/userValidate';
 
 export class UserController {
 

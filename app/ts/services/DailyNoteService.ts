@@ -75,18 +75,22 @@ export class DailyNoteService {
      * listar todas as dailys
      */
     listAll() {
+        let result="";
         $.ajax({
             type: 'GET',
             url: `${HOST}dailys`,
             contentType: false,
             cache: false,
             processData: false,
-            success: function (data) { console.log(data) },
+            success: function (data) { 
+                result = data;
+                console.log(data) },
             error: function (request, status, error) {
                 console.log("error: ", error)
                 console.log("resquest: ", request.responseText)
             }
         })
+        return result;
     }
 
 }
