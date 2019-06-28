@@ -50,6 +50,7 @@ export class AuthenticateService {
                 console.log("resquest: ", request.responseText)
             }
         })
+        
     }
     
     /**
