@@ -1,20 +1,8 @@
-System.register(["./View", "../models/index"], function (exports_1, context_1) {
-    "use strict";
-    var View_1, index_1, DailyNotesView;
-    var __moduleName = context_1 && context_1.id;
-    return {
-        setters: [
-            function (View_1_1) {
-                View_1 = View_1_1;
-            },
-            function (index_1_1) {
-                index_1 = index_1_1;
-            }
-        ],
-        execute: function () {
-            DailyNotesView = class DailyNotesView extends View_1.View {
-                template(model) {
-                    return `
+import { View } from './View';
+import { User } from '../models/index';
+export class DailyNotesView extends View {
+    template(model) {
+        return `
         <form class="form" method="post" id="viewdaily-form" autocomplete="off">
             ${model.paraArray().map(dailyNote => `<div class="row">
                 <div class="col-12 col-sm-6">
@@ -22,7 +10,7 @@ System.register(["./View", "../models/index"], function (exports_1, context_1) {
                         <label for="name">Nome:</label>
                         <input type="text" name="name"
                             class="form-control form-control-sm input-circle"
-                            id="name" value="${index_1.User.name}" disabled>
+                            id="name" value="${User.name}" disabled>
                         <div id="namevalidator"></div>
                     </div>
                 </div>
@@ -64,9 +52,5 @@ System.register(["./View", "../models/index"], function (exports_1, context_1) {
                 data-dismiss="modal">Voltar</button>
         </form>
         `;
-                }
-            };
-            exports_1("DailyNotesView", DailyNotesView);
-        }
-    };
-});
+    }
+}
