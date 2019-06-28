@@ -3,6 +3,7 @@ import { UserService } from "../services/UserService";
 
 export class UserController {
 
+<<<<<<< HEAD
     private name: HTMLInputElement;
     private lastName: HTMLInputElement;
     private userName: HTMLInputElement;
@@ -20,6 +21,28 @@ export class UserController {
         this.password =  <HTMLInputElement>document.querySelector('#password');
         this.dateOfBirth =  <HTMLInputElement>document.querySelector('#dateOfBirth');
     }
+=======
+    // @domInject('#name')
+    private _name: JQuery;
+
+    // @domInject('#lastName')
+    private _lastName: JQuery;
+
+    // @domInject('#userName')
+    private _userName: JQuery;
+
+    // @domInject('#email')
+    private _email: JQuery;
+
+    // @domInject('#password')
+    private _password: JQuery;
+
+    // @domInject('#dateOfBirth')
+    private _dateOfBirth: JQuery;
+
+    constructor() {}
+
+>>>>>>> 57dce118027694da13103736ad97228ae0c8a8f9
 
     add(event: Event) {
         event.preventDefault();

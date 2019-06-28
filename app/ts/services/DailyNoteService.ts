@@ -6,9 +6,8 @@ export class DailyNoteService {
     /**
      * adicionar uma daily
      */
-    add() {
-        const form: HTMLFormElement = <HTMLFormElement>document.getElementById('daily-form')
-
+    add(form: HTMLFormElement) {
+        
         let formData = new FormData(form)
 
         $.ajax({
