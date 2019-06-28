@@ -10,21 +10,7 @@ System.register(["../config/index"], function (exports_1, context_1) {
         ],
         execute: function () {
             UserService = class UserService {
-                lista() {
-                    $.ajax({
-                        type: 'GET',
-                        url: `${index_1.HOST}users`,
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        success: function (data) { console.log(data); },
-                        error: function (request, status, error) {
-                            console.log("error: ", error);
-                            console.log("resquest: ", request.responseText);
-                        }
-                    });
-                }
-                cadastro() {
+                cadastro(usuario) {
                     const form = document.getElementById('user-register');
                     let formData = new FormData(form);
                     $.ajax({
@@ -34,6 +20,20 @@ System.register(["../config/index"], function (exports_1, context_1) {
                         cache: false,
                         processData: false,
                         data: formData,
+                        success: function (data) { console.log(data); },
+                        error: function (request, status, error) {
+                            console.log("error: ", error);
+                            console.log("resquest: ", request.responseText);
+                        }
+                    });
+                }
+                lista() {
+                    $.ajax({
+                        type: 'GET',
+                        url: `${index_1.HOST}users`,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
                         success: function (data) { console.log(data); },
                         error: function (request, status, error) {
                             console.log("error: ", error);
