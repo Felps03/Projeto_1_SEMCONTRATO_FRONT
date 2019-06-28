@@ -42,7 +42,7 @@ export class UserController {
         console.log(usuario);
     }
 
-    list() {
+  /*  list() {
         event.preventDefault();
 
         const userService = new UserService();
@@ -67,5 +67,5 @@ export class UserController {
 
     changePassword() {
 
-    }
+    }*/
 }
