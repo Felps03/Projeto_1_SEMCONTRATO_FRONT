@@ -16,13 +16,14 @@ System.register(["../models/User", "../services/UserService"], function (exports
                 constructor() {
                     this.name = document.querySelector('#name');
                     this.lastName = document.querySelector('#lastName');
-                    this.userName = document.querySelector('#euserNamemail');
+                    this.userName = document.querySelector('#userName');
                     this.email = document.querySelector('#email');
                     this.photo = document.querySelector('#photo');
                     this.password = document.querySelector('#password');
                     this.dateOfBirth = document.querySelector('#dateOfBirth');
                 }
                 add(event) {
+                    alert("chegou");
                     event.preventDefault();
                     let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
                     const user = new User_1.User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.photo.value.toString(), this.password.value.toString(), dataOfBirth);
