@@ -2,22 +2,22 @@ import { User } from '../models/User';
 
 export class UserController {
 
-    @domInject('#name')
+    // @domInject('#name')
     private _name: JQuery;
 
-    @domInject('#lastName')
+    // @domInject('#lastName')
     private _lastName: JQuery;
 
-    @domInject('#userName')
+    // @domInject('#userName')
     private _userName: JQuery;
 
-    @domInject('#email')
+    // @domInject('#email')
     private _email: JQuery;
 
-    @domInject('#password')
+    // @domInject('#password')
     private _password: JQuery;
 
-    @domInject('#dateOfBirth')
+    // @domInject('#dateOfBirth')
     private _dateOfBirth: JQuery;
 
     constructor() {}
