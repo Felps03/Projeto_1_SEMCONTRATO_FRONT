@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="img/logo_compasso.ico">
+    <link rel="icon" href="app/img/logo_compasso.ico">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link href="lib/materialize/icons/icons.css" rel="stylesheet">
-    <link href="lib/materialize/fonts/fonts.css" rel="stylesheet">
-    <link href="lib/particlejs/particle.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/custom.css">
+    <link href="app/lib/materialize/icons/icons.css" rel="stylesheet">
+    <link href="app/lib/materialize/fonts/fonts.css" rel="stylesheet">
+    <link href="app/lib/particlejs/particle.css" rel="stylesheet">
+    <link rel="stylesheet" href="app/css/custom.css">
     <title>Área de Cadastro do Usuário</title>
 
     <!-- intentional -->
@@ -24,9 +24,8 @@
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container-fluid">
             <div class="navbar-header ml-n2">
-                <i class="navbar-toggle material-icons menu-icon align-middle ml-n2" data-toggle="collapse"
-                    data-target="#navbar">menu</i>
-                <img src="img/logo_compasso.png" href="#!">
+                <i class="navbar-toggle material-icons menu-icon align-middle ml-n2" data-toggle="collapse" data-target="#navbar">menu</i>
+                <img src="app/img/logo_compasso.png" href="#!">
             </div>
             <h5 class="txt-primary ml-n3">
                 <strong>Apps</strong>
@@ -57,8 +56,7 @@
     <div class="container page-position col-12 col-sm-7" id="register">
 
         <section class="section-register custom-bx">
-            <form class="pt-1 pl-4 pr-4 pb-4" method="post" id="user-register" autocomplete="off"
-                enctype="multipart/form-data">
+            <form class="form pt-1 pl-4 pr-4 pb-4" method="post" id="user-register" autocomplete="off" enctype="multipart/form-data">
 
                 <div class="vt-line mt-4 mb-4">
                     <h3>
@@ -77,8 +75,8 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="name">Primeiro Nome:</label>
-                            <input type="text" name="name" class="form-control form-control-sm input-circle" id="name"
-                                placeholder="Informe seu nome" autofocus>
+                            <input type="text" name="name" id="name" class="form-control form-control-sm input-circle" id="name" placeholder="Informe seu nome"
+                                autofocus>
                             <div id="namevalidator"></div>
                         </div>
                     </div>
@@ -86,8 +84,7 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="lastname">Sobrenome:</label>
-                            <input type="text" name="lastName" class="form-control form-control-sm input-circle"
-                                id="lastname" placeholder="Informe seu sobrenome">
+                            <input type="text" name="lastName" id="lastName" class="form-control form-control-sm input-circle" id="lastname" placeholder="Informe seu sobrenome">
                             <div id="lastnamevalidator"></div>
                         </div>
                     </div>
@@ -95,8 +92,8 @@
 
                 <div class="form-group">
                     <label for="birthdate">Data de nascimento:</label>
-                    <input type="date" name="dateOfBirth"
-                        class="form-control form-control-sm ext-placeholder input-circle" id="birthdate">
+                    <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control form-control-sm ext-placeholder input-circle"
+                        id="birthdate">
                     <div id="birthdatevalidator"></div>
                 </div>
 
@@ -114,20 +111,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="photo">Foto de Perfil:</label>
-                    <div name="photo">
-                        <input type="file" id="photo" name="file_photo" hidden="hidden" class="form-control" />
-                        <div id="photovalidator" class="mt-1"></div>
-                        <button type="button" class="btn btn-secondary btn-sm input-circle" id="file_send">Escolher foto
-                        </button>
-                        <span class="ext-placeholder" id="custom-text">Clique para escolher.</span>
-                    </div>
+
+                    <input type="file" name="file_photo" id="photo">
+
                 </div>
 
                 <div class="form-group">
                     <label for="username">Nome de usuário:</label>
-                    <input type="text" name="userName" class="form-control form-control-sm input-circle" id="username"
-                        placeholder="Informe um nome de usuário">
+                    <input type="text" name="userName" id="userName" class="form-control form-control-sm input-circle" placeholder="Informe um nome de usuário">
                     <div id="usernamevalidator"></div>
                 </div>
 
@@ -192,36 +183,18 @@
         </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="app/js/models/User.js"></script>
+    <script src="app/js/services/UserService.js"></script>
+    <script src="app/js/controllers/UserController.js"></script>
+    <script src="app/js/app.js"></script>
+
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="lib/particlejs/particle.min.js"></script>
-    <script src="lib/particlejs/particle-config.js"></script>
-    <script src="./js/dist/user-register-utils.js"></script>
+    <script src="app/lib/particlejs/particle.min.js"></script>
+    <script src="app/lib/particlejs/particle-config.js"></script>
 
-    <script>
-        let cancelar = document.getElementById('cancelRegister');
-        cancelar.addEventListener('click', function () {
-            window.location.href = "index.html";
-        });
-
-        document.getElementById('birthdate').onkeyup = function () {
-            let dateHolder = document.getElementById('birthdate');
-            let dateValue = document.getElementById('birthdate').value;
-
-            if (dateValue.length != 0) {
-                dateHolder.classList.remove("ext-placeholder");
-            }
-        }
-
-        document.getElementById('file_send').onblur = function () {
-            let photoHolder = document.getElementById('custom-text');
-            let photoValue = photoHolder.textContent;
-
-            if (photoValue != 'Selecione foto.') {
-                photoHolder.classList.remove("ext-placeholder");
-            }
-        }
-    </script>
 
 </body>
 

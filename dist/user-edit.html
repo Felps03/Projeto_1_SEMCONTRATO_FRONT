@@ -5,29 +5,32 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="/logo_compasso.5389069a.ico">
-    <link rel="stylesheet" href="/bootstrap.min.2e858bcc.css">
-    <link href="/icons.e82e3869.css" rel="stylesheet">
-    <link href="/fonts.e8154e6e.css" rel="stylesheet">
-    <link href="/particle.b9739245.css" rel="stylesheet">
-    <link rel="stylesheet" href="/custom.59417457.css">
-    <title>Alterar Dados do Usuário</title>
-<script src="/home.js"></script></head>
+    <link rel="icon" href="/logo_compasso.74878a6e.ico">
+    <link rel="stylesheet" href="/bootstrap.min.b3171d18.css">
+    <link href="/icons.90bc6d41.css" rel="stylesheet">
+    <link href="/fonts.8be2c8c6.css" rel="stylesheet">
+    <link href="/particle.d4ae6e94.css" rel="stylesheet">
+    <link rel="stylesheet" href="/custom.325a7f86.css">
+    <title>Dados do Usuário</title>
+
+    <!-- intentional -->
+</head>
 
 <body>
     <!-- particles.js -->
     <div id="particles-js"></div>
 
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
-        <div class="container-fluid">
-            <div class="navbar-header ml-n3">
-                <a href="/home.html"><img src="/logo_compasso.4607fb91.png"></a>
+        <div class="container">
+            <div class="navbar-header ml-n2">
+                <i class="navbar-toggle material-icons menu-icon align-middle ml-n2" data-toggle="collapse" data-target="#navbar">menu</i>
+                <img src="/logo_compasso.930b9fa8.png" href="#!">
             </div>
 
             <!-- User menu -->
             <div class="dropdown mr-n4 txt-user" style="float:right;">
                 <div class="d-flex align-items-center btn" data-toggle="dropdown">
-                    <img src="/teste.217df351.jpg" class="rounded-circle" width="50px">
+                    <img src="/teste.ddc0a560.jpg" class="rounded-circle" width="50px">
                     <i class="material-icons">arrow_drop_down</i>
                 </div>
                 <div class="dropdown-menu dropdown-menu-right align-user">
@@ -61,7 +64,7 @@
 
     <div class="container page-position col-12 col-sm-7" id="register">
         <section class="section-register custom-bx">
-            <form class="pt-1 pl-4 pr-4 pb-4" method="post" id="form-user-edit" autocomplete="off" enctype="multipart/form-data">
+            <form class="pt-1 pl-4 pr-4 pb-4" method="post" id="user-edit" autocomplete="off" enctype="multipart/form-data">
                 <div class="vt-line mt-4 mb-4">
                     <h3>
                         <strong>Dados do Usuário</strong>
@@ -176,36 +179,12 @@
         </div>
     </div>
 
-    <script src="/jquery.min.1e3ea97e.js"></script>
-    <script src="/bootstrap.min.45389b0b.js"></script>
-    <script src="/bootstrap.bundle.min.e7f96d99.js"></script>
-    <script src="/particle.min.fd23771b.js"></script>
-    <script src="/particle-config.e2b04964.js"></script>
-    <!-- <script data-main="js/dist/user-register-utils.js"
-        src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script> -->
-
-    <script>var cancelar = document.getElementById('cancelRegister');
-cancelar.addEventListener('click', function () {
-  window.location.href = "index.html";
-});
-
-document.getElementById('birthdate').onkeyup = function () {
-  var dateHolder = document.getElementById('birthdate');
-  var dateValue = document.getElementById('birthdate').value;
-
-  if (dateValue.length != 0) {
-    dateHolder.classList.remove("ext-placeholder");
-  }
-};
-
-document.getElementById('file_send').onblur = function () {
-  var photoHolder = document.getElementById('custom-text');
-  var photoValue = photoHolder.textContent;
-
-  if (photoValue != 'Selecione foto.') {
-    photoHolder.classList.remove("ext-placeholder");
-  }
-};</script>
+    <script src="/jquery.min.e45f5b6b.js"></script>
+    <script src="/bootstrap.min.bf632630.js"></script>
+    <script src="/bootstrap.bundle.min.76e52b93.js"></script>
+    <script src="/particle.min.d5b02721.js"></script>
+    <script src="/particle-config.f03ab47e.js"></script>
+ 
 </body>
 
 </html>
