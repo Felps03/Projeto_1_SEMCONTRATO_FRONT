@@ -20,8 +20,8 @@ export class AuthenticateService {
             cache: false,
             processData: false,
             data: formData,
-            success: function (data) { console.log(data) },
-            error: function (request, status, error) {
+            success: function (data: any) { console.log(data) },
+            error: function (request: { responseText: any; }, status: any, error: any) {
                 console.log("error: ", error)
                 console.log("resquest: ", request.responseText)
             }
@@ -44,8 +44,8 @@ export class AuthenticateService {
             cache: false,
             processData: false,
             data: formData,
-            success: function (data) { console.log(data) },
-            error: function (request, status, error) {
+            success: function (data: any) { console.log(data) },
+            error: function (request: { responseText: any; }, status: any, error: any) {
                 console.log("error: ", error)
                 console.log("resquest: ", request.responseText)
             }
@@ -70,8 +70,8 @@ export class AuthenticateService {
             cache: false,
             processData: false,
             data: formData,
-            success: function (data) { console.log(data) },
-            error: function (request, status, error) {
+            success: function (data: any) { console.log(data) },
+            error: function (request: { responseText: any; }, status: any, error: any) {
                 console.log("error: ", error)
                 console.log("resquest: ", request.responseText)
             }
