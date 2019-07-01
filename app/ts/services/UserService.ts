@@ -4,9 +4,7 @@ import { HOST } from '../config/index';
 export class UserService {
     
     cadastro(usuario: User) {
-
         const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-register')
-        
         let formData = new FormData(form)
             
         $.ajax({
@@ -29,7 +27,6 @@ export class UserService {
      * listar todos usuários
      */
     lista() {
-        
         $.ajax({
             type: 'GET',
             url: `${HOST}users`,
@@ -55,9 +52,7 @@ export class UserService {
      * @param id para alterar dados do usuário dessa id
      */
     editar(id: string) {
-
         const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-edit')
-        
         let formData = new FormData(form)
             
         $.ajax({
@@ -81,7 +76,6 @@ export class UserService {
      * @param id para remover usuário
      */
     remove(id : string) {
-            
         $.ajax({
             type: 'DELETE',
             url: `${HOST}users/user/${id}`,
@@ -104,7 +98,6 @@ export class UserService {
      */
     changePassword(email: string, password: string) {
         const form: HTMLFormElement = <HTMLFormElement>document.getElementById('recovery-code-form')
-        
         let formData = new FormData(form)
             
         $.ajax({
@@ -127,7 +120,6 @@ export class UserService {
      * @param email para buscar se cadastro ja existe
      */
     findByEmail(email : string) {
-        
         $.ajax({
             type: 'GET',
             url: `${HOST}users/${email}`,

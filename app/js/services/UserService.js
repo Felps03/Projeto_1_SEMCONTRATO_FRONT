@@ -80,6 +80,7 @@ export class UserService {
         });
     }
     findByEmail(email) {
+        alert(email);
         $.ajax({
             type: 'GET',
             url: `${HOST}users/${email}`,

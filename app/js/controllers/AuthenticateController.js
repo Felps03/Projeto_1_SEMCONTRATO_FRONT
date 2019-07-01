@@ -1,4 +1,5 @@
 import { AuthenticateService } from "../services/AuthenticateService";
+import { UserService } from "../services/UserService";
 export class AuthenticateController {
     constructor() {
         this.email = document.getElementById('#email');
@@ -13,5 +14,14 @@ export class AuthenticateController {
         const authenticateService = new AuthenticateService();
         let usuario = authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
         console.log(usuario);
+    }
+    changePassword(event) {
+        event.preventDefault();
+        var email = document.querySelector('#email_rec');
+        if (email != null) {
+            alert(email.value);
+        }
+        const userService = new UserService();
+        let usuario = userService.findByEmail("alskdjfçlasdjfd");
     }
 }

@@ -9,8 +9,16 @@ if(authenticate != null){
 }
 
 const userController = new UserController();
+
 let cadastrar = document.querySelector('#user-register');
 
 if(cadastrar != null){
     cadastrar.addEventListener('submit', userController.add.bind(userController));
 }
+
+let recuperarEmail = document.querySelector('#recovery-pass-form');
+
+if(recuperarEmail != null){
+    recuperarEmail.addEventListener('submit', authenticateController.changePassword.bind(authenticate));
+}
+

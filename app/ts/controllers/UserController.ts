@@ -12,17 +12,16 @@ export class UserController {
     private dateOfBirth: HTMLInputElement;
 
     constructor() {
-        this.name =  <HTMLInputElement>document.querySelector('#name');
-        this.lastName =  <HTMLInputElement>document.querySelector('#lastName');
-        this.userName =  <HTMLInputElement>document.querySelector('#userName');
-        this.email =  <HTMLInputElement>document.querySelector('#email');
-        this.photo =  <HTMLInputElement>document.querySelector('#photo');
-        this.password =  <HTMLInputElement>document.querySelector('#password');
-        this.dateOfBirth =  <HTMLInputElement>document.querySelector('#dateOfBirth');
+        this.name = <HTMLInputElement>document.querySelector('#name');
+        this.lastName = <HTMLInputElement>document.querySelector('#lastName');
+        this.userName = <HTMLInputElement>document.querySelector('#userName');
+        this.email = <HTMLInputElement>document.querySelector('#email');
+        this.photo = <HTMLInputElement>document.querySelector('#photo');
+        this.password = <HTMLInputElement>document.querySelector('#password');
+        this.dateOfBirth = <HTMLInputElement>document.querySelector('#dateOfBirth');
     }
 
     add(event: Event) {
-        
         event.preventDefault();
 
         let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
@@ -36,8 +35,9 @@ export class UserController {
             this.password.value.toString(),
             dataOfBirth,
         );
-            const userService = new UserService();
-            let usuario = userService.cadastro(user);
+        const userService = new UserService();
+        
+        let usuario = userService.cadastro(user);
 
         console.log(user);
         console.log(usuario);
@@ -66,7 +66,6 @@ export class UserController {
 
     }
 
-    changePassword() {
+    */
 
-    }*/
 }

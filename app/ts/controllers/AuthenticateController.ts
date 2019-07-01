@@ -1,5 +1,6 @@
 import { Authenticate } from "../models/index";
 import { AuthenticateService } from "../services/AuthenticateService";
+import { UserService } from "../services/UserService";
 
 export class AuthenticateController {
 
@@ -37,6 +38,20 @@ export class AuthenticateController {
         console.log(usuario);
         
 
+    }
+
+    
+    changePassword(event: Event) {
+        event.preventDefault();
+
+        var email = <HTMLInputElement>document.querySelector('#email_rec');
+        
+        const userService = new UserService();
+        const authenticateService = new AuthenticateService();
+
+        userService.findByEmail(email.value);
+
+        authenticateService.resetPassword(email.value);
     }
 
 }
