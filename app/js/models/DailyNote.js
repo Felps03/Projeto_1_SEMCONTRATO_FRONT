@@ -5,4 +5,16 @@ export class DailyNote {
         this.impediment = impediment;
         this.date = date;
     }
+    get Yesterday() {
+        return this.yesterday;
+    }
+    get Today() {
+        return this.today;
+    }
+    get Impediment() {
+        return this.impediment;
+    }
+    get Date() {
+        return this.date;
+    }
 }

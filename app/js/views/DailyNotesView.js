@@ -20,7 +20,7 @@ export class DailyNotesView extends View {
                         <label for="date">Data:</label>
                         <input type="date" name="filter"
                             class="form-control form-control-sm ext-placeholder input-circle"
-                            id="filter" value="${dailyNote.date}" disabled>
+                            id="filter" value="${dailyNote.Date}" disabled>
                         <div id="datevalidator"></div>
                     </div>
                 </div>
@@ -29,21 +29,21 @@ export class DailyNotesView extends View {
             <div class="form-group">
                 <label for="first"><strong>1. </strong>O que fez ontem?</label>
                 <textarea name="first" class="form-control form-control-sm input-circle" id="first"
-                    disabled>${dailyNote.yesterday}</textarea>
+                    disabled>${dailyNote.Yesterday}</textarea>
                 <div id="firstvalidator"></div>
             </div>
 
             <div class="form-group">
                 <label for="second"><strong>2. </strong>O que vai fazer hoje?</label>
                 <textarea name="second" class="form-control form-control-sm input-circle" id="second"
-                    disabled>${dailyNote.today}</textarea>
+                    disabled>${dailyNote.Today}</textarea>
                 <div id="secondvalidator"></div>
             </div>
 
             <div class="form-group">
                 <label for="third"><strong>3. </strong>Tem impedimentos? Se sim, qual(is)?</label>
                 <textarea name="third" class="form-control form-control-sm input-circle" id="third"
-                    disabled>${dailyNote.impediment}</textarea>
+                    disabled>${dailyNote.Impediment}</textarea>
                 <div id="thirdvalidator"></div>
             </div>`).join()};
 

@@ -1,5 +1,21 @@
 export class Authenticate {
 
-    constructor(readonly email: string, readonly password: string) {}
+    private email: string;
+
+    private password: string;
+
+    constructor( email: string,  password: string) {
+
+        this.email = email;
+        this.password = password;
+    }
+
+    get Email(){
+        return this.email;
+    }
+
+    get Password(){
+        return this.password;
+    }
 
 }
