@@ -111,10 +111,14 @@
                 </div>
 
                 <div class="form-group">
-
                     <input type="file" name="file_photo" id="photo">
-
                 </div>
+
+
+
+
+
+
 
                 <div class="form-group">
                     <label for="username">Nome de usuário:</label>
@@ -143,9 +147,7 @@
                     </div>
                 </div>
 
-                <div class="g-recaptcha d-flex justify-content-end mt-3"
-                    data-sitekey="6LfhNKsUAAAAALZSy7RxiuZfFQv7B7yA_C8m2G9H">
-                </div>
+                <div class="g-recaptcha mt-2" data-sitekey="6LfhNKsUAAAAALZSy7RxiuZfFQv7B7yA_C8m2G9H"></div>
 
                 <button type="submit" name="send"
                     class="btn btn-outline-success btn-sm mt-3 pr-3 pl-3 float-right input-circle"
@@ -176,24 +178,26 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger btn-sm pr-4 pl-4 input-circle"
                         data-dismiss="modal">Não</button>
-                    <button type="button" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle"
-                        id="cancelRegister">Sim</button>
+                    <a href="index.html">
+                        <button type="button" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle"
+                            id="cancelRegister">Sim</button>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="app/lib/particlejs/particle.min.js"></script>
+    <script src="app/lib/particlejs/particle-config.js"></script>
 
     <script src="app/js/models/User.js"></script>
     <script src="app/js/services/UserService.js"></script>
     <script src="app/js/controllers/UserController.js"></script>
     <script src="app/js/app.js"></script>
 
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="app/lib/particlejs/particle.min.js"></script>
-    <script src="app/lib/particlejs/particle-config.js"></script>
 
 
 </body>
