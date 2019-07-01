@@ -1,6 +1,6 @@
-import { InputWrapper } from '../validate/index'
+import { InputWrapper } from '../utils/index'
 
-export function yesterday(first: InputWrapper): string {
+export function yesterday(first: InputWrapper): string | null {
     if (!(first.value.length > 3)) {
         return 'Descrição muito pequena.'
     } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(first.value)) {
@@ -10,7 +10,7 @@ export function yesterday(first: InputWrapper): string {
     }
 }
 
-export function today(today: InputWrapper): string {
+export function today(today: InputWrapper): string | null {
     if (!(today.value.length > 3)) {
         return 'Descrição muito pequena.'
     } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(today.value)) {
@@ -20,7 +20,7 @@ export function today(today: InputWrapper): string {
     }
 }
 
-export function impediment(third: InputWrapper): string {
+export function impediment(third: InputWrapper): string | null {
     if (!(third.value.length > 3)) {
         return 'Descrição muito pequena.'
     } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(third.value)) {

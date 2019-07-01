@@ -1,16 +1,25 @@
 import { AuthenticateController } from "./controllers/AuthenticateController";
 import { UserController } from "./controllers/UserController";
-const authenticateController = new AuthenticateController();
+import { DailyNoteController } from "./controllers/DailyNoteController";
 let authenticate = document.querySelector('#login-form');
-if (authenticate != null) {
-    authenticate.addEventListener('submit', authenticateController.authenticate.bind(authenticate));
+if (authenticate) {
+    const authenticateController = new AuthenticateController();
+    authenticate.addEventListener('submit', authenticateController.authenticate.bind(authenticateController));
 }
-const userController = new UserController();
+
 let cadastrar = document.querySelector('#user-register');
-if (cadastrar != null) {
+if (cadastrar) {
+    const userController = new UserController();
     cadastrar.addEventListener('submit', userController.add.bind(userController));
 }
+
 let recuperarEmail = document.querySelector('#recovery-pass-form');
 if (recuperarEmail != null) {
     recuperarEmail.addEventListener('submit', authenticateController.changePassword.bind(authenticate));
+}
+
+let addDailyNote = document.querySelector('#daily-form');
+if (addDailyNote) {
+    const dailyNoteController = new DailyNoteController();
+    addDailyNote.addEventListener('submit', dailyNoteController.add.bind(dailyNoteController));
 }
