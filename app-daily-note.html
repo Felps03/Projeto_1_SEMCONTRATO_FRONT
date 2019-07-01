@@ -338,6 +338,16 @@
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app/lib/particlejs/particle.min.js"></script>
     <script src="app/lib/particlejs/particle-config.js"></script>
+    <script>
+        document.getElementById('filter').onkeyup = function() {
+            let dateHolder = document.getElementById('filter');
+            let dateValue = document.getElementById('filter').value;
+
+            if(dateValue.length != 0) {
+                dateHolder.classList.remove("ext-placeholder");
+            }
+        }
+    </script>
 
     <!--<script src="app/js/controllers/DailyNoteController.js"></script>
     <script src="app/js/models/DailyNote.js"></script>
