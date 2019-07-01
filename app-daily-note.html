@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link href="app/lib/materialize/icons/icons.css" rel="stylesheet">
     <link href="app/lib/materialize/fonts/fonts.css" rel="stylesheet">
-    <!-- <link href="lib/particle.js/particle.css" rel="stylesheet"> -->
+    <link href="app/lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="app/css/custom.css">
     <title>Daily Note</title>
 </head>
@@ -19,7 +19,7 @@
     <div id="particles-js"></div>
 
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
-        <div class="container-fluid">
+        <div class="container">
             <div class="navbar-header ml-n3">
                 <a href="home.html"><img src="app/img/logo_compasso.png"></a>
             </div>
@@ -103,12 +103,16 @@
                             <td>Juliana Sequeira</td>
                             <td>
                                 <button type="button" name="edit"
-                                    class="btn btn-outline-warning btn-sm pr-3 pl-3 input-circle" id="daily-edit"
-                                    data-toggle="modal" data-target="#editdailyModal">Editar</button>
+                                    class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="daily-edit"
+                                    data-toggle="modal" data-target="#editdailyModal">
+                                    <i class="small material-icons">edit</i>
+                                </button>
 
                                 <button type="button" name="view"
-                                    class="btn btn-outline-success btn-sm pr-2 pl-2 input-circle" id="daily-view"
-                                    data-toggle="modal" data-target="#viewdailyModal">Visualizar</button>
+                                    class="btn btn-outline-success btn-sm input-circle pt-2" id="daily-view"
+                                    data-toggle="modal" data-target="#viewdailyModal">
+                                    <i class="small material-icons">remove_red_eye</i>
+                                </button>
 
                             </td>
                         </tr>
@@ -159,21 +163,21 @@
 
                         <div class="form-group">
                             <label for="first"><strong>1. </strong>O que eu fiz ontem?</label>
-                            <textarea name="first" class="form-control form-control-sm input-circle" id="first"
+                            <textarea name="first" class="form-control form-control-sm input-circle" id="yesterday"
                                 placeholder="Informe sua resposta aqui" autofocus></textarea>
                             <div id="firstvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="second"><strong>2. </strong>O que eu vou fazer hoje?</label>
-                            <textarea name="second" class="form-control form-control-sm input-circle" id="second"
+                            <textarea name="second" class="form-control form-control-sm input-circle" id="today"
                                 placeholder="Informe sua resposta aqui"></textarea>
                             <div id="secondvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="third"><strong>3. </strong>Eu tenho impedimentos? Se sim, qual(is)?</label>
-                            <textarea name="third" class="form-control form-control-sm input-circle" id="third"
+                            <textarea name="third" class="form-control form-control-sm input-circle" id="impediment"
                                 placeholder="Informe sua resposta aqui"></textarea>
                             <div id="thirdvalidator"></div>
                         </div>
@@ -338,6 +342,21 @@
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app/lib/particlejs/particle.min.js"></script>
     <script src="app/lib/particlejs/particle-config.js"></script>
+    <script>
+        document.getElementById('filter').onkeyup = function() {
+            let dateHolder = document.getElementById('filter');
+            let dateValue = document.getElementById('filter').value;
+
+            if(dateValue.length != 0) {
+                dateHolder.classList.remove("ext-placeholder");
+            }
+        }
+    </script>
+
+    <!--<script src="app/js/controllers/DailyNoteController.js"></script>
+    <script src="app/js/models/DailyNote.js"></script>
+    <script src="app/js/services/DailyNoteService.js"></script>-->
+    <script src="app/js/index.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,8 @@
 import { DailyNote } from '../models/DailyNote';
 import { DailyNoteService } from '../services/DailyNoteService';
-
+import { validate } from '../helpers/index'
+import * as vals from '../validation/dailyNoteValidate';
+import { noFalse } from '../utils/listCheck'
 
 export class DailyNoteController {
 
@@ -9,35 +11,46 @@ export class DailyNoteController {
     private impediment: HTMLInputElement;
     private date: HTMLInputElement;
 
+    private addVals: (() => boolean)[];
 
     constructor() {
         this.yesterday = <HTMLInputElement>document.querySelector('#yesterday');
         this.today = <HTMLInputElement>document.querySelector('#today');
         this.impediment = <HTMLInputElement>document.querySelector('#impediment');
         this.date = <HTMLInputElement>document.querySelector('#date');
+
+        // init validations
+        this.addVals = [
+            validate(this.yesterday, vals.yesterday),
+            validate(this.today, vals.today),
+            validate(this.impediment, vals.impediment),
+        ];
     }
 
     add(event: Event) {
         event.preventDefault();
 
-        let dailyNote = new DailyNote(
-            this.yesterday.value.toString(),
-            this.today.value.toString(),
-            this.impediment.value.toString(),
-            new Date()
-        );
+        if (noFalse(this.addVals)) {
 
-        let form: HTMLFormElement = <HTMLFormElement>document.getElementById('daily-form');
-        let dailyNoteService = new DailyNoteService();
+            let dailyNote = new DailyNote(
+                this.yesterday.value.toString(),
+                this.today.value.toString(),
+                this.impediment.value.toString(),
+                new Date()
+            );
 
-        let dailyNoteAux = dailyNoteService.add(form);
+            let form: HTMLFormElement = <HTMLFormElement>document.getElementById('daily-form');
+            let dailyNoteService = new DailyNoteService();
 
-        console.log(dailyNote);
-        console.log(dailyNoteAux);
+            let dailyNoteAux = dailyNoteService.add(form);
+
+            console.log(dailyNote);
+            console.log(dailyNoteAux);
+        }
     }
 
 
-    
+
 }
 
 // list(event: Event) {

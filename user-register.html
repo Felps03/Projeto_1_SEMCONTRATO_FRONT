@@ -22,9 +22,10 @@
     <div id="particles-js"></div>
 
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
-        <div class="container-fluid">
+        <div class="container">
             <div class="navbar-header ml-n2">
-                <i class="navbar-toggle material-icons menu-icon align-middle ml-n2" data-toggle="collapse" data-target="#navbar">menu</i>
+                <i class="navbar-toggle material-icons menu-icon align-middle ml-n2" data-toggle="collapse"
+                    data-target="#navbar">menu</i>
                 <img src="app/img/logo_compasso.png" href="#!">
             </div>
             <h5 class="txt-primary ml-n3">
@@ -56,7 +57,8 @@
     <div class="container page-position col-12 col-sm-7" id="register">
 
         <section class="section-register custom-bx">
-            <form class="form pt-1 pl-4 pr-4 pb-4" method="post" id="user-register" autocomplete="off" enctype="multipart/form-data">
+            <form class="form pt-1 pl-4 pr-4 pb-4" method="post" id="user-register" autocomplete="off"
+                enctype="multipart/form-data">
 
                 <div class="vt-line mt-4 mb-4">
                     <h3>
@@ -75,8 +77,8 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="name">Primeiro Nome:</label>
-                            <input type="text" name="name" id="name" class="form-control form-control-sm input-circle" id="name" placeholder="Informe seu nome"
-                                autofocus>
+                            <input type="text" name="name" id="name" class="form-control form-control-sm input-circle"
+                                id="name" placeholder="Informe seu nome" autofocus>
                             <div id="namevalidator"></div>
                         </div>
                     </div>
@@ -84,7 +86,9 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="lastname">Sobrenome:</label>
-                            <input type="text" name="lastName" id="lastName" class="form-control form-control-sm input-circle" id="lastname" placeholder="Informe seu sobrenome">
+                            <input type="text" name="lastName" id="lastName"
+                                class="form-control form-control-sm input-circle" id="lastname"
+                                placeholder="Informe seu sobrenome">
                             <div id="lastnamevalidator"></div>
                         </div>
                     </div>
@@ -92,8 +96,8 @@
 
                 <div class="form-group">
                     <label for="birthdate">Data de nascimento:</label>
-                    <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control form-control-sm ext-placeholder input-circle"
-                        id="birthdate">
+                    <input type="date" name="dateOfBirth" id="dateOfBirth"
+                        class="form-control form-control-sm ext-placeholder input-circle" id="birthdate">
                     <div id="birthdatevalidator"></div>
                 </div>
 
@@ -110,15 +114,20 @@
                     </h5>
                 </div>
 
-                <div class="form-group">
-
-                    <input type="file" name="file_photo" id="photo">
-
+                <div class="form-group"> 
+                    <label for="photo">Foto de Perfil:</label> 
+                    <div name="photo"> 
+                        <button type="button" class="btn btn-secondary input-circle" id="file_send">Escolher foto</button> 
+                        <span class="ext-placeholder" id="custom-text">Selecione foto.</span> 
+                        <input type="file" id="photo" name="file_photo" hidden> 
+                        <div id="photovalidator" class="mt-1"></div> 
+                    </div> 
                 </div>
 
                 <div class="form-group">
                     <label for="username">Nome de usuário:</label>
-                    <input type="text" name="userName" id="userName" class="form-control form-control-sm input-circle" placeholder="Informe um nome de usuário">
+                    <input type="text" name="userName" id="userName" class="form-control form-control-sm input-circle"
+                        placeholder="Informe um nome de usuário">
                     <div id="usernamevalidator"></div>
                 </div>
 
@@ -143,8 +152,9 @@
                     </div>
                 </div>
 
-                <div class="g-recaptcha d-flex justify-content-end mt-3"
-                    data-sitekey="6LfhNKsUAAAAALZSy7RxiuZfFQv7B7yA_C8m2G9H">
+                <div class="form-group">
+                    <div class="g-recaptcha mt-2"
+                        data-sitekey="6LfhNKsUAAAAALZSy7RxiuZfFQv7B7yA_C8m2G9H"></div>
                 </div>
 
                 <button type="submit" name="send"
@@ -176,25 +186,62 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger btn-sm pr-4 pl-4 input-circle"
                         data-dismiss="modal">Não</button>
-                    <button type="button" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle"
-                        id="cancelRegister">Sim</button>
+                    <a href="index.html">
+                        <button type="button" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle"
+                            id="cancelRegister">Sim</button>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="app/lib/particlejs/particle.min.js"></script>
+    <script src="app/lib/particlejs/particle-config.js"></script>
+    <script>
+        const photo = document.getElementById("photo");
+        const send = document.getElementById("file_send");
+        const customTxt = document.getElementById("custom-text");
+
+        send.addEventListener("click", function() {
+            photo.click();
+        });
+
+        photo.addEventListener("change", function() {
+            if (photo.value) {
+                customTxt.innerHTML = photo.value.match(
+                /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                )[1];
+            } else {
+                customTxt.innerHTML = "Nenhuma imagem selecionada.";
+            }
+        });
+
+        document.getElementById('dateOfBirth').onkeyup = function() {
+            let dateHolder = document.getElementById('dateOfBirth');
+            let dateValue = document.getElementById('dateOfBirth').value;
+
+            if(dateValue.length != 0) {
+                dateHolder.classList.remove("ext-placeholder");
+            }
+        }
+
+        document.getElementById('file_send').onblur = function() {
+            let photoHolder = document.getElementById('custom-text');
+            let photoValue = photoHolder.textContent;
+
+            if(photoValue != 'Selecione foto.') {
+                photoHolder.classList.remove("ext-placeholder");
+            }
+        }
+    </script>
 
     <script src="app/js/models/User.js"></script>
     <script src="app/js/services/UserService.js"></script>
     <script src="app/js/controllers/UserController.js"></script>
     <script src="app/js/app.js"></script>
-
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="app/lib/particlejs/particle.min.js"></script>
-    <script src="app/lib/particlejs/particle-config.js"></script>
-
 
 </body>
 

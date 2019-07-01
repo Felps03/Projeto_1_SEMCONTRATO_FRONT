@@ -20,7 +20,7 @@
     <div id="particles-js"></div>
 
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
-        <div class="container-fluid">
+        <div class="container">
             <div class="navbar-header ml-n3">
                 <img src="app/img/logo_compasso.png">
             </div>
@@ -37,9 +37,10 @@
                         <div class="vt-line mt-4 mb-4">
                             <h3><strong>Login</strong></h3>
                         </div>
+                        
                         <hr class="login-line">
 
-                        <div class="form-group">
+                        <div class="form-group mt-4">
                             <label for="email">E-mail:</label>
                             <input type="text" name="email" class="form-control form-control-sm input-circle" id="email"
                                 placeholder="Informe seu e-mail" autofocus>
@@ -52,9 +53,6 @@
                                 id="password" placeholder="Informe sua senha" maxlength="8">
                             <div id="passwordvalidator"></div>
                         </div>
-
-                        <div class="g-recaptcha d-flex justify-content-center mb-3"
-                            data-sitekey="6LfhNKsUAAAAALZSy7RxiuZfFQv7B7yA_C8m2G9H"></div>
 
                         <div class="form-group">
                             <div class="row">
@@ -78,6 +76,12 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="g-recaptcha d-flex justify-content-center mb-3"
+                                data-sitekey="6LfhNKsUAAAAALZSy7RxiuZfFQv7B7yA_C8m2G9H"></div>
+                        </div>
+
                         <button type="submit" name="send"
                             class="btn btn-outline-success btn-sm float-right pr-4 pl-4 mb-4 input-circle"
                             id="access">Acessar</button>
@@ -113,7 +117,7 @@
                         <div class="form-group">
                             <label for="email_rec">E-mail:</label>
                             <input type="text" name="email" class="form-control form-control-sm input-circle"
-                                id="email_rec" placeholder="Informe seu e-mail" autofocus>
+                                id="email_rec" placeholder="Informe seu e-mail" value="" autofocus>
                             <div id="emailvalidator_rec"></div>
                         </div>
                         <button type="submit" name="send"
@@ -180,13 +184,14 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="app/lib/particlejs/particle.min.js"></script>
+    <script src="app/lib/particlejs/particle-config.js"></script>
 
-    <script src="app/js/controllers/AuthenticateController.js"></script>
+    <!--<script src="app/js/controllers/AuthenticateController.js"></script>
     <script src="app/js/models/Authenticate.js"></script>
-    <script src="app/js/services/AuthenticateService.js"></script>
+    <script src="app/js/services/AuthenticateService.js"></script>-->
     <script src="app/js/index.js"></script>
 
 </body>
