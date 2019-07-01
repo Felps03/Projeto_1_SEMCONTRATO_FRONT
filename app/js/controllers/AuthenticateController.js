@@ -2,6 +2,7 @@ import { AuthenticateService } from "../services/AuthenticateService";
 import { validate } from '../helpers/index';
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck';
+import { UserService } from "../services/UserService";
 export class AuthenticateController {
     constructor() {
         this.email = document.getElementById('email');
@@ -23,10 +24,9 @@ export class AuthenticateController {
     changePassword(event) {
         event.preventDefault();
         var email = document.querySelector('#email_rec');
-        if (email != null) {
-            alert(email.value);
-        }
         const userService = new UserService();
-        let usuario = userService.findByEmail("alskdjfçlasdjfd");
+        const authenticateService = new AuthenticateService();
+        userService.findByEmail(email.value);
+        authenticateService.resetPassword(email.value);
     }
 }

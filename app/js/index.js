@@ -6,18 +6,16 @@ if (authenticate) {
     const authenticateController = new AuthenticateController();
     authenticate.addEventListener('submit', authenticateController.authenticate.bind(authenticateController));
 }
-
 let cadastrar = document.querySelector('#user-register');
 if (cadastrar) {
     const userController = new UserController();
     cadastrar.addEventListener('submit', userController.add.bind(userController));
 }
-
 let recuperarEmail = document.querySelector('#recovery-pass-form');
 if (recuperarEmail != null) {
+    const authenticateController = new AuthenticateController();
     recuperarEmail.addEventListener('submit', authenticateController.changePassword.bind(authenticate));
 }
-
 let addDailyNote = document.querySelector('#daily-form');
 if (addDailyNote) {
     const dailyNoteController = new DailyNoteController();

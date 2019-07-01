@@ -3,6 +3,7 @@ import { AuthenticateService } from "../services/AuthenticateService";
 import { validate } from '../helpers/index'
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck'
+import { UserService } from "../services/UserService";
 
 export class AuthenticateController {
 
@@ -54,12 +55,12 @@ export class AuthenticateController {
         }
     }
 
-    
+
     changePassword(event: Event) {
         event.preventDefault();
 
         var email = <HTMLInputElement>document.querySelector('#email_rec');
-        
+
         const userService = new UserService();
         const authenticateService = new AuthenticateService();
 
