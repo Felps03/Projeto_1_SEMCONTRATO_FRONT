@@ -10,7 +10,7 @@ if (authenticate) {
 
     let recuperarEmail = document.querySelector('#recovery-pass-form');
     if (recuperarEmail) {
-        recuperarEmail.addEventListener('submit', authenticateController.changePassword.bind(authenticate));
+        recuperarEmail.addEventListener('submit', authenticateController.resetPassword.bind(authenticate));
     }
 }
 

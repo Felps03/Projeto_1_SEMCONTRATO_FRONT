@@ -34,23 +34,17 @@ export class AuthenticateController {
         console.log(this.email.value);
         console.log(this.password.value);
     }
-}
 
-/*
-
-       
-
-        
-
-        
-
-    changePassword(event: Event) {
+    resetPassword(event: Event) {
         event.preventDefault();
+
+        // /users/user/recover
 
         var email = <HTMLInputElement>document.querySelector('#email_rec');
 
         const userService = new UserService();
         const authenticateService = new AuthenticateService();
 
-        console.log(usuario);
-*/
+        authenticateService.resetPassword(email.value.toString());
+    }
+}
