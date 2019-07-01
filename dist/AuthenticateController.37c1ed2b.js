@@ -128,7 +128,7 @@ var AuthenticateController = exports.AuthenticateController = function () {
             event.preventDefault();
             alert("chegou");
             console.log('aqui');
-            console.log(this.email);
+            console.log(this.email.value);
             console.log(this.password);
         }
     }]);
@@ -164,7 +164,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '36505' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '39005' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

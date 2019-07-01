@@ -16,7 +16,7 @@ export class AuthenticateController {
 
         alert("chegou");
         console.log('aqui');
-        console.log(this.email);
+        console.log(this.email.value);
         console.log(this.password);
 
 /*
