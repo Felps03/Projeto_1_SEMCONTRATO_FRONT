@@ -117,9 +117,9 @@
                 <div class="form-group"> 
                     <label for="photo">Foto de Perfil:</label> 
                     <div name="photo"> 
-                        <input type="file" id="photo" name="file_photo" hidden> 
                         <button type="button" class="btn btn-secondary input-circle" id="file_send">Escolher foto</button> 
                         <span class="ext-placeholder" id="custom-text">Selecione foto.</span> 
+                        <input type="file" id="photo" name="file_photo" hidden> 
                         <div id="photovalidator" class="mt-1"></div> 
                     </div> 
                 </div>
@@ -200,12 +200,6 @@
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app/lib/particlejs/particle.min.js"></script>
     <script src="app/lib/particlejs/particle-config.js"></script>
-
-    <script src="app/js/models/User.js"></script>
-    <script src="app/js/services/UserService.js"></script>
-    <script src="app/js/controllers/UserController.js"></script>
-    <script src="app/js/app.js"></script>
-
     <script>
         const photo = document.getElementById("photo");
         const send = document.getElementById("file_send");
@@ -243,6 +237,11 @@
             }
         }
     </script>
+
+    <script src="app/js/models/User.js"></script>
+    <script src="app/js/services/UserService.js"></script>
+    <script src="app/js/controllers/UserController.js"></script>
+    <script src="app/js/app.js"></script>
 
 </body>
 
