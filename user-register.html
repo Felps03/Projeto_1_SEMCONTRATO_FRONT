@@ -110,15 +110,15 @@
                     </h5>
                 </div>
 
-                <div class="form-group">
-                    <input type="file" name="file_photo" id="photo">
+                <div class="form-group"> 
+                    <label for="photo">Foto de Perfil:</label> 
+                    <div name="photo"> 
+                        <input type="file" id="photo" name="file_photo" hidden> 
+                        <button type="button" class="btn btn-secondary input-circle" id="file_send">Escolher foto</button> 
+                        <span class="ext-placeholder" id="custom-text">Selecione foto.</span> 
+                        <div id="photovalidator" class="mt-1"></div> 
+                    </div> 
                 </div>
-
-
-
-
-
-
 
                 <div class="form-group">
                     <label for="username">Nome de usuário:</label>
@@ -187,7 +187,7 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app/lib/particlejs/particle.min.js"></script>
@@ -198,7 +198,43 @@
     <script src="app/js/controllers/UserController.js"></script>
     <script src="app/js/app.js"></script>
 
+    <script>
+        const photo = document.getElementById("photo");
+        const send = document.getElementById("file_send");
+        const customTxt = document.getElementById("custom-text");
 
+        send.addEventListener("click", function() {
+            photo.click();
+        });
+
+        photo.addEventListener("change", function() {
+            if (photo.value) {
+                customTxt.innerHTML = photo.value.match(
+                /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                )[1];
+            } else {
+                customTxt.innerHTML = "Nenhuma imagem selecionada.";
+            }
+        });
+
+        document.getElementById('dateOfBirth').onkeyup = function() {
+            let dateHolder = document.getElementById('dateOfBirth');
+            let dateValue = document.getElementById('dateOfBirth').value;
+
+            if(dateValue.length != 0) {
+                dateHolder.classList.remove("ext-placeholder");
+            }
+        }
+
+        document.getElementById('file_send').onblur = function() {
+            let photoHolder = document.getElementById('custom-text');
+            let photoValue = photoHolder.textContent;
+
+            if(photoValue != 'Selecione foto.') {
+                photoHolder.classList.remove("ext-placeholder");
+            }
+        }
+    </script>
 
 </body>
 
