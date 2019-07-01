@@ -1,8 +1,8 @@
 //name, lastName, userName, email, foto, password, dateOfBirth
 
-import { InputWrapper } from '../validate/index'
+import { InputWrapper } from '../utils/index'
 
-export function name(name: InputWrapper): string {
+export function name(name: InputWrapper): string | null {
     if (!(name.value.length > 2)) {
         return 'Nome muito curto.'
     } else if (!/[A-Z]([a-z]|\s)+$/.test(name.value)) {
@@ -16,7 +16,7 @@ export function name(name: InputWrapper): string {
     return null
 }
 
-export function lastName(lastName: InputWrapper): string {
+export function lastName(lastName: InputWrapper): string | null {
     if (!(lastName.value.length > 2)) {
         return 'Sobrenome muito curto.'
     } else if (!/[A-Z]([a-z]|\s)+$/.test(lastName.value)) {
@@ -30,7 +30,7 @@ export function lastName(lastName: InputWrapper): string {
     return null
 }
 
-export function username(username: InputWrapper): string {
+export function username(username: InputWrapper): string | null {
     if (!(username.value.length > 2)) {
         return 'Nome de usuário muito curto.'
     } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(username.value)) {
@@ -40,7 +40,7 @@ export function username(username: InputWrapper): string {
     return null
 }
 
-export function email(email: InputWrapper): string {
+export function email(email: InputWrapper): string | null {
     if (!email.value) {
         return 'Email vazio.'
     } else if (!/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9_-])+(\.([a-zA-Z0-9_-])+)+$/.test(email.value)) {
@@ -51,21 +51,21 @@ export function email(email: InputWrapper): string {
 }
 
 const ALLOWED_EXTS = ['png', 'jpg', 'jpeg']
-export function photo(file: InputWrapper): string {
+export function photo(file: InputWrapper): string | null {
     if (!file.value) {
         return 'Imagem obrigatória.'
     }
 
     const fileExt = file.value.split('.').pop()
 
-    if (ALLOWED_EXTS.indexOf(fileExt) === -1) {
+    if (!fileExt || ALLOWED_EXTS.indexOf(fileExt) === -1) {
         return 'Formato de arquivo de imagem inválido.'
     }
 
     return null
 }
 
-export function password(pw: InputWrapper): string {
+export function password(pw: InputWrapper): string | null {
     if (pw.value.length < 6 || pw.value.length > 8) {
         return 'Senha deve ter tamanho entre 6 e 8 dígitos.'
     } else if (pw.value.indexOf(' ') !== -1) {
@@ -75,7 +75,7 @@ export function password(pw: InputWrapper): string {
     return null
 }
 
-export function passwordConfirm(pw: InputWrapper, confirm: InputWrapper): string {
+export function passwordConfirm(pw: InputWrapper, confirm: HTMLInputElement): string | null {
     if (!pw.value) {
         return 'Confirmação obrigatória.'
     } else if (pw.value !== confirm.value) {
@@ -85,7 +85,7 @@ export function passwordConfirm(pw: InputWrapper, confirm: InputWrapper): string
     return null
 }
 
-export function code(code: InputWrapper): string {
+export function code(code: InputWrapper): string | null {
     if (!code.value) {
         return 'Código obrigatório.'
     }
@@ -93,7 +93,7 @@ export function code(code: InputWrapper): string {
     return null
 }
 
-export function date(date: InputWrapper): string {
+export function dateOfBirth(date: InputWrapper): string | null {
     const inputDate = new Date(date.value)
 
     const day = inputDate.getDate()

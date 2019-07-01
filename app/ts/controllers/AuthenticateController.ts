@@ -1,42 +1,57 @@
 import { Authenticate } from "../models/index";
 import { AuthenticateService } from "../services/AuthenticateService";
+import { validate } from '../helpers/index'
+import * as vals from '../validation/userValidate';
+import { noFalse } from '../utils/listCheck'
 
 export class AuthenticateController {
 
     private email: HTMLInputElement;
     private password: HTMLInputElement;
 
+    private authVals: (() => boolean)[];
+
     constructor() {
-        this.email = <HTMLInputElement>document.getElementById('#email');
-        this.password = <HTMLInputElement>document.getElementById('#password');
+        this.email = <HTMLInputElement>document.getElementById('email');
+        this.password = <HTMLInputElement>document.getElementById('password');
+
+        // init validations
+        this.authVals = [
+            validate(this.email, vals.email),
+            validate(this.password, vals.password)
+        ];
     }
 
     authenticate(event: Event) {
         event.preventDefault();
 
-        alert("chegou");
+        /*alert("chegou");
         console.log('aqui');
         console.log(this.email.value);
-        console.log(this.password);
+        console.log(this.password);*/
 
-/*
+        console.log(this.authVals);
 
-        const authenticate = new Authenticate(
+        if (noFalse(this.authVals)) {
 
-            this.email.value.toString(),
+            /*
+            
+                    const authenticate = new Authenticate(
+            
+                        this.email.value.toString(),
+            
+                        this.password.value.toString()
+                    );
+            
+            */
+            const authenticateService = new AuthenticateService();
 
-            this.password.value.toString()
-        );
-
-*/
-        const authenticateService = new AuthenticateService();
-
-        let usuario = authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
+            let usuario = authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
 
 
-        console.log(usuario);
-        
+            console.log(usuario);
 
+        }
     }
 
 }
