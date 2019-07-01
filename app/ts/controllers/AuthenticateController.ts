@@ -16,15 +16,10 @@ export class AuthenticateController {
 
         alert("chegou");
         console.log('aqui');
-<<<<<<< HEAD
         console.log(this.email.value);
         console.log(this.password);
 
 /*
-=======
-        console.log(this.email.value.toString());
-        console.log(this.password.value.toString());
->>>>>>> 2dac24a8728cb4804987a9b3312d4358257e8c16
 
         const authenticate = new Authenticate(
 
