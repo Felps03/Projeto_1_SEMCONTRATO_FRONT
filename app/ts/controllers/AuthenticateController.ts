@@ -16,10 +16,8 @@ export class AuthenticateController {
 
         alert("chegou");
         console.log('aqui');
-        console.log(this.email);
-        console.log(this.password);
-
-/*
+        console.log(this.email.value.toString());
+        console.log(this.password.value.toString());
 
         const authenticate = new Authenticate(
 
@@ -36,7 +34,7 @@ export class AuthenticateController {
         console.log(authenticate);
 
         console.log(usuario);
-        */
+        
 
     }
 
