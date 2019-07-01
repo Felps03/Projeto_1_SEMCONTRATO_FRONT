@@ -10,4 +10,12 @@ export class Authenticate {
         this.password = password;
     }
 
+    get Email(){
+        return this.email;
+    }
+
+    get Password(){
+        return this.password;
+    }
+
 }
