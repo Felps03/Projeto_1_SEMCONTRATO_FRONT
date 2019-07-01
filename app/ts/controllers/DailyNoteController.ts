@@ -35,6 +35,9 @@ export class DailyNoteController {
         console.log(dailyNote);
         console.log(dailyNoteAux);
     }
+
+
+    
 }
 
 // list(event: Event) {

@@ -11,7 +11,6 @@ export class UserController {
         this.dateOfBirth = document.querySelector('#dateOfBirth');
     }
     add(event) {
-        alert("chegou");
         event.preventDefault();
         let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
         const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.photo.value.toString(), this.password.value.toString(), dataOfBirth);

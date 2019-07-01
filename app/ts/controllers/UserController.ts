@@ -22,7 +22,7 @@ export class UserController {
     }
 
     add(event: Event) {
-        alert("chegou");
+        
         event.preventDefault();
 
         let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
