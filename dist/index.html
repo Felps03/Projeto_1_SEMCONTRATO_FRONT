@@ -20,7 +20,7 @@
     <div id="particles-js"></div>
 
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
-        <div class="container-fluid">
+        <div class="container">
             <div class="navbar-header ml-n3">
                 <img src="/logo_compasso.4607fb91.png">
             </div>
@@ -37,6 +37,7 @@
                         <div class="vt-line mt-4 mb-4">
                             <h3><strong>Login</strong></h3>
                         </div>
+                        
                         <hr class="login-line">
 
                         <div class="form-group">
@@ -114,75 +115,32 @@
         </div>
     </div>
 
-
-    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="vt-line mb-2 mt-2">
-                        <h5 class="modal-title" id="cancelTitle"><strong>Alteração de Senha</strong></h5>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <form class="form" method="post" action="#" id="recovery-form" autocomplete="off">
-                        <div class="col-sm">
-                            <div class="form-group">
-                                <label for="modalpassword">Senha:</label>
-                                <input type="password" name="modalpass_password" class="form-control input-circle" id="modalpassword" placeholder="Informe uma senha" maxlength="8">
-                                <div id="modalpasswordvalidator"></div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="modalnewpassword" class="mt-4">Nova Senha:</label>
-                                <input type="password" name="senha" class="form-control input-circle" id="modalnewpassword" placeholder="Informe uma nova senha" maxlength="8">
-                                <div id="modalnewpasswordvalidator"></div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="modalpassword">Confirmação de Nova Senha:</label>
-                                <input type="password" name="modalnewpass_passwordConfirm" class="form-control input-circle" id="modalnewpasswordConfirm" placeholder="Confirme a nova senha" maxlength="8">
-                                <div id="modalnewpasswordconfirmvalidator"></div>
-                            </div>
-                        </div>
-
-                </form></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger pr-4 pl-4 input-circle" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-warning pr-4 pl-4 input-circle" id="alterar">Alterar</button>
-                </div>
-                
-
-            </div>
-        </div>
-    </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> -->
 
     <script src="/jquery.min.1e3ea97e.js"></script>
     <script src="/bootstrap.min.45389b0b.js"></script>
-    <script src="/user-login-utils.4dda07ac.js"></script>
-
+    <!-- <script src="lib/validators/user-login-utils.js"></script> -->
     <script src="/particle.min.fd23771b.js"></script>
     <script src="/particle-config.e2b04964.js"></script>
 
-    <script>$(document).ready(function () {
-  $.ajax({
-    type: "GET",
-    url: "http://localhost:3000/users/oleiro87@gmail.com",
-    success: function success(data) {
-      $("#email").val(data.email);
-    },
-    error: function error(request, status, _error) {
-      console.log(_error);
-      alert(request.responseText);
-      alert(_error);
-    }
-  });
-});</script>
+    <!-- <script>
+        $(document).ready(function () {
+
+
+            $.ajax({
+                type: "GET",
+                url: `http://localhost:3000/users/oleiro87@gmail.com`,
+                success: function (data) {
+                    $("#email").val(data.email);
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+                    alert(request.responseText);
+                    alert(error);
+                }
+            });
+        })
+    </script> -->
 </body>
 
 </html>
