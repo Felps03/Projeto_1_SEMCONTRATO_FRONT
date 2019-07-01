@@ -7,18 +7,17 @@ let authenticate = document.querySelector('#login-form');
 if (authenticate) {
     const authenticateController = new AuthenticateController();
     authenticate.addEventListener('submit', authenticateController.authenticate.bind(authenticateController));
+
+    let recuperarEmail = document.querySelector('#recovery-pass-form');
+    if (recuperarEmail) {
+        recuperarEmail.addEventListener('submit', authenticateController.changePassword.bind(authenticate));
+    }
 }
 
 let cadastrar = document.querySelector('#user-register');
 if (cadastrar) {
     const userController = new UserController();
     cadastrar.addEventListener('submit', userController.add.bind(userController));
-}
-
-let recuperarEmail = document.querySelector('#recovery-pass-form');
-if (recuperarEmail != null) {
-    const authenticateController = new AuthenticateController();
-    recuperarEmail.addEventListener('submit', authenticateController.changePassword.bind(authenticate));
 }
 
 let addDailyNote = document.querySelector('#daily-form');
