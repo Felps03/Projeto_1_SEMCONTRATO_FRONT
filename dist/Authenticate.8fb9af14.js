@@ -110,14 +110,32 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Authenticate = exports.Authenticate = function Authenticate(email, password) {
-    _classCallCheck(this, Authenticate);
+var Authenticate = exports.Authenticate = function () {
+    function Authenticate(email, password) {
+        _classCallCheck(this, Authenticate);
 
-    this.email = email;
-    this.password = password;
-};
+        this.email = email;
+        this.password = password;
+    }
+
+    _createClass(Authenticate, [{
+        key: "Email",
+        get: function get() {
+            return this.email;
+        }
+    }, {
+        key: "Password",
+        get: function get() {
+            return this.password;
+        }
+    }]);
+
+    return Authenticate;
+}();
 },{}],"node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -147,7 +165,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '57469' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '59226' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

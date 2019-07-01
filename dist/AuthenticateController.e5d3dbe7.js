@@ -110,14 +110,32 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Authenticate = exports.Authenticate = function Authenticate(email, password) {
-    _classCallCheck(this, Authenticate);
+var Authenticate = exports.Authenticate = function () {
+    function Authenticate(email, password) {
+        _classCallCheck(this, Authenticate);
 
-    this.email = email;
-    this.password = password;
-};
+        this.email = email;
+        this.password = password;
+    }
+
+    _createClass(Authenticate, [{
+        key: "Email",
+        get: function get() {
+            return this.email;
+        }
+    }, {
+        key: "Password",
+        get: function get() {
+            return this.password;
+        }
+    }]);
+
+    return Authenticate;
+}();
 },{}],"app\\js\\models\\User.js":[function(require,module,exports) {
 "use strict";
 
@@ -125,19 +143,62 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var User = exports.User = function User(name, lastName, userName, email, photo, password, dateOfBirth) {
-    _classCallCheck(this, User);
+var User = exports.User = function () {
+    function User(name, lastName, userName, email, file_photo, password, dateOfBirth) {
+        _classCallCheck(this, User);
 
-    this.name = name;
-    this.lastName = lastName;
-    this.userName = userName;
-    this.email = email;
-    this.photo = photo;
-    this.password = password;
-    this.dateOfBirth = dateOfBirth;
-};
+        this.name = name;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.email = email;
+        this.file_photo = file_photo;
+        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    _createClass(User, [{
+        key: "Name",
+        get: function get() {
+            return this.name;
+        }
+    }, {
+        key: "LastName",
+        get: function get() {
+            return this.lastName;
+        }
+    }, {
+        key: "UserName",
+        get: function get() {
+            return this.userName;
+        }
+    }, {
+        key: "Email",
+        get: function get() {
+            return this.email;
+        }
+    }, {
+        key: "File_photo",
+        get: function get() {
+            return this.file_photo;
+        }
+    }, {
+        key: "Password",
+        get: function get() {
+            return this.password;
+        }
+    }, {
+        key: "DateOfBirth",
+        get: function get() {
+            return this.dateOfBirth;
+        }
+    }]);
+
+    return User;
+}();
 },{}],"app\\js\\models\\DailyNote.js":[function(require,module,exports) {
 "use strict";
 
@@ -145,16 +206,44 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var DailyNote = exports.DailyNote = function DailyNote(yesterday, today, impediment, date) {
-    _classCallCheck(this, DailyNote);
+var DailyNote = exports.DailyNote = function () {
+    function DailyNote(yesterday, today, impediment, date) {
+        _classCallCheck(this, DailyNote);
 
-    this.yesterday = yesterday;
-    this.today = today;
-    this.impediment = impediment;
-    this.date = date;
-};
+        this.yesterday = yesterday;
+        this.today = today;
+        this.impediment = impediment;
+        this.date = date;
+    }
+
+    _createClass(DailyNote, [{
+        key: "Yesterday",
+        get: function get() {
+            return this.yesterday;
+        }
+    }, {
+        key: "Today",
+        get: function get() {
+            return this.today;
+        }
+    }, {
+        key: "Impediment",
+        get: function get() {
+            return this.impediment;
+        }
+    }, {
+        key: "Date",
+        get: function get() {
+            return this.date;
+        }
+    }]);
+
+    return DailyNote;
+}();
 },{}],"app\\js\\models\\index.js":[function(require,module,exports) {
 'use strict';
 
@@ -361,7 +450,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '57469' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '59226' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
