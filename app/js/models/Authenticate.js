@@ -1,19 +1,12 @@
 export class Authenticate {
-
-    private email: string;
-    private password: string;
-
-    constructor( email: string,  password: string) {
+    constructor(email, password) {
         this.email = email;
         this.password = password;
     }
-
-    get Email(){
+    get Email() {
         return this.email;
     }
-
-    get Password(){
+    get Password() {
         return this.password;
     }
-
 }
