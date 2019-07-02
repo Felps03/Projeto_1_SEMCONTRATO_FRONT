@@ -94,5 +94,15 @@ export class UserService {
         });
     }
     getData() {
+        const email = localStorage.getItem('email');
+        return fetch(`${HOST}users/${email}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            },
+        });
     }
 }
