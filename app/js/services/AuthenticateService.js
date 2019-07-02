@@ -4,6 +4,7 @@ export class AuthenticateService {
     authenticate(email, password) {
         fetch(`${HOST}users/authenticate`, {
             method: 'post',
+            mode: 'cors',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
@@ -12,8 +13,17 @@ export class AuthenticateService {
                 "email": email,
                 "password": password
             })
-        }).then(res => res.json())
-            .then(res => console.log(res));
+        }).then(res => {
+            const token = res.headers.get("Token");
+            if (token != null) {
+                localStorage.setItem('tkn', token);
+            }
+            return res.json();
+        }).then(result => {
+            console.log(result);
+            localStorage.setItem('email', result[0]['email']);
+            window.location.href = "home.html";
+        });
     }
     resetPassword(email) {
         fetch(`${HOST}users/user/recover`, {

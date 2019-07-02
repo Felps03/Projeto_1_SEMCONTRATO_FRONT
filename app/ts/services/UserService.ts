@@ -2,11 +2,11 @@ import { User } from '../models/index';
 import { HOST } from '../config/index';
 
 export class UserService {
-    
+
     cadastro(usuario: User) {
         const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-register')
         let formData = new FormData(form)
-            
+
         $.ajax({
             type: 'POST',
             url: `${HOST}users/user`,
@@ -45,7 +45,7 @@ export class UserService {
      * cadastrar um usuário
      * TODO: verificar como tratar foto
      */
-    
+
 
     /**
      * 
@@ -54,7 +54,7 @@ export class UserService {
     editar(id: string) {
         const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-edit')
         let formData = new FormData(form)
-            
+
         $.ajax({
             type: 'PUT',
             url: `${HOST}users/user/${id}`,
@@ -68,14 +68,14 @@ export class UserService {
                 console.log("resquest: ", request.responseText)
             }
         })
-            
+
     }
 
     /**
      * 
      * @param id para remover usuário
      */
-    remove(id : string) {
+    remove(id: string) {
         $.ajax({
             type: 'DELETE',
             url: `${HOST}users/user/${id}`,
@@ -121,7 +121,7 @@ export class UserService {
      * 
      * @param email para buscar se cadastro ja existe
      */
-    findByEmail(email : string) {
+    findByEmail(email: string) {
         $.ajax({
             type: 'GET',
             url: `${HOST}users/${email}`,
@@ -135,5 +135,21 @@ export class UserService {
             }
         })
     }
-    
+
+    getData() {
+
+        // console.log("Token é: " + localStorage.getItem('tkn'));
+        // console.log("Email é: " + localStorage.getItem('email'));
+        const email = localStorage.getItem('email');
+        return fetch(`${HOST}users/${email}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            },
+        })
+    }
+
 }

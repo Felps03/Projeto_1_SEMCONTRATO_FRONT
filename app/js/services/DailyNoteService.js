@@ -1,20 +1,23 @@
 import { HOST } from '../config/index';
 export class DailyNoteService {
-    add(form) {
-        let formData = new FormData(form);
-        $.ajax({
-            type: 'POST',
-            url: `${HOST}dailys/daily`,
-            contentType: false,
-            cache: false,
-            processData: false,
-            data: formData,
-            success: function (data) { console.log(data); },
-            error: function (request, status, error) {
-                console.log("error: ", error);
-                console.log("resquest: ", request.responseText);
-            }
-        });
+    add(yesterday, today, impediment, date) {
+        console.log(new Date().toISOString().slice(0, 10));
+        fetch(`${HOST}dailys/daily`, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "yesterday": yesterday,
+                "today": today,
+                "impediment": impediment,
+                "date": new Date().toISOString().slice(0, 10),
+                "email": localStorage.getItem('email')
+            })
+        })
+            .then(res => res.json())
+            .then(res => console.log(res));
     }
     update(id) {
         const form = document.getElementById('editdaily-form');
@@ -46,24 +49,5 @@ export class DailyNoteService {
                 console.log("resquest: ", request.responseText);
             }
         });
-    }
-    listAll() {
-        let result = "";
-        $.ajax({
-            type: 'GET',
-            url: `${HOST}dailys`,
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function (data) {
-                result = data;
-                console.log(data);
-            },
-            error: function (request, status, error) {
-                console.log("error: ", error);
-                console.log("resquest: ", request.responseText);
-            }
-        });
-        return result;
     }
 }

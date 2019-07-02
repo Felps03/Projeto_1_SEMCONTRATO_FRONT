@@ -12,11 +12,9 @@ export class AuthenticateController {
         ];
     }
     authenticate(event) {
-        event.preventDefault();
         const authenticateService = new AuthenticateService();
         let usuario = authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
-        console.log(this.email.value);
-        console.log(this.password.value);
+        event.preventDefault();
     }
     resetPassword(event) {
         event.preventDefault();
