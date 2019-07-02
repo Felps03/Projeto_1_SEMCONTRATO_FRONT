@@ -10,10 +10,11 @@ export class AuthenticateService {
      */
     authenticate(email: string, password: string) {
 
-       
+
 
         fetch(`${HOST}users/authenticate`, {
             method: 'post',
+            mode: 'cors',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
@@ -22,8 +23,21 @@ export class AuthenticateService {
                 "email": email,
                 "password": password
             })
-        }).then(res => res.json())
-            .then(res => console.log(res));
+        }).then(res => {
+            // console.log(res.headers.get("Token"));
+            const token = res.headers.get("Token");
+            if (token != null) {
+                localStorage.setItem('tkn', token);
+            }
+            return res.json();
+        }).then(result => {
+            // console.log(token);
+            console.log(result);
+            localStorage.setItem('email', result[0]['email'])
+            // console.log(result[0]['email']);
+            window.location.href = "home.html";
+        })
+        /*.then(res => console.log(res));*/
     }
 
     /**
@@ -32,7 +46,7 @@ export class AuthenticateService {
      */
     resetPassword(email: string) {
         console.log(email);
-        
+
         fetch(`${HOST}users/user/recover`, {
             method: 'post',
             headers: {
@@ -43,8 +57,8 @@ export class AuthenticateService {
                 "email": email
             })
         })
-        .then(res => res.json())
-        .then(res => console.log(res));
+            .then(res => res.json())
+            .then(res => console.log(res));
     }
 
     /**
