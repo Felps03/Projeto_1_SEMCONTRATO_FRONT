@@ -1,5 +1,7 @@
 import { User } from '../models/index';
 import { HOST } from '../config/index';
+import { async } from 'q';
+import { UserService } from './UserService';
 
 export class AuthenticateService {
 
@@ -10,7 +12,7 @@ export class AuthenticateService {
      */
     authenticate(email: string, password: string) {
 
-       
+
 
         fetch(`${HOST}users/authenticate`, {
             method: 'post',
@@ -31,8 +33,6 @@ export class AuthenticateService {
      * @param email para recuperação de senha
      */
     resetPassword(email: string) {
-        console.log(email);
-        
         fetch(`${HOST}users/user/recover`, {
             method: 'post',
             headers: {
@@ -43,35 +43,40 @@ export class AuthenticateService {
                 "email": email
             })
         })
-        .then(res => res.json())
-        .then(res => console.log(res));
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                window.location.href = 'index.html';
+            });
     }
 
-    /**
-     * 
-     * @param codigo para recuperar senha de usuario
-     * @param email para validar usuario
-     */
-    verifyCode(codigo: string, email: string) {
-        const form: HTMLFormElement = <HTMLFormElement>document.getElementById('recovery-code-form')
 
-        let formData = new FormData(form)
+    verifyCode(emailCode: any, email: string, password: string) {
 
-        $.ajax({
-            type: 'POST',
-            url: `${HOST}users/code/verify`,
-            contentType: false,
-            cache: false,
-            processData: false,
-            data: formData,
-            success: function (data: any) { console.log(data) },
-            error: function (request: { responseText: any; }, status: any, error: any) {
-                console.log("error: ", error)
-                console.log("resquest: ", request.responseText)
+        fetch(`${HOST}users/code/verify`, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "emailCode": emailCode,
+                "email": email
+            })
+        }).then(res => { 
+            
+            if(res.status == 400){
+                alert('Codigo invalido');
+            } 
+            if(res.status == 200) {
+                const userService = new UserService();
+                userService.changePassword(email, password);
+                
             }
         })
+        .catch(error => {
+            console.log("error: ", error);
+            return error;
+        });
     }
-
 }
-
-

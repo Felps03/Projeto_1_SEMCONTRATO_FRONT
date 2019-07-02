@@ -62,24 +62,16 @@
                         <hr class="register-line">
 
                         <div class="form-group">
-                            <label for="code">Código:</label>
-                            <input type="text" name="email_code" class="form-control form-control-sm input-circle"
-                                id="code" placeholder="Informe o código" autofocus>
-                            <div id="codevalidator"></div>
-                        </div>
-
-
-                        <div class="form-group">
                             <label for="email">Email:</label>
                             <input type="text" name="email" class="form-control form-control-sm input-circle"
-                                id="email_rec" placeholder="Informe seu email" autofocus>
+                                id="email_rec" placeholder="Informe seu email" autofocus value="felipe.031293@gmail.com">
                             <div id="emailvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="password_rec">Nova Senha:</label>
                             <input type="password" name="senha" class="form-control form-control-sm input-circle"
-                                id="password_rec" placeholder="Informe uma nova senha" autofocus>
+                                id="password_rec" placeholder="Informe uma nova senha" autofocus value="123456">
                             <div id="passwordvalidator_rec"></div>
                         </div>
 
@@ -87,7 +79,7 @@
                             <label for="password_rec_conf">Confirmação:</label>
                             <input type="password" name="password_rec_conf"
                                 class="form-control form-control-sm input-circle" id="password_rec_conf"
-                                placeholder="Informe a senha novamente" maxlength="8">
+                                placeholder="Informe a senha novamente" maxlength="8" value="123456">
                             <div id="passwordvalidator_rec_conf"></div>
                         </div>
 
@@ -109,6 +101,12 @@
  
     <script src="app/lib/particlejs/particle.min.js"></script>
     <script src="app/lib/particlejs/particle-config.js"></script>
+
+
+    <script src="./app/js/controllers/UserController.js"></script>
+    <script src="./app/js/services/UserService.js"></script>
+    <script src="./app/js/services/AuthenticateService.js"></script>
+    <script src="./app/js/user-recovery.js"></script>
 </body>
 
 </html>

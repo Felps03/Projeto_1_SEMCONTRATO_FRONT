@@ -96,23 +96,25 @@ export class UserService {
      * @param email para alterar senha do usuário
      * @param password nova senha
      */
+
+    
     changePassword(email: string, password: string) {
-        const form: HTMLFormElement = <HTMLFormElement>document.getElementById('recovery-code-form')
-        let formData = new FormData(form)
-            
-        $.ajax({
-            type: 'PUT',
-            url: `${HOST}users/changePassword`,
-            contentType: false,
-            cache: false,
-            processData: false,
-            data: formData,
-            success: function (data) { console.log(data) },
-            error: function (request, status, error) {
-                console.log("error: ", error)
-                console.log("resquest: ", request.responseText)
-            }
-        })
+        console.log(email, " | ", password);
+        fetch(`${HOST}users/changePassword`, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "email": email,
+                "password": password
+            })
+        }).then(res => res.json())
+            .then(res => console.log(res))
+            .catch(error =>  {
+                alert("código inválido");
+              });
     }
 
     /**
