@@ -93,4 +93,24 @@ export class AuthenticateService {
                 return error;
             });
     }
+
+    logout(){
+        fetch(`${HOST}users/logout`, {
+            method: 'post',
+            headers:{'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${localStorage.getItem("tkn")}`
+             },
+        }).then(res => {
+            if(res.status == 400){
+                alert("Houve um erro ao Deslogar");
+            }
+            if(res.status == 200){
+                window.location.href = 'index.html';
+            }
+        }).catch(error =>{
+            console.log("error: ", error);
+            return error;
+        })
+    }
 }

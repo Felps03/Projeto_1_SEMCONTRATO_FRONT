@@ -42,9 +42,20 @@ export class AuthenticateController {
 
         var email = <HTMLInputElement>document.querySelector('#email_rec');
 
-        const userService = new UserService();
         const authenticateService = new AuthenticateService();
 
         authenticateService.resetPassword(email.value.toString())
+    }
+
+    logout(event: Event){
+        event.preventDefault();
+    
+        // /users/logout
+        // fach com local storage kill token 
+        //Authorization : Bearer "token"
+        const authenticateService = new AuthenticateService();
+
+        authenticateService.logout();
+        
     }
 }

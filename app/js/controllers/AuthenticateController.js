@@ -1,7 +1,6 @@
 import { AuthenticateService } from "../services/AuthenticateService";
 import { validate } from '../helpers/index';
 import * as vals from '../validation/userValidate';
-import { UserService } from "../services/UserService";
 export class AuthenticateController {
     constructor() {
         this.email = document.getElementById('email');
@@ -19,8 +18,12 @@ export class AuthenticateController {
     resetPassword(event) {
         event.preventDefault();
         var email = document.querySelector('#email_rec');
-        const userService = new UserService();
         const authenticateService = new AuthenticateService();
         authenticateService.resetPassword(email.value.toString());
+    }
+    logout(event) {
+        event.preventDefault();
+        const authenticateService = new AuthenticateService();
+        authenticateService.logout();
     }
 }
