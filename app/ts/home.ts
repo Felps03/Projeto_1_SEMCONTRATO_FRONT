@@ -7,13 +7,9 @@ let userNameSpan = document.querySelector('#userNameSpan');
 let homeController = new HomeController();
 
 let nameSpanTxt = "";
-let userNameSpanTxt = ""
-
-
-
+let userNameSpanTxt = "";
 
 const data = homeController.getUserData();
-// console.log(typeof homeController.getUserData());
 
 if (data) {
     data.then(data => {

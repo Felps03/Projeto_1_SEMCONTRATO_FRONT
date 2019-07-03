@@ -31,7 +31,9 @@ export class UserController {
             let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
             const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.photo.value.toString(), this.password.value.toString(), dataOfBirth);
             const userService = new UserService();
+            let usuario = userService.add(user);
             console.log(user);
+            console.log(usuario);
         }
     }
     changePassword(event) {
@@ -43,5 +45,14 @@ export class UserController {
         let URL_KEY = url.searchParams.get("key");
         const authenticateService = new AuthenticateService();
         authenticateService.verifyCode(URL_KEY, email.value, password.value);
+    }
+    update(event) {
+        event.preventDefault();
+        if (noFalse(this.addVals)) {
+            let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
+            const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.photo.value.toString(), this.password.value.toString(), dataOfBirth);
+            const userService = new UserService();
+            console.log(user);
+        }
     }
 }

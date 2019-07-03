@@ -8,24 +8,31 @@ export class User {
         this.password = password;
         this.dateOfBirth = dateOfBirth;
     }
+
     get Name() {
         return this.name;
     }
+
     get LastName() {
         return this.lastName;
     }
+
     get UserName() {
         return this.userName;
     }
+
     get Email() {
         return this.email;
     }
+
     get File_photo() {
         return this.file_photo;
     }
+
     get Password() {
         return this.password;
     }
+    
     get DateOfBirth() {
         return this.dateOfBirth;
     }

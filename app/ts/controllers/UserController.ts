@@ -64,11 +64,12 @@ export class UserController {
                 this.password.value.toString(),
                 dataOfBirth,
             );
+            
             const userService = new UserService();
-            // let usuario = userService.cadastro(user);
+            let usuario = userService.add(user);
 
             console.log(user);
-            // console.log(usuario);
+            console.log(usuario);
         }
     }
 
@@ -114,5 +115,31 @@ export class UserController {
     }
 
     */
+
+   update(event: Event) {
+
+    event.preventDefault();
+
+    if (noFalse(this.addVals)) {
+
+        let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
+
+        const user = new User(
+            this.name.value.toString(),
+            this.lastName.value.toString(),
+            this.userName.value.toString(),
+            this.email.value.toString(),
+            this.photo.value.toString(),
+            this.password.value.toString(),
+            dataOfBirth,
+        );
+
+        const userService = new UserService();
+        // let usuario = userService.cadastro(user);
+
+        console.log(user);
+        // console.log(usuario);
+    }
+}
 
 }
