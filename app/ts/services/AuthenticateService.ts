@@ -15,7 +15,7 @@ export class AuthenticateService {
 
 
         fetch(`${HOST}users/authenticate`, {
-            method: 'post',
+            method: 'POST',
             mode: 'cors',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -77,20 +77,20 @@ export class AuthenticateService {
                 "emailCode": emailCode,
                 "email": email
             })
-        }).then(res => { 
-            
-            if(res.status == 400){
+        }).then(res => {
+
+            if (res.status == 400) {
                 alert('Codigo invalido');
-            } 
-            if(res.status == 200) {
+            }
+            if (res.status == 200) {
                 const userService = new UserService();
                 userService.changePassword(email, password);
-                
+
             }
         })
-        .catch(error => {
-            console.log("error: ", error);
-            return error;
-        });
+            .catch(error => {
+                console.log("error: ", error);
+                return error;
+            });
     }
 }

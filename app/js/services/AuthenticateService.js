@@ -3,7 +3,7 @@ import { UserService } from './UserService';
 export class AuthenticateService {
     authenticate(email, password) {
         fetch(`${HOST}users/authenticate`, {
-            method: 'post',
+            method: 'POST',
             mode: 'cors',
             headers: {
                 'Accept': 'application/json, text/plain, */*',

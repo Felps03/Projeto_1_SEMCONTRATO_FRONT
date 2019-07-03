@@ -65,10 +65,10 @@ export class UserController {
             dataOfBirth,
         );
         const userService = new UserService();
-        let usuario = userService.cadastro(user);
+        // let usuario = userService.cadastro(user);
 
         console.log(user);
-        console.log(usuario);
+        // console.log(usuario);
         // }
     }
 
@@ -87,7 +87,7 @@ export class UserController {
         const authenticateService = new AuthenticateService();
 
         authenticateService.verifyCode(URL_KEY, email.value, password.value);
-        
+
     }
 
     /*list() {
