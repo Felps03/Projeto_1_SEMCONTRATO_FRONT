@@ -30,29 +30,29 @@ export class DailyNoteController {
     add(event: Event) {
         event.preventDefault();
 
-        // if (noFalse(this.addVals)) {
-        
-        let dailyNote = new DailyNote(
-            this.yesterday.value.toString(),
-            this.today.value.toString(),
-            this.impediment.value.toString(),
-            new Date()
-        );
+        if (noFalse(this.addVals)) {
+
+            let dailyNote = new DailyNote(
+                this.yesterday.value.toString(),
+                this.today.value.toString(),
+                this.impediment.value.toString(),
+                new Date()
+            );
 
 
-        let dailyNoteService = new DailyNoteService();
+            let dailyNoteService = new DailyNoteService();
 
 
-        
-        let dailyNoteAux = dailyNoteService.add(
-                this.yesterday.value, 
-                this.today.value, 
-                this.impediment.value, 
+
+            let dailyNoteAux = dailyNoteService.add(
+                this.yesterday.value,
+                this.today.value,
+                this.impediment.value,
                 new Date());
 
-        console.log(dailyNote);
-        // console.log(dailyNoteAux);
-        // }
+            console.log(dailyNote);
+            // console.log(dailyNoteAux);
+        }
     }
 
 
