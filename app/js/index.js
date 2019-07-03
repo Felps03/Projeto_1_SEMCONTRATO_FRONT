@@ -7,7 +7,7 @@ if (authenticate) {
     authenticate.addEventListener('submit', authenticateController.authenticate.bind(authenticateController));
     let recuperarEmail = document.querySelector('#recovery-pass-form');
     if (recuperarEmail) {
-        recuperarEmail.addEventListener('submit', authenticateController.resetPassword.bind(authenticate));
+        recuperarEmail.addEventListener('submit', authenticateController.resetPassword.bind(authenticateController));
     }
 }
 let cadastrar = document.querySelector('#user-register');
