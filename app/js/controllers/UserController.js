@@ -1,6 +1,5 @@
 import { User } from '../models/User';
 import { UserService } from "../services/UserService";
-import { AuthenticateService } from '../services/index';
 import { validate } from '../helpers/index';
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck';
@@ -33,15 +32,5 @@ export class UserController {
             const userService = new UserService();
             console.log(user);
         }
-    }
-    changePassword(event) {
-        event.preventDefault();
-        let email = document.querySelector('#email_rec');
-        let password = document.querySelector('#password_rec');
-        let url_string = window.location.href;
-        let url = new URL(url_string);
-        let URL_KEY = url.searchParams.get("key");
-        const authenticateService = new AuthenticateService();
-        authenticateService.verifyCode(URL_KEY, email.value, password.value);
     }
 }
