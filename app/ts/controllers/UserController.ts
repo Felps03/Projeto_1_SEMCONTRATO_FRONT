@@ -72,24 +72,6 @@ export class UserController {
         }
     }
 
-
-    changePassword(event: Event) {
-        event.preventDefault();
-
-        let email = <HTMLInputElement>document.querySelector('#email_rec');
-
-        let password = <HTMLInputElement>document.querySelector('#password_rec');
-
-        let url_string = window.location.href;
-        let url = new URL(url_string);
-        let URL_KEY = url.searchParams.get("key");
-
-        const authenticateService = new AuthenticateService();
-
-        authenticateService.verifyCode(URL_KEY, email.value, password.value);
-
-    }
-
     /*list() {
         event.preventDefault();
 
