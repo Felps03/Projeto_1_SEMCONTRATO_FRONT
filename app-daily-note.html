@@ -51,7 +51,7 @@
                         <i class="material-icons mr-2">lightbulb_outline</i>Help Center</a>
                     <div class="dropdown-divider"></div>
 
-                    <a class="dropdown-item d-flex align-items-center">
+                    <a class="dropdown-item d-flex align-items-center" id="logout">
                         <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
                 </div>
             </div>
@@ -75,9 +75,13 @@
                         <div class="form-group">
                             <label for="filter">Visualizar por data:</label>
                             <input type="date" name="filter"
-                                class="form-control form-control-sm ext-placeholder input-circle" id="filter">
+                            class="form-control form-control-sm ext-placeholder input-circle" id="filter">
                             <div id="filtervalidator"></div>
+                            <button type="button" name="new_daily"
+                                class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle " id="filter_daily">Buscar
+                            </button>
                         </div>
+
                     </div>
 
                     <div class="col-12 col-sm-8">
@@ -89,6 +93,7 @@
                 </div>
 
                 <table class="table table-hover mt-4">
+                    <!-- cabeçalho -->
                     <thead class="bg-light">
                         <tr>
                             <th scope="col">Data</th>
@@ -96,9 +101,30 @@
                             <th scope="col">Opções</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="all-dailys">
 
-                        <tr>
+                        <script>
+                            document.getElementById('all-dailys').innerHTML = `
+                            <tr>
+                                <td scope="row">data</td>
+                                    <td>Juliana Sequeira</td>
+                                    <td>
+                                        <button type="button" name="edit"
+                                            class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="daily-edit"
+                                            data-toggle="modal" data-target="#editdailyModal">
+                                            <i class="small material-icons">edit</i>
+                                        </button>
+
+                                        <button type="button" name="view"
+                                            class="btn btn-outline-success btn-sm input-circle pt-2" id="daily-view"
+                                            data-toggle="modal" data-target="#viewdailyModal">
+                                            <i class="small material-icons">remove_red_eye</i>
+                                        </button>
+                                </td>
+                            </tr>`;    
+                        </script>
+
+                        <!-- <tr>
                             <td scope="row">${data}</td>
                             <td>Juliana Sequeira</td>
                             <td>
@@ -115,7 +141,7 @@
                                 </button>
 
                             </td>
-                        </tr>
+                        </tr> -->
 
                     </tbody>
                 </table>
