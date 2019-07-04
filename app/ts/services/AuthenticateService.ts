@@ -15,7 +15,7 @@ export class AuthenticateService {
 
 
         // fetch(`${HOST}users/authenticate`, {
-        fetch('https://100contrato.azurewebsites.net/users/authenticate', {
+        fetch('https://100contrato.azurewebsites.net/users/authenticate4533r', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -95,24 +95,25 @@ export class AuthenticateService {
             });
     }
 
-    logout(){
+    logout() {
         fetch(`${HOST}users/logout`, {
             method: 'post',
-            headers:{'Accept': 'application/json, text/plain, */*',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
-                'Authorization' : `Bearer ${localStorage.getItem("tkn")}`
-             },
+                'Authorization': `Bearer ${localStorage.getItem("tkn")}`
+            },
         }).then(res => {
-            if(res.status == 400){
+            if (res.status == 400) {
                 alert("Houve um erro ao Deslogar");
             }
-            if(res.status == 200){
+            if (res.status == 200) {
                 localStorage.removeItem("tkn");
                 localStorage.removeItem("email");
                 console.log("deu bom");
                 window.location.href = 'index.html';
             }
-        }).catch(error =>{
+        }).catch(error => {
             console.log("error: ", error);
             return error;
         })
