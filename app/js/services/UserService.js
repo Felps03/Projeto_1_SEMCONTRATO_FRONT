@@ -17,7 +17,6 @@ export class UserService {
             }
         });
     }
-    
     changePassword(email, password) {
         console.log(email, " | ", password);
         fetch(`${HOST}users/changePassword`, {
@@ -36,7 +35,6 @@ export class UserService {
             alert("código inválido");
         });
     }
-
     getData() {
         const email = localStorage.getItem('email');
         return fetch(`${HOST}users/${email}`, {
