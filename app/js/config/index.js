@@ -1,1 +1,1 @@
-export const HOST = 'http://100contrato.azurewebsites.net/';
+export const HOST = 'https://100contrato.azurewebsites.net/';

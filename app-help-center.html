@@ -66,29 +66,27 @@
             <div class="pt-1 pl-4 pr-4 pb-4">
 
                 <div class="vt-line mt-4 mb-4">
-                    <h3><strong>Reuniões Diárias</strong></h3>
+                    <h3><strong>Help Center</strong></h3>
                 </div>
                 <hr class="register-line">
 
-                <div class="row">
-                    <div class="col-12 col-sm-4 mt-3">
-                        <div class="form-group">
-                            <label for="filter">Visualizar por data:</label>
-                            <input type="date" name="filter"
-                                class="form-control form-control-sm ext-placeholder input-circle" id="filter">
-                            <div id="filtervalidator"></div>
-                            <button type="button" name="new_daily"
-                                class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle " id="filter_daily">Buscar
-                            </button>
+                <div>
+                    <div class="row">
+
+                        <div class="form-group col-10">
+                            <label for="title">Título:</label>
+                            <input type="text" name="title" id="title" class="form-control form-control-sm input-circle"
+                                placeholder="Informe seu nome" autofocus>
                         </div>
-
+                        <div class="col-2">
+                            hello
+                        </div>
                     </div>
-
-                    <div class="col-12 col-sm-8">
-                        <button type="button" name="new_daily"
-                            class="btn btn-outline-success btn-sm pr-4 pl-4 float-right input-circle mt-add-daily"
-                            data-toggle="modal" data-target="#dailyModal">Adicionar Daily
-                        </button>
+                    <div class="form-group">
+                        <label for="first"><strong>1. </strong>O que eu fiz ontem?</label>
+                        <textarea name="first" class="form-control form-control-sm input-circle" id="yesterday"
+                            placeholder="Informe sua resposta aqui" autofocus></textarea>
+                        <div id="firstvalidator"></div>
                     </div>
                 </div>
 
@@ -379,9 +377,6 @@
         }
     </script>
 
-    <!--<script src="app/js/controllers/DailyNoteController.js"></script>
-    <script src="app/js/models/DailyNote.js"></script>
-    <script src="app/js/services/DailyNoteService.js"></script>-->
     <script src="app/js/dailyNote.js"></script>
 </body>
 
