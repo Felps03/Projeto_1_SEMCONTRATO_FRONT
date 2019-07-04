@@ -9,11 +9,20 @@ export class DailyNoteController {
         this.today = document.querySelector('#today');
         this.impediment = document.querySelector('#impediment');
         this.date = document.querySelector('#date');
+        this.editYesterday = document.querySelector('#edit-yesterday');
+        this.editToday = document.querySelector('#edit-today');
+        this.editImpediment = document.querySelector('#edit-impediment');
         this.addVals = [
             validate(this.yesterday, vals.yesterday),
             validate(this.today, vals.today),
-            validate(this.impediment, vals.impediment),
+            validate(this.impediment, vals.impediment)
         ];
+        this.editVals = [
+            validate(this.editYesterday, vals.yesterday),
+            validate(this.editToday, vals.today),
+            validate(this.editImpediment, vals.impediment)
+        ];
+        console.log(this.editYesterday);
     }
     add(event) {
         event.preventDefault();

@@ -11,7 +11,12 @@ export class DailyNoteController {
     private impediment: HTMLInputElement;
     private date: HTMLInputElement;
 
+    private editYesterday: HTMLInputElement;
+    private editToday: HTMLInputElement;
+    private editImpediment: HTMLInputElement;
+
     private addVals: (() => boolean)[];
+    private editVals: (() => boolean)[];
 
     constructor() {
         this.yesterday = <HTMLInputElement>document.querySelector('#yesterday');
@@ -19,12 +24,23 @@ export class DailyNoteController {
         this.impediment = <HTMLInputElement>document.querySelector('#impediment');
         this.date = <HTMLInputElement>document.querySelector('#date');
 
+        this.editYesterday = <HTMLInputElement>document.querySelector('#edit-yesterday');
+        this.editToday = <HTMLInputElement>document.querySelector('#edit-today');
+        this.editImpediment = <HTMLInputElement>document.querySelector('#edit-impediment');
+
         // init validations
         this.addVals = [
             validate(this.yesterday, vals.yesterday),
             validate(this.today, vals.today),
-            validate(this.impediment, vals.impediment),
+            validate(this.impediment, vals.impediment)
         ];
+        this.editVals = [
+            validate(this.editYesterday, vals.yesterday),
+            validate(this.editToday, vals.today),
+            validate(this.editImpediment, vals.impediment)
+        ];
+
+        console.log(this.editYesterday);
     }
 
     add(event: Event) {
@@ -65,5 +81,8 @@ export class DailyNoteController {
 
 // update(event: Event) {
 //     event.preventDefault();
+//     if (noFalse(this.editVals)) {
+//         ...
+//     }
 // }
 // }
