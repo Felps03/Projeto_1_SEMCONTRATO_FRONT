@@ -40,3 +40,8 @@ if (data) {
 else {
     window.location.href = "index.html";
 }
+let update = document.querySelector('#user-edit');
+if (update) {
+    const userController = new UserController();
+    update.addEventListener('submit', userController.update.bind(userController));
+}

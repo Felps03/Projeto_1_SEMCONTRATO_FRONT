@@ -101,6 +101,7 @@ export class UserController {
     */
 
     update(event: Event) {
+        alert("chegou");
 
         event.preventDefault();
 

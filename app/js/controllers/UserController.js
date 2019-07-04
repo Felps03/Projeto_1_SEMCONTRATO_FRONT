@@ -41,6 +41,7 @@ export class UserController {
         }
     }
     update(event) {
+        alert("chegou");
         event.preventDefault();
         if (noFalse(this.addVals)) {
             let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));

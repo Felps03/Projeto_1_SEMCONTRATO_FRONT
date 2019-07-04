@@ -2,7 +2,7 @@ import { HOST } from '../config/index';
 import { UserService } from './UserService';
 export class AuthenticateService {
     authenticate(email, password) {
-        fetch('https://100contrato.azurewebsites.net/users/authenticate', {
+        fetch('https://100contrato.azurewebsites.net/users/authenticate4533r', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -70,7 +70,8 @@ export class AuthenticateService {
     logout() {
         fetch(`${HOST}users/logout`, {
             method: 'post',
-            headers: { 'Accept': 'application/json, text/plain, */*',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem("tkn")}`
             },
