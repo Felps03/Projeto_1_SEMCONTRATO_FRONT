@@ -1,6 +1,6 @@
-import { UserController } from './controllers/UserController';
+import { PasswordRecoveryController } from './controllers/PasswordRecoveryController';
 let changePassword = document.getElementById("recoverycodeT");
 if (changePassword) {
-    const userController = new UserController();
-    changePassword.addEventListener('click', userController.changePassword.bind(userController));
+    const passwordRecoveryController = new PasswordRecoveryController();
+    changePassword.addEventListener('click', passwordRecoveryController.changePassword.bind(passwordRecoveryController));
 }
