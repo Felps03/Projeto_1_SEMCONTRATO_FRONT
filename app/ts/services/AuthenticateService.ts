@@ -14,7 +14,8 @@ export class AuthenticateService {
 
 
 
-        fetch(`${HOST}users/authenticate`, {
+        // fetch(`${HOST}users/authenticate`, {
+        fetch('https://100contrato.azurewebsites.net/users/authenticate', {
             method: 'POST',
             mode: 'cors',
             headers: {
