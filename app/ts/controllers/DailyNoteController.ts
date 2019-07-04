@@ -10,6 +10,7 @@ export class DailyNoteController {
     private today: HTMLInputElement;
     private impediment: HTMLInputElement;
     private date: HTMLInputElement;
+    private listDate: HTMLInputElement;
 
     private addVals: (() => boolean)[];
 
@@ -18,6 +19,9 @@ export class DailyNoteController {
         this.today = <HTMLInputElement>document.querySelector('#today');
         this.impediment = <HTMLInputElement>document.querySelector('#impediment');
         this.date = <HTMLInputElement>document.querySelector('#date');
+
+        this.listDate = <HTMLInputElement>document.querySelector('#filter');
+
 
         // init validations
         this.addVals = [
@@ -42,8 +46,6 @@ export class DailyNoteController {
 
             let dailyNoteService = new DailyNoteService();
 
-
-
             let dailyNoteAux = dailyNoteService.add(
                 this.yesterday.value,
                 this.today.value,
@@ -51,17 +53,25 @@ export class DailyNoteController {
                 new Date());
 
             console.log(dailyNote);
-            // console.log(dailyNoteAux);
+            console.log(dailyNoteAux);
         }
     }
 
+    listD(event: Event){
+        event.preventDefault();
 
+        let date = <HTMLInputElement>document.querySelector('#filter');
+
+        let dailyNoteService = new DailyNoteService();
+
+        let dailyNoteListDate = dailyNoteService.listDate(new Date);
+        console.log(date);
+        console.log(dailyNoteListDate)
+
+    };
 
 }
 
-// list(event: Event) {
-
-// }
 
 // update(event: Event) {
 //     event.preventDefault();
