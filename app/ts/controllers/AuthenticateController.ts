@@ -22,14 +22,18 @@ export class AuthenticateController {
         this.emailRec = <HTMLInputElement>document.getElementById('email_rec');
 
         // init validations
-        this.authVals = [
-            validate(this.email, vals.email),
-            validate(this.password, vals.password)
-        ];
+        try{
+            this.authVals = [
+              validate(this.email, vals.email),
+              validate(this.password, vals.password)
+            ];
 
-        this.passRecVals = [
-            validate(this.emailRec, vals.email)
-        ];
+            this.passRecVals = [
+              validate(this.emailRec, vals.email)
+             ];
+        }catch(e){
+            console.log("passo no catch");
+        }
     }
 
     authenticate(event: Event) {
@@ -53,11 +57,22 @@ export class AuthenticateController {
 
         if (noFalse(this.passRecVals)) {
             // /users/user/recover
-
             const userService = new UserService();
             const authenticateService = new AuthenticateService();
 
             authenticateService.resetPassword(this.email.value.toString())
         }
+    }
+
+    logout(event: Event){
+        event.preventDefault();
+    
+        // /users/logout
+        // fach com local storage kill token 
+        //Authorization : Bearer "token"
+        const authenticateService = new AuthenticateService();
+
+        authenticateService.logout();
+        
     }
 }
