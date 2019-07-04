@@ -70,7 +70,8 @@ export class AuthenticateService {
     logout() {
         fetch(`${HOST}users/logout`, {
             method: 'post',
-            headers: { 'Accept': 'application/json, text/plain, */*',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem("tkn")}`
             },

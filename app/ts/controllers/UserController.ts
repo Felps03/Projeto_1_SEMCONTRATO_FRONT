@@ -33,18 +33,20 @@ export class UserController {
 
         // init validations
 
-
-        this.addVals = [
-            validate(this.name, vals.name),
-            validate(this.lastName, vals.lastName),
-            validate(this.userName, vals.username),
-            validate(this.email, vals.email),
-            validate(this.photo, vals.photo),
-            validate(this.password, vals.password),
-            validate(this.dateOfBirth, vals.dateOfBirth),
-            validate(this.passwordConfirm, vals.passwordConfirm, this.password)
-        ];
-
+        try {
+            this.addVals = [
+                validate(this.name, vals.name),
+                validate(this.lastName, vals.lastName),
+                validate(this.userName, vals.username),
+                validate(this.email, vals.email),
+                validate(this.photo, vals.photo),
+                validate(this.password, vals.password),
+                validate(this.dateOfBirth, vals.dateOfBirth),
+                validate(this.passwordConfirm, vals.passwordConfirm, this.password)
+            ];
+        } catch (error) {
+            console.log("validacao ok");
+        }
     }
 
     add(event: Event) {
@@ -69,6 +71,31 @@ export class UserController {
 
             console.log(user);
             // console.log(usuario);
+        }
+    }
+
+    getUserData() {
+        let data;
+
+        if (!localStorage.getItem('tkn')) {
+            return false;
+        }
+        else {
+            const userService = new UserService();
+            return userService.getData()
+                .then(res => {
+                    return res.json();
+                })
+                .then(result => {
+                    let data = {
+                        name: result['name'],
+                        userName: result['userName'],
+                        lastName: result['lastName'],
+                        email: result['email'],
+                        dateOfBirth: result['dateOfBirth']
+                    }
+                    return data;
+                });
         }
     }
 
