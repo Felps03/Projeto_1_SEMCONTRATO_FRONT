@@ -2,6 +2,7 @@ import { DailyNote } from '../models/DailyNote';
 import { DailyNoteService } from '../services/DailyNoteService';
 import { validate } from '../helpers/index';
 import * as vals from '../validation/dailyNoteValidate';
+import { noFalse } from '../utils/listCheck';
 export class DailyNoteController {
     constructor() {
         this.yesterday = document.querySelector('#yesterday');
@@ -16,9 +17,11 @@ export class DailyNoteController {
     }
     add(event) {
         event.preventDefault();
-        let dailyNote = new DailyNote(this.yesterday.value.toString(), this.today.value.toString(), this.impediment.value.toString(), new Date());
-        let dailyNoteService = new DailyNoteService();
-        let dailyNoteAux = dailyNoteService.add(this.yesterday.value, this.today.value, this.impediment.value, new Date());
-        console.log(dailyNote);
+        if (noFalse(this.addVals)) {
+            let dailyNote = new DailyNote(this.yesterday.value.toString(), this.today.value.toString(), this.impediment.value.toString(), new Date());
+            let dailyNoteService = new DailyNoteService();
+            let dailyNoteAux = dailyNoteService.add(this.yesterday.value, this.today.value, this.impediment.value, new Date());
+            console.log(dailyNote);
+        }
     }
 }

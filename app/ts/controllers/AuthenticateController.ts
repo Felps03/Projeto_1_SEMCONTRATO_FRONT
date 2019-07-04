@@ -10,46 +10,58 @@ export class AuthenticateController {
     private email: HTMLInputElement;
     private password: HTMLInputElement;
 
+    private emailRec: HTMLInputElement;
+
     private authVals: (() => boolean)[];
+    private passRecVals: (() => boolean)[];
 
     constructor() {
         this.email = <HTMLInputElement>document.getElementById('email');
         this.password = <HTMLInputElement>document.getElementById('password');
 
+        this.emailRec = <HTMLInputElement>document.getElementById('email_rec');
+
         // init validations
         try{
             this.authVals = [
-                validate(this.email, vals.email),
-                validate(this.password, vals.password)
+              validate(this.email, vals.email),
+              validate(this.password, vals.password)
             ];
+
+            this.passRecVals = [
+              validate(this.emailRec, vals.email)
+             ];
         }catch(e){
             console.log("passo no catch");
         }
-           
     }
 
     authenticate(event: Event) {
 
-        const authenticateService = new AuthenticateService();
+        if (noFalse(this.authVals)) {
 
-        let usuario = authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
+            const authenticateService = new AuthenticateService();
 
-        // console.log("oiii");
-        // console.log(this.email.value);
-        // console.log(this.password.value);
+            let usuario = authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
+
+            // console.log("oiii");
+            // console.log(this.email.value);
+            // console.log(this.password.value);
+        }
+
         event.preventDefault();
     }
 
     resetPassword(event: Event) {
         event.preventDefault();
 
-        // /users/user/recover
+        if (noFalse(this.passRecVals)) {
+            // /users/user/recover
+            const userService = new UserService();
+            const authenticateService = new AuthenticateService();
 
-        var email = <HTMLInputElement>document.querySelector('#email_rec');
-
-        const authenticateService = new AuthenticateService();
-
-        authenticateService.resetPassword(email.value.toString())
+            authenticateService.resetPassword(this.email.value.toString())
+        }
     }
 
     logout(event: Event){
