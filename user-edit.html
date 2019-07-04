@@ -34,10 +34,11 @@
                     <i class="material-icons">arrow_drop_down</i>
                 </div>
                 <div class="dropdown-menu dropdown-menu-right align-user">
-
                     <a class="dropdown-item">
-                        <span>Juliana Sequeira </span>
-                        <span>(juliana123)</span>
+                        <!-- <span>Juliana Sequeira</span> -->
+                        <!-- <span>(juliana123)</span> -->
+                        <span id="nameSpan"></span>
+                        <span id="userNameSpan"></span>
                     </a>
                     <div class="dropdown-divider"></div>
 
@@ -55,10 +56,11 @@
                     <div class="dropdown-divider"></div>
 
                     <a class="dropdown-item d-flex align-items-center">
-                        <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
+                        <i class="material-icons mr-2">power_settings_new</i>
+                        <strong>Sair</strong>
+                    </a>
                 </div>
             </div>
-
         </div>
     </nav>
 
@@ -90,18 +92,18 @@
 
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
-                            <label for="lastname">Sobrenome:</label>
+                            <label for="lastName">Sobrenome:</label>
                             <input type="text" name="lastName" class="form-control form-control-sm input-circle"
-                                id="lastname">
+                                id="lastName">
                             <div id="lastnamevalidator"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="birthdate">Data de nascimento:</label>
+                    <label for="dateOfBirth">Data de nascimento:</label>
                     <input type="date" name="dateOfBirth" class="form-control form-control-sm input-circle"
-                        id="birthdate">
+                        id="dateOfBirth">
                     <div id="birthdatevalidator"></div>
                 </div>
 
@@ -130,8 +132,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="username">Nome de usuário:</label>
-                    <input type="text" name="userName" class="form-control form-control-sm input-circle" id="username">
+                    <label for="userName">Nome de usuário:</label>
+                    <input type="text" name="userName" class="form-control form-control-sm input-circle" id="userName">
                     <div id="usernamevalidator"></div>
                 </div>
 
@@ -193,17 +195,16 @@
         </div>
     </div>
 
-    <!-- <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script> -->
     <script src="app/lib/particlejs/particle.min.js"></script>
-    <script src="app/lib/particlejs/particle-config.js"></script> -->
+    <script src="app/lib/particlejs/particle-config.js"></script>
 
     <script src="app/js/models/User.js"></script>
     <script src="app/js/services/UserService.js"></script>
     <script src="app/js/controllers/UserController.js"></script>
-    <script src="app/js/user-recovery.js"></script>
-    <script src="app/js/app.js"></script>
+    <script src="app/js/user-edit.js"></script>
  
 </body>
 
