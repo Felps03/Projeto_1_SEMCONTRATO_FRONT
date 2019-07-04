@@ -7,7 +7,7 @@ if(cadastrar) {
     cadastrar.addEventListener('submit', controller.add.bind(controller));
 }
 
-let list = document.querySelector("#daily-form");
-if(list) {
-    list.addEventListener('click', controller.listD.bind(controller));
+let listDate = document.querySelector("#daily-form");
+if(listDate) {
+    listDate.addEventListener('click', controller.listD.bind(controller));
 }
