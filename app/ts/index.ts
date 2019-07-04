@@ -13,12 +13,12 @@ if (authenticate) {
         recuperarEmail.addEventListener('submit', authenticateController.resetPassword.bind(authenticate));
     }
 }
-
-let cadastrar = document.querySelector('#user-register');
-if (cadastrar) {
-    const userController = new UserController();
-    cadastrar.addEventListener('submit', userController.add.bind(userController));
-}
+//foi movido para user-register
+// let cadastrar = document.querySelector('#user-register');
+// if (cadastrar) {
+//     const userController = new UserController();
+//     cadastrar.addEventListener('submit', userController.add.bind(userController));
+// }
 
 let addDailyNote = document.querySelector('#daily-form');
 if (addDailyNote) {

@@ -2,11 +2,11 @@ import { User } from '../models/User';
 import { UserService } from "../services/UserService";
 import { AuthenticateService } from '../services/index';
 
-/*
+
 import { validate } from '../helpers/index'
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck'
-*/
+
 
 export class UserController {
 
@@ -33,7 +33,7 @@ export class UserController {
 
         // init validations
 
-        /*
+        
         this.addVals = [
             validate(this.name, vals.name),
             validate(this.lastName, vals.lastName),
@@ -44,14 +44,14 @@ export class UserController {
             validate(this.dateOfBirth, vals.dateOfBirth),
             validate(this.passwordConfirm, vals.passwordConfirm, this.password)
         ];
-        */
+        
     }
 
     add(event: Event) {
 
         event.preventDefault();
 
-        // if (noFalse(this.addVals)) {
+         if (noFalse(this.addVals)) {
 
         let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
 
@@ -69,7 +69,7 @@ export class UserController {
 
         console.log(user);
         console.log(usuario);
-        // }
+         }
     }
 
 
