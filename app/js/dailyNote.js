@@ -4,3 +4,7 @@ let cadastrar = document.querySelector("#daily-form");
 if (cadastrar) {
     cadastrar.addEventListener('submit', controller.add.bind(controller));
 }
+let listDate = document.querySelector("#filter");
+if (listDate) {
+    listDate.addEventListener('click', controller.listD.bind(controller));
+}

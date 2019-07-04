@@ -60,13 +60,23 @@ export class DailyNoteController {
     listD(event: Event){
         event.preventDefault();
 
-        let date = <HTMLInputElement>document.querySelector('#filter');
+        let date = <HTMLInputElement>document.querySelector('#date_filter');
+        let value = date.value;
+        let dateFilter =  new Date(value);
+
+        // console.log(value);
 
         let dailyNoteService = new DailyNoteService();
 
-        let dailyNoteListDate = dailyNoteService.listDate(new Date);
-        console.log(date);
-        console.log(dailyNoteListDate)
+        let dailyNoteAux = dailyNoteService.listDate(dateFilter);
+
+        console.log(dailyNoteAux);
+
+        // let dailyNoteService = new DailyNoteService();
+
+        // let dailyNoteListDate = dailyNoteService.listDate(new Date);
+        // console.log(date);
+        // console.log(dailyNoteListDate)
 
     };
 

@@ -9,6 +9,7 @@ export class DailyNoteController {
         this.today = document.querySelector('#today');
         this.impediment = document.querySelector('#impediment');
         this.date = document.querySelector('#date');
+        this.listDate = document.querySelector('#filter');
         this.addVals = [
             validate(this.yesterday, vals.yesterday),
             validate(this.today, vals.today),
@@ -22,6 +23,17 @@ export class DailyNoteController {
             let dailyNoteService = new DailyNoteService();
             let dailyNoteAux = dailyNoteService.add(this.yesterday.value, this.today.value, this.impediment.value, new Date());
             console.log(dailyNote);
+            console.log(dailyNoteAux);
         }
     }
+    listD(event) {
+        event.preventDefault();
+        let date = document.querySelector('#date_filter');
+        let value = date.value;
+        let dateFilter = new Date(value);
+        let dailyNoteService = new DailyNoteService();
+        let dailyNoteAux = dailyNoteService.listDate(dateFilter);
+        console.log(dailyNoteAux);
+    }
+    ;
 }
