@@ -106,6 +106,9 @@ export class AuthenticateService {
                 alert("Houve um erro ao Deslogar");
             }
             if(res.status == 200){
+                localStorage.removeItem("tkn");
+                localStorage.removeItem("email");
+                console.log("deu bom");
                 window.location.href = 'index.html';
             }
         }).catch(error =>{

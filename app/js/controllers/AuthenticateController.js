@@ -5,10 +5,15 @@ export class AuthenticateController {
     constructor() {
         this.email = document.getElementById('email');
         this.password = document.getElementById('password');
-        this.authVals = [
-            validate(this.email, vals.email),
-            validate(this.password, vals.password)
-        ];
+        try {
+            this.authVals = [
+                validate(this.email, vals.email),
+                validate(this.password, vals.password)
+            ];
+        }
+        catch (e) {
+            console.log("passo no catch");
+        }
     }
     authenticate(event) {
         const authenticateService = new AuthenticateService();

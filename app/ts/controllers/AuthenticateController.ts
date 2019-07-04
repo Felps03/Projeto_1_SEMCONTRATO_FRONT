@@ -17,10 +17,15 @@ export class AuthenticateController {
         this.password = <HTMLInputElement>document.getElementById('password');
 
         // init validations
-        this.authVals = [
-            validate(this.email, vals.email),
-            validate(this.password, vals.password)
-        ];
+        try{
+            this.authVals = [
+                validate(this.email, vals.email),
+                validate(this.password, vals.password)
+            ];
+        }catch(e){
+            console.log("passo no catch");
+        }
+           
     }
 
     authenticate(event: Event) {
