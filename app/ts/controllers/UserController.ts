@@ -26,7 +26,7 @@ export class UserController {
         this.lastName = <HTMLInputElement>document.querySelector('#lastName');
         this.userName = <HTMLInputElement>document.querySelector('#userName');
         this.email = <HTMLInputElement>document.querySelector('#email');
-        this.photo = <HTMLInputElement>document.querySelector('#photo');
+        // this.photo = <HTMLInputElement>document.querySelector('#photo');
         this.password = <HTMLInputElement>document.querySelector('#password');
         this.dateOfBirth = <HTMLInputElement>document.querySelector('#dateOfBirth');
         this.passwordConfirm = <HTMLInputElement>document.querySelector('#passwordConfirm');
@@ -39,7 +39,7 @@ export class UserController {
             validate(this.lastName, vals.lastName),
             validate(this.userName, vals.username),
             validate(this.email, vals.email),
-            validate(this.photo, vals.photo),
+            // validate(this.photo, vals.photo),
             validate(this.password, vals.password),
             validate(this.dateOfBirth, vals.dateOfBirth),
             validate(this.passwordConfirm, vals.passwordConfirm, this.password)
@@ -53,21 +53,35 @@ export class UserController {
 
         if (noFalse(this.addVals)) {
 
-            let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
-
             const user = new User(
                 this.name.value.toString(),
                 this.lastName.value.toString(),
                 this.userName.value.toString(),
                 this.email.value.toString(),
-                this.photo.value.toString(),
+                // this.photo.value.toString(),
                 this.password.value.toString(),
-                dataOfBirth,
+                this.dateOfBirth.value.toString(),
             );
             const userService = new UserService();
+            userService.add(user)
+            .then(result => {
+                const token = result.headers.get("Token");
+                if (token != null) {
+                    localStorage.setItem('tkn', token);
+                };
+                return result.json()        
+            })
+            .then(res => {
+                console.table(res)
+                localStorage.setItem('email', res.email)
+                localStorage.setItem('id', res._id)
+            // console.log(result[0]['email']);
+                window.location.href = "home.html";
+            })
+
             // let usuario = userService.cadastro(user);
 
-            console.log(user);
+            // console.log(user);
             // console.log(usuario);
         }
     }

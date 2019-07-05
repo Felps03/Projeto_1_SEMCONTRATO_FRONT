@@ -2,7 +2,7 @@ import { HOST } from '../config/index';
 import { UserService } from './UserService';
 export class AuthenticateService {
     authenticate(email, password) {
-        fetch('https://100contrato.azurewebsites.net/users/authenticate4533r', {
+        fetch(`${HOST}users/authenticate`, {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -22,6 +22,7 @@ export class AuthenticateService {
         }).then(result => {
             console.log(result);
             localStorage.setItem('email', result[0]['email']);
+            localStorage.setItem('id', result[0]['_id']);
             window.location.href = "home.html";
         });
     }
@@ -82,7 +83,7 @@ export class AuthenticateService {
             if (res.status == 200) {
                 localStorage.removeItem("tkn");
                 localStorage.removeItem("email");
-                console.log("deu bom");
+                localStorage.removeItem("id");
                 window.location.href = 'index.html';
             }
         }).catch(error => {

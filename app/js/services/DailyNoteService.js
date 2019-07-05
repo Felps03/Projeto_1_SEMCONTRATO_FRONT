@@ -6,7 +6,8 @@ export class DailyNoteService {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`
             },
             body: JSON.stringify({
                 "yesterday": yesterday,
