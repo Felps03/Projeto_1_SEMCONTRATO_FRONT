@@ -13,9 +13,9 @@ export class AuthenticateService {
     authenticate(email: string, password: string) {
 
 
-
+        
         // fetch(`${HOST}users/authenticate`, {
-        fetch('https://100contrato.azurewebsites.net/users/authenticate', {
+        fetch('http://localhost:3000/users/authenticate', {
             method: 'POST',
             mode: 'cors',
             headers: {

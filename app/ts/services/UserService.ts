@@ -51,25 +51,25 @@ export class UserService {
      * 
      * @param id para alterar dados do usuário dessa id
      */
-    // editar(id: string) {
-    //     const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-edit')
-    //     let formData = new FormData(form)
+    update(id: string) {
+        const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-edit')
+        let formData = new FormData(form)
 
-    //     $.ajax({
-    //         type: 'PUT',
-    //         url: `${HOST}users/user/${id}`,
-    //         contentType: false,
-    //         cache: false,
-    //         processData: false,
-    //         data: formData,
-    //         success: function (data) { console.log(data) },
-    //         error: function (request, status, error) {
-    //             console.log("error: ", error)
-    //             console.log("resquest: ", request.responseText)
-    //         }
-    //     })
+        $.ajax({
+            type: 'PUT',
+            url: `${HOST}users/user/${id}`,
+            contentType: false,
+            cache: false,
+            processData: false,
+            data: formData,
+            success: function (data) { console.log(data) },
+            error: function (request, status, error) {
+                console.log("error: ", error)
+                console.log("resquest: ", request.responseText)
+            }
+        })
 
-    // }
+    }
 
     /**
      * 

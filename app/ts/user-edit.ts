@@ -3,6 +3,12 @@ import { UserService } from "./services/UserService";
 
 let userController = new UserController();
 
+let update = document.getElementById("user-edit");
+if (update) {
+    const userController = new UserController();
+    update.addEventListener('submit', userController.update.bind(userController))
+}
+
 let name = <HTMLInputElement>document.querySelector('#name');
 let userName = <HTMLInputElement>document.querySelector('#userName');
 let lastName = <HTMLInputElement>document.querySelector('#lastName');
@@ -36,18 +42,18 @@ if (data) {
             let ano = new Date(data.dateOfBirth).getFullYear();
 
             let d;
-            if(dia<10){
-                d = "0"+dia.toString();
+            if (dia < 10) {
+                d = "0" + dia.toString();
             }
 
             let m;
-            if(mes<10){
-                m = "0"+mes.toString();
+            if (mes < 10) {
+                m = "0" + mes.toString();
             }
 
-            let dataFormatada = ano+"-"+m+"-"+d;
+            let dataFormatada = ano + "-" + m + "-" + d;
             console.log(dataFormatada);
-            
+
             dateOfBirth.value = dataFormatada;
         }
     })
