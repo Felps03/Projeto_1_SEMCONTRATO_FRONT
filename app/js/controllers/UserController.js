@@ -57,6 +57,7 @@ export class UserController {
                     email: result['email'],
                     dateOfBirth: result['dateOfBirth']
                 };
+                alert(data);
                 return data;
             });
         }
@@ -67,7 +68,6 @@ export class UserController {
             let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
             const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.photo.value.toString(), this.password.value.toString(), dataOfBirth);
             const userService = new UserService();
-            let usuario = userService.update(user);
             console.log(user);
         }
     }

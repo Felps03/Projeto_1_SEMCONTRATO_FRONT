@@ -1,1 +1,1 @@
-export const HOST = 'https://localhost:3000/';
+export const HOST = 'https://100contrato.azurewebsites.net/';

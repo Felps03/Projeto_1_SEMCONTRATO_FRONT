@@ -1,18 +1,15 @@
 import { UserController } from "./controllers/UserController";
-let userController = new UserController();
-let update = document.getElementById("user-edit");
-if (update) {
-    const userController = new UserController();
-    update.addEventListener('submit', userController.update.bind(userController));
-}
 let name = document.querySelector('#name');
 let userName = document.querySelector('#userName');
 let lastName = document.querySelector('#lastName');
 let email = document.querySelector('#email');
 let dateOfBirth = document.querySelector('#dateOfBirth');
 let password = document.querySelector('#password');
+let userController = new UserController();
 const data = userController.getUserData();
+console.log(data);
 if (data) {
+    alert(data);
     data.then(data => {
         if (name != null) {
             name.value = data.name;

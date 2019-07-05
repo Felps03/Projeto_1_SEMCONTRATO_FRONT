@@ -1,24 +1,30 @@
 import { UserController } from "./controllers/UserController";
 import { UserService } from "./services/UserService";
 
-let userController = new UserController();
 
-let update = document.getElementById("user-edit");
-if (update) {
-    const userController = new UserController();
-    update.addEventListener('submit', userController.update.bind(userController))
-}
-
-let name = <HTMLInputElement>document.querySelector('#name');
-let userName = <HTMLInputElement>document.querySelector('#userName');
-let lastName = <HTMLInputElement>document.querySelector('#lastName');
-let email = <HTMLInputElement>document.querySelector('#email');
-let dateOfBirth = <HTMLInputElement>document.querySelector('#dateOfBirth');
-let password = <HTMLInputElement>document.querySelector('#password');
+// let update = document.getElementById("user-edit");
+// if (update) {
+    //     const userController = new UserController();
+    //     update.addEventListener('submit', userController.update.bind(userController))
+    // }
+    
+    let name = <HTMLInputElement>document.querySelector('#name');
+    let userName = <HTMLInputElement>document.querySelector('#userName');
+    let lastName = <HTMLInputElement>document.querySelector('#lastName');
+    let email = <HTMLInputElement>document.querySelector('#email');
+    let dateOfBirth = <HTMLInputElement>document.querySelector('#dateOfBirth');
+    let password = <HTMLInputElement>document.querySelector('#password');
+    
+    
+    let userController = new UserController();
 
 const data = userController.getUserData();
 
+
+console.log(data)
+
 if (data) {
+    alert(data);
     data.then(data => {
         if (name != null) {
             name.value = data.name;

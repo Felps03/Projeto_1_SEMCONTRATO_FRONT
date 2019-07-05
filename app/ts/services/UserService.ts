@@ -137,9 +137,6 @@ export class UserService {
     // }
 
     getData() {
-
-        // console.log("Token é: " + localStorage.getItem('tkn'));
-        // console.log("Email é: " + localStorage.getItem('email'));
         const email = localStorage.getItem('email');
         return fetch(`${HOST}users/${email}`, {
             method: 'GET',

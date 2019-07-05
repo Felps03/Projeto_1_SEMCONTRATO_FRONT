@@ -2,7 +2,7 @@ import { HOST } from '../config/index';
 import { UserService } from './UserService';
 export class AuthenticateService {
     authenticate(email, password) {
-        fetch('http://localhost:3000/users/authenticate', {
+        fetch('https://100contrato.azurewebsites.net/users/authenticate', {
             method: 'POST',
             mode: 'cors',
             headers: {

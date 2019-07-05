@@ -75,11 +75,29 @@ export function password(pw: InputWrapper): string | null {
     return null
 }
 
+export function editPassword(pw: InputWrapper): string | null {
+    if (pw.value) {
+        // above
+        return password(pw)
+    }
+
+    return null
+}
+
 export function passwordConfirm(pw: InputWrapper, confirm: HTMLInputElement): string | null {
     if (!pw.value) {
         return 'Confirmação obrigatória.'
     } else if (pw.value !== confirm.value) {
         return 'Senhas não batem'
+    }
+
+    return null
+}
+
+export function editPasswordConfirm(pw: InputWrapper, confirm: HTMLInputElement): string | null {
+    if (pw.value || confirm.value) {
+        // above
+        return passwordConfirm(pw, confirm)
     }
 
     return null

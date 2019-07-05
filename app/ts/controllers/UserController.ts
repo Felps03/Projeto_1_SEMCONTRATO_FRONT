@@ -94,6 +94,7 @@ export class UserController {
                         email: result['email'],
                         dateOfBirth: result['dateOfBirth']
                     }
+                    alert(data);
                     return data;
                 });
         }
@@ -117,7 +118,7 @@ export class UserController {
             
             const userService = new UserService();
             
-            let usuario = userService.update(user);
+            //let usuario = userService.update();
 
             console.log(user);
             // console.log(usuario);
