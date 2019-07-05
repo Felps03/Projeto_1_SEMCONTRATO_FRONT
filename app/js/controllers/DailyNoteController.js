@@ -32,8 +32,14 @@ export class DailyNoteController {
         let value = date.value;
         let dateFilter = new Date(value);
         let dailyNoteService = new DailyNoteService();
-        let dailyNoteAux = dailyNoteService.listDate(dateFilter);
-        console.log(dailyNoteAux);
+        return dailyNoteService.listDate(dateFilter)
+            .then(res => {
+            return res.json();
+        })
+            .then(result => {
+            console.log(result);
+            return result;
+        });
     }
     ;
 }

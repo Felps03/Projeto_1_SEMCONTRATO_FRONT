@@ -19,6 +19,7 @@ export class DailyNoteService {
                 "date": new Date().toISOString().slice(0,10),
                 "email" : localStorage.getItem('email')
             })
+           
         })
             .then(res => res.json())
             .then(res => console.log(res));
@@ -53,32 +54,23 @@ export class DailyNoteService {
      * 
      * @param data para buscar a daily da data informada
      */
-    listDate(data: Date) {
-        // $.ajax({
-        //     type: 'GET',
-        //     url: `${HOST}dailys/daily/${data}`,
-        //     contentType: false,
-        //     cache: false,
-        //     processData: false,
-        //     success: function (data) { console.log(data) },
-        //     error: function (request, status, error) {
-        //         console.log("error: ", error)
-        //         console.log("resquest: ", request.responseText)
-        //     }
-        // })
+    listDate(data: Date) {     
+        let year = JSON.stringify(data.getFullYear());
+        let month = JSON.stringify(data.getMonth()+1);
+        let day = JSON.stringify(data.getDate()+1);
 
-        fetch(`${HOST}dailys/daily/${data}`, {
+        if(month.length < 2) month = `0` +  month;
+        if(day.length < 2) day = `0` +  day;
+
+        let dateFilter = `${year}-${month}-${day}`;
+        
+        return fetch(`${HOST}dailys/daily/${dateFilter}`, {
             method: 'get',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "date": data 
-            })
+            }
         })
-            .then(res => res.json())
-            .then(res => console.log(res));
     }
 
     /**

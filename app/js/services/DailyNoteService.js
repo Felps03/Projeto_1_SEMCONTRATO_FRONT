@@ -20,17 +20,20 @@ export class DailyNoteService {
             .then(res => console.log(res));
     }
     listDate(data) {
-        fetch(`${HOST}dailys/daily/${data}`, {
+        let year = JSON.stringify(data.getFullYear());
+        let month = JSON.stringify(data.getMonth() + 1);
+        let day = JSON.stringify(data.getDate() + 1);
+        if (month.length < 2)
+            month = `0` + month;
+        if (day.length < 2)
+            day = `0` + day;
+        let dateFilter = `${year}-${month}-${day}`;
+        return fetch(`${HOST}dailys/daily/${dateFilter}`, {
             method: 'get',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "date": data
-            })
-        })
-            .then(res => res.json())
-            .then(res => console.log(res));
+            }
+        });
     }
 }

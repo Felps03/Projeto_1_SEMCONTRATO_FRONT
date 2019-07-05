@@ -2,7 +2,8 @@ import { DailyNote } from '../models/DailyNote';
 import { DailyNoteService } from '../services/DailyNoteService';
 import { validate } from '../helpers/index'
 import * as vals from '../validation/dailyNoteValidate';
-import { noFalse } from '../utils/listCheck'
+import { noFalse } from '../utils/listCheck';
+import { DailyNotesView } from '../views/DailyNotesView';
 
 export class DailyNoteController {
 
@@ -64,22 +65,32 @@ export class DailyNoteController {
         let value = date.value;
         let dateFilter =  new Date(value);
 
-        // console.log(value);
-
         let dailyNoteService = new DailyNoteService();
 
-        let dailyNoteAux = dailyNoteService.listDate(dateFilter);
-
-        console.log(dailyNoteAux);
-
-        // let dailyNoteService = new DailyNoteService();
-
-        // let dailyNoteListDate = dailyNoteService.listDate(new Date);
-        // console.log(date);
-        // console.log(dailyNoteListDate)
-
+        return dailyNoteService.listDate(dateFilter)
+        .then(res => {
+            // console.log(res)
+            return res.json();
+        })
+        .then(result => {
+            // console.log(token);
+            // console.log(result['name'])
+            // console.log(result['userName'])
+            console.log(result);
+            // let daily = {
+            //     yesterday: result['yesterday'],
+            //     today: result['today'],
+            //     impediment: result['impediment']
+            // }
+            return result
+        });
+          
+            // .then(resp => resp.json())
+            // .then(result => {
+            //    console.log(result.docs);
+            //    return result; 
+            // });
     };
-
 }
 
 
