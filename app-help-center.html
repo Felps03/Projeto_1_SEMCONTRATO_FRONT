@@ -27,7 +27,7 @@
             <!-- User menu -->
             <div class="dropdown mr-n4 txt-user" style="float:right;">
                 <div class="d-flex align-items-center btn" data-toggle="dropdown">
-                    <img src="app/img/teste.jpg" class="rounded-circle" width="50px">
+                    <!-- <img src="app/img/teste.jpg" class="rounded-circle" width="50px"> -->
                     <i class="material-icons">arrow_drop_down</i>
                 </div>
                 <div class="dropdown-menu dropdown-menu-right align-user">
@@ -114,74 +114,32 @@
                 </div>
 
                 <!-- list -->
-                <div class="container">
-                    <div class="card d-flex flex-row justify-content-center align-items-stretch row">
-                        <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
-                            <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3">
-                                <div>
-                                    <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap">
-                                    <h5 class="mt-2 mb-2">Juliana Sequeira</h5>
-                                </div>
-                                <button
-                                    class="btn btn-lg btn-outline-success d-flex justify-content-center align-items-center"
-                                    data-toggle="modal" data-target="#view-modal-0"><i
-                                        class="material-icons">remove_red_eye</i></button>
-                            </div>
-                        </div>
-                        <div class="col-md-9 col-12 card-body">
-                            <div class="card mb-2">
-                                <div class="card-body">
-
-                                    <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h5>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, aut voluptas
-                                        iste harum laboriosam facilis numquam accusantium corrupti iure dolorem
-                                        cumque
-                                        quos
-                                        necessitatibus, optio at ab ducimus cum sint</p>
-                                </div>
-                            </div>
-                            <form action="" id="quick-comment-form">
-                                <div class="row">
-                                    <div class="form-group col-lg-10 col-9 mb-0">
-                                        <label for="first">Comentar:</label>
-                                        <textarea name="first" class="form-control form-control-sm input-circle"
-                                            id="yesterday" placeholder="Sugira soluções ou contribua à discussão"
-                                            autofocus></textarea>
-                                        <div id="firstvalidator"></div>
-                                    </div>
-                                    <div class="col-2 d-flex justify-content-center align-items-end mb-1">
-                                        <button type="submit" class="btn btn-primary d-flex align-items-center">
-                                            <i class="material-icons ml-2">send</i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <nav class="float-right mt-1">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Anterior">
-                                <span aria-hidden="true" class="txt-primary">&laquo;</span>
-                                <span class="sr-only txt-primary">Anterior</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link txt-primary" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link txt-primary" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link txt-primary" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Próximo">
-                                <span aria-hidden="true" class="txt-primary">&raquo;</span>
-                                <span class="sr-only txt-primary">Próximo</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                <div id="post-list"></div>
 
             </div>
-        </section>
+
+            <nav class="float-right mt-1">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Anterior">
+                            <span aria-hidden="true" class="txt-primary">&laquo;</span>
+                            <span class="sr-only txt-primary">Anterior</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link txt-primary" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link txt-primary" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link txt-primary" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Próximo">
+                            <span aria-hidden="true" class="txt-primary">&raquo;</span>
+                            <span class="sr-only txt-primary">Próximo</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+    </div>
+    </section>
 
     </div>
 
@@ -197,7 +155,6 @@
                 </div>
                 <div class="modal-body">
                     <form action="" id="add-form">
-                        <input type="hidden" name="id_user">
                         <div class="form-group">
                             <label for="add-title">Título:</label>
                             <div class="input-group">
@@ -221,48 +178,6 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary d-flex align-items-center">Enviar <i
                             class="material-icons ml-2">send</i></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- view modal -->
-    <div id="view-modal-0" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Pergunta</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <div class="d-flex align-items-center">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                        <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap">
-                    </div>
-
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, aut voluptas
-                        iste harum laboriosam facilis numquam accusantium corrupti iure dolorem
-                        cumque
-                        quos
-                        necessitatibus, optio at ab ducimus cum sint</p>
-                </div>
-                <div class="container border-top p-3">
-                    <form action="" id="quick-comment-form">
-                        <div class="form-group">
-                            <label for="first">Comentar:</label>
-                            <textarea name="first" class="form-control form-control-sm input-circle" id="yesterday"
-                                placeholder="Sugira soluções ou contribua à discussão" autofocus></textarea>
-                            <div id="firstvalidator"></div>
-                        </div>
-                        <div class="d-flex d-row justify-content-end align-items-center">
-                            <button type="button" class="btn btn-secondary m-1" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary d-flex align-items-center">Enviar <i
-                                    class="material-icons ml-2">send</i></button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
