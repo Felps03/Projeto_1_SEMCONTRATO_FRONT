@@ -70,81 +70,97 @@
                 </div>
                 <hr class="register-line">
 
-                <div>
-                    <div class="row">
+                <form action="" id="search-form">
+                    <div class="row mb-5">
+                        <div class="col-sm-10 col-12">
+                            <div class="form-group">
+                                <label for="search-title">Título:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="material-icons">search</i></span>
+                                    </div>
+                                    <input type="text" name="search-title" id="search-title"
+                                        class="form-control form-control input-circle"
+                                        placeholder="Pesquisar por título" autofocus>
+                                    <div id="search-titlevalidator"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="search-desc">Descrição:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="material-icons">search</i></span>
+                                    </div>
+                                    <textarea name="search-desc" class="form-control input-circle" id="search-desc"
+                                        placeholder="Pesquisar por descrição" autofocus></textarea>
+                                    <div id="search-descvalidator"></div>
+                                </div>
+                            </div>
+                        </div>
 
-                        <div class="form-group col-10">
-                            <label for="title">Título:</label>
-                            <input type="text" name="title" id="title" class="form-control form-control-sm input-circle"
-                                placeholder="Informe seu nome" autofocus>
+                        <div class="col-sm-2 col-12 d-flex justify-content-center align-items-center mb-3 mb-sm-0">
+                            <button type="button"
+                                class="btn btn-lg btn-outline-primary d-flex justify-content-center align-items-center"
+                                data-toggle="modal" data-target="#add-modal"><i class="material-icons">add</i></button>
                         </div>
-                        <div class="col-2">
-                            hello
-                        </div>
+
                     </div>
-                    <div class="form-group">
-                        <label for="first"><strong>1. </strong>O que eu fiz ontem?</label>
-                        <textarea name="first" class="form-control form-control-sm input-circle" id="yesterday"
-                            placeholder="Informe sua resposta aqui" autofocus></textarea>
-                        <div id="firstvalidator"></div>
+                </form>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="mb-0">Perguntas e Respostas</h4>
                     </div>
                 </div>
 
-                <table class="table table-hover mt-4">
-                    <!-- cabeçalho -->
-                    <thead class="bg-light">
-                        <tr>
-                            <th scope="col">Data</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Opções</th>
-                        </tr>
-                    </thead>
-                    <tbody id="all-dailys">
+                <!-- list -->
+                <div class="container">
+                    <div class="card d-flex flex-row justify-content-center align-items-stretch row">
+                        <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
+                            <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3">
+                                <div>
+                                    <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap">
+                                    <h5 class="mt-2 mb-2">Juliana Sequeira</h5>
+                                </div>
+                                <button
+                                    class="btn btn-lg btn-outline-success d-flex justify-content-center align-items-center"
+                                    data-toggle="modal" data-target="#view-modal-0"><i
+                                        class="material-icons">remove_red_eye</i></button>
+                            </div>
+                        </div>
+                        <div class="col-md-9 col-12 card-body">
+                            <div class="card mb-2">
+                                <div class="card-body">
 
-                        <script>
-                            document.getElementById('all-dailys').innerHTML = `
-                            <tr>
-                                <td scope="row">data</td>
-                                    <td>Juliana Sequeira</td>
-                                    <td>
-                                        <button type="button" name="edit"
-                                            class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="daily-edit"
-                                            data-toggle="modal" data-target="#editdailyModal">
-                                            <i class="small material-icons">edit</i>
+                                    <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h5>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, aut voluptas
+                                        iste harum laboriosam facilis numquam accusantium corrupti iure dolorem
+                                        cumque
+                                        quos
+                                        necessitatibus, optio at ab ducimus cum sint</p>
+                                </div>
+                            </div>
+                            <form action="" id="quick-comment-form">
+                                <div class="row">
+                                    <div class="form-group col-lg-10 col-9 mb-0">
+                                        <label for="first">Comentar:</label>
+                                        <textarea name="first" class="form-control form-control-sm input-circle"
+                                            id="yesterday" placeholder="Sugira soluções ou contribua à discussão"
+                                            autofocus></textarea>
+                                        <div id="firstvalidator"></div>
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-center align-items-end mb-1">
+                                        <button type="submit" class="btn btn-primary d-flex align-items-center">
+                                            <i class="material-icons ml-2">send</i>
                                         </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
-                                        <button type="button" name="view"
-                                            class="btn btn-outline-success btn-sm input-circle pt-2" id="daily-view"
-                                            data-toggle="modal" data-target="#viewdailyModal">
-                                            <i class="small material-icons">remove_red_eye</i>
-                                        </button>
-                                </td>
-                            </tr>`;    
-                        </script>
-
-                        <!-- <tr>
-                            <td scope="row">${data}</td>
-                            <td>Juliana Sequeira</td>
-                            <td>
-                                <button type="button" name="edit"
-                                    class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="daily-edit"
-                                    data-toggle="modal" data-target="#editdailyModal">
-                                    <i class="small material-icons">edit</i>
-                                </button>
-
-                                <button type="button" name="view"
-                                    class="btn btn-outline-success btn-sm input-circle pt-2" id="daily-view"
-                                    data-toggle="modal" data-target="#viewdailyModal">
-                                    <i class="small material-icons">remove_red_eye</i>
-                                </button>
-
-                            </td>
-                        </tr> -->
-
-                    </tbody>
-                </table>
-
-                <nav aria-label="daily-nav" class="float-right">
+                <nav class="float-right mt-1">
                     <ul class="pagination">
                         <li class="page-item">
                             <a class="page-link" href="#" aria-label="Anterior">
@@ -169,194 +185,84 @@
 
     </div>
 
-    <!-- New Daily modal -->
-    <div class="modal fade" id="dailyModal" tabindex="-1" role="dialog" aria-labelledby="dailyTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <!-- add modal -->
+    <div id="add-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="modal-title vt-line mt-2" id="dailyTitle">
-                        <h3><strong>Nova Daily</strong></h3>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <h5 class="modal-title">Pergunta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" id="add-form">
+                        <input type="hidden" name="id_user">
+                        <div class="form-group">
+                            <label for="add-title">Título:</label>
+                            <div class="input-group">
+                                <input type="text" name="title" id="add-title"
+                                    class="form-control form-control input-circle" placeholder="Qual o seu problema?"
+                                    autofocus>
+                                <div id="add-titlevalidator"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-desc">Descrição:</label>
+                            <div class="input-group">
+                                <textarea name="desc" class="form-control input-circle" id="add-desc"
+                                    placeholder="Descreva-o aqui" autofocus></textarea>
+                                <div id="add-descvalidator"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary d-flex align-items-center">Enviar <i
+                            class="material-icons ml-2">send</i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- view modal -->
+    <div id="view-modal-0" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pergunta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
 
-                    <form class="form" method="post" id="daily-form" autocomplete="off">
+                    <div class="d-flex align-items-center">
+                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
+                        <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap">
+                    </div>
 
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, aut voluptas
+                        iste harum laboriosam facilis numquam accusantium corrupti iure dolorem
+                        cumque
+                        quos
+                        necessitatibus, optio at ab ducimus cum sint</p>
+                </div>
+                <div class="container border-top p-3">
+                    <form action="" id="quick-comment-form">
                         <div class="form-group">
-                            <label for="first"><strong>1. </strong>O que eu fiz ontem?</label>
+                            <label for="first">Comentar:</label>
                             <textarea name="first" class="form-control form-control-sm input-circle" id="yesterday"
-                                placeholder="Informe sua resposta aqui" autofocus></textarea>
+                                placeholder="Sugira soluções ou contribua à discussão" autofocus></textarea>
                             <div id="firstvalidator"></div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="second"><strong>2. </strong>O que eu vou fazer hoje?</label>
-                            <textarea name="second" class="form-control form-control-sm input-circle" id="today"
-                                placeholder="Informe sua resposta aqui"></textarea>
-                            <div id="secondvalidator"></div>
+                        <div class="d-flex d-row justify-content-end align-items-center">
+                            <button type="button" class="btn btn-secondary m-1" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary d-flex align-items-center">Enviar <i
+                                    class="material-icons ml-2">send</i></button>
                         </div>
-
-                        <div class="form-group">
-                            <label for="third"><strong>3. </strong>Eu tenho impedimentos? Se sim, qual(is)?</label>
-                            <textarea name="third" class="form-control form-control-sm input-circle" id="impediment"
-                                placeholder="Informe sua resposta aqui"></textarea>
-                            <div id="thirdvalidator"></div>
-                        </div>
-
-                        <button type="submit" name="send"
-                            class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle"
-                            id="recovery-pass">Adicionar</button>
-                        <button type="button"
-                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle"
-                            data-dismiss="modal">Cancelar</button>
                     </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- View Daily modal -->
-    <div class="modal fade" id="viewdailyModal" tabindex="-1" role="dialog" aria-labelledby="viewdailyTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title vt-line mt-2" id="viewdailyTitle">
-                        <h3><strong>Daily</strong></h3>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <form class="form" method="post" id="viewdaily-form" autocomplete="off">
-
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label for="name">Nome:</label>
-                                    <input type="text" name="name" class="form-control form-control-sm input-circle"
-                                        id="name" disabled>
-                                    <div id="namevalidator"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label for="date">Data:</label>
-                                    <input type="date" name="filter"
-                                        class="form-control form-control-sm ext-placeholder input-circle" id="filter"
-                                        disabled>
-                                    <div id="datevalidator"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="first"><strong>1. </strong>O que fez ontem?</label>
-                            <textarea name="first" class="form-control form-control-sm input-circle" id="first"
-                                disabled></textarea>
-                            <div id="firstvalidator"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="second"><strong>2. </strong>O que vai fazer hoje?</label>
-                            <textarea name="second" class="form-control form-control-sm input-circle" id="second"
-                                disabled></textarea>
-                            <div id="secondvalidator"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="third"><strong>3. </strong>Tem impedimentos? Se sim, qual(is)?</label>
-                            <textarea name="third" class="form-control form-control-sm input-circle" id="third"
-                                disabled></textarea>
-                            <div id="thirdvalidator"></div>
-                        </div>
-
-                        <button type="button"
-                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle"
-                            data-dismiss="modal">Voltar</button>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Update Daily modal -->
-    <div class="modal fade" id="editdailyModal" tabindex="-1" role="dialog" aria-labelledby="editdailyTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title vt-line mt-2" id="editdailyTitle">
-                        <h3><strong>Editar Daily</strong></h3>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <form class="form" method="post" id="editdaily-form" autocomplete="off">
-
-
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label for="name">Nome:</label>
-                                    <input type="text" name="name" class="form-control form-control-sm input-circle"
-                                        id="name" disabled>
-                                    <div id="namevalidator"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label for="date">Data:</label>
-                                    <input type="date" name="filter"
-                                        class="form-control form-control-sm ext-placeholder input-circle" id="filter"
-                                        disabled>
-                                    <div id="datevalidator"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="first"><strong>1. </strong>O que eu fiz ontem?</label>
-                            <textarea name="first" class="form-control form-control-sm input-circle"
-                                id="edit-yesterday"></textarea>
-                            <div id="firstvalidator"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="second"><strong>2. </strong>O que eu vou fazer hoje?</label>
-                            <textarea name="second" class="form-control form-control-sm input-circle"
-                                id="edit-today"></textarea>
-                            <div id="secondvalidator"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="third"><strong>3. </strong>Eu tenho impedimentos? Se sim, qual(is)?</label>
-                            <textarea name="third" class="form-control form-control-sm input-circle"
-                                id="edit-impediment"></textarea>
-                            <div id="thirdvalidator"></div>
-                        </div>
-
-                        <button type="submit" name="send"
-                            class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle"
-                            id="recovery-pass">Editar</button>
-                        <button type="button"
-                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-2 pl-2 input-circle"
-                            data-dismiss="modal">Cancelar</button>
-                    </form>
-
                 </div>
             </div>
         </div>
@@ -366,18 +272,6 @@
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app/lib/particlejs/particle.min.js"></script>
     <script src="app/lib/particlejs/particle-config.js"></script>
-    <script>
-        document.getElementById('filter').onkeyup = function () {
-            let dateHolder = document.getElementById('filter');
-            let dateValue = document.getElementById('filter').value;
-
-            if (dateValue.length != 0) {
-                dateHolder.classList.remove("ext-placeholder");
-            }
-        }
-    </script>
-
-    <script src="app/js/dailyNote.js"></script>
 </body>
 
 </html>

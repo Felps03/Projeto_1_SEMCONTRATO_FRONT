@@ -66,12 +66,24 @@ export function password(pw) {
     }
     return null;
 }
+export function editPassword(pw) {
+    if (pw.value) {
+        return password(pw);
+    }
+    return null;
+}
 export function passwordConfirm(pw, confirm) {
     if (!pw.value) {
         return 'Confirmação obrigatória.';
     }
     else if (pw.value !== confirm.value) {
         return 'Senhas não batem';
+    }
+    return null;
+}
+export function editPasswordConfirm(pw, confirm) {
+    if (pw.value || confirm.value) {
+        return passwordConfirm(pw, confirm);
     }
     return null;
 }
