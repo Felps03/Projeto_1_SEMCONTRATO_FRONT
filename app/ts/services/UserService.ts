@@ -1,27 +1,27 @@
 import { User } from '../models/index';
 import { HOST } from '../config/index';
+import { dateOfBirth } from '../validation/userValidate';
 
 export class UserService {
 
-    // cadastro(usuario: User) {
-    //     const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-register')
-    //     let formData = new FormData(form)
+    cadastro(usuario: User) {
+        const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-register')
+        let formData = new FormData(form)
 
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: `${HOST}users/user`,
-    //         contentType: false,
-    //         cache: false,
-    //         processData: false,
-    //         data: formData,
-    //         success: function (data) { console.log(data) },
-    //         error: function (request, status, error) {
-    //             console.log("error: ", error)
-    //             console.log("resquest: ", request.responseText)
-    //         }
-    //     })
-
-    // }
+        $.ajax({
+            type: 'POST',
+            url: `${HOST}users/user`,
+            contentType: false,
+            cache: false,
+            processData: false,
+            data: formData,
+            success: function (data) { console.log(data) },
+            error: function (request, status, error) {
+                console.log("error: ", error)
+                console.log("resquest: ", request.responseText)
+            }
+        })
+    }
 
     /**
      * listar todos usuários
@@ -51,23 +51,54 @@ export class UserService {
      * 
      * @param id para alterar dados do usuário dessa id
      */
-    update(id: string) {
-        const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-edit')
-        let formData = new FormData(form)
 
-        $.ajax({
-            type: 'PUT',
-            url: `${HOST}users/user/${id}`,
-            contentType: false,
-            cache: false,
-            processData: false,
-            data: formData,
-            success: function (data) { console.log(data) },
-            error: function (request, status, error) {
-                console.log("error: ", error)
-                console.log("resquest: ", request.responseText)
+    update(user: User) {
+        console.log(user.DateOfBirth);
+
+        let dataFormatada;
+
+        if (dateOfBirth != null) {
+            let dia = new Date(user.DateOfBirth).getDay();
+            let mes = new Date(user.DateOfBirth).getMonth()+1;
+            let ano = new Date(user.DateOfBirth).getFullYear();
+
+            let d;
+            if (dia < 10) {
+                d = "0" + dia.toString();
             }
-        })
+
+            let m;
+            if (mes < 10) {
+                m = "0" + mes.toString();
+            }
+
+            dataFormatada = ano + "-" + m + "-" + d;
+        }
+
+
+
+        fetch(`${HOST}users/user/${user.Id}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            },
+            body: JSON.stringify({
+                "name": user.Name,
+                "userName": user.UserName,
+                "lastName": user.LastName,
+                "dateOfBirth": dataFormatada,
+                "email": user.Email,
+                "password": user.Password
+            })
+        }).then(res => res.json())
+            .then(res => console.log(res))
+            .catch(error => {
+                console.log(error);
+                //alert("código inválido");
+            });
+
 
     }
 
@@ -101,10 +132,11 @@ export class UserService {
     changePassword(email: string, password: string) {
         console.log(email, " | ", password);
         fetch(`${HOST}users/changePassword`, {
-            method: 'post',
+            method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
+                //,'Authorization': `Bearer ${localStorage.getItem('tkn')}`
             },
             body: JSON.stringify({
                 "email": email,

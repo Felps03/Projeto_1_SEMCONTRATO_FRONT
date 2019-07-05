@@ -12,12 +12,9 @@
     <link href="app/lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="app/css/custom.css">
     <title>Dados do Usuário</title>
-
-    <!-- intentional -->
 </head>
 
 <body>
-    <!-- particles.js -->
     <div id="particles-js"></div>
 
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
@@ -27,7 +24,6 @@
                 <img src="app/img/logo_compasso.png" href="#!">
             </div>
 
-            <!-- User menu -->
             <div class="dropdown mr-n4 txt-user" style="float:right;">
                 <div class="d-flex align-items-center btn" data-toggle="dropdown">
                     <img src="app/img/teste.jpg" class="rounded-circle" width="50px">
@@ -49,7 +45,7 @@
 
                     <a class="dropdown-item d-flex align-items-center" href="app-daily-note.html">
                         <i class="material-icons mr-2">event_note</i>Daily Note</a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
+                    <a class="dropdown-item d-flex align-items-center" href="app-help-center.html">
                         <i class="material-icons mr-2">lightbulb_outline</i>Help Center</a>
                     <div class="dropdown-divider"></div>
 
@@ -115,16 +111,16 @@
                     </h5>
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="photo">Foto de Perfil:</label>
                     <div name="photo">
                         <input type="file" id="photo" name="file_photo" hidden="hidden" />
+                        <div id="photovalidator" class="mt-1"></div>
                         <button type="button" class="btn btn-secondary btn-sm input-circle" id="file_send">Escolher foto
                         </button>
                         <span id="custom-text">Clique para escolher.</span>
-                        <div id="photovalidator" class="mt-1"></div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="form-group">
                     <label for="userName">Nome de usuário:</label>
@@ -148,6 +144,9 @@
                             <div id="passwordconfirmvalidator"></div>
                         </div>
                     </div>
+
+                    <input type="hidden" id="id"/>
+
                 </div>
 
                 <button type="submit" name="send" class="btn btn-outline-success btn-sm mt-3 pr-3 pl-3 float-right input-circle" id="edit-user">salvar</button>

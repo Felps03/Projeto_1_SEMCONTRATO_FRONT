@@ -2,11 +2,9 @@ import { User } from '../models/User';
 import { UserService } from "../services/UserService";
 import { AuthenticateService } from '../services/index';
 
-
 import { validate } from '../helpers/index'
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck'
-
 
 export class UserController {
 
@@ -14,10 +12,11 @@ export class UserController {
     private lastName: HTMLInputElement;
     private userName: HTMLInputElement;
     private email: HTMLInputElement;
-    private photo: HTMLInputElement;
+    //private photo: HTMLInputElement;
     private password: HTMLInputElement;
     private dateOfBirth: HTMLInputElement;
     private passwordConfirm: HTMLInputElement;
+    private id: HTMLInputElement;
 
     private addVals: (() => boolean)[];
 
@@ -26,11 +25,12 @@ export class UserController {
         this.lastName = <HTMLInputElement>document.querySelector('#lastName');
         this.userName = <HTMLInputElement>document.querySelector('#userName');
         this.email = <HTMLInputElement>document.querySelector('#email');
-        this.photo = <HTMLInputElement>document.querySelector('#photo');
+        //this.photo = <HTMLInputElement>document.querySelector('#photo');
         this.password = <HTMLInputElement>document.querySelector('#password');
         this.dateOfBirth = <HTMLInputElement>document.querySelector('#dateOfBirth');
         this.passwordConfirm = <HTMLInputElement>document.querySelector('#passwordConfirm');
-
+        this.id = <HTMLInputElement>document.querySelector('#id');
+        
         // init validations
 
         try {
@@ -39,10 +39,9 @@ export class UserController {
                 validate(this.lastName, vals.lastName),
                 validate(this.userName, vals.username),
                 validate(this.email, vals.email),
-                validate(this.photo, vals.photo),
-                validate(this.password, vals.password),
+                validate(this.password, vals.editPassword),
                 validate(this.dateOfBirth, vals.dateOfBirth),
-                validate(this.passwordConfirm, vals.passwordConfirm, this.password)
+                validate(this.passwordConfirm, vals.editPasswordConfirm, this.password)
             ];
         } catch (error) {
             console.log("validacao ok");
@@ -62,21 +61,21 @@ export class UserController {
                 this.lastName.value.toString(),
                 this.userName.value.toString(),
                 this.email.value.toString(),
-                this.photo.value.toString(),
+                //this.photo.value.toString(),
                 this.password.value.toString(),
                 dataOfBirth,
+                this.id.value.toString(),
             );
+
             const userService = new UserService();
-            // let usuario = userService.cadastro(user);
+            let usuario = userService.cadastro(user);
 
             console.log(user);
-            // console.log(usuario);
         }
     }
 
     getUserData() {
         let data;
-
         if (!localStorage.getItem('tkn')) {
             return false;
         }
@@ -88,13 +87,13 @@ export class UserController {
                 })
                 .then(result => {
                     let data = {
+                        id: result['_id'],
                         name: result['name'],
                         userName: result['userName'],
                         lastName: result['lastName'],
                         email: result['email'],
                         dateOfBirth: result['dateOfBirth']
                     }
-                    alert(data);
                     return data;
                 });
         }
@@ -102,6 +101,8 @@ export class UserController {
 
     update(event: Event) {
         event.preventDefault();
+
+        let id = <HTMLInputElement>document.querySelector('#id');
 
         if (noFalse(this.addVals)) {
             let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
@@ -111,17 +112,15 @@ export class UserController {
                 this.lastName.value.toString(),
                 this.userName.value.toString(),
                 this.email.value.toString(),
-                this.photo.value.toString(),
+                //this.photo.value.toString(),
                 this.password.value.toString(),
                 dataOfBirth,
+                this.id.value.toString()
             );
-            
-            const userService = new UserService();
-            
-            //let usuario = userService.update();
 
-            console.log(user);
-            // console.log(usuario);
+            const userService = new UserService();
+
+            userService.update(user);
         }
     }
 

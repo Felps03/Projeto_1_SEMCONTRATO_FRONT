@@ -42,6 +42,8 @@ export class AuthenticateController {
 
             const authenticateService = new AuthenticateService();
 
+            console.log(this.email.value);
+
             let usuario = authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
 
             // console.log("oiii");

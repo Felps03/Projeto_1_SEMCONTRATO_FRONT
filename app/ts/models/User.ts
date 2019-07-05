@@ -6,15 +6,17 @@ export class User {
     private file_photo: string;
     private password: string;
     private dateOfBirth: Date;
-    constructor( name: string, lastName: string, userName: string, email: string,  file_photo: string, password: string, dateOfBirth: Date) {
-
+    private id: string;
+    
+    constructor( name: string, lastName: string, userName: string, email: string,  password: string, dateOfBirth: Date, id: string) {
         this.name = name;
         this.lastName = lastName;
         this.userName = userName;
         this.email = email;
-        this.file_photo = file_photo;
+        //this.file_photo = file_photo;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
+        this.id = id;
     }
     
     get Name(){
@@ -28,16 +30,24 @@ export class User {
     get UserName(){
         return this.userName;
     }
+
     get Email(){
         return this.email;
     }
-    get File_photo(){
-        return this.file_photo;
-    }
+
+    // get File_photo(){
+    //     return this.file_photo;
+    // }
+
     get Password(){
         return this.password;
     }
+
     get DateOfBirth(){
         return this.dateOfBirth;
+    }
+    
+    get Id(){
+        return this.id;
     }
 }

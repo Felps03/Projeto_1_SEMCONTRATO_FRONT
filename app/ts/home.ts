@@ -7,13 +7,9 @@ let userNameSpan = document.querySelector('#userNameSpan');
 let homeController = new HomeController();
 
 const data = homeController.getUserData();
-console.log(data);
-
-
 
 if (data) {
     data.then(data => {
-        alert("aoi");
         if (nameSpan != null) {
             nameSpan.textContent = data.name;
         }

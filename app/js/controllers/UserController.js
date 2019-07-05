@@ -9,20 +9,19 @@ export class UserController {
         this.lastName = document.querySelector('#lastName');
         this.userName = document.querySelector('#userName');
         this.email = document.querySelector('#email');
-        this.photo = document.querySelector('#photo');
         this.password = document.querySelector('#password');
         this.dateOfBirth = document.querySelector('#dateOfBirth');
         this.passwordConfirm = document.querySelector('#passwordConfirm');
+        this.id = document.querySelector('#id');
         try {
             this.addVals = [
                 validate(this.name, vals.name),
                 validate(this.lastName, vals.lastName),
                 validate(this.userName, vals.username),
                 validate(this.email, vals.email),
-                validate(this.photo, vals.photo),
-                validate(this.password, vals.password),
+                validate(this.password, vals.editPassword),
                 validate(this.dateOfBirth, vals.dateOfBirth),
-                validate(this.passwordConfirm, vals.passwordConfirm, this.password)
+                validate(this.passwordConfirm, vals.editPasswordConfirm, this.password)
             ];
         }
         catch (error) {
@@ -33,8 +32,9 @@ export class UserController {
         event.preventDefault();
         if (noFalse(this.addVals)) {
             let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
-            const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.photo.value.toString(), this.password.value.toString(), dataOfBirth);
+            const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.password.value.toString(), dataOfBirth, this.id.value.toString());
             const userService = new UserService();
+            let usuario = userService.cadastro(user);
             console.log(user);
         }
     }
@@ -51,24 +51,25 @@ export class UserController {
             })
                 .then(result => {
                 let data = {
+                    id: result['_id'],
                     name: result['name'],
                     userName: result['userName'],
                     lastName: result['lastName'],
                     email: result['email'],
                     dateOfBirth: result['dateOfBirth']
                 };
-                alert(data);
                 return data;
             });
         }
     }
     update(event) {
         event.preventDefault();
+        let id = document.querySelector('#id');
         if (noFalse(this.addVals)) {
             let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
-            const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.photo.value.toString(), this.password.value.toString(), dataOfBirth);
+            const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.password.value.toString(), dataOfBirth, this.id.value.toString());
             const userService = new UserService();
-            console.log(user);
+            userService.update(user);
         }
     }
 }
