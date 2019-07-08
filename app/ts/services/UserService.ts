@@ -4,24 +4,24 @@ import { HOST } from '../config/index';
 export class UserService {
 
     add(user: User) {
-        return fetch(`${HOST}users/user`,{
+        return fetch(`${HOST}users/user`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
             },
-            body:JSON.stringify({
+            body: JSON.stringify({
                 "name": user.Name,
-                "lastName": user.LastName, 
+                "lastName": user.LastName,
                 "userName": user.UserName,
-                "email" : user.Email, 
-                "password": user.Password, 
-                "dateOfBirth": user.DateOfBirth 
+                "email": user.Email,
+                "password": user.Password,
+                "dateOfBirth": user.DateOfBirth
             })
         })
     }
 
-    
+
 
     /**
      * listar todos usuários
@@ -117,24 +117,29 @@ export class UserService {
             });
     }
 
-    /**
-     * 
-     * @param email para buscar se cadastro ja existe
-     */
-    // findByEmail(email: string) {
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: `${HOST}users/${email}`,
-    //         contentType: false,
-    //         cache: false,
-    //         processData: false,
-    //         success: function (data) { console.log(data) },
-    //         error: function (request, status, error) {
-    //             console.log("error: ", error)
-    //             console.log("resquest: ", request.responseText)
-    //         }
-    //     })
-    // }
+    findById(id: string) {
+        return fetch(`${HOST}users/user/${id}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            },
+        })
+    }
+
+    findByEmail(email: string) {
+        return fetch(`${HOST}users/${email}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            },
+        })
+    }
 
     getData() {
 

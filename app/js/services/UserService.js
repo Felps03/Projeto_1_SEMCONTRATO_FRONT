@@ -35,6 +35,28 @@ export class UserService {
             alert("código inválido");
         });
     }
+    findById(id) {
+        return fetch(`${HOST}users/user/${id}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            },
+        });
+    }
+    findByEmail(email) {
+        return fetch(`${HOST}users/${email}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            },
+        });
+    }
     getData() {
         const email = localStorage.getItem('email');
         return fetch(`${HOST}users/${email}`, {

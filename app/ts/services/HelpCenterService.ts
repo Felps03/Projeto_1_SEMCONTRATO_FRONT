@@ -4,6 +4,7 @@ import { Post } from "../models/Post";
 export class HelpCenterService {
 
     add(post: Post) {
+        // the author will always be the logged user
         return fetch(`${HOST}helps/post/`, {
             method: 'POST',
             headers: {
@@ -14,7 +15,7 @@ export class HelpCenterService {
             body: JSON.stringify({
                 "title": post.Title,
                 "desc": post.Desc,
-                "id_user": post.Author
+                "id_user": localStorage.getItem('id')
             })
         });
     };

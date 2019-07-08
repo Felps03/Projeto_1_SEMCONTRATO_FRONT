@@ -3,4 +3,5 @@ const controller = new HelpCenterController();
 let cadastrar = document.querySelector("#cadastroHelpCenter");
 if (cadastrar) {
     cadastrar.addEventListener('click', controller.add.bind(controller));
+    window.addEventListener('load', controller.list.bind(controller));
 }

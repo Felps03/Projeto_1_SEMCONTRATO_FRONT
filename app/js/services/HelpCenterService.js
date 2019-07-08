@@ -11,7 +11,7 @@ export class HelpCenterService {
             body: JSON.stringify({
                 "title": post.Title,
                 "desc": post.Desc,
-                "id_user": post.Author
+                "id_user": localStorage.getItem('id')
             })
         });
     }

@@ -4,7 +4,7 @@ export class Post {
     constructor(
         private title: string,
         private desc: string,
-        private author: string
+        private author?: User
         // private date: Date
     ) { }
 

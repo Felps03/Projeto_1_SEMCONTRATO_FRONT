@@ -1,12 +1,18 @@
 export class View {
-    constructor(seletor, escapar = false) {
-        this._elemento = $(seletor);
-        this._escapar = escapar;
+    constructor(selector, escape = false) {
+        const temp = document.querySelector(selector);
+        if (temp) {
+            this._el = temp;
+        }
+        else {
+            throw new Error(`Element ${selector} not found`);
+        }
+        this._escape = escape;
     }
     update(model) {
         let template = this.template(model);
-        if (this._escapar)
+        if (this._escape)
             template = template.replace(/<script>[\s\S]*?<\/script>/g, '');
-        this._elemento.html(template);
+        this._el.innerHTML = template;
     }
 }
