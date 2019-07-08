@@ -17,6 +17,45 @@ export class UserService {
             })
         });
     }
+    list() {
+        return fetch(`${HOST}admin/users`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            }
+        });
+    }
+    update(user, ID) {
+        return fetch(`${HOST}users/user/${ID}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            },
+            body: JSON.stringify({
+                "name": user.Name,
+                "lastName": user.LastName,
+                "userName": user.UserName,
+                "email": user.Email,
+                "password": user.Password,
+                "dateOfBirth": user.DateOfBirth
+            })
+        });
+    }
+    ;
+    remove(ID) {
+        return fetch(`${HOST}users/user/${ID}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            }
+        }).catch();
+    }
     changePassword(email, password) {
         console.log(email, " | ", password);
         fetch(`${HOST}users/changePassword`, {
@@ -29,10 +68,16 @@ export class UserService {
                 "email": email,
                 "password": password
             })
-        }).then(res => res.json())
-            .then(res => console.log(res))
-            .catch(error => {
-            alert("código inválido");
+        });
+    }
+    findByEmail(email) {
+        return fetch(`${HOST}users/${email}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            },
         });
     }
     getData() {
