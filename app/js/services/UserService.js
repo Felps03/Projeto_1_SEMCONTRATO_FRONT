@@ -1,24 +1,24 @@
 import { HOST } from '../config/index';
 import { dateOfBirth } from '../validation/userValidate';
 export class UserService {
-    cadastro(usuario) {
-        const form = document.getElementById('user-register');
-        let formData = new FormData(form);
-        $.ajax({
-            type: 'POST',
-            url: `${HOST}users/user`,
-            contentType: false,
-            cache: false,
-            processData: false,
-            data: formData,
-            success: function (data) { console.log(data); },
-            error: function (request, status, error) {
-                console.log("error: ", error);
-                console.log("resquest: ", request.responseText);
-            }
+    add(user) {
+        return fetch(`${HOST}users/user`, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "name": user.Name,
+                "lastName": user.LastName,
+                "userName": user.UserName,
+                "email": user.Email,
+                "password": user.Password,
+                "dateOfBirth": user.DateOfBirth
+            })
         });
     }
-    update(user) {
+    update(user, ID) {
         console.log(user.DateOfBirth);
         let dataFormatada;
         if (dateOfBirth != null) {
@@ -35,7 +35,7 @@ export class UserService {
             }
             dataFormatada = ano + "-" + m + "-" + d;
         }
-        fetch(`${HOST}users/user/${user.Id}`, {
+        fetch(`${HOST}users/user/${ID}`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json, text/plain, */*',

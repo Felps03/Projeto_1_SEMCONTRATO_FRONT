@@ -4,24 +4,25 @@ import { dateOfBirth } from '../validation/userValidate';
 
 export class UserService {
 
-    cadastro(usuario: User) {
-        const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-register')
-        let formData = new FormData(form)
-
-        $.ajax({
-            type: 'POST',
-            url: `${HOST}users/user`,
-            contentType: false,
-            cache: false,
-            processData: false,
-            data: formData,
-            success: function (data) { console.log(data) },
-            error: function (request, status, error) {
-                console.log("error: ", error)
-                console.log("resquest: ", request.responseText)
-            }
+    add(user: User) {
+        return fetch(`${HOST}users/user`,{
+            method: "POST",
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify({
+                "name": user.Name,
+                "lastName": user.LastName, 
+                "userName": user.UserName,
+                "email" : user.Email, 
+                "password": user.Password, 
+                "dateOfBirth": user.DateOfBirth 
+            })
         })
     }
+
+    
 
     /**
      * listar todos usuários
@@ -52,7 +53,7 @@ export class UserService {
      * @param id para alterar dados do usuário dessa id
      */
 
-    update(user: User) {
+    update(user: User, ID: string) {
         console.log(user.DateOfBirth);
 
         let dataFormatada;
@@ -77,7 +78,7 @@ export class UserService {
 
 
 
-        fetch(`${HOST}users/user/${user.Id}`, {
+        fetch(`${HOST}users/user/${ID}`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -98,8 +99,6 @@ export class UserService {
                 console.log(error);
                 //alert("código inválido");
             });
-
-
     }
 
     /**

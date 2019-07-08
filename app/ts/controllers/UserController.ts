@@ -25,7 +25,11 @@ export class UserController {
         this.lastName = <HTMLInputElement>document.querySelector('#lastName');
         this.userName = <HTMLInputElement>document.querySelector('#userName');
         this.email = <HTMLInputElement>document.querySelector('#email');
+<<<<<<< HEAD
         //this.photo = <HTMLInputElement>document.querySelector('#photo');
+=======
+        // this.photo = <HTMLInputElement>document.querySelector('#photo');
+>>>>>>> test_dev
         this.password = <HTMLInputElement>document.querySelector('#password');
         this.dateOfBirth = <HTMLInputElement>document.querySelector('#dateOfBirth');
         this.passwordConfirm = <HTMLInputElement>document.querySelector('#passwordConfirm');
@@ -33,6 +37,7 @@ export class UserController {
         
         // init validations
 
+<<<<<<< HEAD
         try {
             this.addVals = [
                 validate(this.name, vals.name),
@@ -46,6 +51,20 @@ export class UserController {
         } catch (error) {
             console.log("validacao ok");
         }
+=======
+
+        this.addVals = [
+            validate(this.name, vals.name),
+            validate(this.lastName, vals.lastName),
+            validate(this.userName, vals.username),
+            validate(this.email, vals.email),
+            // validate(this.photo, vals.photo),
+            validate(this.password, vals.password),
+            validate(this.dateOfBirth, vals.dateOfBirth),
+            validate(this.passwordConfirm, vals.passwordConfirm, this.password)
+        ];
+
+>>>>>>> test_dev
     }
 
     add(event: Event) {
@@ -54,23 +73,50 @@ export class UserController {
 
         if (noFalse(this.addVals)) {
 
-            let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
-
             const user = new User(
                 this.name.value.toString(),
                 this.lastName.value.toString(),
                 this.userName.value.toString(),
                 this.email.value.toString(),
+<<<<<<< HEAD
                 //this.photo.value.toString(),
                 this.password.value.toString(),
                 dataOfBirth,
                 this.id.value.toString(),
+=======
+                // this.photo.value.toString(),
+                this.password.value.toString(),
+                this.dateOfBirth.value.toString(),
+>>>>>>> test_dev
             );
 
             const userService = new UserService();
+<<<<<<< HEAD
             let usuario = userService.cadastro(user);
 
             console.log(user);
+=======
+            userService.add(user)
+            .then(result => {
+                const token = result.headers.get("Token");
+                if (token != null) {
+                    localStorage.setItem('tkn', token);
+                };
+                return result.json()        
+            })
+            .then(res => {
+                console.table(res)
+                localStorage.setItem('email', res.email)
+                localStorage.setItem('id', res._id)
+            // console.log(result[0]['email']);
+                window.location.href = "home.html";
+            })
+
+            // let usuario = userService.cadastro(user);
+
+            // console.log(user);
+            // console.log(usuario);
+>>>>>>> test_dev
         }
     }
 

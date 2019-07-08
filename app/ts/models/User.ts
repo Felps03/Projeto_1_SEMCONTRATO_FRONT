@@ -3,12 +3,12 @@ export class User {
     private lastName: string;
     private userName: string;
     private email: string;
-    private file_photo: string;
+    // private file_photo: string;
     private password: string;
-    private dateOfBirth: Date;
-    private id: string;
-    
-    constructor( name: string, lastName: string, userName: string, email: string,  password: string, dateOfBirth: Date, id: string) {
+    private dateOfBirth: string;
+    // constructor( name: string, lastName: string, userName: string, email: string,  file_photo: string, password: string, dateOfBirth: string) {
+    constructor( name: string, lastName: string, userName: string, email: string, password: string, dateOfBirth: string) {
+
         this.name = name;
         this.lastName = lastName;
         this.userName = userName;
@@ -16,7 +16,7 @@ export class User {
         //this.file_photo = file_photo;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
-        this.id = id;
+     
     }
     
     get Name(){
@@ -47,7 +47,5 @@ export class User {
         return this.dateOfBirth;
     }
     
-    get Id(){
-        return this.id;
-    }
+   
 }
