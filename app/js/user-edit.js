@@ -17,7 +17,6 @@ let userController = new UserController();
 const data = userController.getUserData();
 if (data) {
     data.then(data => {
-        console.log(data);
         if (nameSpan != null) {
             nameSpan.textContent = data.name;
         }

@@ -1,5 +1,4 @@
 import { HOST } from '../config/index';
-import { dateOfBirth } from '../validation/userValidate';
 export class UserService {
     add(user) {
         return fetch(`${HOST}users/user`, {
@@ -19,23 +18,8 @@ export class UserService {
         });
     }
     update(user, ID) {
-        console.log(user.DateOfBirth);
-        let dataFormatada;
-        if (dateOfBirth != null) {
-            let dia = new Date(user.DateOfBirth).getDay();
-            let mes = new Date(user.DateOfBirth).getMonth() + 1;
-            let ano = new Date(user.DateOfBirth).getFullYear();
-            let d;
-            if (dia < 10) {
-                d = "0" + dia.toString();
-            }
-            let m;
-            if (mes < 10) {
-                m = "0" + mes.toString();
-            }
-            dataFormatada = ano + "-" + m + "-" + d;
-        }
-        fetch(`${HOST}users/user/${ID}`, {
+        let dateOfBirth = user.DateOfBirth.replace(/,/g, '-');
+        return fetch(`${HOST}users/user/${ID}`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -46,14 +30,10 @@ export class UserService {
                 "name": user.Name,
                 "userName": user.UserName,
                 "lastName": user.LastName,
-                "dateOfBirth": dataFormatada,
+                "dateOfBirth": dateOfBirth,
                 "email": user.Email,
                 "password": user.Password
             })
-        }).then(res => res.json())
-            .then(res => console.log(res))
-            .catch(error => {
-            console.log(error);
         });
     }
     changePassword(email, password) {

@@ -25,8 +25,6 @@ const data = userController.getUserData();
 if (data) {
     data.then(data => {
 
-        console.log(data);
-
         if (nameSpan != null) {
             nameSpan.textContent = data.name;
         }
@@ -55,9 +53,8 @@ if (data) {
             email.value = data.email;
         }
 
-        
         if (dateOfBirth != null) {
-            dateOfBirth.value =  data.dateOfBirth.slice(0,10);        
+            dateOfBirth.value = data.dateOfBirth.slice(0, 10);
         }
     })
 }
