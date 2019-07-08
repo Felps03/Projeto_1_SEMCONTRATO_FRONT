@@ -13,9 +13,10 @@ export class User {
         this.lastName = lastName;
         this.userName = userName;
         this.email = email;
-        // this.file_photo = file_photo;
+        //this.file_photo = file_photo;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
+     
     }
     
     get Name(){
@@ -29,16 +30,22 @@ export class User {
     get UserName(){
         return this.userName;
     }
+
     get Email(){
         return this.email;
     }
+
     // get File_photo(){
     //     return this.file_photo;
     // }
+
     get Password(){
         return this.password;
     }
+
     get DateOfBirth(){
         return this.dateOfBirth;
     }
+    
+   
 }

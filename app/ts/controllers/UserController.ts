@@ -2,11 +2,9 @@ import { User } from '../models/User';
 import { UserService } from "../services/UserService";
 import { AuthenticateService } from '../services/index';
 
-
 import { validate } from '../helpers/index'
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck'
-
 
 export class UserController {
 
@@ -14,10 +12,11 @@ export class UserController {
     private lastName: HTMLInputElement;
     private userName: HTMLInputElement;
     private email: HTMLInputElement;
-    private photo: HTMLInputElement;
+    //private photo: HTMLInputElement;
     private password: HTMLInputElement;
     private dateOfBirth: HTMLInputElement;
     private passwordConfirm: HTMLInputElement;
+    private id: HTMLInputElement;
 
     private addVals: (() => boolean)[];
 
@@ -30,10 +29,11 @@ export class UserController {
         this.password = <HTMLInputElement>document.querySelector('#password');
         this.dateOfBirth = <HTMLInputElement>document.querySelector('#dateOfBirth');
         this.passwordConfirm = <HTMLInputElement>document.querySelector('#passwordConfirm');
+        this.id = <HTMLInputElement>document.querySelector('#id');
 
         // init validations
 
-        
+
         this.addVals = [
             validate(this.name, vals.name),
             validate(this.lastName, vals.lastName),
@@ -61,22 +61,23 @@ export class UserController {
                 this.password.value.toString(),
                 this.dateOfBirth.value.toString(),
             );
+
             const userService = new UserService();
             userService.add(user)
-            .then(result => {
-                const token = result.headers.get("Token");
-                if (token != null) {
-                    localStorage.setItem('tkn', token);
-                };
-                return result.json()        
-            })
-            .then(res => {
-                console.table(res)
-                localStorage.setItem('email', res.email)
-                localStorage.setItem('id', res._id)
-            // console.log(result[0]['email']);
-                window.location.href = "home.html";
-            })
+                .then(result => {
+                    const token = result.headers.get("Token");
+                    if (token != null) {
+                        localStorage.setItem('tkn', token);
+                    };
+                    return result.json()
+                })
+                .then(res => {
+                    console.table(res)
+                    localStorage.setItem('email', res.email)
+                    localStorage.setItem('id', res._id)
+                    // console.log(result[0]['email']);
+                    window.location.href = "home.html";
+                })
 
             // let usuario = userService.cadastro(user);
 
@@ -84,6 +85,64 @@ export class UserController {
             // console.log(usuario);
         }
     }
+
+    getUserData() {
+        let data;
+        if (!localStorage.getItem('tkn')) {
+            return false;
+        }
+        else {
+            const userService = new UserService();
+            return userService.getData()
+                .then(res => {
+                    return res.json();
+                })
+                .then(result => {
+                    let data = {
+                        id: result['_id'],
+                        name: result['name'],
+                        userName: result['userName'],
+                        lastName: result['lastName'],
+                        email: result['email'],
+                        dateOfBirth: result['dateOfBirth']
+                    }
+                    return data;
+                });
+        }
+    }
+
+    update(event: Event) {
+        event.preventDefault();
+
+        let id = <HTMLInputElement>document.querySelector('#id');
+
+        if (noFalse(this.addVals)) {
+            let dataOfBirth = this.dateOfBirth.value.replace(/-/g, ',');
+
+            const user = new User(
+                this.name.value.toString(),
+                this.lastName.value.toString(),
+                this.userName.value.toString(),
+                this.email.value.toString(),
+                this.password.value.toString(),
+                dataOfBirth
+            );
+
+            const userService = new UserService();
+
+            userService.update(user, id.value)
+                .then(result => {
+                    return result.json();
+                }).then(res => {
+                    console.table(res);
+                    window.location.href = "home.html";
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        }
+    }
+
 
     /*list() {
         event.preventDefault();
@@ -93,10 +152,6 @@ export class UserController {
 
         console.log(user);
         console.log(usuarios);
-
-    }
-
-    update() {
 
     }
 

@@ -12,6 +12,7 @@ export class UserController {
         this.password = document.querySelector('#password');
         this.dateOfBirth = document.querySelector('#dateOfBirth');
         this.passwordConfirm = document.querySelector('#passwordConfirm');
+        this.id = document.querySelector('#id');
         this.addVals = [
             validate(this.name, vals.name),
             validate(this.lastName, vals.lastName),
@@ -41,6 +42,49 @@ export class UserController {
                 localStorage.setItem('email', res.email);
                 localStorage.setItem('id', res._id);
                 window.location.href = "home.html";
+            });
+        }
+    }
+    getUserData() {
+        let data;
+        if (!localStorage.getItem('tkn')) {
+            return false;
+        }
+        else {
+            const userService = new UserService();
+            return userService.getData()
+                .then(res => {
+                return res.json();
+            })
+                .then(result => {
+                let data = {
+                    id: result['_id'],
+                    name: result['name'],
+                    userName: result['userName'],
+                    lastName: result['lastName'],
+                    email: result['email'],
+                    dateOfBirth: result['dateOfBirth']
+                };
+                return data;
+            });
+        }
+    }
+    update(event) {
+        event.preventDefault();
+        let id = document.querySelector('#id');
+        if (noFalse(this.addVals)) {
+            let dataOfBirth = this.dateOfBirth.value.replace(/-/g, ',');
+            const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.password.value.toString(), dataOfBirth);
+            const userService = new UserService();
+            userService.update(user, id.value)
+                .then(result => {
+                return result.json();
+            }).then(res => {
+                console.table(res);
+                window.location.href = "home.html";
+            })
+                .catch(error => {
+                console.error(error);
             });
         }
     }
