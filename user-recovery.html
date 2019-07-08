@@ -65,14 +65,14 @@
                             <label for="email">Email:</label>
                             <input type="text" name="email" class="form-control form-control-sm input-circle"
                                 id="email_rec" placeholder="Informe seu email" autofocus
-                                value="felipe.031293@gmail.com">
+                                value= "">
                             <div id="emailvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="password_rec">Nova Senha:</label>
                             <input type="password" name="senha" class="form-control form-control-sm input-circle"
-                                id="password_rec" placeholder="Informe uma nova senha" autofocus value="123456">
+                                id="password_rec" placeholder="Informe uma nova senha" autofocus value="">
                             <div id="passwordvalidator_rec"></div>
                         </div>
 
@@ -80,7 +80,7 @@
                             <label for="password_rec_conf">Confirmação:</label>
                             <input type="password" name="password_rec_conf"
                                 class="form-control form-control-sm input-circle" id="password_rec_conf"
-                                placeholder="Informe a senha novamente" maxlength="8" value="123456">
+                                placeholder="Informe a senha novamente" maxlength="8" value="">
                             <div id="passwordvalidator_rec_conf"></div>
                         </div>
 
@@ -108,6 +108,13 @@
     <script src="./app/js/services/UserService.js"></script>
     <script src="./app/js/services/AuthenticateService.js"></script>
     <script src="./app/js/user-recovery.js"></script>
+    <script>
+        //TODO in TS
+        if (localStorage.getItem('email')) {
+            var emailHeader = localStorage.getItem('email');
+            document.getElementById("email_rec").value = emailHeader;
+        }
+    </script>
 </body>
 
 </html>
