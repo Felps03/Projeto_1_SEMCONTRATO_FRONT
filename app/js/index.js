@@ -1,5 +1,10 @@
 import { AuthenticateController } from "./controllers/AuthenticateController";
 import { DailyNoteController } from "./controllers/DailyNoteController";
+document.addEventListener("DOMContentLoaded", function (event) {
+    if (localStorage.getItem('tkn')) {
+        window.location.href = "home.html";
+    }
+});
 let authenticate = document.querySelector('#login-form');
 if (authenticate) {
     const authenticateController = new AuthenticateController();

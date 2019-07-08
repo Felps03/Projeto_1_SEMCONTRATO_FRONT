@@ -1,14 +1,13 @@
 import { UserController } from "./controllers/UserController";
 
-document.addEventListener("DOMContentLoaded", function (event) {
-        
+document.addEventListener("DOMContentLoaded", function (event) {      
     if(localStorage.getItem('tkn')){
-        window.location.href = "index.html";
+        window.location.href = "home.html";
     }
 });
 
 let cadastrar = document.querySelector('#user-register');
- if (cadastrar) {
-     const userController = new UserController();
-     cadastrar.addEventListener('submit', userController.add.bind(userController));
+if (cadastrar) {
+    const userController = new UserController();
+    cadastrar.addEventListener('submit', userController.add.bind(userController));
 }
