@@ -33,7 +33,7 @@ export class UserController {
 
         // init validations
 
-
+        
         this.addVals = [
             validate(this.name, vals.name),
             validate(this.lastName, vals.lastName),
@@ -44,7 +44,6 @@ export class UserController {
             validate(this.dateOfBirth, vals.dateOfBirth),
             validate(this.passwordConfirm, vals.passwordConfirm, this.password)
         ];
-
     }
 
     add(event: Event) {
