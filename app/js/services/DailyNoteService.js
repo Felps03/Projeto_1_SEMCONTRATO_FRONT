@@ -1,7 +1,6 @@
 import { HOST } from '../config/index';
 export class DailyNoteService {
     add(yesterday, today, impediment, date) {
-        console.log(new Date().toISOString().slice(0, 10));
         fetch(`${HOST}dailys/daily`, {
             method: 'post',
             headers: {
@@ -13,7 +12,6 @@ export class DailyNoteService {
                 "yesterday": yesterday,
                 "today": today,
                 "impediment": impediment,
-                "date": new Date().toISOString().slice(0, 10),
                 "email": localStorage.getItem('email')
             })
         })
