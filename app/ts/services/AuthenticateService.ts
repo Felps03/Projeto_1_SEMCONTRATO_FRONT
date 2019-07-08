@@ -1,6 +1,6 @@
 import { User } from '../models/index';
 import { HOST } from '../config/index';
-import { async } from 'q';
+//import { async } from 'q';
 import { UserService } from './UserService';
 
 export class AuthenticateService {
@@ -11,7 +11,11 @@ export class AuthenticateService {
      * @param password para validar usuario
      */
     authenticate(email: string, password: string) {
+
+
+
         fetch(`${HOST}users/authenticate`, {
+            //fetch('http://localhost:3000/users/authenticate', {
             method: 'POST',
             mode: 'cors',
             headers: {

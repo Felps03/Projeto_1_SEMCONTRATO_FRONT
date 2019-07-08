@@ -12,12 +12,9 @@
     <link href="app/lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="app/css/custom.css">
     <title>Dados do Usuário</title>
-
-    <!-- intentional -->
 </head>
 
 <body>
-    <!-- particles.js -->
     <div id="particles-js"></div>
 
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
@@ -27,17 +24,15 @@
                 <img src="app/img/logo_compasso.png" href="#!">
             </div>
 
-            <!-- User menu -->
             <div class="dropdown mr-n4 txt-user" style="float:right;">
                 <div class="d-flex align-items-center btn" data-toggle="dropdown">
                     <img src="app/img/teste.jpg" class="rounded-circle" width="50px">
                     <i class="material-icons">arrow_drop_down</i>
                 </div>
                 <div class="dropdown-menu dropdown-menu-right align-user">
-
                     <a class="dropdown-item">
-                        <span>Juliana Sequeira </span>
-                        <span>(juliana123)</span>
+                        <span id="nameSpan"></span>
+                        <span id="userNameSpan"></span>
                     </a>
                     <div class="dropdown-divider"></div>
 
@@ -50,15 +45,16 @@
 
                     <a class="dropdown-item d-flex align-items-center" href="app-daily-note.html">
                         <i class="material-icons mr-2">event_note</i>Daily Note</a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
+                    <a class="dropdown-item d-flex align-items-center" href="app-help-center.html">
                         <i class="material-icons mr-2">lightbulb_outline</i>Help Center</a>
                     <div class="dropdown-divider"></div>
 
-                    <a class="dropdown-item d-flex align-items-center" id="logout">
-                        <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
+                    <a class="dropdown-item d-flex align-items-center" href="index.html" id="logout">
+                        <i class="material-icons mr-2">power_settings_new</i>
+                        <strong>Sair</strong>
+                    </a>
                 </div>
             </div>
-
         </div>
     </nav>
 
@@ -90,25 +86,22 @@
 
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
-                            <label for="lastname">Sobrenome:</label>
-                            <input type="text" name="lastName" class="form-control form-control-sm input-circle"
-                                id="lastname">
+                            <label for="lastName">Sobrenome:</label>
+                            <input type="text" name="lastName" class="form-control form-control-sm input-circle" id="lastName">
                             <div id="lastnamevalidator"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="birthdate">Data de nascimento:</label>
-                    <input type="date" name="dateOfBirth" class="form-control form-control-sm input-circle"
-                        id="birthdate">
+                    <label for="dateOfBirth">Data de nascimento:</label>
+                    <input type="date" name="dateOfBirth" class="form-control form-control-sm input-circle" id="dateOfBirth">
                     <div id="birthdatevalidator"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="email">E-mail:</label>
-                    <input type="text" name="email" class="form-control form-control-sm input-circle" id="email"
-                        disabled>
+                    <input type="text" name="email" class="form-control form-control-sm input-circle" id="email" disabled>
                     <div id="emailvalidator"></div>
                 </div>
 
@@ -118,20 +111,20 @@
                     </h5>
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="photo">Foto de Perfil:</label>
                     <div name="photo">
                         <input type="file" id="photo" name="file_photo" hidden="hidden" />
-                        <button type="button" class="btn btn-secondary btn-sm input-circle" id="file_send">Escolher
-                            foto</button>
-                        <span id="custom-text">Clique para escolher.</span>
                         <div id="photovalidator" class="mt-1"></div>
+                        <button type="button" class="btn btn-secondary btn-sm input-circle" id="file_send">Escolher foto
+                        </button>
+                        <span id="custom-text">Clique para escolher.</span>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="form-group">
-                    <label for="username">Nome de usuário:</label>
-                    <input type="text" name="userName" class="form-control form-control-sm input-circle" id="username">
+                    <label for="userName">Nome de usuário:</label>
+                    <input type="text" name="userName" class="form-control form-control-sm input-circle" id="userName">
                     <div id="usernamevalidator"></div>
                 </div>
 
@@ -139,8 +132,7 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="password">Senha:</label>
-                            <input type="password" name="password" class="form-control form-control-sm input-circle"
-                                id="password">
+                            <input type="password" name="password" class="form-control form-control-sm input-circle" id="password">
                             <div id="passwordvalidator"></div>
                         </div>
                     </div>
@@ -148,44 +140,42 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="password">Confirmação:</label>
-                            <input type="password" name="pass_passwordConfirm"
-                                class="form-control form-control-sm input-circle" id="passwordConfirm">
+                            <input type="password" name="pass_passwordConfirm" class="form-control form-control-sm input-circle" id="passwordConfirm">
                             <div id="passwordconfirmvalidator"></div>
                         </div>
                     </div>
+
+                    <input type="hidden" id="id" />
+
                 </div>
 
-                <button type="submit" name="send"
-                    class="btn btn-outline-success btn-sm mt-3 pr-3 pl-3 float-right input-circle"
-                    id="edit-user">salvar</button>
-                <button type="button" name="reset"
-                    class="btn btn-outline-danger btn-sm mt-3 pr-3 pl-3 mr-2 float-right input-circle"
-                    data-toggle="modal" data-target="#cancelModal">Cancelar</button>
+                <button type="submit" name="send" class="btn btn-outline-success btn-sm mt-3 pr-3 pl-3 float-right input-circle" id="edit-user">salvar</button>
+                <button type="button" name="reset" class="btn btn-outline-danger btn-sm mt-3 pr-3 pl-3 mr-2 float-right input-circle" data-toggle="modal"
+                    data-target="#cancelModal">Cancelar</button>
 
             </form>
         </section>
     </div>
 
-    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelTitle"
-        aria-hidden="true">
+    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="modal-title vt-line mt-2" id="recoveryTitle">
                         <h3>
-                            <strong>Cancelar Edição</strong>
+                            <strong>Cancelar Processo</strong>
                         </h3>
                     </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">Deseja cancelar a edição?</div>
+                <div class="modal-body">Deseja cancelar o processo de cadastro?</div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger btn-sm pr-4 pl-4 input-circle"
-                        data-dismiss="modal">Não</button>
-                    <button type="button" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle"
-                        id="cancelRegister">Sim</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm pr-4 pl-4 input-circle" data-dismiss="modal">Não</button>
+                    <a href="home.html">
+                        <button type="button" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle" id="cancelEdit">Sim</button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -193,10 +183,15 @@
 
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script> -->
     <script src="app/lib/particlejs/particle.min.js"></script>
     <script src="app/lib/particlejs/particle-config.js"></script>
- 
+
+    <script src="app/js/models/User.js"></script>
+    <script src="app/js/services/UserService.js"></script>
+    <script src="app/js/controllers/UserController.js"></script>
+    <script src="app/js/user-edit.js"></script>
+
 </body>
 
 </html>

@@ -24,6 +24,7 @@ export class AuthenticateController {
     authenticate(event) {
         if (noFalse(this.authVals)) {
             const authenticateService = new AuthenticateService();
+            console.log(this.email.value);
             let usuario = authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
         }
         event.preventDefault();

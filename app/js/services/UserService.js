@@ -28,6 +28,7 @@ export class UserService {
         });
     }
     update(user, ID) {
+        let dateOfBirth = user.DateOfBirth.replace(/,/g, '-');
         return fetch(`${HOST}users/user/${ID}`, {
             method: 'PUT',
             headers: {
@@ -41,7 +42,7 @@ export class UserService {
                 "userName": user.UserName,
                 "email": user.Email,
                 "password": user.Password,
-                "dateOfBirth": user.DateOfBirth
+                "dateOfBirth": dateOfBirth
             })
         });
     }
@@ -59,7 +60,7 @@ export class UserService {
     changePassword(email, password) {
         console.log(email, " | ", password);
         fetch(`${HOST}users/changePassword`, {
-            method: 'post',
+            method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'

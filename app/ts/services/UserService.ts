@@ -1,34 +1,35 @@
 import { User } from '../models/index';
 import { HOST } from '../config/index';
+import { dateOfBirth } from '../validation/userValidate';
 
 export class UserService {
 
     add(user: User) {
-        return fetch(`${HOST}users/user`,{
+        return fetch(`${HOST}users/user`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
-                
+
             },
-            body:JSON.stringify({
+            body: JSON.stringify({
                 "name": user.Name,
-                "lastName": user.LastName, 
+                "lastName": user.LastName,
                 "userName": user.UserName,
-                "email" : user.Email, 
-                "password": user.Password, 
-                "dateOfBirth": user.DateOfBirth 
+                "email": user.Email,
+                "password": user.Password,
+                "dateOfBirth": user.DateOfBirth
             })
         })
     }
 
-    
+
 
     /**
      * listar todos usuários
      */
     list() {
-        return fetch(`${HOST}admin/users`,{
+        return fetch(`${HOST}admin/users`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -49,6 +50,8 @@ export class UserService {
      * @param id para alterar dados do usuário dessa id
      */
     update(user: User, ID: string) {
+        let dateOfBirth = user.DateOfBirth.replace(/,/g, '-');
+
         return fetch(`${HOST}users/user/${ID}`, {
             method: 'PUT',
             headers: {
@@ -62,7 +65,7 @@ export class UserService {
                 "userName": user.UserName,
                 "email": user.Email,
                 "password": user.Password,
-                "dateOfBirth": user.DateOfBirth
+                "dateOfBirth": dateOfBirth
             })
         })
     };
@@ -93,10 +96,11 @@ export class UserService {
     changePassword(email: string, password: string) {
         console.log(email, " | ", password);
         fetch(`${HOST}users/changePassword`, {
-            method: 'post',
+            method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
+                //,'Authorization': `Bearer ${localStorage.getItem('tkn')}`
             },
             body: JSON.stringify({
                 "email": email,
@@ -110,7 +114,7 @@ export class UserService {
      * @param email para buscar se cadastro ja existe
      */
     findByEmail(email: string) {
-        return fetch(`${HOST}users/${email}`,{
+        return fetch(`${HOST}users/${email}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -121,9 +125,6 @@ export class UserService {
     }
 
     getData() {
-
-        // console.log("Token é: " + localStorage.getItem('tkn'));
-        // console.log("Email é: " + localStorage.getItem('email'));
         const email = localStorage.getItem('email');
         return fetch(`${HOST}users/${email}`, {
             method: 'GET',

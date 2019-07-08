@@ -9,7 +9,7 @@
         "tsc": "./node_modules/.bin/tsc",
         "watch": "tsc -w",
         "serverType": "lite-server --baseDir=app",
-        "startType": " \"npm start\"",
+        "startType": "npm start",
         "startTeste": "tsc -w"
     },
     "keywords": [],
