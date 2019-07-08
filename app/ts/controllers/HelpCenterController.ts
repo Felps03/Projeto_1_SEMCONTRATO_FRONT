@@ -4,9 +4,9 @@ import { HelpCenterService, UserService } from '../services/index';
 import { validate } from '../helpers/index'
 import * as vals from '../validation/dailyNoteValidate';
 import { noFalse } from '../utils/listCheck'
-import { PostsView } from '../views/PostsView';
+// import { PostsView } from '../views/PostsView';
 
-export class DailyNoteController {
+export class HelpCenterController {
 
     private searchTitle: HTMLInputElement
     private searchDesc: HTMLInputElement
@@ -14,7 +14,7 @@ export class DailyNoteController {
     private addTitle: HTMLInputElement
     private addDesc: HTMLInputElement
 
-    private postsView: PostsView
+    // private postsView: PostsView
 
     constructor() {
         this.searchTitle = <HTMLInputElement>document.getElementById('search-title')
@@ -23,42 +23,115 @@ export class DailyNoteController {
         this.addTitle = <HTMLInputElement>document.getElementById('add-title')
         this.addDesc = <HTMLInputElement>document.getElementById('add-desc')
 
-        this.postsView = new PostsView('#post-list')
+        // this.postsView = new PostsView('#post-list')
 
         // init validations
     }
 
     add(event: Event) {
         event.preventDefault();
+        let idUser = localStorage.getItem('id') || "";
 
-        const helpCenterService = new HelpCenterService()
-        helpCenterService.add(
-            this.addTitle.value,
-            this.addDesc.value
+        const post = new Post(
+            this.addTitle.value.toString(),
+            this.addDesc.value.toString(),
+            idUser
         )
+        const helpCenterService = new HelpCenterService();
+
+        helpCenterService.add(post)
+            .then(result => {
+                return result.json()
+            }).then(res => {
+                console.table(res);
+                // $('#add-modal').modal('hide');
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    }
+
+
+    update(event: Event) {
+        event.preventDefault();
+        let idUser = localStorage.getItem('id') || "";
+        let ID_POST = "VAI O ID DO POST";
+
+        const post = new Post(
+            this.addTitle.value.toString(),
+            this.addDesc.value.toString(),
+            idUser
+        );
+
+        const helpCenterService = new HelpCenterService();
+        helpCenterService.update(post, ID_POST)
+            .then(result => {
+                return result.json()
+            }).then(res => {
+                console.table(res);
+            })
+            .catch(error => {
+                console.error(error)
+            })
     }
 
     list(event: Event) {
         event.preventDefault();
-
         const helpCenterService = new HelpCenterService()
         helpCenterService.list()
-            .then(res => {
-                const userService = new UserService()
-                /*const author = userService.lista()
-                    .then(res => res.forEach(user => {
-                        if (user.id === res.user_id)
-                            return user
-                    }))*/
+            .then(result => {
+                return result.json()
+            }).then(res => {
+                console.log(res);
+            })
+            .catch(error => {
+                console.error(error)
             })
     }
 
-}
+    delete(event: Event) {
+        event.preventDefault();
+        let id = "esta função esta ok";
+        const helpCenterService = new HelpCenterService();
+        helpCenterService.remove(id)
+            .then(result => {
+                return result.json()
+            }).then(res => {
+                console.log(res);
+            })
+            .catch(error => {
+                console.error(error)
+            });
+    }
 
-// update(event: Event) {
-//     event.preventDefault();
-//     if (noFalse(this.editVals)) {
-//         ...
-//     }
-// }
-// }
+    findByTitle(event: Event) {
+        event.preventDefault();
+        let title = "esta função esta ok";
+        const helpCenterService = new HelpCenterService();
+        helpCenterService.findByTitle(title)
+            .then(result => {
+                return result.json()
+            }).then(res => {
+                console.log(res);
+            })
+            .catch(error => {
+                console.error(error)
+            });
+    }
+
+    findByDesc(event: Event) {
+        event.preventDefault();
+        let desc = "esta função esta ok";
+        const helpCenterService = new HelpCenterService();
+        helpCenterService.findByDesc(desc)
+            .then(result => {
+                return result.json()
+            }).then(res => {
+                console.log(res);
+            })
+            .catch(error => {
+                console.error(error)
+            });
+    }
+
+}

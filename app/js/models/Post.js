@@ -1,9 +1,8 @@
 export class Post {
-    constructor(title, desc, author, date) {
+    constructor(title, desc, author) {
         this.title = title;
         this.desc = desc;
         this.author = author;
-        this.date = date;
     }
     get Title() {
         return this.title;
@@ -13,8 +12,5 @@ export class Post {
     }
     get Author() {
         return this.author;
-    }
-    get Date() {
-        return this.date;
     }
 }

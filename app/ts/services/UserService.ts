@@ -3,25 +3,25 @@ import { HOST } from '../config/index';
 
 export class UserService {
 
-    // cadastro(usuario: User) {
-    //     const form: HTMLFormElement = <HTMLFormElement>document.getElementById('user-register')
-    //     let formData = new FormData(form)
+    add(user: User) {
+        return fetch(`${HOST}users/user`,{
+            method: "POST",
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify({
+                "name": user.Name,
+                "lastName": user.LastName, 
+                "userName": user.UserName,
+                "email" : user.Email, 
+                "password": user.Password, 
+                "dateOfBirth": user.DateOfBirth 
+            })
+        })
+    }
 
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: `${HOST}users/user`,
-    //         contentType: false,
-    //         cache: false,
-    //         processData: false,
-    //         data: formData,
-    //         success: function (data) { console.log(data) },
-    //         error: function (request, status, error) {
-    //             console.log("error: ", error)
-    //             console.log("resquest: ", request.responseText)
-    //         }
-    //     })
-
-    // }
+    
 
     /**
      * listar todos usuários

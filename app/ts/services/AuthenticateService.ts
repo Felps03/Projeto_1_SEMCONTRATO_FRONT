@@ -11,11 +11,7 @@ export class AuthenticateService {
      * @param password para validar usuario
      */
     authenticate(email: string, password: string) {
-
-
-
-        // fetch(`${HOST}users/authenticate`, {
-        fetch('https://100contrato.azurewebsites.net/users/authenticate4533r', {
+        fetch(`${HOST}users/authenticate`, {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -37,6 +33,7 @@ export class AuthenticateService {
             // console.log(token);
             console.log(result);
             localStorage.setItem('email', result[0]['email'])
+            localStorage.setItem('id', result[0]['_id'])
             // console.log(result[0]['email']);
             window.location.href = "home.html";
         })
@@ -110,7 +107,7 @@ export class AuthenticateService {
             if (res.status == 200) {
                 localStorage.removeItem("tkn");
                 localStorage.removeItem("email");
-                console.log("deu bom");
+                localStorage.removeItem("id");
                 window.location.href = 'index.html';
             }
         }).catch(error => {
