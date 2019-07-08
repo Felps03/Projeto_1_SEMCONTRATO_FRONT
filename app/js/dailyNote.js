@@ -3,8 +3,6 @@ let yesterday = document.querySelector('#yesterday');
 let today = document.querySelector('#today');
 let impediment = document.querySelector('#impediment');
 let date = document.querySelector('#date');
-let nameSpanTxt = "";
-let userNameSpanTxt = "";
 const controller = new DailyNoteController();
 let cadastrar = document.querySelector("#daily-form");
 if (cadastrar) {

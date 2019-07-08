@@ -10,6 +10,9 @@ export class DailyNoteController {
         this.impediment = document.querySelector('#impediment');
         this.date = document.querySelector('#date');
         this.listDate = document.querySelector('#filter');
+        this.editYesterday = document.querySelector('#edit-yesterday');
+        this.editToday = document.querySelector('#edit-today');
+        this.editImpediment = document.querySelector('#edit-impediment');
         this.addVals = [
             validate(this.yesterday, vals.yesterday),
             validate(this.today, vals.today),
@@ -20,7 +23,6 @@ export class DailyNoteController {
             validate(this.editToday, vals.today),
             validate(this.editImpediment, vals.impediment)
         ];
-        console.log(this.editYesterday);
     }
     add(event) {
         event.preventDefault();
@@ -28,24 +30,23 @@ export class DailyNoteController {
             let dailyNote = new DailyNote(this.yesterday.value.toString(), this.today.value.toString(), this.impediment.value.toString(), new Date());
             let dailyNoteService = new DailyNoteService();
             let dailyNoteAux = dailyNoteService.add(this.yesterday.value, this.today.value, this.impediment.value, new Date());
-            console.log(dailyNote);
-            console.log(dailyNoteAux);
         }
     }
     listD(event) {
         event.preventDefault();
         let date = document.querySelector('#date_filter');
         let value = date.value;
+        console.log(value);
         let dateFilter = new Date(value);
+        console.log(dateFilter);
         let dailyNoteService = new DailyNoteService();
         return dailyNoteService.listDate(dateFilter)
             .then(res => {
-                return res.json();
-            })
+            return res.json();
+        })
             .then(result => {
-                console.log(result);
-                return result;
-            });
+            return result;
+        });
     }
     ;
 }

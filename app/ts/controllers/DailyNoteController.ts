@@ -28,7 +28,9 @@ export class DailyNoteController {
 
         this.listDate = <HTMLInputElement>document.querySelector('#filter');
 
-
+        this.editYesterday = <HTMLInputElement>document.querySelector('#edit-yesterday');
+        this.editToday = <HTMLInputElement>document.querySelector('#edit-today');
+        this.editImpediment = <HTMLInputElement>document.querySelector('#edit-impediment');
         // init validations
         this.addVals = [
             validate(this.yesterday, vals.yesterday),
@@ -41,7 +43,7 @@ export class DailyNoteController {
             validate(this.editImpediment, vals.impediment)
         ];
 
-        console.log(this.editYesterday);
+        // console.log(this.editYesterday);
     }
 
     add(event: Event) {
@@ -65,8 +67,8 @@ export class DailyNoteController {
                 this.impediment.value,
                 new Date());
 
-            console.log(dailyNote);
-            console.log(dailyNoteAux);
+            // console.log(dailyNote);
+            // console.log(dailyNoteAux);
         }
     }
 
@@ -75,8 +77,9 @@ export class DailyNoteController {
 
         let date = <HTMLInputElement>document.querySelector('#date_filter');
         let value = date.value;
+        console.log(value)
         let dateFilter = new Date(value);
-
+        console.log(dateFilter);
         let dailyNoteService = new DailyNoteService();
 
         return dailyNoteService.listDate(dateFilter)
@@ -88,7 +91,7 @@ export class DailyNoteController {
                 // console.log(token);
                 // console.log(result['name'])
                 // console.log(result['userName'])
-                console.log(result);
+                // console.log(result);
                 // let daily = {
                 //     yesterday: result['yesterday'],
                 //     today: result['today'],
