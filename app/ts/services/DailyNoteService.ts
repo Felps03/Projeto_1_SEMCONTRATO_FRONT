@@ -55,7 +55,7 @@ export class DailyNoteService {
      * 
      * @param data para buscar a daily da data informada
      */
-    listDate(data: Date) {
+    listDate(data: Date, page: number = 1) {
         let year = JSON.stringify(data.getFullYear());
         let month = JSON.stringify(data.getMonth() + 1);
         let day = JSON.stringify(data.getDate() + 1);
@@ -65,8 +65,8 @@ export class DailyNoteService {
 
         let dateFilter = `${year}-${month}-${day}`;
 
-        return fetch(`${HOST}dailys/daily/${dateFilter}`, {
-            method: 'get',
+        return fetch(`${HOST}dailys/daily/${dateFilter}/${page}`, {
+            method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',

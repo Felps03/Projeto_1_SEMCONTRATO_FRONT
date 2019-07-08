@@ -20,15 +20,18 @@ if (listDate) {
 
 
 function listDateDaily(event: Event) {
-    const daily = controller.listD(event);
-    if (daily) {
-        daily
-            .then(daily => {
-                console.log()
-                if (yesterday != null) {
-                    yesterday.textContent = daily.yesterday;
-                }
+    const result = controller.listD(event);
+    if (result) {
+        result
+            .then(result => {
+                // console.log(result);
+                result.forEach((r: any) => {
+                    console.log(r);
+                });
             })
+        // .then(response => {
+        //     return response;
+        // })
 
     }
     // lida promise

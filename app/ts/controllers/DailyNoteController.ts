@@ -77,9 +77,9 @@ export class DailyNoteController {
 
         let date = <HTMLInputElement>document.querySelector('#date_filter');
         let value = date.value;
-        console.log(value)
+        // console.log(value)
         let dateFilter = new Date(value);
-        console.log(dateFilter);
+        // console.log(dateFilter);
         let dailyNoteService = new DailyNoteService();
 
         return dailyNoteService.listDate(dateFilter)
@@ -88,23 +88,9 @@ export class DailyNoteController {
                 return res.json();
             })
             .then(result => {
-                // console.log(token);
-                // console.log(result['name'])
-                // console.log(result['userName'])
                 // console.log(result);
-                // let daily = {
-                //     yesterday: result['yesterday'],
-                //     today: result['today'],
-                //     impediment: result['impediment']
-                // }
                 return result
             });
-
-        // .then(resp => resp.json())
-        // .then(result => {
-        //    console.log(result.docs);
-        //    return result; 
-        // });
     };
 }
 

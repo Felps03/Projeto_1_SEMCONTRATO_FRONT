@@ -20,7 +20,7 @@ export class DailyNoteService {
             .then(res => res.json())
             .then(res => console.log(res));
     }
-    listDate(data) {
+    listDate(data, page = 1) {
         let year = JSON.stringify(data.getFullYear());
         let month = JSON.stringify(data.getMonth() + 1);
         let day = JSON.stringify(data.getDate() + 1);
@@ -29,8 +29,8 @@ export class DailyNoteService {
         if (day.length < 2)
             day = `0` + day;
         let dateFilter = `${year}-${month}-${day}`;
-        return fetch(`${HOST}dailys/daily/${dateFilter}`, {
-            method: 'get',
+        return fetch(`${HOST}dailys/daily/${dateFilter}/${page}`, {
+            method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',

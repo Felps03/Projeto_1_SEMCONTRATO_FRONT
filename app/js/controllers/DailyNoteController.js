@@ -36,9 +36,7 @@ export class DailyNoteController {
         event.preventDefault();
         let date = document.querySelector('#date_filter');
         let value = date.value;
-        console.log(value);
         let dateFilter = new Date(value);
-        console.log(dateFilter);
         let dailyNoteService = new DailyNoteService();
         return dailyNoteService.listDate(dateFilter)
             .then(res => {

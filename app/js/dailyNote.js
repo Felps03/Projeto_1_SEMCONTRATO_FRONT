@@ -13,14 +13,13 @@ if (listDate) {
     listDate.addEventListener('click', listDateDaily);
 }
 function listDateDaily(event) {
-    const daily = controller.listD(event);
-    if (daily) {
-        daily
-            .then(daily => {
-            console.log();
-            if (yesterday != null) {
-                yesterday.textContent = daily.yesterday;
-            }
+    const result = controller.listD(event);
+    if (result) {
+        result
+            .then(result => {
+            result.forEach((r) => {
+                console.log(r);
+            });
         });
     }
 }

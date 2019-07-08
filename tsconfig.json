@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es6",
         "outDir": "app/js",
-        "noEmitOnError": true, 
+        "noEmitOnError": true,
         "noImplicitAny": true,
         "removeComments": true,
         "strictNullChecks": true,
