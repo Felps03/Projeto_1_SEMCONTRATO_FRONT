@@ -3,7 +3,14 @@ import { UserController } from "./controllers/UserController";
 document.addEventListener("DOMContentLoaded", function (event) {
         
     if(localStorage.getItem('tkn')){
-        window.location.href = "index.html";
+        window.location.href = "home.html";
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function (event) {
+
+    if (localStorage.getItem('tkn')) {
+        window.location.href = "home.html";
     }
 });
 

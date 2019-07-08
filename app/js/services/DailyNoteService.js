@@ -18,7 +18,11 @@ export class DailyNoteService {
             })
         })
             .then(res => res.json())
-            .then(res => console.log(res));
+            .then(res => {
+            if (res.status == 200) {
+                console.log("funcionou");
+            }
+        });
     }
     update(id) {
         const form = document.getElementById('editdaily-form');
