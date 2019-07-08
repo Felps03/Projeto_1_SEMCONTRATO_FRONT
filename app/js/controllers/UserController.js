@@ -9,7 +9,6 @@ export class UserController {
         this.lastName = document.querySelector('#lastName');
         this.userName = document.querySelector('#userName');
         this.email = document.querySelector('#email');
-        this.photo = document.querySelector('#photo');
         this.password = document.querySelector('#password');
         this.dateOfBirth = document.querySelector('#dateOfBirth');
         this.passwordConfirm = document.querySelector('#passwordConfirm');
@@ -18,7 +17,6 @@ export class UserController {
             validate(this.lastName, vals.lastName),
             validate(this.userName, vals.username),
             validate(this.email, vals.email),
-            validate(this.photo, vals.photo),
             validate(this.password, vals.password),
             validate(this.dateOfBirth, vals.dateOfBirth),
             validate(this.passwordConfirm, vals.passwordConfirm, this.password)
@@ -27,10 +25,23 @@ export class UserController {
     add(event) {
         event.preventDefault();
         if (noFalse(this.addVals)) {
-            let dataOfBirth = new Date(this.dateOfBirth.value.replace(/-/g, ','));
-            const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.photo.value.toString(), this.password.value.toString(), dataOfBirth);
+            const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.password.value.toString(), this.dateOfBirth.value.toString());
             const userService = new UserService();
-            console.log(user);
+            userService.add(user)
+                .then(result => {
+                const token = result.headers.get("Token");
+                if (token != null) {
+                    localStorage.setItem('tkn', token);
+                }
+                ;
+                return result.json();
+            })
+                .then(res => {
+                console.table(res);
+                localStorage.setItem('email', res.email);
+                localStorage.setItem('id', res._id);
+                window.location.href = "home.html";
+            });
         }
     }
 }

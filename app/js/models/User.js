@@ -1,10 +1,9 @@
 export class User {
-    constructor(name, lastName, userName, email, file_photo, password, dateOfBirth) {
+    constructor(name, lastName, userName, email, password, dateOfBirth) {
         this.name = name;
         this.lastName = lastName;
         this.userName = userName;
         this.email = email;
-        this.file_photo = file_photo;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
     }
@@ -19,9 +18,6 @@ export class User {
     }
     get Email() {
         return this.email;
-    }
-    get File_photo() {
-        return this.file_photo;
     }
     get Password() {
         return this.password;

@@ -13,8 +13,14 @@ export class DailyNoteController {
         this.addVals = [
             validate(this.yesterday, vals.yesterday),
             validate(this.today, vals.today),
-            validate(this.impediment, vals.impediment),
+            validate(this.impediment, vals.impediment)
         ];
+        this.editVals = [
+            validate(this.editYesterday, vals.yesterday),
+            validate(this.editToday, vals.today),
+            validate(this.editImpediment, vals.impediment)
+        ];
+        console.log(this.editYesterday);
     }
     add(event) {
         event.preventDefault();
@@ -34,12 +40,12 @@ export class DailyNoteController {
         let dailyNoteService = new DailyNoteService();
         return dailyNoteService.listDate(dateFilter)
             .then(res => {
-            return res.json();
-        })
+                return res.json();
+            })
             .then(result => {
-            console.log(result);
-            return result;
-        });
+                console.log(result);
+                return result;
+            });
     }
     ;
 }

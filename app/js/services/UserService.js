@@ -1,5 +1,22 @@
 import { HOST } from '../config/index';
 export class UserService {
+    add(user) {
+        return fetch(`${HOST}users/user`, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "name": user.Name,
+                "lastName": user.LastName,
+                "userName": user.UserName,
+                "email": user.Email,
+                "password": user.Password,
+                "dateOfBirth": user.DateOfBirth
+            })
+        });
+    }
     changePassword(email, password) {
         console.log(email, " | ", password);
         fetch(`${HOST}users/changePassword`, {

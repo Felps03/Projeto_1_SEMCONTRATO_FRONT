@@ -13,7 +13,12 @@ export class DailyNoteController {
     private date: HTMLInputElement;
     private listDate: HTMLInputElement;
 
+    private editYesterday: HTMLInputElement;
+    private editToday: HTMLInputElement;
+    private editImpediment: HTMLInputElement;
+
     private addVals: (() => boolean)[];
+    private editVals: (() => boolean)[];
 
     constructor() {
         this.yesterday = <HTMLInputElement>document.querySelector('#yesterday');
@@ -28,8 +33,15 @@ export class DailyNoteController {
         this.addVals = [
             validate(this.yesterday, vals.yesterday),
             validate(this.today, vals.today),
-            validate(this.impediment, vals.impediment),
+            validate(this.impediment, vals.impediment)
         ];
+        this.editVals = [
+            validate(this.editYesterday, vals.yesterday),
+            validate(this.editToday, vals.today),
+            validate(this.editImpediment, vals.impediment)
+        ];
+
+        console.log(this.editYesterday);
     }
 
     add(event: Event) {
@@ -58,43 +70,46 @@ export class DailyNoteController {
         }
     }
 
-    listD(event: Event){
+    listD(event: Event) {
         event.preventDefault();
 
         let date = <HTMLInputElement>document.querySelector('#date_filter');
         let value = date.value;
-        let dateFilter =  new Date(value);
+        let dateFilter = new Date(value);
 
         let dailyNoteService = new DailyNoteService();
 
         return dailyNoteService.listDate(dateFilter)
-        .then(res => {
-            // console.log(res)
-            return res.json();
-        })
-        .then(result => {
-            // console.log(token);
-            // console.log(result['name'])
-            // console.log(result['userName'])
-            console.log(result);
-            // let daily = {
-            //     yesterday: result['yesterday'],
-            //     today: result['today'],
-            //     impediment: result['impediment']
-            // }
-            return result
-        });
-          
-            // .then(resp => resp.json())
-            // .then(result => {
-            //    console.log(result.docs);
-            //    return result; 
-            // });
+            .then(res => {
+                // console.log(res)
+                return res.json();
+            })
+            .then(result => {
+                // console.log(token);
+                // console.log(result['name'])
+                // console.log(result['userName'])
+                console.log(result);
+                // let daily = {
+                //     yesterday: result['yesterday'],
+                //     today: result['today'],
+                //     impediment: result['impediment']
+                // }
+                return result
+            });
+
+        // .then(resp => resp.json())
+        // .then(result => {
+        //    console.log(result.docs);
+        //    return result; 
+        // });
     };
 }
 
 
 // update(event: Event) {
 //     event.preventDefault();
+//     if (noFalse(this.editVals)) {
+//         ...
+//     }
 // }
 // }

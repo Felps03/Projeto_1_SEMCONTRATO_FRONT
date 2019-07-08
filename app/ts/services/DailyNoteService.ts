@@ -10,7 +10,8 @@ export class DailyNoteService {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization" : `Bearer ${localStorage.getItem('tkn')}`
             },
             body: JSON.stringify({
                 "yesterday": yesterday, 
@@ -77,23 +78,20 @@ export class DailyNoteService {
      * 
      * listar todas as dailys
      */
-    // listAll() {
-    //     let result="";
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: ` $ {HOST}dailys`,
-    //         contentType: false,
-    //         cache: false,
-    //         processData: false,
-    //         success: function (data) { 
-    //             result = data;
-    //             console.log(data) },
-    //         error: function (request, tatus, error) {
-    //             console.log("error: ", error)
-    //             console.log("resq
-    //         est: ", request.responseText)
-    //         }
-    //     })
-    //     return result;
-    // }
+    listAll() {
+
+        $.ajax({
+            type: 'GET',
+            url: `${HOST}dailys`,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (data) { 
+                console.log(data) },
+            error: function (request, tatus, error) {
+                console.log("error: ", error)
+                console.log("resquest: ", request.responseText)
+            }
+        })
+    }
 }
