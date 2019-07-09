@@ -2,7 +2,7 @@ import { Post, User, Posts } from '../models/index';
 import { HelpCenterService, UserService } from '../services/index';
 
 import { validate } from '../helpers/index'
-//import * as vals from '../validation/dailyNoteValidate';
+import * as vals from '../validation/helpCenterValidate';
 import { noFalse } from '../utils/listCheck'
 
 import { PostsView } from '../views/PostsView';
@@ -22,6 +22,11 @@ export class HelpCenterController {
     private postsView: PostsView
     private postView: PostView
 
+    private addVals: (() => boolean)[]
+    private editVals: (() => boolean)[]
+
+    private currentPage: number
+
     constructor() {
         this.searchTitle = <HTMLInputElement>document.getElementById('search-title')
         this.searchDesc = <HTMLInputElement>document.getElementById('search-desc')
@@ -32,7 +37,19 @@ export class HelpCenterController {
         this.postsView = new PostsView('#post-list')
         this.postView = new PostView('#view-view-modal')
 
+        this.currentPage = 1
+
+        // init validations
+
+        this.addVals = [
+            validate(this.addTitle, vals.title),
+            validate(this.addDesc, vals.desc),
+        ]
+
         this.postView.didMount(() => {
+
+            this.editTitle = <HTMLInputElement>document.getElementById('edit-title')
+            this.editDesc = <HTMLInputElement>document.getElementById('edit-desc')
 
             const editForm = document.getElementById('edit-form')
             const deleteBtn = document.getElementById('confirm-del-btn')
@@ -43,9 +60,17 @@ export class HelpCenterController {
             if (deleteBtn) {
                 deleteBtn.addEventListener('click', this.delete.bind(this))
             }
-        })
 
-        // init validations
+            // init validations
+
+            // if one exists, both exist
+            if (this.editTitle) {
+                this.editVals = [
+                    validate(this.editTitle, vals.title),
+                    validate(this.editDesc, vals.desc),
+                ]
+            }
+        })
     }
 
 
@@ -53,89 +78,94 @@ export class HelpCenterController {
         event.preventDefault();
         //let idUser = localStorage.getItem('id') || "";
 
-        const post = new Post(
-            this.addTitle.value.toString(),
-            this.addDesc.value.toString(),
-        )
-        const helpCenterService = new HelpCenterService();
+        if (noFalse(this.addVals)) {
 
-        helpCenterService.add(post)
-            .then(result => {
-                return result.json()
-            }).then(res => {
-                console.table(res);
-                // $('#add-modal').modal('hide');
-            })
-            .then(() => {
-                this.list(event);
-            })
-            .catch(error => {
-                console.error(error)
-            })
+            const post = new Post(
+                this.addTitle.value.toString(),
+                this.addDesc.value.toString(),
+            )
+            const helpCenterService = new HelpCenterService();
+
+            helpCenterService.add(post)
+                .then(result => {
+                    return result.json()
+                }).then(res => {
+                    console.table(res);
+                    // $('#add-modal').modal('hide');
+                })
+                .then(() => {
+                    this.list(event);
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+
+        }
     }
 
 
     update(event: Event) {
         event.preventDefault();
-        //let idUser = localStorage.getItem('id') || "";
-        const postIdField = document.getElementById('post-meta')
-        const editTitle = <HTMLInputElement>document.getElementById('edit-title')
-        const editDesc = <HTMLInputElement>document.getElementById('edit-desc')
 
+        if (noFalse(this.editVals)) {
 
-        if (!(postIdField && editTitle && editDesc)) {
-            return
+            //let idUser = localStorage.getItem('id') || "";
+            const postIdField = document.getElementById('post-meta')
+
+            if (!(postIdField && this.editTitle && this.editDesc)) {
+                return
+            }
+
+            const ID_POST = postIdField.getAttribute('data-id');
+
+            if (!ID_POST) {
+                return
+            }
+
+            const post = new Post(
+                this.editTitle.value,
+                this.editDesc.value,
+            );
+
+            const helpCenterService = new HelpCenterService();
+            helpCenterService.update(post, ID_POST)
+                .then(result => {
+                    return result.json()
+                }).then(res => {
+                    this.list(event);
+                    console.table(res);
+                })
+                .catch(error => {
+                    console.error(error)
+                })
         }
-
-        const ID_POST = postIdField.getAttribute('data-id');
-
-        if (!ID_POST) {
-            return
-        }
-
-        const post = new Post(
-            editTitle.value,
-            editDesc.value,
-        );
-
-        const helpCenterService = new HelpCenterService();
-        helpCenterService.update(post, ID_POST)
-            .then(result => {
-                return result.json()
-            }).then(res => {
-                this.list(event);
-                console.table(res);
-            })
-            .catch(error => {
-                console.error(error)
-            })
     }
 
+    // here be dragons
     list(event: Event) {
         event.preventDefault();
-        console.log('chamou');
         const helpCenterService = new HelpCenterService()
-        helpCenterService.list()
+        helpCenterService.list(this.currentPage)
             .then(result => {
                 return result.json()
             }).then(res => {
-                Posts.from(res)
-                    .then(posts => {
-                        //
-                        this.postsView.update(posts)
-                        Array.from(document.getElementsByClassName('post-expand'))
-                            .forEach(el => {
-                                const i = el.getAttribute('data-i')
-                                if (i) {
-                                    el.addEventListener('click', () => {
 
-                                        this.postView.update(
-                                            posts.get(+i)
-                                        )
+                console.log(res)
 
-                                    })
-                                }
+                const posts = Posts.from(res)
+                this.postsView.update(posts)
+                Array.from(document.getElementsByClassName('post-expand'))
+                    .forEach(el => {
+                        const i = el.getAttribute('data-i')
+                        if (i) {
+                            el.addEventListener('click', () => {
+
+                                this.postView.update(
+                                    posts.get(+i)
+                                )
+
                             })
+                        }
                     })
             })
             .catch(error => {

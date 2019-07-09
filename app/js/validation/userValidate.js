@@ -1,5 +1,5 @@
 export function name(name) {
-    if (!(name.value.length > 2)) {
+    if (!(name.value.trim().length > 2)) {
         return 'Nome muito curto.';
     }
     else if (!/[A-Z]([a-z]|\s)+$/.test(name.value)) {
@@ -14,7 +14,7 @@ export function name(name) {
     return null;
 }
 export function lastName(lastName) {
-    if (!(lastName.value.length > 2)) {
+    if (!(lastName.value.trim().length > 2)) {
         return 'Sobrenome muito curto.';
     }
     else if (!/[A-Z]([a-z]|\s)+$/.test(lastName.value)) {
@@ -29,7 +29,7 @@ export function lastName(lastName) {
     return null;
 }
 export function username(username) {
-    if (!(username.value.length > 2)) {
+    if (!(username.value.trim().length > 2)) {
         return 'Nome de usuário muito curto.';
     }
     else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(username.value)) {
@@ -38,7 +38,7 @@ export function username(username) {
     return null;
 }
 export function email(email) {
-    if (!email.value) {
+    if (!email.value.trim()) {
         return 'Email vazio.';
     }
     else if (!/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9_-])+(\.([a-zA-Z0-9_-])+)+$/.test(email.value)) {
@@ -58,7 +58,7 @@ export function photo(file) {
     return null;
 }
 export function password(pw) {
-    if (pw.value.length < 6 || pw.value.length > 8) {
+    if (pw.value.trim().length < 6 || pw.value.trim().length > 8) {
         return 'Senha deve ter tamanho entre 6 e 8 dígitos.';
     }
     else if (pw.value.indexOf(' ') !== -1) {
@@ -73,7 +73,7 @@ export function editPassword(pw) {
     return null;
 }
 export function passwordConfirm(pw, confirm) {
-    if (!pw.value) {
+    if (!pw.value.trim()) {
         return 'Confirmação obrigatória.';
     }
     else if (pw.value !== confirm.value) {
@@ -88,13 +88,13 @@ export function editPasswordConfirm(pw, confirm) {
     return null;
 }
 export function code(code) {
-    if (!code.value) {
+    if (!code.value.trim()) {
         return 'Código obrigatório.';
     }
     return null;
 }
 export function dateOfBirth(date) {
-    const inputDate = new Date(date.value);
+    const inputDate = new Date(date.value.trim());
     const day = inputDate.getDate();
     const month = inputDate.getMonth();
     const year = inputDate.getFullYear();

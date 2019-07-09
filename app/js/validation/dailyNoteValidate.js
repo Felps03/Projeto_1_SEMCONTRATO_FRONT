@@ -1,5 +1,5 @@
 export function yesterday(first) {
-    if (!(first.value.length > 3)) {
+    if (!(first.value.trim().length > 3)) {
         return 'Descrição muito pequena.';
     }
     else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.|\s)+$/.test(first.value)) {
@@ -10,7 +10,7 @@ export function yesterday(first) {
     }
 }
 export function today(today) {
-    if (!(today.value.length > 3)) {
+    if (!(today.value.trim().length > 3)) {
         return 'Descrição muito pequena.';
     }
     else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.|\s)+$/.test(today.value)) {
@@ -21,7 +21,7 @@ export function today(today) {
     }
 }
 export function impediment(third) {
-    if (!(third.value.length > 3)) {
+    if (!(third.value.trim().length > 3)) {
         return 'Descrição muito pequena.';
     }
     else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.|\s)+$/.test(third.value)) {

@@ -14,7 +14,7 @@ export class PostsView extends View<Posts> {
                     <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
                         <div>
                             <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
-                            <h5 class="mt-2 mb-2">${post.Author ? `${post.Author.Name} ${post.Author.LastName}` : ""}</h5>
+                            <h5 class="mt-2 mb-2">${post.AuthorName ? post.AuthorName : ""}</h5>
                         </div>
                         <button
                             class="btn btn-lg btn-outline-success d-flex justify-content-center align-items-center post-expand"

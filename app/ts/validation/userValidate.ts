@@ -3,7 +3,7 @@
 import { InputWrapper } from '../utils/index'
 
 export function name(name: InputWrapper): string | null {
-    if (!(name.value.length > 2)) {
+    if (!(name.value.trim().length > 2)) {
         return 'Nome muito curto.'
     } else if (!/[A-Z]([a-z]|\s)+$/.test(name.value)) {
         return 'Nome inválido: Use uma letra maiúscula seguida de letras minúsculas.'
@@ -17,7 +17,7 @@ export function name(name: InputWrapper): string | null {
 }
 
 export function lastName(lastName: InputWrapper): string | null {
-    if (!(lastName.value.length > 2)) {
+    if (!(lastName.value.trim().length > 2)) {
         return 'Sobrenome muito curto.'
     } else if (!/[A-Z]([a-z]|\s)+$/.test(lastName.value)) {
         return 'Sobren6ome inválido: Use uma letra maiúscula seguida de letras minúsculas.'
@@ -31,7 +31,7 @@ export function lastName(lastName: InputWrapper): string | null {
 }
 
 export function username(username: InputWrapper): string | null {
-    if (!(username.value.length > 2)) {
+    if (!(username.value.trim().length > 2)) {
         return 'Nome de usuário muito curto.'
     } else if (!/^([a-zA-Z0-9]|_|\$|@|\-|\.)+$/.test(username.value)) {
         return 'Nome de usuário inválido: Somente são permitidos caracteres alfanuméricos e os especiais "_$@-.".'
@@ -41,7 +41,7 @@ export function username(username: InputWrapper): string | null {
 }
 
 export function email(email: InputWrapper): string | null {
-    if (!email.value) {
+    if (!email.value.trim()) {
         return 'Email vazio.'
     } else if (!/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9_-])+(\.([a-zA-Z0-9_-])+)+$/.test(email.value)) {
         return 'Email inválido. Exemplo: abc123@def.gh'
@@ -66,7 +66,7 @@ export function photo(file: InputWrapper): string | null {
 }
 
 export function password(pw: InputWrapper): string | null {
-    if (pw.value.length < 6 || pw.value.length > 8) {
+    if (pw.value.trim().length < 6 || pw.value.trim().length > 8) {
         return 'Senha deve ter tamanho entre 6 e 8 dígitos.'
     } else if (pw.value.indexOf(' ') !== -1) {
         return 'Senha não pode conter espaços.'
@@ -85,7 +85,7 @@ export function editPassword(pw: InputWrapper): string | null {
 }
 
 export function passwordConfirm(pw: InputWrapper, confirm: HTMLInputElement): string | null {
-    if (!pw.value) {
+    if (!pw.value.trim()) {
         return 'Confirmação obrigatória.'
     } else if (pw.value !== confirm.value) {
         return 'Senhas não batem'
@@ -104,7 +104,7 @@ export function editPasswordConfirm(pw: InputWrapper, confirm: HTMLInputElement)
 }
 
 export function code(code: InputWrapper): string | null {
-    if (!code.value) {
+    if (!code.value.trim()) {
         return 'Código obrigatório.'
     }
 
@@ -112,7 +112,7 @@ export function code(code: InputWrapper): string | null {
 }
 
 export function dateOfBirth(date: InputWrapper): string | null {
-    const inputDate = new Date(date.value)
+    const inputDate = new Date(date.value.trim())
 
     const day = inputDate.getDate()
     const month = inputDate.getMonth()

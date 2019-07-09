@@ -36,8 +36,8 @@ export class HelpCenterService {
         });
     };
 
-    list() {
-        return fetch(`${HOST}helps/post`, {
+    list(page: number) {
+        return fetch(`${HOST}helps/post/list/${page}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

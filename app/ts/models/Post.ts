@@ -4,7 +4,8 @@ export class Post {
     constructor(
         private title: string,
         private desc: string,
-        private author?: User,
+        private authorId?: string,
+        private authorName?: string,
         // private date: Date,
         private id?: string
     ) { }
@@ -17,8 +18,12 @@ export class Post {
         return this.desc
     }
 
-    get Author() {
-        return this.author
+    get AuthorId() {
+        return this.authorId
+    }
+
+    get AuthorName() {
+        return this.authorName
     }
 
     // get Date() {

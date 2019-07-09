@@ -1,8 +1,9 @@
 export class Post {
-    constructor(title, desc, author, id) {
+    constructor(title, desc, authorId, authorName, id) {
         this.title = title;
         this.desc = desc;
-        this.author = author;
+        this.authorId = authorId;
+        this.authorName = authorName;
         this.id = id;
     }
     get Title() {
@@ -11,8 +12,11 @@ export class Post {
     get Desc() {
         return this.desc;
     }
-    get Author() {
-        return this.author;
+    get AuthorId() {
+        return this.authorId;
+    }
+    get AuthorName() {
+        return this.authorName;
     }
     get Id() {
         return this.id;

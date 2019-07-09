@@ -1,5 +1,4 @@
-import { Post, User } from './index';
-import { UserService } from "../services/index";
+import { Post } from './index';
 export class Posts {
     constructor() {
         this._posts = [];
@@ -14,25 +13,11 @@ export class Posts {
         return this._posts[i];
     }
     static from(arr) {
-        return new Promise((resolve, reject) => {
-            const newPosts = new Posts();
-            const userService = new UserService();
-            let promises = [];
-            arr.forEach((val) => {
-                promises.push(userService.findById(val.id_user)
-                    .then(res => res.json())
-                    .then((res) => {
-                    return new User(res.name, res.lastName, res.userName, res.email, "", res.dateOfBirth);
-                })
-                    .then((user) => {
-                    newPosts.add(new Post(val.title, val.desc, user, val._id));
-                }));
-            });
-            Promise.all(promises)
-                .then(() => {
-                resolve(newPosts);
-            })
-                .catch(reject);
+        const newPosts = new Posts();
+        arr.slice(0, -1).forEach((val) => {
+            console.log(val);
+            newPosts.add(new Post(val.title, val.desc, val.id_user, val.owner, val._id));
         });
+        return newPosts;
     }
 }
