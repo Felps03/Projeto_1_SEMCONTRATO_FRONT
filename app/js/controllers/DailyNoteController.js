@@ -47,4 +47,8 @@ export class DailyNoteController {
         });
     }
     ;
+    update(event) {
+        alert("OOOOOOI");
+        event.preventDefault();
+    }
 }

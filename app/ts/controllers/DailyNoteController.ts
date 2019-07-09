@@ -92,13 +92,11 @@ export class DailyNoteController {
                 return result
             });
     };
+
+    update(event: Event) {
+        alert("OOOOOOI")
+        event.preventDefault();
+
+        
+    }
 }
-
-
-// update(event: Event) {
-//     event.preventDefault();
-//     if (noFalse(this.editVals)) {
-//         ...
-//     }
-// }
-// }
