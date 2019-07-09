@@ -1,4 +1,6 @@
 import { UserService } from "../services/UserService";
+import { HelpCenterService } from "../services/HelpCenterService";
+import { DailyNoteService } from "../services/DailyNoteService";
 
 export class HomeController {
 
@@ -25,5 +27,32 @@ export class HomeController {
                     return data
                 });
         }
+    }
+    listLastHelp(event: Event) {
+        event.preventDefault();
+        const helpCenterService = new HelpCenterService()
+        helpCenterService.listLastHelp()
+            .then(result => {
+                return result.json()
+            }).then(res => {
+                console.log(res);
+            })
+            .catch(error => {
+                console.error(error)
+            });
+    }
+    listDailyDate(event: Event) {
+        event.preventDefault();
+        let date = new Date();
+        const dailyNoteService = new DailyNoteService()
+        dailyNoteService.listDate(date)
+            .then(result => {
+                return result.json()
+            }).then(res => {
+                console.log(res);
+            })
+            .catch(error => {
+                console.error(error)
+            })
     }
 }

@@ -21,3 +21,4 @@ if (data) {
 else {
     window.location.href = "index.html"
 }
+
