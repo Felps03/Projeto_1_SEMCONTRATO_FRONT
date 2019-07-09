@@ -53,23 +53,19 @@ export class DailyNoteService {
 
     /**
      * 
-     * @param data para buscar a daily da data informada
+     * @param date para buscar a daily da data informada
      */
-    listDate(data: Date) {
-        $.ajax({
-            type: 'GET',
-            url: `${HOST}dailys/daily/${data}`,
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function (data) { console.log(data) },
-            error: function (request, status, error) {
-                console.log("error: ", error)
-                console.log("resquest: ", request.responseText)
+
+    listDate(date: Date) {
+        return fetch(`${HOST}dailys/daily/${date}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
             }
         })
     }
-
     /**
      * 
      * listar todas as dailys
