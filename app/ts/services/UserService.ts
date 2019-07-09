@@ -83,7 +83,7 @@ export class UserService {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('tkn')}`
             }
-        }).catch();
+        });
     }
 
     /**
@@ -94,8 +94,7 @@ export class UserService {
 
 
     changePassword(email: string, password: string) {
-        console.log(email, " | ", password);
-        fetch(`${HOST}users/changePassword`, {
+        return fetch(`${HOST}users/changePassword`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',

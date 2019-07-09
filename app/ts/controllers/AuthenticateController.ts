@@ -44,7 +44,21 @@ export class AuthenticateController {
 
             console.log(this.email.value);
 
-            let usuario = authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
+            authenticateService.authenticate(this.email.value.toString(), this.password.value.toString()).then(res => {
+                // console.log(res.headers.get("Token"));
+                const token = res.headers.get("Token");
+                if (token != null) {
+                    localStorage.setItem('tkn', token);
+                }
+                return res.json();
+            }).then(result => {
+                // console.log(token);
+                console.log(result);
+                localStorage.setItem('email', result[0]['email'])
+                localStorage.setItem('id', result[0]['_id'])
+                // console.log(result[0]['email']);
+                window.location.href = "home.html";
+            });
 
             // console.log("oiii");
             // console.log(this.email.value);
@@ -63,6 +77,11 @@ export class AuthenticateController {
             const authenticateService = new AuthenticateService();
 
             authenticateService.resetPassword(this.email.value.toString())
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res);
+                    window.location.href = 'index.html';
+                });
         }
     }
 
@@ -74,7 +93,20 @@ export class AuthenticateController {
         //Authorization : Bearer "token"
         const authenticateService = new AuthenticateService();
 
-        authenticateService.logout();
+        authenticateService.logout().then(res => {
+            if (res.status == 400) {
+                alert("Houve um erro ao Deslogar");
+            }
+            if (res.status == 200) {
+                localStorage.removeItem("tkn");
+                localStorage.removeItem("email");
+                localStorage.removeItem("id");
+                window.location.href = 'index.html';
+            }
+        }).catch(error => {
+            console.log("error: ", error);
+            return error;
+        });
         
     }
 }
