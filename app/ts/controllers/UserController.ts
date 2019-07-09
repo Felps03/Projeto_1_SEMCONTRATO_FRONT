@@ -87,7 +87,6 @@ export class UserController {
     }
 
     getUserData() {
-        let data;
         if (!localStorage.getItem('tkn')) {
             return false;
         }
@@ -98,15 +97,17 @@ export class UserController {
                     return res.json();
                 })
                 .then(result => {
-                    let data = {
-                        id: result['_id'],
-                        name: result['name'],
-                        userName: result['userName'],
-                        lastName: result['lastName'],
-                        email: result['email'],
-                        dateOfBirth: result['dateOfBirth']
+                    if(!result){
+                        window.location.href = "index.html"
                     }
-                    return data;
+                    new User(           
+                        this.name.value = result['name'],
+                        this.userName.value = result['userName'],
+                        this.lastName.value = result['lastName'],
+                        this.email.value = result['email'],
+                        this.dateOfBirth.value = result['dateOfBirth'].slice(0, 10),
+                        this.password.value = ""
+                    );        
                 });
         }
     }
