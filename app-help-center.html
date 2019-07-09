@@ -18,7 +18,13 @@
     <!-- particles.js -->
     <div id="particles-js"></div>
 
-    <div id="view-view-modal"></div>
+    <div id="">
+        <!-- view modal -->
+        <div id="view-modal" class="modal fade show" tabindex="-1" role="dialog">
+            <div id="view-view-modal" class="modal-dialog" role="document">
+            </div>
+        </div>
+    </div>
 
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container">
@@ -29,14 +35,16 @@
             <!-- User menu -->
             <div class="dropdown mr-n4 txt-user" style="float:right;">
                 <div class="d-flex align-items-center btn" data-toggle="dropdown">
-                    <!-- <img src="app/img/teste.jpg" class="rounded-circle" width="50px"> -->
+                    <img src="app/img/teste.jpg" class="rounded-circle" width="50px">
                     <i class="material-icons">arrow_drop_down</i>
                 </div>
                 <div class="dropdown-menu dropdown-menu-right align-user">
 
                     <a class="dropdown-item">
-                        <span>Juliana Sequeira </span>
-                        <span>(juliana123)</span>
+                        <!-- <span>Juliana Sequeira</span> -->
+                        <!-- <span>(juliana123)</span> -->
+                        <span id="nameSpan"></span>
+                        <span id="userNameSpan"></span>
                     </a>
                     <div class="dropdown-divider"></div>
 
@@ -53,7 +61,7 @@
                         <i class="material-icons mr-2">lightbulb_outline</i>Help Center</a>
                     <div class="dropdown-divider"></div>
 
-                    <a class="dropdown-item d-flex align-items-center" id="logout">
+                    <a class="dropdown-item d-flex align-items-center" href="index.html" id="logout">
                         <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
                 </div>
             </div>
@@ -179,8 +187,27 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" id="cadastroHelpCenter"
-                        class="btn btn-primary d-flex align-items-center">Enviar <i
-                            class="material-icons ml-2">send</i></button>
+                        class="btn btn-primary d-flex align-items-center">Enviar <i class="material-icons ml-2"
+                            data-dismiss="modal">send</i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- confirm delete modal -->
+    <div id="confirm-del-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Certeza que deseja excluir a postagem?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="confirm-del-btn"
+                        class="btn btn-success d-flex align-items-center">Confirmar</button>
                 </div>
             </div>
         </div>

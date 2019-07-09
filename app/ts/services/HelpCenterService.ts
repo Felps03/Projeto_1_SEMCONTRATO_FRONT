@@ -29,7 +29,7 @@ export class HelpCenterService {
                 'Authorization': `Bearer ${localStorage.getItem('tkn')}`
             },
             body: JSON.stringify({
-                "id_user": post.Author,
+                "id_user": localStorage.getItem('id'),
                 "title": post.Title,
                 "desc": post.Desc
             })
@@ -37,7 +37,7 @@ export class HelpCenterService {
     };
 
     list() {
-        return fetch(`${HOST}helps/post/`, {
+        return fetch(`${HOST}helps/post`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

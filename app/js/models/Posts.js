@@ -25,7 +25,7 @@ export class Posts {
                     return new User(res.name, res.lastName, res.userName, res.email, "", res.dateOfBirth);
                 })
                     .then((user) => {
-                    newPosts.add(new Post(val.title, val.desc, user));
+                    newPosts.add(new Post(val.title, val.desc, user, val._id));
                 }));
             });
             Promise.all(promises)

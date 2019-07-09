@@ -1,5 +1,5 @@
-import { Post, User, Posts } from '../models/index';
-import { HelpCenterService, UserService } from '../services/index';
+import { Post, Posts } from '../models/index';
+import { HelpCenterService } from '../services/index';
 import { PostsView } from '../views/PostsView';
 import { PostView } from '../views/PostView';
 export class HelpCenterController {
@@ -10,11 +10,16 @@ export class HelpCenterController {
         this.addDesc = document.getElementById('add-desc');
         this.postsView = new PostsView('#post-list');
         this.postView = new PostView('#view-view-modal');
-        this.postView.update(new Post('', '', new User('', '', '', '', '', '')));
-        const editBtn = document.getElementById('edit-btn');
-        if (editBtn) {
-            editBtn.addEventListener('click', this.postView.toggleEditing);
-        }
+        this.postView.didMount(() => {
+            const editForm = document.getElementById('edit-form');
+            const deleteBtn = document.getElementById('confirm-del-btn');
+            if (editForm) {
+                editForm.addEventListener('submit', this.update.bind(this));
+            }
+            if (deleteBtn) {
+                deleteBtn.addEventListener('click', this.delete.bind(this));
+            }
+        });
     }
     add(event) {
         event.preventDefault();
@@ -35,26 +40,32 @@ export class HelpCenterController {
     }
     update(event) {
         event.preventDefault();
-        let ID_POST = "VAI O ID DO POST";
-        const userService = new UserService();
-        userService.findById(ID_POST)
-            .then((res) => new User(res.name, res.lastName, res.userName, res.email, "", res.dateOfBirth))
-            .then(user => {
-            const post = new Post(this.addTitle.value.toString(), this.addDesc.value.toString(), user);
-            const helpCenterService = new HelpCenterService();
-            helpCenterService.update(post, ID_POST)
-                .then(result => {
-                return result.json();
-            }).then(res => {
-                console.table(res);
-            })
-                .catch(error => {
-                console.error(error);
-            });
+        const postIdField = document.getElementById('post-meta');
+        const editTitle = document.getElementById('edit-title');
+        const editDesc = document.getElementById('edit-desc');
+        if (!(postIdField && editTitle && editDesc)) {
+            return;
+        }
+        const ID_POST = postIdField.getAttribute('data-id');
+        if (!ID_POST) {
+            return;
+        }
+        const post = new Post(editTitle.value, editDesc.value);
+        const helpCenterService = new HelpCenterService();
+        helpCenterService.update(post, ID_POST)
+            .then(result => {
+            return result.json();
+        }).then(res => {
+            this.list(event);
+            console.table(res);
+        })
+            .catch(error => {
+            console.error(error);
         });
     }
     list(event) {
         event.preventDefault();
+        console.log('chamou');
         const helpCenterService = new HelpCenterService();
         helpCenterService.list()
             .then(result => {
@@ -80,13 +91,21 @@ export class HelpCenterController {
     }
     delete(event) {
         event.preventDefault();
-        let id = "esta função esta ok";
+        const postIdField = document.getElementById('post-meta');
+        if (!postIdField) {
+            return;
+        }
+        const ID_POST = postIdField.getAttribute('data-id');
+        if (!ID_POST) {
+            return;
+        }
         const helpCenterService = new HelpCenterService();
-        helpCenterService.remove(id)
+        helpCenterService.remove(ID_POST)
             .then(result => {
             return result.json();
         }).then(res => {
-            console.log(res);
+            this.list(event);
+            console.table(res);
         })
             .catch(error => {
             console.error(error);

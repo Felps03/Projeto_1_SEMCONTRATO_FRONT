@@ -16,6 +16,9 @@ export class HelpCenterController {
     private addTitle: HTMLInputElement
     private addDesc: HTMLInputElement
 
+    private editTitle: HTMLInputElement
+    private editDesc: HTMLInputElement
+
     private postsView: PostsView
     private postView: PostView
 
@@ -28,18 +31,23 @@ export class HelpCenterController {
 
         this.postsView = new PostsView('#post-list')
         this.postView = new PostView('#view-view-modal')
-        this.postView.update(new Post('', '', new User('', '', '', '', '', '')))
 
-        const editBtn = document.getElementById('edit-btn')
-        //const deleteBtn = document.getElementById('delete-btn')
-        if (editBtn) {
-            editBtn.addEventListener('click', this.postView.toggleEditing)
-        }
-        //if(deleteBtn)
-        //deleteBtn.addEventListener('click')
+        this.postView.didMount(() => {
+
+            const editForm = document.getElementById('edit-form')
+            const deleteBtn = document.getElementById('confirm-del-btn')
+
+            if (editForm) {
+                editForm.addEventListener('submit', this.update.bind(this))
+            }
+            if (deleteBtn) {
+                deleteBtn.addEventListener('click', this.delete.bind(this))
+            }
+        })
 
         // init validations
     }
+
 
     add(event: Event) {
         event.preventDefault();
@@ -59,7 +67,7 @@ export class HelpCenterController {
                 // $('#add-modal').modal('hide');
             })
             .then(() => {
-                this.list(event)
+                this.list(event);
             })
             .catch(error => {
                 console.error(error)
@@ -70,38 +78,42 @@ export class HelpCenterController {
     update(event: Event) {
         event.preventDefault();
         //let idUser = localStorage.getItem('id') || "";
-        let ID_POST = "VAI O ID DO POST";
+        const postIdField = document.getElementById('post-meta')
+        const editTitle = <HTMLInputElement>document.getElementById('edit-title')
+        const editDesc = <HTMLInputElement>document.getElementById('edit-desc')
 
-        const userService = new UserService()
 
-        userService.findById(ID_POST)
-            .then((res: any) => new User(
-                res.name, res.lastName, res.userName,
-                res.email, "", res.dateOfBirth
-            ))
-            .then(user => {
+        if (!(postIdField && editTitle && editDesc)) {
+            return
+        }
 
-                const post = new Post(
-                    this.addTitle.value.toString(),
-                    this.addDesc.value.toString(),
-                    user
-                );
+        const ID_POST = postIdField.getAttribute('data-id');
 
-                const helpCenterService = new HelpCenterService();
-                helpCenterService.update(post, ID_POST)
-                    .then(result => {
-                        return result.json()
-                    }).then(res => {
-                        console.table(res);
-                    })
-                    .catch(error => {
-                        console.error(error)
-                    })
+        if (!ID_POST) {
+            return
+        }
+
+        const post = new Post(
+            editTitle.value,
+            editDesc.value,
+        );
+
+        const helpCenterService = new HelpCenterService();
+        helpCenterService.update(post, ID_POST)
+            .then(result => {
+                return result.json()
+            }).then(res => {
+                this.list(event);
+                console.table(res);
+            })
+            .catch(error => {
+                console.error(error)
             })
     }
 
     list(event: Event) {
         event.preventDefault();
+        console.log('chamou');
         const helpCenterService = new HelpCenterService()
         helpCenterService.list()
             .then(result => {
@@ -116,9 +128,11 @@ export class HelpCenterController {
                                 const i = el.getAttribute('data-i')
                                 if (i) {
                                     el.addEventListener('click', () => {
+
                                         this.postView.update(
                                             posts.get(+i)
                                         )
+
                                     })
                                 }
                             })
@@ -131,13 +145,25 @@ export class HelpCenterController {
 
     delete(event: Event) {
         event.preventDefault();
-        let id = "esta função esta ok";
+        const postIdField = document.getElementById('post-meta');
+
+        if (!postIdField) {
+            return
+        }
+
+        const ID_POST = postIdField.getAttribute('data-id');
+
+        if (!ID_POST) {
+            return
+        }
+
         const helpCenterService = new HelpCenterService();
-        helpCenterService.remove(id)
+        helpCenterService.remove(ID_POST)
             .then(result => {
                 return result.json()
             }).then(res => {
-                console.log(res);
+                this.list(event);
+                console.table(res);
             })
             .catch(error => {
                 console.error(error)

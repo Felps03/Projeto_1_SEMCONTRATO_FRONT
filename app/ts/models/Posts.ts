@@ -38,7 +38,7 @@ export class Posts {
                             )
                         })
                         .then((user: User) => {
-                            newPosts.add(new Post(val.title, val.desc, user))
+                            newPosts.add(new Post(val.title, val.desc, user, val._id))
                         })
                 )
             })
