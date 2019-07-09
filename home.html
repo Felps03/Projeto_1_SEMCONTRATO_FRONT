@@ -62,7 +62,7 @@
     </nav>
 
     <div class="container page-position">
-        <div class="row centered">
+        <div class="row mt-5 d-flex justify-content-center">
 
             <!-- Daily Note -->
             <div class="card card-size">
@@ -98,6 +98,148 @@
             </div>
 
         </div>
+
+        <!-- DailyNote e HelpCenter -->
+        <div class="row mt-5 mb-5 justify-content-between">
+
+            
+            <!-- DailyNote -->
+            <div class="col-12 col-sm-3 section-lastdaily">
+                <div class="col-12">
+                    <div class="vt-line mt-4 mb-4">
+                        <h3><strong>Última Daily</strong></h3>
+                    </div>
+
+                    <hr class="lastdaily-line">
+
+                    <table class="table table-hover mt-4">
+                        <!-- cabeçalho -->
+                        <thead class="bg-light">
+                            <tr>
+                                <th scope="col">Data</th>
+                                <th scope="col">Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody id="all-dailys">           
+                            <tr>
+                                <td class="pt-4">Juliana Sequeira</td>
+                                <td>
+                                    <button type="button" name="view"
+                                        class="btn btn-outline-success btn-sm input-circle pt-2" id="daily-view"
+                                        data-toggle="modal" data-target="#viewdailyModal">
+                                        <i class="small material-icons">remove_red_eye</i>
+                                    </button>
+                                </td>
+                            </tr>
+    
+                        </tbody>
+                    </table> 
+                </div>
+            </div>
+
+
+            <!-- HelpCenter -->
+            <div class="col-12 col-sm-8 section-help">
+                <div class="col-12">
+                    <div class="vt-line mt-4 mb-4">
+                        <h3><strong>Perguntas Recentes</strong></h3>
+                    </div>
+
+                    <hr class="help-line">
+
+                    <!-- Exemplo estático -->
+                    <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
+                        <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
+                            <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
+                                <div>
+                                    <h5 class="mt-2 mb-2 ml-4">Willian999</h5>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-9 col-12 card-body">
+                            <div class="card mb-2">
+                                <div class="card-body">
+        
+                                    <h5>Titulo</h5>
+                                    <p>Pergunta agurdando solução (exemplo).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
+                        <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
+                            <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
+                                <div>
+                                    <h5 class="mt-2 mb-2 ml-4">Willian999</h5>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-9 col-12 card-body">
+                            <div class="card mb-2">
+                                <div class="card-body">
+        
+                                    <h5>Titulo</h5>
+                                    <p>Pergunta agurdando solução (exemplo).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- fim do exemplo estático -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Daily modal -->
+    <div class="modal fade" id="viewdailyModal" tabindex="-1" role="dialog" aria-labelledby="viewdailyTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title vt-line mt-2" id="viewdailyTitle">
+                        <h3><strong>Daily</strong></h3>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form" method="post" id="viewdaily-form" autocomplete="off">
+
+                        <div class="form-group">
+                            <label for="first"><strong>1. </strong>O que fez ontem?</label>
+                            <textarea name="first" class="form-control form-control-sm input-circle" id="first"
+                                disabled></textarea>
+                            <div id="firstvalidator"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="second"><strong>2. </strong>O que vai fazer hoje?</label>
+                            <textarea name="second" class="form-control form-control-sm input-circle" id="second"
+                                disabled></textarea>
+                            <div id="secondvalidator"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="third"><strong>3. </strong>Tem impedimentos? Se sim, qual(is)?</label>
+                            <textarea name="third" class="form-control form-control-sm input-circle" id="third"
+                                disabled></textarea>
+                            <div id="thirdvalidator"></div>
+                        </div>
+
+                        <button type="button"
+                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle"
+                            data-dismiss="modal">Voltar</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
@@ -106,7 +248,6 @@
     <script src="app/lib/particlejs/particle-config.js"></script>
     <script src="app/js/logout.js"></script>
     <script src="app/js/home.js"></script>
-    <!---->
 </body>
 
 </html>
