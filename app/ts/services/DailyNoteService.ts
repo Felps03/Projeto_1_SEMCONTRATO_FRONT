@@ -30,42 +30,35 @@ export class DailyNoteService {
      * 
      * @param id para alterar dados do usuário dessa id
      */
-    update(id: string) {
-        const form: HTMLFormElement = <HTMLFormElement>document.getElementById('editdaily-form')
-
-        let formData = new FormData(form)
-
-        $.ajax({
-            type: 'PUT',
-            url: `${HOST}dailys/daily/${id}`,
-            contentType: false,
-            cache: false,
-            processData: false,
-            data: formData,
-            success: function (data) { console.log(data) },
-            error: function (request, status, error) {
-                console.log("error: ", error)
-                console.log("resquest: ", request.responseText)
-            }
-        })
-
-    }
+   
+     update(daily: DailyNote, ID: string) {
+        return fetch(`${HOST}dailys/daily/${ID}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            },
+            body: JSON.stringify({
+                "yesterday": daily.Yesterday,
+                "today": daily.Today,
+                "impediment": daily.Impediment,
+                "date": daily.Date
+            })
+        });
+    };
 
     /**
      * 
      * @param data para buscar a daily da data informada
      */
-    listDate(data: Date) {
-        $.ajax({
-            type: 'GET',
-            url: `${HOST}dailys/daily/${data}`,
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function (data) { console.log(data) },
-            error: function (request, status, error) {
-                console.log("error: ", error)
-                console.log("resquest: ", request.responseText)
+    listDate(date: Date) {
+        return fetch(`${HOST}dailys/daily/${date}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
             }
         })
     }
@@ -74,19 +67,14 @@ export class DailyNoteService {
      * 
      * listar todas as dailys
      */
-    listAll() {
 
-        $.ajax({
-            type: 'GET',
-            url: `${HOST}dailys`,
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function (data) { 
-                console.log(data) },
-            error: function (request, tatus, error) {
-                console.log("error: ", error)
-                console.log("resquest: ", request.responseText)
+    listAll() {
+        return fetch(`${HOST}dailys`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
             }
         })
     }
