@@ -5,7 +5,7 @@ export class PostAsk {
         private id_helpCenter: string,
         private desc: string,
         private id_user: string,
-        private authorName: string,
+        private authorName?: string,
         private id?: string
         // private date: Date
     ) { }

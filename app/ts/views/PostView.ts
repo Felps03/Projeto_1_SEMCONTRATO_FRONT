@@ -18,7 +18,7 @@ export class PostView extends View<Post> {
 
         this.lastModel = model
 
-        console.log('>', model)
+        //console.log('>', model)
 
         return `
             
@@ -118,8 +118,8 @@ export class PostView extends View<Post> {
             }
         }
 
-        this.didMountFn()
-        //if()
+        if (this.didMountFn)
+            this.didMountFn()
     }
 
     toggleEditing() {

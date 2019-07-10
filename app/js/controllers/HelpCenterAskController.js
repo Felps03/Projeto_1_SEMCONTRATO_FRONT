@@ -9,6 +9,18 @@ export class HelpCenterAskController {
         const addForm = document.getElementById('comment-form');
         if (addForm)
             addForm.addEventListener('submit', this.add.bind(this));
+        this.postAsksView.childrenDidMount((postAsk) => {
+            const editForm = document.getElementById(`comment-edit-form-${postAsk.Id}`);
+            console.log(editForm);
+            const deleteBtn = document.getElementById(`comment-del-${postAsk.Id}`);
+            console.log(' ~~~ ~', deleteBtn);
+            if (editForm) {
+                editForm.addEventListener('submit', this.update.bind(this, postAsk.Id));
+            }
+            if (deleteBtn) {
+                deleteBtn.addEventListener('click', this.delete.bind(this, postAsk.Id));
+            }
+        });
     }
     add(event) {
         event.preventDefault();
@@ -26,21 +38,34 @@ export class HelpCenterAskController {
             .then(result => {
             return result.json();
         }).then(res => {
-            console.table(res);
+            this.listByPost(event);
         })
             .catch(error => {
             console.error(error);
         });
     }
-    update(event) {
+    update(id, event) {
         event.preventDefault();
-        const postAsk = new PostAsk("teste", "teste", "teste");
+        const postIdField = document.getElementById('post-meta');
+        const textareaEl = document.querySelector(`#comment-edit-form-${id} textarea`);
+        if (!textareaEl) {
+            return;
+        }
+        if (!(postIdField)) {
+            return;
+        }
+        const ID_POST = postIdField.getAttribute('data-id');
+        if (!ID_POST) {
+            return;
+        }
+        const postAsk = new PostAsk(ID_POST, textareaEl.value, localStorage.getItem('id') || '', id);
+        console.log(postAsk);
         const helpCenterService = new HelpCenterAskService();
-        helpCenterService.update(postAsk, '1')
+        helpCenterService.update(postAsk, id)
             .then(result => {
             return result.json();
         }).then(res => {
-            console.table(res);
+            this.listByPost(event);
         })
             .catch(error => {
             console.error(error);
@@ -53,7 +78,6 @@ export class HelpCenterAskController {
             .then(result => {
             return result.json();
         }).then(res => {
-            console.log(res);
         })
             .catch(error => {
             console.error(error);
@@ -81,14 +105,15 @@ export class HelpCenterAskController {
             console.error(error);
         });
     }
-    delete(event) {
+    delete(id, event) {
         event.preventDefault();
         const helpCenterService = new HelpCenterAskService();
-        helpCenterService.remove('id')
+        helpCenterService.remove(id)
             .then(result => {
             return result.json();
         }).then(res => {
             console.log(res);
+            this.listByPost(event);
         })
             .catch(error => {
             console.error(error);
@@ -101,7 +126,6 @@ export class HelpCenterAskController {
             .then(result => {
             return result.json();
         }).then(res => {
-            console.log(res);
         })
             .catch(error => {
             console.error(error);

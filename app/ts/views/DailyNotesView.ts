@@ -51,7 +51,7 @@ export class DailyNotesView extends View<DailyNotes> {
                     disabled>${dailyNote.Impediment}</textarea>
                 <div id="thirdvalidator"></div>
             </div>`
-            ).join()};
+        ).join()};
 
             <button type="button"
                 class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle"

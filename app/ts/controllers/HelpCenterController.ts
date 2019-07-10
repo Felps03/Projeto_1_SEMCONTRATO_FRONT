@@ -97,7 +97,6 @@ export class HelpCenterController {
                 .then(result => {
                     return result.json()
                 }).then(res => {
-                    console.table(res);
                     // $('#add-modal').modal('hide');
                 })
                 .then(() => {
@@ -140,7 +139,7 @@ export class HelpCenterController {
                     return result.json()
                 }).then(res => {
                     this.list(event);
-                    console.table(res);
+                    //   console.table(res);
                 })
                 .catch(error => {
                     console.error(error)
@@ -198,7 +197,7 @@ export class HelpCenterController {
                 return result.json()
             }).then(res => {
                 this.list(event);
-                console.table(res);
+                //      console.table(res);
             })
             .catch(error => {
                 console.error(error)
@@ -216,7 +215,6 @@ export class HelpCenterController {
 
                 const posts = Posts.from(res)
                 this.postsView.update(posts)
-                console.log(posts)
                 Array.from(document.getElementsByClassName('post-expand'))
                     .forEach(el => {
                         const i = el.getAttribute('data-i')
@@ -246,7 +244,7 @@ export class HelpCenterController {
             }).then(res => {
                 const posts = Posts.from(res)
                 this.postsView.update(posts)
-                console.log(posts)
+                //   console.log(posts)
                 Array.from(document.getElementsByClassName('post-expand'))
                     .forEach(el => {
                         const i = el.getAttribute('data-i')

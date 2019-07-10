@@ -7,7 +7,6 @@ export class PostView extends View {
     }
     template(model) {
         this.lastModel = model;
-        console.log('>', model);
         return `
             
             <div class="modal-content">
@@ -102,7 +101,8 @@ export class PostView extends View {
                 editBtn.addEventListener('click', this.toggleEditing.bind(this));
             }
         }
-        this.didMountFn();
+        if (this.didMountFn)
+            this.didMountFn();
     }
     toggleEditing() {
         this.editing = !this.editing;

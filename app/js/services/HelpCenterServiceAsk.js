@@ -1,6 +1,7 @@
 import { HOST } from "../config/index";
 export class HelpCenterAskService {
     add(post) {
+        console.log(post);
         return fetch(`${HOST}helps/ask/`, {
             method: 'POST',
             headers: {
@@ -17,7 +18,6 @@ export class HelpCenterAskService {
     }
     ;
     update(post, ID) {
-        console.log(post);
         return fetch(`${HOST}helps/ask/${ID}`, {
             method: 'PUT',
             headers: {

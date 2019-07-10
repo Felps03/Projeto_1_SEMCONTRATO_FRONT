@@ -18,6 +18,34 @@ export class HelpCenterAskController {
         const addForm = document.getElementById('comment-form')
         if (addForm)
             addForm.addEventListener('submit', this.add.bind(this))
+
+        this.postAsksView.childrenDidMount((postAsk: PostAsk) => {
+
+            const editForm = document.getElementById(`comment-edit-form-${postAsk.Id}`)
+            console.log(editForm);
+
+            const deleteBtn = document.getElementById(`comment-del-${postAsk.Id}`)
+            console.log(' ~~~ ~', deleteBtn)
+
+            //debugger
+
+            if (editForm) {
+                editForm.addEventListener('submit', this.update.bind(this, postAsk.Id))
+            }
+            if (deleteBtn) {
+                deleteBtn.addEventListener('click', this.delete.bind(this, postAsk.Id))
+            }
+
+            // init validations
+
+            // if one exists, both exist
+            // if (this.editTitle) {
+            //     this.editVals = [
+            //         validate(this.editTitle, vals.title),
+            //         validate(this.editDesc, vals.desc),
+            //     ]
+            // }
+        })
     }
 
     add(event: Event) {
@@ -38,11 +66,12 @@ export class HelpCenterAskController {
         const postAsk = new PostAsk(ID_POST, this.addComment.value, localStorage.getItem('id') || '');
 
         const helpCenterService = new HelpCenterAskService();
+
         helpCenterService.add(postAsk)
             .then(result => {
                 return result.json()
             }).then(res => {
-                console.table(res);
+                this.listByPost(event);
                 // $('#add-modal').modal('hide');
             })
             .catch(error => {
@@ -51,17 +80,37 @@ export class HelpCenterAskController {
     }
 
 
-    update(event: Event) {
+    update(id: string, event: Event) {
         event.preventDefault();
 
-        const postAsk = new PostAsk("teste", "teste", "teste");
+        const postIdField = document.getElementById('post-meta')
+        const textareaEl = <HTMLInputElement>document.querySelector(`#comment-edit-form-${id} textarea`)
+
+        if (!textareaEl) {
+            return
+        }
+
+        if (!(postIdField)) {
+            return
+        }
+
+        const ID_POST = postIdField.getAttribute('data-id');
+
+        if (!ID_POST) {
+            return
+        }
+
+        const postAsk = new PostAsk(ID_POST, textareaEl.value, localStorage.getItem('id') || '', id);
+
+        console.log(postAsk);
+        // const postAsk = new PostAsk("teste", "teste", "teste");
         const helpCenterService = new HelpCenterAskService();
-        helpCenterService.update(postAsk, '1')
+        helpCenterService.update(postAsk, id)
             .then(result => {
                 return result.json()
             }).then(res => {
-                console.table(res);
                 // $('#add-modal').modal('hide');
+                this.listByPost(event)
             })
             .catch(error => {
                 console.error(error)
@@ -75,7 +124,7 @@ export class HelpCenterAskController {
             .then(result => {
                 return result.json()
             }).then(res => {
-                console.log(res);
+                //console.log(res);
             })
             .catch(error => {
                 console.error(error)
@@ -115,14 +164,15 @@ export class HelpCenterAskController {
             })
     }
 
-    delete(event: Event) {
+    delete(id: string, event: Event) {
         event.preventDefault();
         const helpCenterService = new HelpCenterAskService();
-        helpCenterService.remove('id')
+        helpCenterService.remove(id)
             .then(result => {
                 return result.json()
             }).then(res => {
                 console.log(res);
+                this.listByPost(event)
             })
             .catch(error => {
                 console.error(error)
@@ -136,7 +186,7 @@ export class HelpCenterAskController {
             .then(result => {
                 return result.json()
             }).then(res => {
-                console.log(res);
+                //   console.log(res);
             })
             .catch(error => {
                 console.error(error)

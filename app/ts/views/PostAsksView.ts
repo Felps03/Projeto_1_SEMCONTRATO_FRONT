@@ -1,38 +1,45 @@
 import { View } from './View';
-import { Posts, PostAsks } from '../models/index';
+import { PostAsks, PostAsk } from '../models/index';
+import { PostAskView } from "./PostAskView";
 
 export class PostAsksView extends View<PostAsks> {
 
-    template(model: PostAsks): string {
-        console.log('MODEL AQUI', model)
-        return `
-        <div class="container">
-            ${model.toArray().map((postAsk, i) => `
-            <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
-                <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
-                    <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
-                        <div>
-                            <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
-                            <h5 class="mt-2 mb-2"></h5>
-                        </div>
-                        <button
-                            class="btn btn-lg btn-outline-success d-flex justify-content-center align-items-center post-expand"
-                            data-toggle="modal" data-target="#view-modal" data-i="${i}"><i
-                                class="material-icons">remove_red_eye</i></button>
-                    </div>
-                </div>
-                <div class="col-md-9 col-12 card-body">
-                    <div class="card mb-2">
-                        <div class="card-body">
-                            <h5>${postAsk.AuthorName}</h5>
-                            <p>${postAsk.Desc}</p>
-                        </div>
-                    </div>
+    private childrenDidMountFn: Function
 
-                </div>
-            </div>
+    constructor(selector: string, escape: boolean = false) {
+        super(selector, escape)
+    }
+
+    template(model: PostAsks): string {
+        return `
+        <div class="container" id="post-ask-inner-list">
+            ${model.toArray().map((_, i) => `
+                <div id="comment-${i}"></div>
             `).join('')}
         </div>
         `;
     }
+
+    update(model: PostAsks) {
+        super.update(model)
+
+        const postList = document.getElementById('post-ask-inner-list')
+
+        if (postList) {
+            Array.from(postList.children).forEach((el, i) => {
+                const view = new PostAskView(`#${el.getAttribute('id') || ''}`)
+                const postAsk = model.toArray()[i]
+                view.update(postAsk)
+
+                view.didMount(this.childrenDidMountFn.bind(view))
+            })
+        }
+
+        //if()
+    }
+
+    childrenDidMount(fn: Function) {
+        this.childrenDidMountFn = fn
+    }
+
 }
