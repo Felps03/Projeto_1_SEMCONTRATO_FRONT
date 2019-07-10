@@ -7,7 +7,7 @@ export class User {
     private password: string;
     private dateOfBirth: string;
     // constructor( name: string, lastName: string, userName: string, email: string,  file_photo: string, password: string, dateOfBirth: string) {
-    constructor( name: string, lastName: string, userName: string, email: string, password: string, dateOfBirth: string) {
+    constructor(name: string, lastName: string, userName: string, email: string, password: string, dateOfBirth: string) {
 
         this.name = name;
         this.lastName = lastName;
@@ -16,22 +16,22 @@ export class User {
         //this.file_photo = file_photo;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
-     
+
     }
-    
-    get Name(){
+
+    get Name() {
         return this.name;
     }
 
-    get LastName(){
+    get LastName() {
         return this.lastName;
     }
 
-    get UserName(){
+    get UserName() {
         return this.userName;
     }
 
-    get Email(){
+    get Email() {
         return this.email;
     }
 
@@ -39,13 +39,13 @@ export class User {
     //     return this.file_photo;
     // }
 
-    get Password(){
+    get Password() {
         return this.password;
     }
 
-    get DateOfBirth(){
+    get DateOfBirth() {
         return this.dateOfBirth;
     }
-    
-   
+
+
 }

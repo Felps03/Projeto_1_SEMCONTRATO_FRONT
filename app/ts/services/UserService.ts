@@ -52,6 +52,8 @@ export class UserService {
     update(user: User, ID: string) {
         let dateOfBirth = user.DateOfBirth.replace(/,/g, '-');
 
+        // console.log(user.LastName)
+
         return fetch(`${HOST}users/user/${ID}`, {
             method: 'PUT',
             headers: {

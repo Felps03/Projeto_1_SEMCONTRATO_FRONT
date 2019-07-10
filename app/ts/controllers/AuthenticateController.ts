@@ -22,16 +22,16 @@ export class AuthenticateController {
         this.emailRec = <HTMLInputElement>document.getElementById('email_rec');
 
         // init validations
-        try{
+        try {
             this.authVals = [
-              validate(this.email, vals.email),
-              validate(this.password, vals.password)
+                validate(this.email, vals.email),
+                validate(this.password, vals.password)
             ];
 
             this.passRecVals = [
-              validate(this.emailRec, vals.email)
-             ];
-        }catch(e){
+                validate(this.emailRec, vals.email)
+            ];
+        } catch (e) {
             console.log("passo no catch");
         }
     }
@@ -52,17 +52,10 @@ export class AuthenticateController {
                 }
                 return res.json();
             }).then(result => {
-                // console.log(token);
-                console.log(result);
                 localStorage.setItem('email', result[0]['email'])
                 localStorage.setItem('id', result[0]['_id'])
-                // console.log(result[0]['email']);
                 window.location.href = "home.html";
             });
-
-            // console.log("oiii");
-            // console.log(this.email.value);
-            // console.log(this.password.value);
         }
 
         event.preventDefault();
@@ -85,12 +78,8 @@ export class AuthenticateController {
         }
     }
 
-    logout(event: Event){
+    logout(event: Event) {
         event.preventDefault();
-    
-        // /users/logout
-        // fach com local storage kill token 
-        //Authorization : Bearer "token"
         const authenticateService = new AuthenticateService();
 
         authenticateService.logout().then(res => {
@@ -107,6 +96,6 @@ export class AuthenticateController {
             console.log("error: ", error);
             return error;
         });
-        
+
     }
 }
