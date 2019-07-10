@@ -37,6 +37,7 @@ export class HelpCenterService {
     };
 
     list(page: number) {
+        console.log(`${HOST}helps/post/list/${page}`)
         return fetch(`${HOST}helps/post/list/${page}`, {
             method: 'GET',
             headers: {

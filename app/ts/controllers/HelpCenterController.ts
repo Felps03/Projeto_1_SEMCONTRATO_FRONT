@@ -150,9 +150,7 @@ export class HelpCenterController {
                 return result.json()
             }).then(res => {
 
-                console.log(res)
-
-                const posts = Posts.from(res)
+                const posts = Posts.from(res.slice(0, -1))
                 this.postsView.update(posts)
                 Array.from(document.getElementsByClassName('post-expand'))
                     .forEach(el => {
@@ -202,13 +200,29 @@ export class HelpCenterController {
 
     findByTitle(event: Event) {
         event.preventDefault();
-        let title = "esta função esta ok";
+        let title = this.searchTitle.value;
         const helpCenterService = new HelpCenterService();
         helpCenterService.findByTitle(title)
             .then(result => {
                 return result.json()
             }).then(res => {
-                console.log(res);
+
+                const posts = Posts.from(res)
+                this.postsView.update(posts)
+                console.log(posts)
+                Array.from(document.getElementsByClassName('post-expand'))
+                    .forEach(el => {
+                        const i = el.getAttribute('data-i')
+                        if (i) {
+                            el.addEventListener('click', () => {
+
+                                this.postView.update(
+                                    posts.get(+i)
+                                )
+
+                            })
+                        }
+                    })
             })
             .catch(error => {
                 console.error(error)
@@ -217,13 +231,28 @@ export class HelpCenterController {
 
     findByDesc(event: Event) {
         event.preventDefault();
-        let desc = "esta função esta ok";
+        let desc = this.searchDesc.value;
         const helpCenterService = new HelpCenterService();
         helpCenterService.findByDesc(desc)
             .then(result => {
                 return result.json()
             }).then(res => {
-                console.log(res);
+                const posts = Posts.from(res)
+                this.postsView.update(posts)
+                console.log(posts)
+                Array.from(document.getElementsByClassName('post-expand'))
+                    .forEach(el => {
+                        const i = el.getAttribute('data-i')
+                        if (i) {
+                            el.addEventListener('click', () => {
+
+                                this.postView.update(
+                                    posts.get(+i)
+                                )
+
+                            })
+                        }
+                    })
             })
             .catch(error => {
                 console.error(error)
