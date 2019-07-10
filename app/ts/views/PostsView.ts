@@ -5,7 +5,6 @@ export class PostsView extends View<Posts> {
 
     template(model: Posts): string {
 
-        // it looks like a gambiarra but i think its elegant
         return `
         <div class="container">
             ${model.toArray().map((post, i) => `
@@ -26,10 +25,10 @@ export class PostsView extends View<Posts> {
                     <div class="card mb-2">
                         <div class="card-body">
 
-                            <h5>${post.Title}</h5>
-                            <p>${post.Desc}</p>
-                        </div>
-                    </div>
+//                             <h5>${post.Title}</h5>
+//                             <p>${post.Desc}</p>
+//                         </div>
+//                     </div>
 
                     <form action="" id="quick-comment-form">
                         <div class="row">

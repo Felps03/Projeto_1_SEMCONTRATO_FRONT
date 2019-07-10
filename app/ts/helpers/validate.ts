@@ -1,6 +1,6 @@
 import { InputWrapper } from "../utils/InputWrapper";
 
-export function validate(inputEl: HTMLInputElement, fn: (input: InputWrapper, ...opts: any) => string | null, ...opts: any): () => boolean {
+export function validate(inputEl: HTMLInputElement, fn: (input: InputWrapper, ...opts: any[]) => string | null, ...opts: any[]): () => boolean {
 
     const input = new InputWrapper(inputEl)
 

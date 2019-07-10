@@ -22,16 +22,16 @@ export class AuthenticateController {
         this.emailRec = <HTMLInputElement>document.getElementById('email_rec');
 
         // init validations
-        try{
+        try {
             this.authVals = [
-              validate(this.email, vals.email),
-              validate(this.password, vals.password)
+                validate(this.email, vals.email),
+                validate(this.password, vals.password)
             ];
 
             this.passRecVals = [
-              validate(this.emailRec, vals.email)
-             ];
-        }catch(e){
+                validate(this.emailRec, vals.email)
+            ];
+        } catch (e) {
             console.log("passo no catch");
         }
     }
@@ -42,11 +42,20 @@ export class AuthenticateController {
 
             const authenticateService = new AuthenticateService();
 
-            let usuario = authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
+            console.log(this.email.value);
 
-            // console.log("oiii");
-            // console.log(this.email.value);
-            // console.log(this.password.value);
+            authenticateService.authenticate(this.email.value.toString(), this.password.value.toString()).then(res => {
+                // console.log(res.headers.get("Token"));
+                const token = res.headers.get("Token");
+                if (token != null) {
+                    localStorage.setItem('tkn', token);
+                }
+                return res.json();
+            }).then(result => {
+                localStorage.setItem('email', result[0]['email'])
+                localStorage.setItem('id', result[0]['_id'])
+                window.location.href = "home.html";
+            });
         }
 
         event.preventDefault();
@@ -61,18 +70,32 @@ export class AuthenticateController {
             const authenticateService = new AuthenticateService();
 
             authenticateService.resetPassword(this.email.value.toString())
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res);
+                    window.location.href = 'index.html';
+                });
         }
     }
 
-    logout(event: Event){
+    logout(event: Event) {
         event.preventDefault();
-    
-        // /users/logout
-        // fach com local storage kill token 
-        //Authorization : Bearer "token"
         const authenticateService = new AuthenticateService();
 
-        authenticateService.logout();
-        
+        authenticateService.logout().then(res => {
+            if (res.status == 400) {
+                alert("Houve um erro ao Deslogar");
+            }
+            if (res.status == 200) {
+                localStorage.removeItem("tkn");
+                localStorage.removeItem("email");
+                localStorage.removeItem("id");
+                window.location.href = 'index.html';
+            }
+        }).catch(error => {
+            console.log("error: ", error);
+            return error;
+        });
+
     }
 }

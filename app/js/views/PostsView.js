@@ -21,10 +21,10 @@ export class PostsView extends View {
                     <div class="card mb-2">
                         <div class="card-body">
 
-                            <h5>${post.Title}</h5>
-                            <p>${post.Desc}</p>
-                        </div>
-                    </div>
+//                             <h5>${post.Title}</h5>
+//                             <p>${post.Desc}</p>
+//                         </div>
+//                     </div>
 
                     <form action="" id="quick-comment-form">
                         <div class="row">
