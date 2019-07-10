@@ -50,7 +50,7 @@ export class DailyNoteService {
 
     /**
      * 
-     * @param data para buscar a daily da data informada
+     * @param date para buscar a daily da data informada
      */
     listDate(date: Date) {
         return fetch(`${HOST}dailys/daily/${date}`, {
@@ -62,7 +62,6 @@ export class DailyNoteService {
             }
         })
     }
-
     /**
      * 
      * listar todas as dailys

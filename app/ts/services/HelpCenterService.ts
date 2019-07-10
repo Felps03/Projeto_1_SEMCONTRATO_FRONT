@@ -46,6 +46,17 @@ export class HelpCenterService {
         })
     }
 
+    listLastHelp() {
+        return fetch(`${HOST}helps/post/list`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            }
+        })
+    }
+
     remove(ID: string) {
         return fetch(`${HOST}helps/post/${ID}`, {
             method: 'DELETE',
