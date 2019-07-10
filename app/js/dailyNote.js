@@ -3,7 +3,6 @@ import { DailyNote } from "./models/index";
 let dailyesResult = document.querySelector("#dayliesResult");
 let totalPagesDiv = document.querySelector("#pages");
 const controller = new DailyNoteController();
-console.log('controller:', controller);
 let cadastrar = document.querySelector("#daily-form");
 if (cadastrar) {
     cadastrar.addEventListener('submit', controller.add.bind(controller));
@@ -86,9 +85,9 @@ function mountTable(dayliesResult, daily, owner, id_user) {
         <td>${daily.Impediment}</td>
         <td> 
             <button type="button" name="edit"
-            class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="edit-daily"
-            data-toggle="modal" data-target="#editdailyModal">
-            <i class="small material-icons">edit</i>
+                class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="edit-daily"
+                data-toggle="modal" data-target="#editdailyModal">
+                    <i class="small material-icons">edit</i>
             </button>   
         </td> 
         </tr>`;

@@ -20,6 +20,7 @@ export class DailyNoteController {
     private addVals: (() => boolean)[];
     private editVals: (() => boolean)[];
 
+
     constructor() {
         this.yesterday = <HTMLInputElement>document.querySelector('#yesterday');
         this.today = <HTMLInputElement>document.querySelector('#today');
@@ -94,9 +95,13 @@ export class DailyNoteController {
     };
 
     update(event: Event) {
-        // event.preventDefault();
-        this.editYesterday = 
-        console.log("oi ju");
+        event.preventDefault();
+
+        
+
+
 
     }
+
+
 }
