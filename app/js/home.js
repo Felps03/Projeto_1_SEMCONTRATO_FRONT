@@ -16,3 +16,8 @@ if (data) {
 else {
     window.location.href = "index.html";
 }
+let home = document.querySelector("#home");
+if (home) {
+    home.addEventListener('onload', homeController.listLastHelp.bind(homeController));
+    home.addEventListener('onload', homeController.listDailyDate.bind(homeController));
+}

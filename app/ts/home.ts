@@ -1,5 +1,7 @@
 import { HomeController } from "./controllers/HomeController";
 import { UserService } from "./services/UserService";
+import { HelpCenterController } from "./controllers/HelpCenterController";
+import { DailyNoteController } from "./controllers/DailyNoteController";
 
 let nameSpan = document.querySelector('#nameSpan');
 let userNameSpan = document.querySelector('#userNameSpan');
@@ -23,6 +25,8 @@ else {
 }
 
 let home = document.querySelector("#home");
+
 if(home) {
-    home.addEventListener('onload', homeController.add.bind(homeController));
+    home.addEventListener('onload', homeController.listLastHelp.bind(homeController));
+    home.addEventListener('onload', homeController.listDailyDate.bind(homeController)); 
 }

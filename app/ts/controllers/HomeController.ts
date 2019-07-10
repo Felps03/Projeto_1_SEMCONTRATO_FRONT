@@ -41,6 +41,7 @@ export class HomeController {
                 console.error(error)
             });
     }
+    
     listDailyDate(event: Event) {
         event.preventDefault();
         let date = new Date();
