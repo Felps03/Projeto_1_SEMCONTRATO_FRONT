@@ -1,6 +1,10 @@
 import { AuthenticateController } from "./controllers/AuthenticateController";
-import { UserController } from "./controllers/UserController";
 import { DailyNoteController } from "./controllers/DailyNoteController";
+document.addEventListener("DOMContentLoaded", function (event) {
+    if (localStorage.getItem('tkn')) {
+        window.location.href = "home.html";
+    }
+});
 let authenticate = document.querySelector('#login-form');
 if (authenticate) {
     const authenticateController = new AuthenticateController();
@@ -9,11 +13,6 @@ if (authenticate) {
     if (recuperarEmail) {
         recuperarEmail.addEventListener('submit', authenticateController.resetPassword.bind(authenticateController));
     }
-}
-let cadastrar = document.querySelector('#user-register');
-if (cadastrar) {
-    const userController = new UserController();
-    cadastrar.addEventListener('submit', userController.add.bind(userController));
 }
 let addDailyNote = document.querySelector('#daily-form');
 if (addDailyNote) {

@@ -1,6 +1,6 @@
 import { User } from '../models/index';
 import { HOST } from '../config/index';
-import { async } from 'q';
+//import { async } from 'q';
 import { UserService } from './UserService';
 
 export class AuthenticateService {
@@ -14,7 +14,8 @@ export class AuthenticateService {
 
 
 
-        fetch(`${HOST}users/authenticate`, {
+        return fetch(`${HOST}users/authenticate`, {
+            //fetch('http://localhost:3000/users/authenticate', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -49,7 +50,7 @@ export class AuthenticateService {
      * @param email para recuperação de senha
      */
     resetPassword(email: string) {
-        fetch(`${HOST}users/user/recover`, {
+        return fetch(`${HOST}users/user/recover`, {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -59,17 +60,12 @@ export class AuthenticateService {
                 "email": email
             })
         })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res);
-                window.location.href = 'index.html';
-            });
     }
 
 
     verifyCode(emailCode: any, email: string, password: string) {
 
-        fetch(`${HOST}users/code/verify`, {
+       return fetch(`${HOST}users/code/verify`, {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -79,44 +75,33 @@ export class AuthenticateService {
                 "emailCode": emailCode,
                 "email": email
             })
-        }).then(res => {
-
-            if (res.status == 400) {
-                alert('Codigo invalido');
-            }
-            if (res.status == 200) {
-                const userService = new UserService();
-                userService.changePassword(email, password);
-
-            }
         })
-            .catch(error => {
-                console.log("error: ", error);
-                return error;
-            });
+        // Comentado porque não achei onde chama
+        // .then(res => {
+
+        //     if (res.status == 400) {
+        //         alert('Codigo invalido');
+        //     }
+        //     if (res.status == 200) {
+        //         const userService = new UserService();
+        //         userService.changePassword(email, password);
+
+        //     }
+        // })
+        //     .catch(error => {
+        //         console.log("error: ", error);
+        //         return error;
+        //     });
     }
 
     logout() {
-        fetch(`${HOST}users/logout`, {
+        return fetch(`${HOST}users/logout`, {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem("tkn")}`
             },
-        }).then(res => {
-            if (res.status == 400) {
-                alert("Houve um erro ao Deslogar");
-            }
-            if (res.status == 200) {
-                localStorage.removeItem("tkn");
-                localStorage.removeItem("email");
-                localStorage.removeItem("id");
-                window.location.href = 'index.html';
-            }
-        }).catch(error => {
-            console.log("error: ", error);
-            return error;
         })
     }
 }

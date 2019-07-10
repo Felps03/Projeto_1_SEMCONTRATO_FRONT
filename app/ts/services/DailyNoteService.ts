@@ -2,8 +2,6 @@ import { DailyNote } from '../models/index';
 import { HOST } from '../config/index';
 
 export class DailyNoteService {
-
-
     add(yesterday: string, today: string, impediment: string, date: Date) {
         console.log(new Date().toISOString().slice(0, 10));
         fetch(`${HOST}dailys/daily`, {
@@ -23,33 +21,35 @@ export class DailyNoteService {
 
         })
             .then(res => res.json())
-            .then(res => console.log(res));
+            .then(res => {
+                if (res.status == 200){
+                    console.log("funcionou");
+                }
+            })
+            //.then(res => console.log(res));
     }
 
-    // /**
-    //  * 
-    //  * @param id para alterar dados do usuário dessa id
-    //  */
-    // update(id: string) {
-    //     const form: HTMLFormElement = <HTMLFormElement>document.getElementById('editdaily-form')
-
-    //     let formData = new FormData(form)
-
-    //     $.ajax({
-    //         type: 'PUT',
-    //         url: `${HOST}dailys/daily/${id}`,
-    //         contentType: false,
-    //         cache: false,
-    //         processData: false,
-    //         data: formData,
-    //         success: function (data) { console.log(data) },
-    //         error: function (request, status, error) {
-    //             console.log("error: ", error)
-    //             console.log("resquest: ", request.responseText)
-    //         }
-    //     })
-
-    // }
+    /**
+     * 
+     * @param id para alterar dados do usuário dessa id
+     */
+   
+     update(daily: DailyNote, ID: string) {
+        return fetch(`${HOST}dailys/daily/${ID}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            },
+            body: JSON.stringify({
+                "yesterday": daily.Yesterday,
+                "today": daily.Today,
+                "impediment": daily.Impediment,
+                "date": daily.Date
+            })
+        });
+    };
 
     /**
      * 
@@ -79,20 +79,14 @@ export class DailyNoteService {
      * 
      * listar todas as dailys
      */
-    listAll() {
 
-        $.ajax({
-            type: 'GET',
-            url: `${HOST}dailys`,
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function (data) {
-                console.log(data)
-            },
-            error: function (request, tatus, error) {
-                console.log("error: ", error)
-                console.log("resquest: ", request.responseText)
+    listAll() {
+        return fetch(`${HOST}dailys`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
             }
         })
     }

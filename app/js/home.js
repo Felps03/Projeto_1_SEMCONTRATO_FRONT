@@ -2,8 +2,6 @@ import { HomeController } from "./controllers/HomeController";
 let nameSpan = document.querySelector('#nameSpan');
 let userNameSpan = document.querySelector('#userNameSpan');
 let homeController = new HomeController();
-let nameSpanTxt = "";
-let userNameSpanTxt = "";
 const data = homeController.getUserData();
 if (data) {
     data.then(data => {

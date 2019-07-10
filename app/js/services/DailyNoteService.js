@@ -1,7 +1,6 @@
 import { HOST } from '../config/index';
 export class DailyNoteService {
     add(yesterday, today, impediment, date) {
-        console.log(new Date().toISOString().slice(0, 10));
         fetch(`${HOST}dailys/daily`, {
             method: 'post',
             headers: {
@@ -13,7 +12,6 @@ export class DailyNoteService {
                 "yesterday": yesterday,
                 "today": today,
                 "impediment": impediment,
-                "date": new Date().toISOString().slice(0, 10),
                 "email": localStorage.getItem('email')
             })
         })
@@ -35,22 +33,47 @@ export class DailyNoteService {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
                 "Authorization": `Bearer ${localStorage.getItem('tkn')}`
+            }})
+            .then(res => {
+            if (res.status == 200) {
+                console.log("funcionou");
             }
+        })
+    }
+    update(daily, ID) {
+        return fetch(`${HOST}dailys/daily/${ID}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            },
+            body: JSON.stringify({
+                "yesterday": daily.Yesterday,
+                "today": daily.Today,
+                "impediment": daily.Impediment,
+                "date": daily.Date
+            })
         });
     }
+    
+    // listDate(date) {
+    //     return fetch(`${HOST}dailys/daily/${date}`, {
+    //         method: 'GET',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+    //         }
+    //     });
+    // }
     listAll() {
-        $.ajax({
-            type: 'GET',
-            url: `${HOST}dailys`,
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function (data) {
-                console.log(data);
-            },
-            error: function (request, tatus, error) {
-                console.log("error: ", error);
-                console.log("resquest: ", request.responseText);
+        return fetch(`${HOST}dailys`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
             }
         });
     }
