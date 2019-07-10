@@ -1,9 +1,6 @@
 import { HOST } from "../config/index";
-import { PostAsk } from "../models/PostAsk";
-
 export class HelpCenterAskService {
-
-    add(post: PostAsk) {
+    add(post) {
         return fetch(`${HOST}helps/ask/`, {
             method: 'POST',
             headers: {
@@ -17,9 +14,9 @@ export class HelpCenterAskService {
                 "id_helpCenter": post.helpCenter
             })
         });
-    };
-
-    update(post: PostAsk, ID: string) {
+    }
+    ;
+    update(post, ID) {
         console.log(post);
         return fetch(`${HOST}helps/ask/${ID}`, {
             method: 'PUT',
@@ -34,9 +31,9 @@ export class HelpCenterAskService {
                 "id_helpCenter": post.helpCenter
             })
         });
-    };
-
-    list(page: number) {
+    }
+    ;
+    list(page) {
         return fetch(`${HOST}helps/ask/list/${page}`, {
             method: 'GET',
             headers: {
@@ -45,8 +42,7 @@ export class HelpCenterAskService {
             }
         });
     }
-
-    remove(ID: string) {
+    remove(ID) {
         return fetch(`${HOST}helps/ask/${ID}`, {
             method: 'DELETE',
             headers: {
@@ -56,8 +52,7 @@ export class HelpCenterAskService {
             }
         });
     }
-
-    findById(ID: string) {
+    findById(ID) {
         return fetch(`${HOST}helps/ask/${ID}`, {
             method: 'GET',
             headers: {
@@ -67,8 +62,4 @@ export class HelpCenterAskService {
             }
         });
     }
-
-    // TODO: FIND ASK BY POST ID
-
-
 }

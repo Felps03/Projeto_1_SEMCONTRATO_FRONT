@@ -1,4 +1,5 @@
 import { HelpCenterController } from "./controllers/HelpCenterController";
+import { HelpCenterAskController } from "./controllers/HelpCenterAskController";
 import { HomeController } from "./controllers/HomeController";
 
 const controller = new HelpCenterController();

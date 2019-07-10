@@ -1,83 +1,71 @@
-
 import { HelpCenterAskService } from '../services/index';
 import { PostAsk } from '../models/PostAsk';
-
 export class HelpCenterAscController {
-    add(event: Event) {
+    add(event) {
         event.preventDefault();
-
-        const postAsk = new PostAsk("teste", "teste", "teste"); 
-            
+        const postAsk = new PostAsk("teste", "teste", "teste");
         const helpCenterService = new HelpCenterAskService();
         helpCenterService.add(postAsk)
-        .then(result => {
-            return result.json()
+            .then(result => {
+            return result.json();
         }).then(res => {
             console.table(res);
-            // $('#add-modal').modal('hide');
         })
-        .catch(error => {
-            console.error(error)
-        })
+            .catch(error => {
+            console.error(error);
+        });
     }
-
-    
-    update(event: Event) {
+    update(event) {
         event.preventDefault();
-
-        const postAsk = new PostAsk("teste", "teste", "teste");             
+        const postAsk = new PostAsk("teste", "teste", "teste");
         const helpCenterService = new HelpCenterAskService();
         helpCenterService.update(postAsk, '1')
-        .then(result => {
-            return result.json()
+            .then(result => {
+            return result.json();
         }).then(res => {
             console.table(res);
-            // $('#add-modal').modal('hide');
         })
-        .catch(error => {
-            console.error(error)
-        })
+            .catch(error => {
+            console.error(error);
+        });
     }
-
-    list(event: Event) {
+    list(event) {
         event.preventDefault();
         const helpCenterService = new HelpCenterAskService();
         helpCenterService.list()
-        .then(result => {
-            return result.json()
+            .then(result => {
+            return result.json();
         }).then(res => {
             console.log(res);
         })
-        .catch(error => {
-            console.error(error)
-        })
+            .catch(error => {
+            console.error(error);
+        });
     }
-
-    delete(event: Event) {
+    delete(event) {
         event.preventDefault();
         const helpCenterService = new HelpCenterAskService();
         helpCenterService.remove('id')
-        .then(result => {
-            return result.json()
+            .then(result => {
+            return result.json();
         }).then(res => {
             console.log(res);
         })
-        .catch(error => {
-            console.error(error)
+            .catch(error => {
+            console.error(error);
         });
     }
-
-    findByID(event: Event) {
+    findByID(event) {
         event.preventDefault();
         const helpCenterService = new HelpCenterAskService();
         helpCenterService.findById('title')
-        .then(result => {
-            return result.json()
+            .then(result => {
+            return result.json();
         }).then(res => {
             console.log(res);
         })
-        .catch(error => {
-            console.error(error)
+            .catch(error => {
+            console.error(error);
         });
-    } 
+    }
 }

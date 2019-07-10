@@ -5,6 +5,7 @@ import * as vals from '../validation/helpCenterValidate';
 import { noFalse } from '../utils/listCheck';
 import { PostsView } from '../views/PostsView';
 import { PostView } from '../views/PostView';
+import { HelpCenterAskController } from './HelpCenterAskController';
 export class HelpCenterController {
     constructor() {
         this.searchTitle = document.getElementById('search-title');
@@ -19,6 +20,7 @@ export class HelpCenterController {
             validate(this.addDesc, vals.desc),
         ];
         this.postView.didMount(() => {
+            this.helpCenterAsk = new HelpCenterAskController();
             this.editTitle = document.getElementById('edit-title');
             this.editDesc = document.getElementById('edit-desc');
             const editForm = document.getElementById('edit-form');
@@ -35,6 +37,7 @@ export class HelpCenterController {
                     validate(this.editDesc, vals.desc),
                 ];
             }
+            this.helpCenterAsk.listByPost(new Event(''));
         });
     }
     add(event) {

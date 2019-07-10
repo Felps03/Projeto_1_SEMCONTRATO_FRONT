@@ -25,27 +25,10 @@ export class PostsView extends View<Posts> {
                     <div class="card mb-2">
                         <div class="card-body">
 
-//                             <h5>${post.Title}</h5>
-//                             <p>${post.Desc}</p>
-//                         </div>
-//                     </div>
-
-                    <form action="" id="quick-comment-form">
-                        <div class="row">
-                            <div class="form-group col-lg-10 col-9 mb-0">
-                                <label for="first">Comentar:</label>
-                                <textarea name="first" class="form-control form-control-sm input-circle"
-                                    id="quick-comment" placeholder="Sugira soluções ou contribua à discussão"
-                                    autofocus></textarea>
-                                <div id="quick-commentvalidator"></div>
-                            </div>
-                            <div class="col-2 d-flex justify-content-center align-items-end mb-1">
-                                <button type="submit" class="btn btn-primary d-flex align-items-center">
-                                    <i class="material-icons ml-2">send</i>
-                                </button>
-                            </div>
+                            <h5>${post.Title}</h5>
+                            <p>${post.Desc}</p>
                         </div>
-                    </form>
+                    </div>
 
                 </div>
             </div>

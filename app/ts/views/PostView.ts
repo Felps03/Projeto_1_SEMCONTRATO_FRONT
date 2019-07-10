@@ -69,6 +69,9 @@ export class PostView extends View<Post> {
                     </form>
 
                 </div>
+
+                <div id="post-ask-list"></div>
+
                 <div class="container border-top p-3">
 
                     <form action="" id="comment-form">

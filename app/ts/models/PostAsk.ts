@@ -4,7 +4,9 @@ export class PostAsk {
     constructor(
         private id_helpCenter: string,
         private desc: string,
-        private id_user: string
+        private id_user: string,
+        private authorName: string,
+        private id?: string
         // private date: Date
     ) { }
 
@@ -18,6 +20,14 @@ export class PostAsk {
 
     get Author() {
         return this.id_user
+    }
+
+    get Id() {
+        return this.id
+    }
+
+    get AuthorName() {
+        return this.authorName
     }
 
 }

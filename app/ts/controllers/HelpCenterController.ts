@@ -7,8 +7,11 @@ import { noFalse } from '../utils/listCheck'
 
 import { PostsView } from '../views/PostsView';
 import { PostView } from '../views/PostView';
+import { HelpCenterAskController } from './HelpCenterAskController';
 
 export class HelpCenterController {
+
+    private helpCenterAsk: HelpCenterAskController
 
     private searchTitle: HTMLInputElement
     private searchDesc: HTMLInputElement
@@ -48,6 +51,8 @@ export class HelpCenterController {
 
         this.postView.didMount(() => {
 
+            this.helpCenterAsk = new HelpCenterAskController()
+
             this.editTitle = <HTMLInputElement>document.getElementById('edit-title')
             this.editDesc = <HTMLInputElement>document.getElementById('edit-desc')
 
@@ -70,6 +75,8 @@ export class HelpCenterController {
                     validate(this.editDesc, vals.desc),
                 ]
             }
+
+            this.helpCenterAsk.listByPost(new Event(''))
         })
     }
 
