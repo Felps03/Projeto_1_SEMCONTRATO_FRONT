@@ -43,7 +43,7 @@ export class HelpCenterService {
         });
     }
     listLastHelp() {
-        return fetch(`${HOST}helps/post/list`, {
+        return fetch(`${HOST}helps/last/`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

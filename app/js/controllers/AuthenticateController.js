@@ -32,7 +32,6 @@ export class AuthenticateController {
                 }
                 return res.json();
             }).then(result => {
-                console.log(result);
                 localStorage.setItem('email', result[0]['email']);
                 localStorage.setItem('id', result[0]['_id']);
                 window.location.href = "home.html";
