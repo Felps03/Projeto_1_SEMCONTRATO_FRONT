@@ -72,22 +72,15 @@ export class UserController {
                     return result.json()
                 })
                 .then(res => {
-                    console.table(res)
                     localStorage.setItem('email', res.email)
                     localStorage.setItem('id', res._id)
                     // console.log(result[0]['email']);
                     window.location.href = "home.html";
                 })
-
-            // let usuario = userService.cadastro(user);
-
-            // console.log(user);
-            // console.log(usuario);
         }
     }
 
     getUserData() {
-        let data;
         if (!localStorage.getItem('tkn')) {
             return false;
         }
@@ -98,15 +91,21 @@ export class UserController {
                     return res.json();
                 })
                 .then(result => {
-                    let data = {
-                        id: result['_id'],
-                        name: result['name'],
-                        userName: result['userName'],
-                        lastName: result['lastName'],
-                        email: result['email'],
-                        dateOfBirth: result['dateOfBirth']
+                    if (!result) {
+                        window.location.href = "index.html"
                     }
-                    return data;
+
+                    let id = <HTMLInputElement>document.querySelector('#id');
+                    if (id != null) id.value = result['_id'];
+
+                    new User(
+                        this.name.value = result['name'],
+                        this.userName.value = result['userName'],
+                        this.lastName.value = result['lastName'],
+                        this.email.value = result['email'],
+                        this.dateOfBirth.value = result['dateOfBirth'].slice(0, 10),
+                        this.password.value = ""
+                    );
                 });
         }
     }
@@ -134,11 +133,7 @@ export class UserController {
                 .then(result => {
                     return result.json();
                 }).then(res => {
-                    console.table(res);
                     window.location.href = "home.html";
-                })
-                .catch(error => {
-                    console.error(error)
                 })
         }
     }
