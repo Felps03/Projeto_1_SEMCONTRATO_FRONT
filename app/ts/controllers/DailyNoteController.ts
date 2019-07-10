@@ -93,10 +93,56 @@ export class DailyNoteController {
             });
     };
 
-    update(event: Event) {
-        // event.preventDefault();
-        this.editYesterday = 
-        console.log("oi ju");
+    // update(event: Event) {
+    //     // event.preventDefault();
+    //     this.editYesterday = 
+    //     console.log("oi ju");
 
+    // }
+
+
+
+
+
+
+
+
+
+    listAllDailies() {
+        console.log("chegou");
+        let ds = new DailyNoteService();
+
+        ds.listAll(1)
+            .then(result => {
+                return result.json();
+            }).then(result => {
+                let row = <HTMLTableElement>document.querySelector('#dayliesResult');
+
+                row.innerHTML = "";
+
+                console.log(result.length);
+
+                for (let i = 0; i < result.length - 1; i++) {
+                    row.innerHTML += `
+                            <tr>
+                                <td>${result[i].owner}</td>
+                                <td>${result[i].date.slice(0, 10)}</td>
+                                <td>${result[i].yesterday}</td>
+                                <td>${result[i].today}</td>
+                                <td>${result[i].impediment}</td>
+                                <td>
+                                    <button type="button" name="edit"
+                                        class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="edit-daily"
+                                        data-toggle="modal" data-target="#editdailyModal">
+                                        <i class="small material-icons">edit</i>
+                                    </button>
+                                </td>
+                            </tr>
+                            `;
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 }

@@ -20,10 +20,10 @@ if (cadastrar) {
 //     edit.addEventListener('click', controller.update.bind(controller));
 // }
 
-let edit = document.querySelector("#edit-daily")
-if (edit) {
-    edit.addEventListener('click', controller.update.bind(controller));
-}
+// let edit = document.querySelector("#edit-daily")
+// if (edit) {
+//     edit.addEventListener('click', controller.update.bind(controller));
+// }
 
 let listDate = document.querySelector("#filter");
 if (listDate) {
@@ -87,7 +87,7 @@ function listDateDaily(event: Event) {
                             const fullString: string = header_pagination + string_li + footer_pagination;
                             nav_pagination.innerHTML = fullString;
                             totalPagesDiv.innerHTML = '';
-                            totalPagesDiv.append(nav_pagination)
+                            // totalPagesDiv.append(nav_pagination)
                             // console.log(fullString);
                         }
                         return;
@@ -141,6 +141,6 @@ function mountTable(dayliesResult: any, daily: DailyNote, owner: string, id_user
 
     }
 
-    dailyesResult.append(body);
+    // dailyesResult.append(body);
 }
 

@@ -79,20 +79,29 @@ export class DailyNoteService {
      * 
      * listar todas as dailys
      */
-    listAll() {
+    listAll(page: number) {
 
-        $.ajax({
-            type: 'GET',
-            url: `${HOST}dailys`,
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function (data) {
-                console.log(data)
-            },
-            error: function (request, tatus, error) {
-                console.log("error: ", error)
-                console.log("resquest: ", request.responseText)
+        // $.ajax({
+        //     type: 'GET',
+        //     url: `${HOST}dailys`,
+        //     contentType: false,
+        //     cache: false,
+        //     processData: false,
+        //     success: function (data) {
+        //         console.log(data)
+        //     },
+        //     error: function (request, tatus, error) {
+        //         console.log("error: ", error)
+        //         console.log("resquest: ", request.responseText)
+        //     }
+        // })
+
+        return fetch(`${HOST}dailys/${page}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`
             }
         })
     }

@@ -8,10 +8,6 @@ let cadastrar = document.querySelector("#daily-form");
 if (cadastrar) {
     cadastrar.addEventListener('submit', controller.add.bind(controller));
 }
-let edit = document.querySelector("#edit-daily");
-if (edit) {
-    edit.addEventListener('click', controller.update.bind(controller));
-}
 let listDate = document.querySelector("#filter");
 if (listDate) {
     if (dailyesResult)
@@ -60,7 +56,6 @@ function listDateDaily(event) {
                         const fullString = header_pagination + string_li + footer_pagination;
                         nav_pagination.innerHTML = fullString;
                         totalPagesDiv.innerHTML = '';
-                        totalPagesDiv.append(nav_pagination);
                     }
                     return;
                 }
@@ -104,5 +99,4 @@ function mountTable(dayliesResult, daily, owner, id_user) {
         <td>         </td> 
         </tr>`;
     }
-    dailyesResult.append(body);
 }
