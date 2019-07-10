@@ -21,3 +21,8 @@ if (data) {
 else {
     window.location.href = "index.html"
 }
+
+let home = document.querySelector("#home");
+if(home) {
+    home.addEventListener('onload', homeController.add.bind(homeController));
+}
