@@ -3,6 +3,7 @@ import { DailyNote } from "./models/index";
 let dailyesResult = document.querySelector("#dayliesResult");
 let totalPagesDiv = document.querySelector("#pages");
 const controller = new DailyNoteController();
+console.log('controller:', controller);
 let cadastrar = document.querySelector("#daily-form");
 if (cadastrar) {
     cadastrar.addEventListener('submit', controller.add.bind(controller));
@@ -14,8 +15,7 @@ if (edit) {
 let listDate = document.querySelector("#filter");
 if (listDate) {
     if (dailyesResult)
-        dailyesResult.innerHTML = '';
-    listDate.addEventListener('click', listDateDaily);
+        listDate.addEventListener('click', listDateDaily);
 }
 function listDateDaily(event) {
     dailyesResult.innerHTML = '';
@@ -65,26 +65,44 @@ function listDateDaily(event) {
                     return;
                 }
                 const owner = r.owner;
+                const id_owner = r.id_user;
                 if (dailyesResult) {
-                    mountTable(dailyesResult, daily, owner);
+                    mountTable(dailyesResult, daily, owner, id_owner);
                 }
                 return;
             });
         });
     }
 }
-function mountTable(dayliesResult, daily, owner) {
+function mountTable(dayliesResult, daily, owner, id_user) {
     const body = document.createElement('tr');
-    body.innerHTML =
-        `<tr>
-    <td>${owner}</td>
-    <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() + 1}/${daily.Date.getUTCFullYear()} </td>
-    <td>${daily.Yesterday}</td>
-    <td>${daily.Today}</td>
-    <td>${daily.Impediment}</td>
-    <td > <a class="dropdown-item d-flex align-items-center" >
-    <i class="material-icons mr-2" id="edit-daily">edit</i></a>
-    </td>                      
-    </tr>`;
+    if ((localStorage.getItem('isAdmin') === 'true') || (id_user === localStorage.getItem('id'))) {
+        body.innerHTML =
+            `<tr>
+        <td>${owner}</td>
+        <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() + 1}/${daily.Date.getUTCFullYear()} </td>
+        <td>${daily.Yesterday}</td>
+        <td>${daily.Today}</td>
+        <td>${daily.Impediment}</td>
+        <td> 
+            <button type="button" name="edit"
+            class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="edit-daily"
+            data-toggle="modal" data-target="#editdailyModal">
+            <i class="small material-icons">edit</i>
+            </button>   
+        </td> 
+        </tr>`;
+    }
+    else {
+        body.innerHTML =
+            `<tr>
+        <td>${owner}</td>
+        <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() + 1}/${daily.Date.getUTCFullYear()} </td>
+        <td>${daily.Yesterday}</td>
+        <td>${daily.Today}</td>
+        <td>${daily.Impediment}</td>
+        <td>         </td> 
+        </tr>`;
+    }
     dailyesResult.append(body);
 }

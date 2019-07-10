@@ -48,7 +48,7 @@ export class DailyNoteController {
     }
     ;
     update(event) {
-        alert("OOOOOOI");
-        event.preventDefault();
+        this.editYesterday;
+        console.log("oi ju");
     }
 }
