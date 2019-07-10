@@ -16,6 +16,7 @@ export class DailyNoteController {
     private editYesterday: HTMLInputElement;
     private editToday: HTMLInputElement;
     private editImpediment: HTMLInputElement;
+    private id_daily: string;
 
     private addVals: (() => boolean)[];
     private editVals: (() => boolean)[];
@@ -44,7 +45,14 @@ export class DailyNoteController {
             validate(this.editImpediment, vals.impediment)
         ];
 
-        // console.log(this.editYesterday);
+        this.id_daily = '';   // console.log(this.editYesterday
+    }
+
+    get IdDaily(): string {
+        return this.id_daily;
+    }
+    set IdDaily(id: string) {
+        this.id_daily = id;
     }
 
     add(event: Event) {
@@ -94,10 +102,26 @@ export class DailyNoteController {
             });
     };
 
-    update(event: Event) {
-        event.preventDefault();
+    update(id: string) {
 
-        
+        event.preventDefault();
+        // const dailyService = new DailyNoteService();
+        // // console.log('oi ju');
+        // console.log(this.editToday.value.toString());
+
+        // let edited = new DailyNote(
+        //     this.editYesterday.value.toString(),
+        //     this.editToday.value.toString(),
+        //     this.editImpediment.value.toString(),
+        //     new Date()
+        // );
+
+        // console.log(edited);
+        console.log(id);
+
+        // console.log(this.IdDaily)
+
+
 
 
 

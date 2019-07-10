@@ -23,6 +23,13 @@ export class DailyNoteController {
             validate(this.editToday, vals.today),
             validate(this.editImpediment, vals.impediment)
         ];
+        this.id_daily = '';
+    }
+    get IdDaily() {
+        return this.id_daily;
+    }
+    set IdDaily(id) {
+        this.id_daily = id;
     }
     add(event) {
         event.preventDefault();
@@ -47,7 +54,8 @@ export class DailyNoteController {
         });
     }
     ;
-    update(event) {
+    update(id) {
         event.preventDefault();
+        console.log(id);
     }
 }

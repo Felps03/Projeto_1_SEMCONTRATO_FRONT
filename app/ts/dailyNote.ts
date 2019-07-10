@@ -3,6 +3,7 @@ import { DailyNote } from "./models/index";
 
 let dailyesResult = document.querySelector("#dayliesResult")
 let totalPagesDiv = document.querySelector("#pages")
+let id_daily: string;
 
 const controller = new DailyNoteController();
 
@@ -14,18 +15,20 @@ if (cadastrar) {
     cadastrar.addEventListener('submit', controller.add.bind(controller));
 }
 
-let edit = document.querySelector("#edit-daily")
-if (edit) {
-    edit.addEventListener('click', controller.update.bind(controller));
-}
+// let edit = document.querySelector("#edit-daily")
+// if (edit) {
+//     edit.addEventListener('click', controller.update.bind(controller));
+// }
 
 let listDate = document.querySelector("#filter");
 if (listDate) {
-    if (dailyesResult)
-        // dailyesResult.innerHTML = '';
+    if (dailyesResult) {
 
         listDate.addEventListener('click', listDateDaily);
+    }
+    // dailyesResult.innerHTML = '';
 }
+
 
 // console.log(dailyesResult.innerHTML);
 function listDateDaily(event: Event) {
@@ -41,6 +44,7 @@ function listDateDaily(event: Event) {
                     // console.log(r.hasOwnProperty('totalDocs'));
                     // console.log(r);
                     const daily = new DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
+                    // daily.Id = r.id_daily;
                     // console.log(daily);
 
                     let totalPages: number;
@@ -90,9 +94,10 @@ function listDateDaily(event: Event) {
                     // dailyesResult.innerHTML = '';
                     const owner: string = r.owner;
                     const id_owner: string = r.id_user;
+                    id_daily = r.id_daily;
                     // console.log(id_owner);
                     if (dailyesResult) {
-                        mountTable(dailyesResult, daily, owner, id_owner);
+                        mountTable(dailyesResult, daily, owner, id_owner, id_daily);
                     }
                     return
                 }
@@ -101,7 +106,7 @@ function listDateDaily(event: Event) {
     }
 }
 
-function mountTable(dayliesResult: any, daily: DailyNote, owner: string, id_user: string) {
+function mountTable(dayliesResult: any, daily: DailyNote, owner: string, id_user: string, id_daily: string) {
 
     const body = document.createElement('tr');
 
@@ -109,32 +114,44 @@ function mountTable(dayliesResult: any, daily: DailyNote, owner: string, id_user
     if ((localStorage.getItem('isAdmin') === 'true') || (id_user === localStorage.getItem('id'))) {
         body.innerHTML =
             `<tr>
-        <td>${owner}</td>
-        <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() + 1}/${daily.Date.getUTCFullYear()} </td>
-        <td>${daily.Yesterday}</td>
-        <td>${daily.Today}</td>
-        <td>${daily.Impediment}</td>
-        <td> 
-            <button type="button" name="edit"
+                <td>${owner}</td>
+                <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() + 1}/${daily.Date.getUTCFullYear()} </td>
+                <td>${daily.Yesterday}</td>
+                <td>${daily.Today}</td>
+                <td>${daily.Impediment}</td>
+                <td> 
+                <button type="button" name="edit"
                 class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="edit-daily"
                 data-toggle="modal" data-target="#editdailyModal">
-                    <i class="small material-icons">edit</i>
-            </button>   
-        </td> 
-        </tr>`;
+                <i class="small material-icons">edit</i>
+                </button>   
+                </td> 
+                
+                <p style="visibility:hidden"> 
+                ${id_daily}
+                <p/>
+                </tr>`;
     } else {
         body.innerHTML =
             `<tr>
-        <td>${owner}</td>
-        <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() + 1}/${daily.Date.getUTCFullYear()} </td>
-        <td>${daily.Yesterday}</td>
-        <td>${daily.Today}</td>
-        <td>${daily.Impediment}</td>
-        <td>         </td> 
-        </tr>`;
+                <td>${owner}</td>
+                <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() + 1}/${daily.Date.getUTCFullYear()} </td>
+                <td>${daily.Yesterday}</td>
+                <td>${daily.Today}</td>
+                <td>${daily.Impediment}</td>
+                <td>         </td> 
+                </tr>`;
 
     }
 
     dailyesResult.append(body);
 }
 
+
+
+let update = document.querySelector("#editdaily-form")
+if (update) {
+    // update.addEventListener('submit', controller.update.bind(controller));
+    const controller = new DailyNoteController();
+    update.addEventListener('submit', controller.update.bind(controller, id_daily));
+}
