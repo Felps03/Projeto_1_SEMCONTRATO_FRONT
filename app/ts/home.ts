@@ -1,5 +1,7 @@
 import { HomeController } from "./controllers/HomeController";
 import { UserService } from "./services/UserService";
+import { HelpCenterController } from "./controllers/HelpCenterController";
+import { DailyNoteController } from "./controllers/DailyNoteController";
 
 let nameSpan = document.querySelector('#nameSpan');
 let userNameSpan = document.querySelector('#userNameSpan');
@@ -21,3 +23,6 @@ if (data) {
 else {
     window.location.href = "index.html"
 }
+
+window.addEventListener('load', homeController.listLastHelp.bind(homeController));
+window.addEventListener('load', homeController.listDailyDate.bind(homeController)); 

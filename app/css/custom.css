@@ -84,6 +84,10 @@
 
 .login-line { width: 50vh; margin-left: -1.90rem; }
 
+.lastdaily-line { width: 85vh; margin-left: -1.90rem; }
+
+.help-line { width: 46vh; margin-left: -1.90rem; }
+
 .register-line { width: 120%; margin-left: -1.90rem; }
 
 .vt-line {
@@ -122,21 +126,19 @@
 
 /* Background */
 
-body {
-    background: #0e1e24;
-}
+body { background: #0e1e24; }
 
-.section-login {
-    background: #f8f9fa;
-}
+.section-login { background: #f8f9fa; }
+
+.section-lastdaily { background: #f8f9fa; }
+
+.section-help { background: #f8f9fa; }
+
+.section-recovery { background: #f8f9fa; }
 
 .section-register {
     background: #f8f9fa;
     padding-bottom: 50px;
-}
-
-.section-recovery {
-    background: #f8f9fa;
 }
 
 .centered {
@@ -155,15 +157,11 @@ body {
     box-shadow: 0 1px 8px 0 #0e1e24, 0 1px 8px 0 #0e1e24 !important; 
 }
 
-.mt-add-daily {
-    margin-top: 36px;
-}
+.mt-add-daily { margin-top: 36px; }
 
 /* User menu */
 
-.dropdown {
-    cursor: pointer !important;
-}
+.dropdown { cursor: pointer !important; }
 
 .dropbtn {
     background-color: #4CAF50;

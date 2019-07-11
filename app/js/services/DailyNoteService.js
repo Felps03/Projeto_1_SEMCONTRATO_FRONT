@@ -40,7 +40,15 @@ export class DailyNoteService {
     }
     ;
     listDate(date) {
-        return fetch(`${HOST}dailys/daily/${date}`, {
+        let year = JSON.stringify(date.getFullYear());
+        let month = JSON.stringify(date.getMonth() + 1);
+        let day = JSON.stringify(date.getDate());
+        if (month.length < 2)
+            month = `0` + month;
+        if (day.length < 2)
+            day = `0` + day;
+        let fullDate = `${year}-${month}-${day}`;
+        return fetch(`${HOST}dailys/daily/${fullDate}/1`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

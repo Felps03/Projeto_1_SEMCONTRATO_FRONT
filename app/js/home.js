@@ -16,3 +16,5 @@ if (data) {
 else {
     window.location.href = "index.html";
 }
+window.addEventListener('load', homeController.listLastHelp.bind(homeController));
+window.addEventListener('load', homeController.listDailyDate.bind(homeController));

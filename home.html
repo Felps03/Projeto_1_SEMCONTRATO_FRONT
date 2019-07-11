@@ -58,7 +58,7 @@
     </nav>
 
     <div class="container page-position">
-        <div class="row centered">
+        <div class="row mt-5 d-flex justify-content-center">
 
             <!-- Daily Note -->
             <div class="card card-size">
@@ -91,6 +91,71 @@
                         <button name="daily"
                             class="btn btn-outline-success btn-sm pr-3 pl-3 float-right input-circle">Acessar</button>
                     </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- DailyNote e HelpCenter -->
+        <div class="row mt-5 mb-5 justify-content-between">
+
+            
+            <!-- DailyNote -->
+            <div class="col-12 col-sm-7 section-lastdaily">
+                <div class="col-12">
+                    <div class="vt-line mt-4 mb-4">
+                        <h3><strong>Última Daily</strong></h3>
+                    </div>
+                    
+                    <hr class="lastdaily-line">
+
+                    <table class="table table-hover mt-4">
+                        <thead class="bg-light">
+                            <tr>
+                                <th scope="col">Autor</th>
+                                <th scope="col">Ontem</th>
+                                <th scope="col">Hoje</th>
+                                <th scope="col">Impedimentos</th>
+                            </tr>
+                        </thead>
+                        <tbody id="all-dailys"></tbody>
+                    </table> 
+                </div>
+            </div>
+
+
+            <!-- HelpCenter -->
+            <div class="col-12 col-sm-4 section-help">
+                <div class="col-12">
+                    <div class="vt-line mt-4 mb-4">
+                        <h3><strong>Perguntas Recentes</strong></h3>
+                    </div>
+
+                    <hr class="help-line">
+
+                    <div id="last-helps"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- View resp modal -->
+    <div class="modal fade" id="respModal" tabindex="-1" role="dialog" aria-labelledby="respTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title vt-line mt-2" id="respTitle">
+                        <h3><strong>Respostas</strong></h3>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- respostas -->
+
                 </div>
             </div>
         </div>

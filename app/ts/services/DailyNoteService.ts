@@ -50,10 +50,19 @@ export class DailyNoteService {
 
     /**
      * 
-     * @param data para buscar a daily da data informada
+     * @param date para buscar a daily da data informada
      */
     listDate(date: Date) {
-        return fetch(`${HOST}dailys/daily/${date}`, {
+        let year = JSON.stringify(date.getFullYear());
+        let month = JSON.stringify(date.getMonth() + 1); //em homologacao remover "+1"
+        let day = JSON.stringify(date.getDate());
+
+        if (month.length < 2) month = `0` + month;
+        if (day.length < 2) day = `0` + day;
+
+        let fullDate = `${year}-${month}-${day}`;
+
+        return fetch(`${HOST}dailys/daily/${fullDate}/1`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -67,7 +76,6 @@ export class DailyNoteService {
      * 
      * listar todas as dailys
      */
-
     listAll() {
         return fetch(`${HOST}dailys`, {
             method: 'GET',
