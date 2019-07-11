@@ -10,7 +10,6 @@ export class View {
         this._escape = escape;
     }
     update(model) {
-        console.log('>>>>~~~~ ', model);
         let template = this.template(model);
         if (this._escape)
             template = template.replace(/<script>[\s\S]*?<\/script>/g, '');
