@@ -134,7 +134,7 @@ export class HelpCenterController {
             .then(result => {
             return result.json();
         }).then(res => {
-            const posts = Posts.from(res);
+            const posts = Posts.from(res.slice(0, -1));
             this.postsView.update(posts);
             Array.from(document.getElementsByClassName('post-expand'))
                 .forEach(el => {
@@ -158,7 +158,7 @@ export class HelpCenterController {
             .then(result => {
             return result.json();
         }).then(res => {
-            const posts = Posts.from(res);
+            const posts = Posts.from(res.slice(0, -1));
             this.postsView.update(posts);
             Array.from(document.getElementsByClassName('post-expand'))
                 .forEach(el => {
