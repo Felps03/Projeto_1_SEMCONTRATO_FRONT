@@ -4,21 +4,19 @@ import { DailyNote } from "./models/index";
 let dailyesResult = document.querySelector("#dayliesResult")
 let totalPagesDiv = document.querySelector("#pages")
 let id_daily: string;
+const url = new URLSearchParams(location.search);
+const url_date = url.get('date');
+const dateField = <HTMLInputElement>document.querySelector('#date_filter');
+const dateValue = dateField.value || url_date;
 
 const controller = new DailyNoteController();
 
-// console.log('controller:', controller);
-// console.log('controller');
 
 let cadastrar = document.querySelector("#daily-form");
 if (cadastrar) {
     cadastrar.addEventListener('submit', controller.add.bind(controller));
 }
 
-// let edit = document.querySelector("#edit-daily")
-// if (edit) {
-//     edit.addEventListener('click', controller.update.bind(controller));
-// }
 
 let listDate = document.querySelector("#filter");
 if (listDate) {
@@ -26,14 +24,24 @@ if (listDate) {
 
         listDate.addEventListener('click', listDateDaily);
     }
-    // dailyesResult.innerHTML = '';
 }
 
 
-// console.log(dailyesResult.innerHTML);
+window.addEventListener("load", () => {
+    if ((url.get('date')) && (url.get('page'))) {
+        // console.log('oi do load')
+
+        listDateDaily(event)
+    }
+
+})
+
+
+
 function listDateDaily(event: Event) {
     dailyesResult.innerHTML = ''; // <------------
     const result = controller.listD(event);
+
 
     if (result) {
         result
@@ -59,9 +67,6 @@ function listDateDaily(event: Event) {
                         <nav aria-label="daily-nav" class="float-right">
                         <ul class="pagination">
                         <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Anterior">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
                         </a>
                         </li>
                         `;
@@ -70,15 +75,13 @@ function listDateDaily(event: Event) {
                             string_li = '';
                             for (i; i < totalPages; i++) {
                                 string_li += `
-                            <li class="page-item"><a class="page-link" href="#">${i + 1}</a></li>
+                            <li class="page-item"><a class="page-link" href="app-daily-note.html?page=${i + 1}&date=${dateValue}">${i + 1}</a></li>
                             `
                             }
                             // console.log(string_li);
                             footer_pagination = `
                         <li class="page-item" >
-                        <a class="page-link" href = "#" aria-label="Próximo" >
-                        <span aria-hidden="true" class="text-primary">&raquo;</span>
-                        <span class="sr-only txt-primary">Próximo</span>
+                        
                         `;
                             // console.log(footer_pagination);
                             const nav_pagination = document.createElement('nav');
@@ -90,15 +93,13 @@ function listDateDaily(event: Event) {
                         }
                         return;
                     }
-                    // console.log(
-                    // dailyesResult.innerHTML = '';
                     const owner: string = r.owner;
                     const id_owner: string = r.id_user;
                     id_daily = r.id_daily;
-                    // console.log(id_owner);
                     if (dailyesResult) {
                         mountTable(dailyesResult, daily, owner, id_owner, id_daily);
                     }
+                    id_daily = '';
                     return
                 }
                 )
@@ -119,17 +120,12 @@ function mountTable(dayliesResult: any, daily: DailyNote, owner: string, id_user
                 <td>${daily.Yesterday}</td>
                 <td>${daily.Today}</td>
                 <td>${daily.Impediment}</td>
-                <td> 
-                <button type="button" name="edit"
-                class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="edit-daily"
-                data-toggle="modal" data-target="#editdailyModal">
-                <i class="small material-icons">edit</i>
-                </button>   
-                </td> 
-                
-                <p style="visibility:hidden"> 
-                ${id_daily}
-                <p/>
+                <td>
+                    <a href="daily-edit.html?id=${id_daily}&owner=${id_user}"
+                        class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="edit-daily">
+                        <i class="small material-icons" id="teste">edit</i>
+                    </a>
+                </td>
                 </tr>`;
     } else {
         body.innerHTML =
@@ -139,19 +135,10 @@ function mountTable(dayliesResult: any, daily: DailyNote, owner: string, id_user
                 <td>${daily.Yesterday}</td>
                 <td>${daily.Today}</td>
                 <td>${daily.Impediment}</td>
-                <td>         </td> 
+                <td>         </td>
                 </tr>`;
 
     }
 
     dailyesResult.append(body);
-}
-
-
-
-let update = document.querySelector("#editdaily-form")
-if (update) {
-    // update.addEventListener('submit', controller.update.bind(controller));
-    const controller = new DailyNoteController();
-    update.addEventListener('submit', controller.update.bind(controller, id_daily));
 }

@@ -23,13 +23,6 @@ export class DailyNoteController {
             validate(this.editToday, vals.today),
             validate(this.editImpediment, vals.impediment)
         ];
-        this.id_daily = '';
-    }
-    get IdDaily() {
-        return this.id_daily;
-    }
-    set IdDaily(id) {
-        this.id_daily = id;
     }
     add(event) {
         event.preventDefault();
@@ -42,10 +35,13 @@ export class DailyNoteController {
     listD(event) {
         event.preventDefault();
         let date = document.querySelector('#date_filter');
-        let value = date.value;
+        let urlDate = new URLSearchParams(location.search).get('date');
+        let value = date.value || urlDate;
+        const url_page = new URLSearchParams(location.search).get('page');
+        const page = parseInt(url_page) || 1;
         let dateFilter = new Date(value);
         let dailyNoteService = new DailyNoteService();
-        return dailyNoteService.listDate(dateFilter)
+        return dailyNoteService.listDate(dateFilter, page)
             .then(res => {
             return res.json();
         })
@@ -54,8 +50,4 @@ export class DailyNoteController {
         });
     }
     ;
-    update(id) {
-        event.preventDefault();
-        console.log(id);
-    }
 }

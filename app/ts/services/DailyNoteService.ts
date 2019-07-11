@@ -22,19 +22,20 @@ export class DailyNoteService {
         })
             .then(res => res.json())
             .then(res => {
-                if (res.status == 200){
+                if (res.status == 200) {
                     console.log("funcionou");
                 }
             })
-            //.then(res => console.log(res));
+        //.then(res => console.log(res));
     }
 
     /**
      * 
      * @param id para alterar dados do usuário dessa id
      */
-   
-     update(daily: DailyNote, ID: string) {
+
+    update(daily: DailyNote, ID: string) {
+        console.log(ID)
         return fetch(`${HOST}dailys/daily/${ID}`, {
             method: 'PUT',
             headers: {
@@ -55,7 +56,7 @@ export class DailyNoteService {
      * 
      * @param data para buscar a daily da data informada
      */
-    listDate(data: Date, page: number = 1) {
+    listDate(data: Date, page: number) {
         let year = JSON.stringify(data.getFullYear());
         let month = JSON.stringify(data.getMonth() + 1);
         let day = JSON.stringify(data.getDate() + 1);
@@ -91,5 +92,19 @@ export class DailyNoteService {
         })
     }
 
+    listDailyById(id: string) {
+        // console.log('oi')
+
+
+        return fetch(`${HOST}dailys/${id}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`
+            }
+        })
+
+    }
 
 }

@@ -25,6 +25,7 @@ export class DailyNoteService {
         });
     }
     update(daily, ID) {
+        console.log(ID);
         return fetch(`${HOST}dailys/daily/${ID}`, {
             method: 'PUT',
             headers: {
@@ -41,7 +42,7 @@ export class DailyNoteService {
         });
     }
     ;
-    listDate(data, page = 1) {
+    listDate(data, page) {
         let year = JSON.stringify(data.getFullYear());
         let month = JSON.stringify(data.getMonth() + 1);
         let day = JSON.stringify(data.getDate() + 1);
@@ -66,6 +67,16 @@ export class DailyNoteService {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            }
+        });
+    }
+    listDailyById(id) {
+        return fetch(`${HOST}dailys/${id}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`
             }
         });
     }

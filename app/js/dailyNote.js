@@ -3,6 +3,10 @@ import { DailyNote } from "./models/index";
 let dailyesResult = document.querySelector("#dayliesResult");
 let totalPagesDiv = document.querySelector("#pages");
 let id_daily;
+const url = new URLSearchParams(location.search);
+const url_date = url.get('date');
+const dateField = document.querySelector('#date_filter');
+const dateValue = dateField.value || url_date;
 const controller = new DailyNoteController();
 let cadastrar = document.querySelector("#daily-form");
 if (cadastrar) {
@@ -14,6 +18,11 @@ if (listDate) {
         listDate.addEventListener('click', listDateDaily);
     }
 }
+window.addEventListener("load", () => {
+    if ((url.get('date')) && (url.get('page'))) {
+        listDateDaily(event);
+    }
+});
 function listDateDaily(event) {
     dailyesResult.innerHTML = '';
     const result = controller.listD(event);
@@ -34,9 +43,6 @@ function listDateDaily(event) {
                         <nav aria-label="daily-nav" class="float-right">
                         <ul class="pagination">
                         <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Anterior">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
                         </a>
                         </li>
                         `;
@@ -44,14 +50,12 @@ function listDateDaily(event) {
                         string_li = '';
                         for (i; i < totalPages; i++) {
                             string_li += `
-                            <li class="page-item"><a class="page-link" href="#">${i + 1}</a></li>
+                            <li class="page-item"><a class="page-link" href="app-daily-note.html?page=${i + 1}&date=${dateValue}">${i + 1}</a></li>
                             `;
                         }
                         footer_pagination = `
                         <li class="page-item" >
-                        <a class="page-link" href = "#" aria-label="Próximo" >
-                        <span aria-hidden="true" class="text-primary">&raquo;</span>
-                        <span class="sr-only txt-primary">Próximo</span>
+                        
                         `;
                         const nav_pagination = document.createElement('nav');
                         const fullString = header_pagination + string_li + footer_pagination;
@@ -67,6 +71,7 @@ function listDateDaily(event) {
                 if (dailyesResult) {
                     mountTable(dailyesResult, daily, owner, id_owner, id_daily);
                 }
+                id_daily = '';
                 return;
             });
         });
@@ -82,17 +87,12 @@ function mountTable(dayliesResult, daily, owner, id_user, id_daily) {
                 <td>${daily.Yesterday}</td>
                 <td>${daily.Today}</td>
                 <td>${daily.Impediment}</td>
-                <td> 
-                <button type="button" name="edit"
-                class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="edit-daily"
-                data-toggle="modal" data-target="#editdailyModal">
-                <i class="small material-icons">edit</i>
-                </button>   
-                </td> 
-                
-                <p style="visibility:hidden"> 
-                ${id_daily}
-                <p/>
+                <td>
+                    <a href="daily-edit.html?id=${id_daily}&owner=${id_user}"
+                        class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="edit-daily">
+                        <i class="small material-icons" id="teste">edit</i>
+                    </a>
+                </td>
                 </tr>`;
     }
     else {
@@ -103,13 +103,8 @@ function mountTable(dayliesResult, daily, owner, id_user, id_daily) {
                 <td>${daily.Yesterday}</td>
                 <td>${daily.Today}</td>
                 <td>${daily.Impediment}</td>
-                <td>         </td> 
+                <td>         </td>
                 </tr>`;
     }
     dailyesResult.append(body);
-}
-let update = document.querySelector("#editdaily-form");
-if (update) {
-    const controller = new DailyNoteController();
-    update.addEventListener('submit', controller.update.bind(controller, id_daily));
 }

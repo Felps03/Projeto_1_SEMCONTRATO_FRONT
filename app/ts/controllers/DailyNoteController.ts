@@ -16,7 +16,6 @@ export class DailyNoteController {
     private editYesterday: HTMLInputElement;
     private editToday: HTMLInputElement;
     private editImpediment: HTMLInputElement;
-    private id_daily: string;
 
     private addVals: (() => boolean)[];
     private editVals: (() => boolean)[];
@@ -45,14 +44,6 @@ export class DailyNoteController {
             validate(this.editImpediment, vals.impediment)
         ];
 
-        this.id_daily = '';   // console.log(this.editYesterday
-    }
-
-    get IdDaily(): string {
-        return this.id_daily;
-    }
-    set IdDaily(id: string) {
-        this.id_daily = id;
     }
 
     add(event: Event) {
@@ -85,13 +76,18 @@ export class DailyNoteController {
         event.preventDefault();
 
         let date = <HTMLInputElement>document.querySelector('#date_filter');
-        let value = date.value;
-        // console.log(value)
+        // console.log(date)
+        let urlDate = new URLSearchParams(location.search).get('date');
+        // console.log(urlDate)
+        let value = date.value || urlDate;
+        const url_page = new URLSearchParams(location.search).get('page');
+        const page = parseInt(url_page) || 1;
+        // console.log(page)
         let dateFilter = new Date(value);
         // console.log(dateFilter);
         let dailyNoteService = new DailyNoteService();
 
-        return dailyNoteService.listDate(dateFilter)
+        return dailyNoteService.listDate(dateFilter, page)
             .then(res => {
                 // console.log(res)
                 return res.json();
@@ -102,30 +98,7 @@ export class DailyNoteController {
             });
     };
 
-    update(id: string) {
 
-        event.preventDefault();
-        // const dailyService = new DailyNoteService();
-        // // console.log('oi ju');
-        // console.log(this.editToday.value.toString());
-
-        // let edited = new DailyNote(
-        //     this.editYesterday.value.toString(),
-        //     this.editToday.value.toString(),
-        //     this.editImpediment.value.toString(),
-        //     new Date()
-        // );
-
-        // console.log(edited);
-        console.log(id);
-
-        // console.log(this.IdDaily)
-
-
-
-
-
-    }
 
 
 }
