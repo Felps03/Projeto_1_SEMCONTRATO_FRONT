@@ -77,7 +77,7 @@ export class HomeController {
         let date = new Date();
         const dailyNoteService = new DailyNoteService()
 
-        dailyNoteService.listDate(date)
+        dailyNoteService.listDate(date, 1)
             .then(result => {
                 return result.json();
             }).then(result => {

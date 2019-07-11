@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\ts",
+    "\\app\\ts\\controllers",
+    "\\app\\ts\\services",
+    "\\app\\ts\\utils",
+    "\\app\\ts\\validation"
+  ],
+  "SelectedNode": "\\app\\ts\\utils\\listCheck.ts",
+  "PreviewInSolutionExplorer": false
+}

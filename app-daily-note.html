@@ -67,16 +67,29 @@
                 </div>
                 <hr class="register-line">
 
+
+                <!-- <div id="teste">
+
+    </div> -->
+
+
                 <div class="row">
                     <div class="col-12 col-sm-4 mt-3">
                         <div class="form-group">
                             <label for="filter">Visualizar por data:</label>
+                            <!-- <input type="date" name="filter"
+                                class="form-control form-control-sm ext-placeholder input-circle" id="date_filter"> -->
+
                             <input type="date" name="filter"
-                                class="form-control form-control-sm ext-placeholder input-circle" id="filter">
+                                class="form-control form-control-sm ext-placeholder input-circle" id="date_filter"
+                                value="2019-07-09">
                             <div id="filtervalidator"></div>
+
                             <button type="button" name="new_daily"
-                                class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle " id="filter_daily">Buscar
+                                class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle mt-add-daily"
+                                id="filter">Buscar
                             </button>
+
                         </div>
 
                     </div>
@@ -93,76 +106,20 @@
                     <!-- cabeçalho -->
                     <thead class="bg-light">
                         <tr>
+                            <th scope="col">Autor</th>
                             <th scope="col">Data</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Opções</th>
+                            <th scope="col">Ontem</th>
+                            <th scope="col">Hoje</th>
+                            <th scope="col">Impedimentos</th>
+                            <th scope="col">Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="all-dailys">
-
-                        <script>
-                            document.getElementById('all-dailys').innerHTML = `
-                            <tr>
-                                <td scope="row">data</td>
-                                    <td>Juliana Sequeira</td>
-                                    <td>
-                                        <button type="button" name="edit"
-                                            class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="daily-edit"
-                                            data-toggle="modal" data-target="#editdailyModal">
-                                            <i class="small material-icons">edit</i>
-                                        </button>
-
-                                        <button type="button" name="view"
-                                            class="btn btn-outline-success btn-sm input-circle pt-2" id="daily-view"
-                                            data-toggle="modal" data-target="#viewdailyModal">
-                                            <i class="small material-icons">remove_red_eye</i>
-                                        </button>
-                                </td>
-                            </tr>`;    
-                        </script>
-
-                        <!-- <tr>
-                            <td scope="row">${data}</td>
-                            <td>Juliana Sequeira</td>
-                            <td>
-                                <button type="button" name="edit"
-                                    class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="daily-edit"
-                                    data-toggle="modal" data-target="#editdailyModal">
-                                    <i class="small material-icons">edit</i>
-                                </button>
-
-                                <button type="button" name="view"
-                                    class="btn btn-outline-success btn-sm input-circle pt-2" id="daily-view"
-                                    data-toggle="modal" data-target="#viewdailyModal">
-                                    <i class="small material-icons">remove_red_eye</i>
-                                </button>
-
-                            </td>
-                        </tr> -->
+                    <tbody id="dayliesResult">
 
                     </tbody>
                 </table>
-
-                <nav aria-label="daily-nav" class="float-right">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Anterior">
-                                <span aria-hidden="true" class="txt-primary">&laquo;</span>
-                                <span class="sr-only txt-primary">Anterior</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link txt-primary" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link txt-primary" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link txt-primary" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Próximo">
-                                <span aria-hidden="true" class="txt-primary">&raquo;</span>
-                                <span class="sr-only txt-primary">Próximo</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-
+                <div id="pages">
+                </div>
             </div>
         </section>
 
@@ -199,7 +156,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="third"><strong>3. </strong>Eu tenho impedimentos? Se sim, qual(is)?</label>
+                            <label for="third"><strong>3. </strong>Eu tenho impedimentos? Se sim,
+                                qual(is)?</label>
                             <textarea name="third" class="form-control form-control-sm input-circle" id="impediment"
                                 placeholder="Informe sua resposta aqui"></textarea>
                             <div id="thirdvalidator"></div>
@@ -272,7 +230,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="third"><strong>3. </strong>Tem impedimentos? Se sim, qual(is)?</label>
+                            <label for="third"><strong>3. </strong>Tem impedimentos? Se sim,
+                                qual(is)?</label>
                             <textarea name="third" class="form-control form-control-sm input-circle" id="third"
                                 disabled></textarea>
                             <div id="thirdvalidator"></div>
@@ -303,9 +262,9 @@
                 </div>
                 <div class="modal-body">
 
-                    <form class="form" method="post" id="editdaily-form" autocomplete="off">
+                    <form class="form" method="POST" id="editdaily-form" autocomplete="off">
 
-
+                        <!-- 
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
@@ -325,7 +284,7 @@
                                     <div id="datevalidator"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <label for="first"><strong>1. </strong>O que eu fiz ontem?</label>
@@ -342,7 +301,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="third"><strong>3. </strong>Eu tenho impedimentos? Se sim, qual(is)?</label>
+                            <label for="third"><strong>3. </strong>Eu tenho impedimentos? Se sim,
+                                qual(is)?</label>
                             <textarea name="third" class="form-control form-control-sm input-circle"
                                 id="edit-impediment"></textarea>
                             <div id="thirdvalidator"></div>
@@ -350,7 +310,7 @@
 
                         <button type="submit" name="send"
                             class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle"
-                            id="recovery-pass">Editar</button>
+                            id="update_daily">Editar</button>
                         <button type="button"
                             class="btn btn-outline-danger btn-sm float-right mt-2 pr-2 pl-2 input-circle"
                             data-dismiss="modal">Cancelar</button>

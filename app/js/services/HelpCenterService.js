@@ -33,7 +33,7 @@ export class HelpCenterService {
     }
     ;
     list(page) {
-        return fetch(`${HOST}helps/post/list/${page}`, {
+        return fetch(`${HOST}helps/list/post/${page}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

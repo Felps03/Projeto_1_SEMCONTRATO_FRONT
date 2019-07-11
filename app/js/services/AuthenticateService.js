@@ -12,6 +12,18 @@ export class AuthenticateService {
                 "email": email,
                 "password": password
             })
+        }).then(res => {
+            const token = res.headers.get("Token");
+            if (token != null) {
+                localStorage.setItem('tkn', token);
+            }
+            return res.json();
+        }).then(result => {
+            console.log(result);
+            localStorage.setItem('email', result[0]['email']);
+            localStorage.setItem('id', result[0]['_id']);
+            localStorage.setItem('isAdmin', result[0]['isAdmin']);
+            window.location.href = "home.html";
         });
     }
     resetPassword(email) {

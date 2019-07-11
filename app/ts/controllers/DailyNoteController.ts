@@ -2,7 +2,8 @@ import { DailyNote } from '../models/DailyNote';
 import { DailyNoteService } from '../services/DailyNoteService';
 import { validate } from '../helpers/index'
 import * as vals from '../validation/dailyNoteValidate';
-import { noFalse } from '../utils/listCheck'
+import { noFalse } from '../utils/listCheck';
+import { DailyNotesView } from '../views/DailyNotesView';
 
 export class DailyNoteController {
 
@@ -10,6 +11,7 @@ export class DailyNoteController {
     private today: HTMLInputElement;
     private impediment: HTMLInputElement;
     private date: HTMLInputElement;
+    private listDate: HTMLInputElement;
 
     private editYesterday: HTMLInputElement;
     private editToday: HTMLInputElement;
@@ -18,16 +20,18 @@ export class DailyNoteController {
     private addVals: (() => boolean)[];
     private editVals: (() => boolean)[];
 
+
     constructor() {
         this.yesterday = <HTMLInputElement>document.querySelector('#yesterday');
         this.today = <HTMLInputElement>document.querySelector('#today');
         this.impediment = <HTMLInputElement>document.querySelector('#impediment');
         this.date = <HTMLInputElement>document.querySelector('#date');
 
+        this.listDate = <HTMLInputElement>document.querySelector('#filter');
+
         this.editYesterday = <HTMLInputElement>document.querySelector('#edit-yesterday');
         this.editToday = <HTMLInputElement>document.querySelector('#edit-today');
         this.editImpediment = <HTMLInputElement>document.querySelector('#edit-impediment');
-
         // init validations
         this.addVals = [
             validate(this.yesterday, vals.yesterday),
@@ -40,7 +44,6 @@ export class DailyNoteController {
             validate(this.editImpediment, vals.impediment)
         ];
 
-        console.log(this.editYesterday);
     }
 
     add(event: Event) {
@@ -58,31 +61,44 @@ export class DailyNoteController {
 
             let dailyNoteService = new DailyNoteService();
 
-
-
             let dailyNoteAux = dailyNoteService.add(
                 this.yesterday.value,
                 this.today.value,
                 this.impediment.value,
                 new Date());
 
-            console.log(dailyNote);
+            // console.log(dailyNote);
             // console.log(dailyNoteAux);
         }
     }
 
+    listD(event: Event) {
+        event.preventDefault();
+
+        let date = <HTMLInputElement>document.querySelector('#date_filter');
+        // console.log(date)
+        let urlDate = new URLSearchParams(location.search).get('date');
+        // console.log(urlDate)
+        let value = date.value || urlDate;
+        const url_page = new URLSearchParams(location.search).get('page');
+        const page = parseInt(url_page) || 1;
+        // console.log(page)
+        let dateFilter = new Date(value);
+        // console.log(dateFilter);
+        let dailyNoteService = new DailyNoteService();
+
+        return dailyNoteService.listDate(dateFilter, page)
+            .then(res => {
+                // console.log(res)
+                return res.json();
+            })
+            .then(result => {
+                // console.log(result);
+                return result
+            });
+    };
+
+
 
 
 }
-
-// list(event: Event) {
-
-// }
-
-// update(event: Event) {
-//     event.preventDefault();
-//     if (noFalse(this.editVals)) {
-//         ...
-//     }
-// }
-// }

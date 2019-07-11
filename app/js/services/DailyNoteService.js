@@ -12,6 +12,7 @@ export class DailyNoteService {
                 "yesterday": yesterday,
                 "today": today,
                 "impediment": impediment,
+                "date": new Date().toISOString().slice(0, 10),
                 "email": localStorage.getItem('email')
             })
         })
@@ -23,6 +24,7 @@ export class DailyNoteService {
         });
     }
     update(daily, ID) {
+        console.log(ID);
         return fetch(`${HOST}dailys/daily/${ID}`, {
             method: 'PUT',
             headers: {
@@ -31,6 +33,7 @@ export class DailyNoteService {
                 'Authorization': `Bearer ${localStorage.getItem('tkn')}`
             },
             body: JSON.stringify({
+                "id_user": localStorage.getItem('id'),
                 "yesterday": daily.Yesterday,
                 "today": daily.Today,
                 "impediment": daily.Impediment,
@@ -39,21 +42,18 @@ export class DailyNoteService {
         });
     }
     ;
-    listDate(date) {
-        let year = JSON.stringify(date.getFullYear());
-        let month = JSON.stringify(date.getMonth() + 1);
-        let day = JSON.stringify(date.getDate());
-        if (month.length < 2)
-            month = `0` + month;
-        if (day.length < 2)
-            day = `0` + day;
+    listDate(data, page) {
+        let date = new Date().toLocaleDateString('pt-BR').slice(0, 10);
+        let year = date.slice(6, 10);
+        let month = date.slice(3, 5);
+        let day = date.slice(0, 2);
         let fullDate = `${year}-${month}-${day}`;
         return fetch(`${HOST}dailys/daily/${fullDate}/1`, {
             method: 'GET',
             headers: {
-                'Accept': 'application/json',
+                'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`
             }
         });
     }
@@ -64,6 +64,16 @@ export class DailyNoteService {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            }
+        });
+    }
+    listDailyById(id) {
+        return fetch(`${HOST}dailys/${id}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`
             }
         });
     }

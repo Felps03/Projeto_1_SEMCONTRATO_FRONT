@@ -32,7 +32,7 @@ export class AuthenticateController {
                 validate(this.emailRec, vals.email)
             ];
         } catch (e) {
-            console.log("passo no catch");
+            // console.log("passo no catch");
         }
     }
 

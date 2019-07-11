@@ -37,7 +37,7 @@ export class HelpCenterAskService {
     };
 
     list(page: number) {
-        return fetch(`${HOST}helps/ask/list/${page}`, {
+        return fetch(`${HOST}helps/list/ask/${page}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

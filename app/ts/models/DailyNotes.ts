@@ -13,4 +13,6 @@ export class DailyNotes {
 
         return ([] as DailyNote[]).concat(this._dailyNotes);
     }
+
+    // dataParaTexto(): <Date> document.getElementById('#filter').value
 }
