@@ -56,19 +56,9 @@ export class DailyNoteService {
      * 
      * @param date para buscar a daily da data informada
      */
-    listDate(data: Date, page: number) {
-
-        let date = new Date().toLocaleDateString('pt-BR').slice(0,10);
-
-        let year = date.slice(6,10);
-        let month = date.slice(3,5);
-        let day = date.slice(0,2);
-
-
-        let fullDate = `${year}-${month}-${day}`;
-
-
-        return fetch(`${HOST}dailys/daily/${fullDate}/1`, {
+    listDate(data: string, page: number) {
+        console.log(`${HOST}dailys/daily/${data}/1`);
+        return fetch(`${HOST}dailys/daily/${data}/1`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -94,9 +84,6 @@ export class DailyNoteService {
     }
 
     listDailyById(id: string) {
-        // console.log('oi')
-
-
         return fetch(`${HOST}dailys/${id}`, {
             method: 'GET',
             headers: {

@@ -39,7 +39,10 @@ export class HomeController {
             }).then(result=> {
                 let row = <HTMLElement>document.querySelector('#last-helps');
 
+              
+
                 for (let i = 0; i< result.docs.length; i++) {
+                    console.log(result.docs[i]);
                     row.innerHTML +=`
                     <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
                         <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
@@ -74,10 +77,16 @@ export class HomeController {
     listDailyDate(event: Event) {
         event.preventDefault();
 
-        let date = new Date();
-        const dailyNoteService = new DailyNoteService()
+        let date = new Date().toLocaleDateString('pt-BR').slice(0,10);
+        const dailyNoteService = new DailyNoteService();
 
-        dailyNoteService.listDate(date, 1)
+        let year = date.slice(6,10);
+        let month = date.slice(3,5);
+        let day = date.slice(0,2);
+
+        let fullDate = `${year}-${month}-${day}`;
+        
+        dailyNoteService.listDate(fullDate, 1)
             .then(result => {
                 return result.json();
             }).then(result => {

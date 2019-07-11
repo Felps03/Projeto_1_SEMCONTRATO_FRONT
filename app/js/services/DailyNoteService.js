@@ -43,12 +43,8 @@ export class DailyNoteService {
     }
     ;
     listDate(data, page) {
-        let date = new Date().toLocaleDateString('pt-BR').slice(0, 10);
-        let year = date.slice(6, 10);
-        let month = date.slice(3, 5);
-        let day = date.slice(0, 2);
-        let fullDate = `${year}-${month}-${day}`;
-        return fetch(`${HOST}dailys/daily/${fullDate}/1`, {
+        console.log(`${HOST}dailys/daily/${data}/1`);
+        return fetch(`${HOST}dailys/daily/${data}/1`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, */*',

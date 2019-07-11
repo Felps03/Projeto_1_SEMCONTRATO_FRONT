@@ -39,9 +39,14 @@ export class DailyNoteController {
         let value = date.value || urlDate;
         const url_page = new URLSearchParams(location.search).get('page');
         const page = parseInt(url_page) || 1;
-        let dateFilter = new Date(value);
         let dailyNoteService = new DailyNoteService();
-        return dailyNoteService.listDate(dateFilter, page)
+        let year = date.value.slice(0, 4);
+        let month = date.value.slice(6, 7);
+        let day = date.value.slice(8, 10);
+        day = ("00" + day).slice(-2);
+        month = ("00" + month).slice(-2);
+        let fullDate = `${year}-${month}-${day}`;
+        return dailyNoteService.listDate(fullDate, page)
             .then(res => {
             return res.json();
         })
