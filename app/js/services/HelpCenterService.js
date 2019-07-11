@@ -63,7 +63,7 @@ export class HelpCenterService {
         });
     }
     findByTitle(title) {
-        return fetch(`${HOST}helps/post/title`, {
+        return fetch(`${HOST}helps/post/title/1`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -76,7 +76,7 @@ export class HelpCenterService {
         });
     }
     findByDesc(desc) {
-        return fetch(`${HOST}helps/post/desc`, {
+        return fetch(`${HOST}helps/post/desc/1`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
