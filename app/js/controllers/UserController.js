@@ -3,6 +3,7 @@ import { UserService } from "../services/UserService";
 import { validate } from '../helpers/index';
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck';
+import { MessageView } from '../views/MessageView';
 export class UserController {
     constructor() {
         this.name = document.querySelector('#name');
@@ -13,6 +14,7 @@ export class UserController {
         this.dateOfBirth = document.querySelector('#dateOfBirth');
         this.passwordConfirm = document.querySelector('#passwordConfirm');
         this.id = document.querySelector('#id');
+        this.messageView = new MessageView('#message-view');
         this.addVals = [
             validate(this.name, vals.name),
             validate(this.lastName, vals.lastName),
@@ -28,19 +30,32 @@ export class UserController {
         if (noFalse(this.addVals)) {
             const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.password.value.toString(), this.dateOfBirth.value.toString());
             const userService = new UserService();
-            userService.add(user)
-                .then(result => {
-                const token = result.headers.get("Token");
-                if (token != null) {
-                    localStorage.setItem('tkn', token);
-                }
-                ;
-                return result.json();
+            new Promise((resolve, reject) => {
+                userService.add(user)
+                    .then(result => {
+                    if (result.status === 200) {
+                        const token = result.headers.get("Token");
+                        if (token != null) {
+                            localStorage.setItem('tkn', token);
+                        }
+                        ;
+                        resolve(result.json());
+                    }
+                    else {
+                        reject(result);
+                    }
+                });
             })
-                .then(res => {
+                .then((res) => {
                 localStorage.setItem('email', res.email);
                 localStorage.setItem('id', res._id);
                 window.location.href = "home.html";
+            })
+                .catch((res) => res.json())
+                .then((res) => {
+                console.log(res);
+                if (res.erro)
+                    this.messageView.update(res.erro);
             });
         }
     }

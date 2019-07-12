@@ -19,7 +19,9 @@ export class AuthenticateController {
     private passRecVals: (() => boolean)[];
 
     constructor() {
-        this.messageView = new MessageView('#message-view')
+        try {
+            this.messageView = new MessageView('#message-view')
+        } catch { }
 
         this.email = <HTMLInputElement>document.getElementById('email');
         this.password = <HTMLInputElement>document.getElementById('password');

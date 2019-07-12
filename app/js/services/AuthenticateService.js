@@ -21,12 +21,14 @@ export class AuthenticateService {
                 if (token != null) {
                     localStorage.setItem('tkn', token);
                 }
-                const result = res.json();
-                localStorage.setItem('email', result[0]['email']);
-                localStorage.setItem('id', result[0]['_id']);
-                localStorage.setItem('isAdmin', result[0]['isAdmin']);
-                window.location.href = "home.html";
-                resolve();
+                res.json()
+                    .then((result) => {
+                    localStorage.setItem('email', result[0]['email']);
+                    localStorage.setItem('id', result[0]['_id']);
+                    localStorage.setItem('isAdmin', result[0]['isAdmin']);
+                    window.location.href = "home.html";
+                    resolve();
+                });
             });
         });
     }

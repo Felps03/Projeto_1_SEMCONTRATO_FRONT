@@ -5,7 +5,10 @@ import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck';
 export class AuthenticateController {
     constructor() {
-        this.messageView = new MessageView('#message-view');
+        try {
+            this.messageView = new MessageView('#message-view');
+        }
+        catch (_a) { }
         this.email = document.getElementById('email');
         this.password = document.getElementById('password');
         this.emailRec = document.getElementById('email_rec');
