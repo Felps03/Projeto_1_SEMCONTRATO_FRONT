@@ -51,7 +51,7 @@ export class PostView extends View<Post> {
                             <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
                         </div>`: ''}
 
-                        ${model.AuthorId ? canEdit && this.editing && this.editing ? `
+                        ${model.AuthorId ? canEdit && this.editing ? `
                         <div class="form-group">
                             <label for="edit-desc">Descrição:</label>
                             <div class="input-group">
@@ -62,7 +62,7 @@ export class PostView extends View<Post> {
                         </div>` : `
                         <p>${model.Desc.replace('\n', '<br>')}</p>` : ''}
 
-                        ${model.AuthorId ? canEdit && this.editing && this.editing ? `
+                        ${model.AuthorId ? canEdit && this.editing ? `
                         <button type="submit"
                             class="btn btn-warning d-flex align-items-center">Enviar <i
                                 class="material-icons ml-2">send</i></button>
