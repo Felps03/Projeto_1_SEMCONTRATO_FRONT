@@ -44,18 +44,7 @@ export class AuthenticateController {
 
             console.log(this.email.value);
 
-            authenticateService.authenticate(this.email.value.toString(), this.password.value.toString()).then(res => {
-                // console.log(res.headers.get("Token"));
-                const token = res.headers.get("Token");
-                if (token != null) {
-                    localStorage.setItem('tkn', token);
-                }
-                return res.json();
-            }).then(result => {
-                localStorage.setItem('email', result[0]['email'])
-                localStorage.setItem('id', result[0]['_id'])
-                window.location.href = "home.html";
-            });
+            authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
         }
 
         event.preventDefault();
@@ -82,20 +71,7 @@ export class AuthenticateController {
         event.preventDefault();
         const authenticateService = new AuthenticateService();
 
-        authenticateService.logout().then(res => {
-            if (res.status == 400) {
-                alert("Houve um erro ao Deslogar");
-            }
-            if (res.status == 200) {
-                localStorage.removeItem("tkn");
-                localStorage.removeItem("email");
-                localStorage.removeItem("id");
-                window.location.href = 'index.html';
-            }
-        }).catch(error => {
-            console.log("error: ", error);
-            return error;
-        });
+        authenticateService.logout();
 
     }
 }

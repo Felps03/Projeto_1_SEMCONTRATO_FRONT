@@ -11,9 +11,6 @@ export class AuthenticateService {
      * @param password para validar usuario
      */
     authenticate(email: string, password: string) {
-
-
-
         return fetch(`${HOST}users/authenticate`, {
             //fetch('http://localhost:3000/users/authenticate', {
             method: 'POST',
@@ -102,6 +99,19 @@ export class AuthenticateService {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem("tkn")}`
             },
-        })
+        }).then(res => {
+            if (res.status == 400) {
+                alert("Houve um erro ao Deslogar");
+            }
+            if (res.status == 200) {
+                localStorage.removeItem("tkn");
+                localStorage.removeItem("email");
+                localStorage.removeItem("id");
+                window.location.href = 'index.html';
+            }
+        }).catch(error => {
+            console.log("error: ", error);
+            return error;
+        });
     }
 }
