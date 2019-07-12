@@ -1,10 +1,11 @@
-import { AuthenticateService } from "../services/AuthenticateService";
+import { AuthenticateService, UserService } from "../services/index";
+import { MessageView } from '../views/MessageView';
 import { validate } from '../helpers/index';
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck';
-import { UserService } from "../services/UserService";
 export class AuthenticateController {
     constructor() {
+        this.messageView = new MessageView('#message-view');
         this.email = document.getElementById('email');
         this.password = document.getElementById('password');
         this.emailRec = document.getElementById('email_rec');
@@ -24,7 +25,12 @@ export class AuthenticateController {
         if (noFalse(this.authVals)) {
             const authenticateService = new AuthenticateService();
             console.log(this.email.value);
-            authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
+            authenticateService.authenticate(this.email.value, this.password.value)
+                .catch(res => res.json())
+                .then((res) => {
+                if (res.erro)
+                    this.messageView.update(res.erro);
+            });
         }
         event.preventDefault();
     }

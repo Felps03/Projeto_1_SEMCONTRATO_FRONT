@@ -1,11 +1,14 @@
 import { Authenticate } from "../models/index";
-import { AuthenticateService } from "../services/AuthenticateService";
+import { AuthenticateService, UserService } from "../services/index";
+import { MessageView } from '../views/MessageView'
+
 import { validate } from '../helpers/index'
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck'
-import { UserService } from "../services/UserService";
 
 export class AuthenticateController {
+
+    private messageView: MessageView
 
     private email: HTMLInputElement;
     private password: HTMLInputElement;
@@ -16,6 +19,8 @@ export class AuthenticateController {
     private passRecVals: (() => boolean)[];
 
     constructor() {
+        this.messageView = new MessageView('#message-view')
+
         this.email = <HTMLInputElement>document.getElementById('email');
         this.password = <HTMLInputElement>document.getElementById('password');
 
@@ -44,7 +49,12 @@ export class AuthenticateController {
 
             console.log(this.email.value);
 
-            authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
+            authenticateService.authenticate(this.email.value, this.password.value)
+                .catch(res => res.json())
+                .then((res: any) => {
+                    if (res.erro)
+                        this.messageView.update(res.erro)
+                });
         }
 
         event.preventDefault();

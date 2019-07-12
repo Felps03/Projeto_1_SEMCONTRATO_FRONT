@@ -11,35 +11,45 @@ export class AuthenticateService {
      * @param password para validar usuario
      */
     authenticate(email: string, password: string) {
-        return fetch(`${HOST}users/authenticate`, {
-            //fetch('http://localhost:3000/users/authenticate', {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "email": email,
-                "password": password
+        return new Promise((resolve, reject) => {
+            fetch(`${HOST}users/authenticate`, {
+                //fetch('http://localhost:3000/users/authenticate', {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "email": email,
+                    "password": password
+                })
+            }).then(res => {
+                // console.log(res.headers.get("Token"));
+                if (res.status !== 200) {
+                    return reject(res)
+                }
+
+                const token = res.headers.get("Token");
+                if (token != null) {
+                    localStorage.setItem('tkn', token);
+                }
+
+                const result: any = res.json()
+
+                // console.log(token);
+                // console.log(result);
+                localStorage.setItem('email', result[0]['email'])
+                localStorage.setItem('id', result[0]['_id'])
+                localStorage.setItem('isAdmin', result[0]['isAdmin'])
+                // console.log(result[0]['email']);
+                window.location.href = "home.html";
+
+                resolve()
+
             })
-        }).then(res => {
-            // console.log(res.headers.get("Token"));
-            const token = res.headers.get("Token");
-            if (token != null) {
-                localStorage.setItem('tkn', token);
-            }
-            return res.json();
-        }).then(result => {
-            // console.log(token);
-            console.log(result);
-            localStorage.setItem('email', result[0]['email'])
-            localStorage.setItem('id', result[0]['_id'])
-            localStorage.setItem('isAdmin', result[0]['isAdmin'])
-            // console.log(result[0]['email']);
-            window.location.href = "home.html";
+            /*.then(res => console.log(res));*/
         })
-        /*.then(res => console.log(res));*/
     }
 
     /**
@@ -62,7 +72,7 @@ export class AuthenticateService {
 
     verifyCode(emailCode: any, email: string, password: string) {
 
-       return fetch(`${HOST}users/code/verify`, {
+        return fetch(`${HOST}users/code/verify`, {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
