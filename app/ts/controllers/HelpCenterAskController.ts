@@ -22,10 +22,10 @@ export class HelpCenterAskController {
         this.postAsksView.childrenDidMount((postAsk: PostAsk) => {
 
             const editForm = document.getElementById(`comment-edit-form-${postAsk.Id}`)
-            console.log(editForm);
+            // console.log(editForm);
 
             const deleteBtn = document.getElementById(`comment-del-${postAsk.Id}`)
-            console.log(' ~~~ ~', deleteBtn)
+            // console.log(' ~~~ ~', deleteBtn)
 
             //debugger
 
@@ -102,7 +102,7 @@ export class HelpCenterAskController {
 
         const postAsk = new PostAsk(ID_POST, textareaEl.value, localStorage.getItem('id') || '', id);
 
-        console.log(postAsk);
+        // console.log(postAsk);
         // const postAsk = new PostAsk("teste", "teste", "teste");
         const helpCenterService = new HelpCenterAskService();
         helpCenterService.update(postAsk, id)
@@ -151,7 +151,7 @@ export class HelpCenterAskController {
             .then(result => {
                 return result.json()
             }).then(res => {
-                console.log('CHE', res);
+                // console.log('CHE', res);
 
                 this.postAsksView.update(
                     PostAsks.from(
@@ -171,7 +171,7 @@ export class HelpCenterAskController {
             .then(result => {
                 return result.json()
             }).then(res => {
-                console.log(res);
+                // console.log(res);
                 this.listByPost(event)
             })
             .catch(error => {

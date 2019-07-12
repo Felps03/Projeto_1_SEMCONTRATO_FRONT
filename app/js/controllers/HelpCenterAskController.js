@@ -11,9 +11,7 @@ export class HelpCenterAskController {
             addForm.addEventListener('submit', this.add.bind(this));
         this.postAsksView.childrenDidMount((postAsk) => {
             const editForm = document.getElementById(`comment-edit-form-${postAsk.Id}`);
-            console.log(editForm);
             const deleteBtn = document.getElementById(`comment-del-${postAsk.Id}`);
-            console.log(' ~~~ ~', deleteBtn);
             if (editForm) {
                 editForm.addEventListener('submit', this.update.bind(this, postAsk.Id));
             }
@@ -59,7 +57,6 @@ export class HelpCenterAskController {
             return;
         }
         const postAsk = new PostAsk(ID_POST, textareaEl.value, localStorage.getItem('id') || '', id);
-        console.log(postAsk);
         const helpCenterService = new HelpCenterAskService();
         helpCenterService.update(postAsk, id)
             .then(result => {
@@ -98,7 +95,6 @@ export class HelpCenterAskController {
             .then(result => {
             return result.json();
         }).then(res => {
-            console.log('CHE', res);
             this.postAsksView.update(PostAsks.from(res.filter((ask) => ask['id_helpCenter'] === ID_POST)));
         })
             .catch(error => {
@@ -112,7 +108,6 @@ export class HelpCenterAskController {
             .then(result => {
             return result.json();
         }).then(res => {
-            console.log(res);
             this.listByPost(event);
         })
             .catch(error => {

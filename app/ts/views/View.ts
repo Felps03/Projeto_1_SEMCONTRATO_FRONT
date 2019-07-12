@@ -16,7 +16,6 @@ export abstract class View<T> {
     }
 
     update(model: T) {
-        console.log('>>>>~~~~ ', model)
         let template = this.template(model);
         if (this._escape)
             template = template.replace(/<script>[\s\S]*?<\/script>/g, '');

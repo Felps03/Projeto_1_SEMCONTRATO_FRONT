@@ -91,12 +91,14 @@ export class HelpCenterController {
                 this.addTitle.value.toString(),
                 this.addDesc.value.toString(),
             )
+
             const helpCenterService = new HelpCenterService();
 
             helpCenterService.add(post)
                 .then(result => {
                     return result.json()
                 }).then(res => {
+                    // console.log(res);
                     // $('#add-modal').modal('hide');
                 })
                 .then(() => {
@@ -155,6 +157,7 @@ export class HelpCenterController {
             .then(result => {
                 return result.json()
             }).then(res => {
+                // console.log(res);
 
                 const posts = Posts.from(res.slice(0, -1))
                 this.postsView.update(posts)
