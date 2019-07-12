@@ -3,7 +3,7 @@ import { HOST } from '../config/index';
 
 export class DailyNoteService {
     add(yesterday: string, today: string, impediment: string, date: Date) {
-        fetch(`${HOST}dailys/daily`, {
+        return fetch(`${HOST}dailys/daily`, {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -19,13 +19,6 @@ export class DailyNoteService {
             })
 
         })
-            .then(res => res.json())
-            .then(res => {
-                if (res.status == 200) {
-                    console.log("funcionou");
-                }
-            })
-        //.then(res => console.log(res));
     }
 
     /**

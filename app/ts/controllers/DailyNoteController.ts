@@ -61,14 +61,11 @@ export class DailyNoteController {
 
             let dailyNoteService = new DailyNoteService();
 
-            let dailyNoteAux = dailyNoteService.add(
+            return dailyNoteService.add(
                 this.yesterday.value,
                 this.today.value,
                 this.impediment.value,
                 new Date());
-
-            // console.log(dailyNote);
-            // console.log(dailyNoteAux);
         }
     }
 

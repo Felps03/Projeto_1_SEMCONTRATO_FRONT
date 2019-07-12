@@ -11,10 +11,11 @@ const dateValue = dateField.value || url_date;
 
 const controller = new DailyNoteController();
 
+let registered = document.querySelector("#newResult")
 
 let cadastrar = document.querySelector("#daily-form");
 if (cadastrar) {
-    cadastrar.addEventListener('submit', controller.add.bind(controller));
+    cadastrar.addEventListener('submit', registeredDaily);
 }
 
 
@@ -36,12 +37,25 @@ window.addEventListener("load", () => {
 
 })
 
-
+function registeredDaily(event: Event){
+    controller.add(event)
+        .then(res => {
+            if (res.status == 200) {
+                registered.textContent = "Daily cadastrada com sucesso"
+                registered.className = "alert alert-info"
+                return
+            }
+            else if (res.status == 400) {
+                registered.textContent = "Daily já cadastrada"
+                registered.className = "alert alert-danger"   
+                return
+            }
+        })
+}
 
 function listDateDaily(event: Event) {
     dailyesResult.innerHTML = ''; // <------------
     const result = controller.listD(event);
-
 
     if (result) {
         result
