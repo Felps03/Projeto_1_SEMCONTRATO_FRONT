@@ -7,12 +7,9 @@ if (cadastrar) {
     cadastrar.addEventListener('click', controller.add.bind(controller));
     window.addEventListener('load', controller.list.bind(controller));
 }
-const searchTitle = document.getElementById('search-title');
-const searchDesc = document.getElementById('search-desc');
+const searchTitle = document.getElementById('search-joker');
 if (searchTitle)
     searchTitle.addEventListener('change', controller.findByTitle.bind(controller));
-if (searchDesc)
-    searchDesc.addEventListener('change', controller.findByDesc.bind(controller));
 let nameSpan = document.querySelector('#nameSpan');
 let userNameSpan = document.querySelector('#userNameSpan');
 const data = homeController.getUserData();

@@ -14,7 +14,7 @@ export class HelpCenterController {
     private helpCenterAsk: HelpCenterAskController
 
     private searchTitle: HTMLInputElement
-    private searchDesc: HTMLInputElement
+    // private searchDesc: HTMLInputElement
 
     private addTitle: HTMLInputElement
     private addDesc: HTMLInputElement
@@ -31,8 +31,8 @@ export class HelpCenterController {
     private currentPage: number
 
     constructor() {
-        this.searchTitle = <HTMLInputElement>document.getElementById('search-title')
-        this.searchDesc = <HTMLInputElement>document.getElementById('search-desc')
+        this.searchTitle = <HTMLInputElement>document.getElementById('search-joker')
+        // this.searchDesc = <HTMLInputElement>document.getElementById('search-desc')
 
         this.addTitle = <HTMLInputElement>document.getElementById('add-title')
         this.addDesc = <HTMLInputElement>document.getElementById('add-desc')
@@ -211,7 +211,7 @@ export class HelpCenterController {
         event.preventDefault();
         let title = this.searchTitle.value;
         const helpCenterService = new HelpCenterService();
-        helpCenterService.findByTitle(title)
+        helpCenterService.findByJoker(title)
             .then(result => {
                 return result.json()
             }).then(res => {
@@ -237,34 +237,34 @@ export class HelpCenterController {
             });
     }
 
-    findByDesc(event: Event) {
-        event.preventDefault();
-        let desc = this.searchDesc.value;
-        const helpCenterService = new HelpCenterService();
-        helpCenterService.findByDesc(desc)
-            .then(result => {
-                return result.json()
-            }).then(res => {
-                const posts = Posts.from(res.slice(0, -1))
-                this.postsView.update(posts)
-                //   console.log(posts)
-                Array.from(document.getElementsByClassName('post-expand'))
-                    .forEach(el => {
-                        const i = el.getAttribute('data-i')
-                        if (i) {
-                            el.addEventListener('click', () => {
+    // findByDesc(event: Event) {
+    //     event.preventDefault();
+    //     let desc = this.searchDesc.value;
+    //     const helpCenterService = new HelpCenterService();
+    //     helpCenterService.findByDesc(desc)
+    //         .then(result => {
+    //             return result.json()
+    //         }).then(res => {
+    //             const posts = Posts.from(res.slice(0, -1))
+    //             this.postsView.update(posts)
+    //             //   console.log(posts)
+    //             Array.from(document.getElementsByClassName('post-expand'))
+    //                 .forEach(el => {
+    //                     const i = el.getAttribute('data-i')
+    //                     if (i) {
+    //                         el.addEventListener('click', () => {
 
-                                this.postView.update(
-                                    posts.get(+i)
-                                )
+    //                             this.postView.update(
+    //                                 posts.get(+i)
+    //                             )
 
-                            })
-                        }
-                    })
-            })
-            .catch(error => {
-                console.error(error)
-            });
-    }
+    //                         })
+    //                     }
+    //                 })
+    //         })
+    //         .catch(error => {
+    //             console.error(error)
+    //         });
+    // }
 
 }

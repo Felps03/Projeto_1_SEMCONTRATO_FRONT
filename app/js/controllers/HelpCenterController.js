@@ -8,8 +8,7 @@ import { PostView } from '../views/PostView';
 import { HelpCenterAskController } from './HelpCenterAskController';
 export class HelpCenterController {
     constructor() {
-        this.searchTitle = document.getElementById('search-title');
-        this.searchDesc = document.getElementById('search-desc');
+        this.searchTitle = document.getElementById('search-joker');
         this.addTitle = document.getElementById('add-title');
         this.addDesc = document.getElementById('add-desc');
         this.postsView = new PostsView('#post-list');
@@ -130,31 +129,7 @@ export class HelpCenterController {
         event.preventDefault();
         let title = this.searchTitle.value;
         const helpCenterService = new HelpCenterService();
-        helpCenterService.findByTitle(title)
-            .then(result => {
-            return result.json();
-        }).then(res => {
-            const posts = Posts.from(res.slice(0, -1));
-            this.postsView.update(posts);
-            Array.from(document.getElementsByClassName('post-expand'))
-                .forEach(el => {
-                const i = el.getAttribute('data-i');
-                if (i) {
-                    el.addEventListener('click', () => {
-                        this.postView.update(posts.get(+i));
-                    });
-                }
-            });
-        })
-            .catch(error => {
-            console.error(error);
-        });
-    }
-    findByDesc(event) {
-        event.preventDefault();
-        let desc = this.searchDesc.value;
-        const helpCenterService = new HelpCenterService();
-        helpCenterService.findByDesc(desc)
+        helpCenterService.findByJoker(title)
             .then(result => {
             return result.json();
         }).then(res => {

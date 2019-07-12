@@ -16,7 +16,7 @@ export class PostAskView extends View {
                     ${this.editing ? `
                     <div class="form-group">
                         <textarea name="first" class="form-control form-control-sm input-circle"
-                            id="comment" placeholder="Sugira soluções ou contribua à discussão"
+                            id="comment-edit-${model.Id}" placeholder="Sugira soluções ou contribua à discussão"
                             autofocus>${model.Desc}</textarea>
                         <div id="comment-editvalidator"></div>
                     </div>
