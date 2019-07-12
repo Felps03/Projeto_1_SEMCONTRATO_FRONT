@@ -3,6 +3,7 @@ import { DailyNoteService } from '../services/DailyNoteService';
 import { validate } from '../helpers/index';
 import * as vals from '../validation/dailyNoteValidate';
 import { noFalse } from '../utils/listCheck';
+import { UserMenuView } from '../views/UserMenuView';
 export class DailyNoteController {
     constructor() {
         this.yesterday = document.querySelector('#yesterday');
@@ -23,6 +24,8 @@ export class DailyNoteController {
             validate(this.editToday, vals.today),
             validate(this.editImpediment, vals.impediment)
         ];
+        this.user = new UserMenuView("#user-menu-login-link");
+        this.user.update('');
     }
     add(event) {
         event.preventDefault();
