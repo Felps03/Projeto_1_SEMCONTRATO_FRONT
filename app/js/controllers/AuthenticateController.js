@@ -18,24 +18,13 @@ export class AuthenticateController {
             ];
         }
         catch (e) {
-            console.log("passo no catch");
         }
     }
     authenticate(event) {
         if (noFalse(this.authVals)) {
             const authenticateService = new AuthenticateService();
             console.log(this.email.value);
-            authenticateService.authenticate(this.email.value.toString(), this.password.value.toString()).then(res => {
-                const token = res.headers.get("Token");
-                if (token != null) {
-                    localStorage.setItem('tkn', token);
-                }
-                return res.json();
-            }).then(result => {
-                localStorage.setItem('email', result[0]['email']);
-                localStorage.setItem('id', result[0]['_id']);
-                window.location.href = "home.html";
-            });
+            authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
         }
         event.preventDefault();
     }

@@ -44,18 +44,7 @@ export class AuthenticateController {
 
             console.log(this.email.value);
 
-            authenticateService.authenticate(this.email.value.toString(), this.password.value.toString()).then(res => {
-                // console.log(res.headers.get("Token"));
-                const token = res.headers.get("Token");
-                if (token != null) {
-                    localStorage.setItem('tkn', token);
-                }
-                return res.json();
-            }).then(result => {
-                localStorage.setItem('email', result[0]['email'])
-                localStorage.setItem('id', result[0]['_id'])
-                window.location.href = "home.html";
-            });
+            authenticateService.authenticate(this.email.value.toString(), this.password.value.toString())
         }
 
         event.preventDefault();
