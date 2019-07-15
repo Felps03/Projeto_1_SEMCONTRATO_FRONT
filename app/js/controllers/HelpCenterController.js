@@ -6,6 +6,7 @@ import { noFalse } from '../utils/listCheck';
 import { PostsView } from '../views/PostsView';
 import { PostView } from '../views/PostView';
 import { HelpCenterAskController } from './HelpCenterAskController';
+import { MessageView } from '../views/MessageView';
 export class HelpCenterController {
     constructor() {
         this.searchTitle = document.getElementById('search-title');
@@ -14,6 +15,7 @@ export class HelpCenterController {
         this.addDesc = document.getElementById('add-desc');
         this.postsView = new PostsView('#post-list');
         this.postView = new PostView('#view-view-modal');
+        this.messageView = new MessageView('#message-view');
         this.currentPage = 1;
         this.addVals = [
             validate(this.addTitle, vals.title),
@@ -47,7 +49,24 @@ export class HelpCenterController {
             const helpCenterService = new HelpCenterService();
             helpCenterService.add(post)
                 .then(result => {
-                return result.json();
+                if (Math.floor(result.status / 100) === 2) {
+                    result.json()
+                        .then(() => {
+                        this.list(event);
+                        document.getElementById('add-modal-close').click();
+                        this.messageView.update('Adicionado com sucesso!');
+                    })
+                        .catch(error => {
+                        console.error(error);
+                    });
+                }
+                else {
+                    result.json()
+                        .then((res) => {
+                        this.list(event);
+                        this.messageView.update(res.erro);
+                    });
+                }
             }).then(res => {
             })
                 .then(() => {
@@ -118,9 +137,22 @@ export class HelpCenterController {
         const helpCenterService = new HelpCenterService();
         helpCenterService.remove(ID_POST)
             .then(result => {
-            return result.json();
-        }).then(res => {
-            this.list(event);
+            if (Math.floor(result.status / 100) === 2) {
+                result.json()
+                    .then(res => {
+                    this.list(event);
+                    document.getElementById('confirm-del-modal-close').click();
+                    document.getElementById('view-modal-close').click();
+                    this.messageView.update('Deletado com sucesso.');
+                });
+            }
+            else {
+                result.json()
+                    .then((res) => {
+                    this.list(event);
+                    this.messageView.update(res.erro);
+                });
+            }
         })
             .catch(error => {
             console.error(error);
