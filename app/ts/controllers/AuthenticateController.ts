@@ -44,7 +44,7 @@ export class AuthenticateController {
 
             console.log(this.email.value);
 
-            authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
+            authenticateService.authenticate(this.email.value.toString(), this.password.value.toString())
         }
 
         event.preventDefault();

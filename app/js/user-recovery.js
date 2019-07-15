@@ -1,7 +1,7 @@
 import { PasswordRecoveryController } from './controllers/PasswordRecoveryController';
 document.addEventListener("DOMContentLoaded", function (event) {
-    if (localStorage.getItem('tkn')) {
-        window.location.href = "home.html";
+    if (!localStorage.getItem('tkn')) {
+        window.location.href = "index.html";
     }
 });
 let changePassword = document.getElementById("recoverycodeT");
