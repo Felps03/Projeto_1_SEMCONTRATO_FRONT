@@ -7,7 +7,7 @@ export class HomeController {
         this.user = new UserMenuView("#user-menu-login-link");
         this.user.update('');
     }
-    getUserData() {
+    getUser() {
         let data;
         if (!localStorage.getItem('tkn')) {
             return false;

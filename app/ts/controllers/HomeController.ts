@@ -14,7 +14,7 @@ export class HomeController {
     }
 
 
-    getUserData() {
+    getUser() {
         let data;
 
         if (!localStorage.getItem('tkn')) {

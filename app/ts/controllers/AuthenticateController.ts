@@ -89,6 +89,7 @@ export class AuthenticateController {
             if (res.status == 200) {
                 localStorage.removeItem("tkn");
                 localStorage.removeItem("email");
+                localStorage.removeItem("isAdmin");
                 localStorage.removeItem("id");
                 window.location.href = 'index.html';
             }

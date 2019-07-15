@@ -10,27 +10,21 @@ export class UserMenuView extends View {
                 </div>
                 <div class="dropdown-menu dropdown-menu-right align-user">
                     <div class="dropdown-item">    
-                        <span id="userNameSpan"></span>
+                        Usuário: <span id="userNameSpan"></span>
                     </div>
                     <div class="dropdown-divider"></div>
 
                     <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
                         <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
-                    <div class="dropdown-divider"></div>
-
                     <a class="dropdown-item d-flex align-items-center" href="home.html">
                         <i class="material-icons mr-2">home</i>Home</a>
 
-                    <a class="dropdown-item d-flex align-items-center" href="app-daily-note.html">
-                        <i class="material-icons mr-2">event_note</i>Daily Note</a>
-                    <a class="dropdown-item d-flex align-items-center" href="app-help-center.html">
-                        <i class="material-icons mr-2">lightbulb_outline</i>Help Center</a>
                     <div class="dropdown-divider"></div>
 
                     <a class="dropdown-item d-flex align-items-center" href="index.html" id="logout">
                         <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
                 </div>
             </div>
-        ` : `<a href="index.html"><h5 class="txt-primary"><strong>Login</strong></h5></a>`;
+        ` : `<a href="index.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
     }
 }
