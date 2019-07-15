@@ -113,7 +113,8 @@
                         <h3><strong>Recuperar Senha</strong></h3>
                     </div>
 
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <button id="recoveryModal-close" type="button" class="close" data-dismiss="modal"
+                        aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -121,7 +122,7 @@
                     <form class="formReset" method="POST" action="#" id="recovery-pass-form" autocomplete="off">
                         <div class="form-group">
                             <label for="email_rec">E-mail:</label>
-                            <input type="text" name="email_rec" class="form-control form-control-sm input-circle"
+                            <input type="text" name="email" class="form-control form-control-sm input-circle"
                                 id="email_rec" placeholder="Informe seu e-mail" value="" autofocus>
                             <div id="emailvalidator_rec"></div>
                         </div>
