@@ -55,4 +55,9 @@ export class DailyNoteController {
         });
     }
     ;
+    registered(event) {
+        event.preventDefault();
+        let service = new DailyNoteService();
+        return service.registeredDaily(localStorage.getItem('id'));
+    }
 }

@@ -65,7 +65,7 @@ export class DailyNoteController {
                 this.yesterday.value,
                 this.today.value,
                 this.impediment.value,
-                new Date());
+                new Date())
         }
     }
 
@@ -102,7 +102,11 @@ export class DailyNoteController {
             });
     };
 
+    registered(event: Event){
+        event.preventDefault();
 
+        let service = new DailyNoteService();
 
-
+        return service.registeredDaily(localStorage.getItem('id'))
+    }
 }

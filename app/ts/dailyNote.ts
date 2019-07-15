@@ -11,43 +11,65 @@ const dateValue = dateField.value || url_date;
 
 const controller = new DailyNoteController();
 
-let registered = document.querySelector("#newResult")
-
 let cadastrar = document.querySelector("#daily-form");
 if (cadastrar) {
     cadastrar.addEventListener('submit', registeredDaily);
 }
 
-
 let listDate = document.querySelector("#filter");
 if (listDate) {
     if (dailyesResult) {
-
         listDate.addEventListener('click', listDateDaily);
     }
 }
 
-
 window.addEventListener("load", () => {
     if ((url.get('date')) && (url.get('page'))) {
         // console.log('oi do load')
-
         listDateDaily(event)
     }
 
+    let year = `${new Date().getFullYear()}`;
+    let month = `${new Date().getMonth()+1}`;
+    let day = `${new Date().getDate()}`;
+
+    if (month.length < 2 ) month = "0" + month;
+    if (day.length < 2 ) day = "0" + day;
+
+    let today = `${year}-${month}-${day}`
+
+    dateField.value = today
+    listDateDaily(event)        
 })
 
 function registeredDaily(event: Event){
     controller.add(event)
         .then(res => {
             if (res.status == 200) {
-                registered.textContent = "Daily cadastrada com sucesso"
-                registered.className = "alert alert-info"
+                listDateDaily(event); 
+                document.getElementById('dailyModal').click();
+                document.getElementById('add_daily').setAttribute("disabled", "disabled");
+                document.getElementById('status_daily').innerHTML = `
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Daily cadastrada com sucesso!</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                `;  
                 return
             }
             else if (res.status == 400) {
-                registered.textContent = "Daily já cadastrada"
-                registered.className = "alert alert-danger"   
+                document.getElementById('dailyModal').click();
+                document.getElementById('add_daily').setAttribute("disabled", "disabled");
+                document.getElementById('status_daily').innerHTML = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Você já cadastrou sua daily!</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                `; 
                 return
             }
         })

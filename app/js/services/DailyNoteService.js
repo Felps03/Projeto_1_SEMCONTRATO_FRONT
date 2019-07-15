@@ -67,4 +67,14 @@ export class DailyNoteService {
             }
         });
     }
+    registeredDaily(id) {
+        return fetch(`${HOST}/dailys/user/${id}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`
+            }
+        });
+    }
 }

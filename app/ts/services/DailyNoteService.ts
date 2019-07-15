@@ -1,5 +1,6 @@
 import { DailyNote } from '../models/index';
 import { HOST } from '../config/index';
+import { today } from '../validation/dailyNoteValidate';
 
 export class DailyNoteService {
     add(yesterday: string, today: string, impediment: string, date: Date) {
@@ -17,7 +18,6 @@ export class DailyNoteService {
                 "date": new Date().toISOString().slice(0, 10),
                 "email": localStorage.getItem('email')
             })
-
         })
     }
 
@@ -85,7 +85,27 @@ export class DailyNoteService {
                 "Authorization": `Bearer ${localStorage.getItem('tkn')}`
             }
         })
+    }
 
+    registeredDaily(id: string) {
+    
+        // let year = `${new Date().getFullYear()}`;
+        // let month = `${new Date().getMonth()+1}`;
+        // let day = `${new Date().getDate()}`;
+
+        // if (month.length < 2 ) month = "0" + month;
+        // if (day.length < 2 ) day = "0" + day;
+
+        // let today = `${year}-${month}-${day}`
+
+        return fetch(`${HOST}/dailys/user/${id}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`
+            }
+        })
     }
 
 }
