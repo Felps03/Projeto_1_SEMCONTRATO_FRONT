@@ -8,7 +8,8 @@ export class DailyNoteService {
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
-                "Authorization": `Bearer ${localStorage.getItem('tkn')}`
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
             },
             body: JSON.stringify({
                 "yesterday": yesterday,
@@ -40,7 +41,8 @@ export class DailyNoteService {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
             },
             body: JSON.stringify({
                 "id_user": localStorage.getItem('id'),
@@ -63,7 +65,8 @@ export class DailyNoteService {
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
-                "Authorization": `Bearer ${localStorage.getItem('tkn')}`
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
             }
         })
     }
@@ -78,7 +81,8 @@ export class DailyNoteService {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
             }
         })
     }
@@ -89,7 +93,8 @@ export class DailyNoteService {
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
-                "Authorization": `Bearer ${localStorage.getItem('tkn')}`
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
             }
         })
 
