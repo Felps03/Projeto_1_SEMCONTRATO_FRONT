@@ -200,7 +200,7 @@ export class HelpCenterController {
                 //      console.table(res);
             })
             .catch(error => {
-                console.error(error)
+                console.log(error)
             });
     }
 
