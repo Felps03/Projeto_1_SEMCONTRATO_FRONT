@@ -67,7 +67,7 @@ export function password(pw) {
     return null;
 }
 export function editPassword(pw) {
-    if (pw.value) {
+    if (pw.value || pw.el.getAttribute('disabled') == null) {
         return password(pw);
     }
     return null;
@@ -82,7 +82,7 @@ export function passwordConfirm(pw, confirm) {
     return null;
 }
 export function editPasswordConfirm(pw, confirm) {
-    if (pw.value || confirm.value) {
+    if (pw.value && confirm.value || (pw.el.getAttribute('disabled') == null && confirm.getAttribute('disabled') == null)) {
         return passwordConfirm(pw, confirm);
     }
     return null;

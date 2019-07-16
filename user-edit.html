@@ -20,7 +20,9 @@
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container">
             <div class="navbar-header ml-n3">
-                <a href="home.html"><img src="app/img/logo_compasso.png"></a>
+                <a href="home.html">
+                    <img src="app/img/logo_compasso.png">
+                </a>
             </div>
 
             <div class="dropdown mr-n4 txt-user" style="float:right;">
@@ -49,7 +51,9 @@
                     <div class="dropdown-divider"></div>
 
                     <a class="dropdown-item d-flex align-items-center" href="index.html" id="logout">
-                        <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
+                        <i class="material-icons mr-2">power_settings_new</i>
+                        <strong>Sair</strong>
+                    </a>
                 </div>
             </div>
         </div>
@@ -57,8 +61,7 @@
 
     <div class="container page-position col-12 col-sm-7" id="register">
         <section class="section-register custom-bx">
-            <form class="pt-1 pl-4 pr-4 pb-4" method="post" id="user-edit" autocomplete="off"
-                enctype="multipart/form-data">
+            <form class="pt-1 pl-4 pr-4 pb-4" method="post" id="user-edit" autocomplete="off" enctype="multipart/form-data">
                 <div class="vt-line mt-4 mb-4">
                     <h3>
                         <strong>Dados do Usuário</strong>
@@ -85,8 +88,7 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="lastName">Sobrenome:</label>
-                            <input type="text" name="lastName" class="form-control form-control-sm input-circle"
-                                id="lastName">
+                            <input type="text" name="lastName" class="form-control form-control-sm input-circle" id="lastName">
                             <div id="lastnamevalidator"></div>
                         </div>
                     </div>
@@ -94,15 +96,13 @@
 
                 <div class="form-group">
                     <label for="dateOfBirth">Data de nascimento:</label>
-                    <input type="date" name="dateOfBirth" class="form-control form-control-sm input-circle"
-                        id="dateOfBirth">
+                    <input type="date" name="dateOfBirth" class="form-control form-control-sm input-circle" id="dateOfBirth">
                     <div id="birthdatevalidator"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="email">E-mail:</label>
-                    <input type="text" name="email" class="form-control form-control-sm input-circle" id="email"
-                        disabled>
+                    <input type="text" name="email" class="form-control form-control-sm input-circle" id="email" disabled>
                     <div id="emailvalidator"></div>
                 </div>
 
@@ -129,12 +129,16 @@
                     <div id="usernamevalidator"></div>
                 </div>
 
-                <div class="row">
+                <div class="form-group">
+                    <label for="passwordChange">Trocar senha:</label>
+                    <input type="checkbox" name="passwordChange" id="passwordChange">
+                </div>
+
+                <div class="row display-none">
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="password">Nova senha:</label>
-                            <input type="password" name="password" class="form-control form-control-sm input-circle"
-                                id="password">
+                            <input disabled type="password" name="password" class="form-control form-control-sm input-circle" id="password">
                             <div id="passwordvalidator"></div>
                         </div>
                     </div>
@@ -142,8 +146,7 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="password">Confirmação:</label>
-                            <input type="password" name="pass_passwordConfirm"
-                                class="form-control form-control-sm input-circle" id="passwordConfirm">
+                            <input disabled type="password" name="pass_passwordConfirm" class="form-control form-control-sm input-circle" id="passwordConfirm">
                             <div id="passwordconfirmvalidator"></div>
                         </div>
                     </div>
@@ -151,19 +154,15 @@
                     <input type="hidden" id="id" />
                 </div>
 
-                <button type="submit" name="send"
-                    class="btn btn-outline-success btn-sm mt-3 pr-3 pl-3 float-right input-circle"
-                    id="edit-user">salvar</button>
-                <button type="button" name="reset"
-                    class="btn btn-outline-danger btn-sm mt-3 pr-3 pl-3 mr-2 float-right input-circle"
-                    data-toggle="modal" data-target="#cancelModal">Cancelar</button>
+                <button type="submit" name="send" class="btn btn-outline-success btn-sm mt-3 pr-3 pl-3 float-right input-circle" id="edit-user">salvar</button>
+                <button type="button" name="reset" class="btn btn-outline-danger btn-sm mt-3 pr-3 pl-3 mr-2 float-right input-circle" data-toggle="modal"
+                    data-target="#cancelModal">Cancelar</button>
 
             </form>
         </section>
     </div>
 
-    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelTitle"
-        aria-hidden="true">
+    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -178,11 +177,9 @@
                 </div>
                 <div class="modal-body">Deseja cancelar o processo de cadastro?</div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger btn-sm pr-4 pl-4 input-circle"
-                        data-dismiss="modal">Não</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm pr-4 pl-4 input-circle" data-dismiss="modal">Não</button>
                     <a href="home.html">
-                        <button type="button" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle"
-                            id="cancelEdit">Sim</button>
+                        <button type="button" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle" id="cancelEdit">Sim</button>
                     </a>
                 </div>
             </div>
@@ -198,6 +195,7 @@
     <script src="app/js/services/UserService.js"></script>
     <script src="app/js/controllers/UserController.js"></script>
     <script src="app/js/app.js"></script>
+    <script src="app/js/logout.js"></script>
     <script src="app/js/user-edit.js"></script>
 </body>
 

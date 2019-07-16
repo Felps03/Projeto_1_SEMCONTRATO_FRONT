@@ -18,15 +18,15 @@ export class UserController {
             validate(this.lastName, vals.lastName),
             validate(this.userName, vals.username),
             validate(this.email, vals.email),
-            validate(this.password, vals.password),
+            validate(this.password, vals.editPassword),
             validate(this.dateOfBirth, vals.dateOfBirth),
-            validate(this.passwordConfirm, vals.passwordConfirm, this.password)
+            validate(this.passwordConfirm, vals.editPasswordConfirm, this.password)
         ];
     }
     add(event) {
         event.preventDefault();
         if (noFalse(this.addVals)) {
-            const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.password.value.toString(), this.dateOfBirth.value.toString());
+            const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.dateOfBirth.value.toString(), this.password.value.toString());
             const userService = new UserService();
             userService.add(user)
                 .then(result => {
@@ -70,7 +70,7 @@ export class UserController {
         let id = document.querySelector('#id');
         if (noFalse(this.addVals)) {
             let dataOfBirth = this.dateOfBirth.value.replace(/-/g, ',');
-            const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), this.password.value.toString(), dataOfBirth);
+            const user = new User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), dataOfBirth, this.password.value.toString());
             const userService = new UserService();
             userService.update(user, id.value)
                 .then(result => {
@@ -78,6 +78,26 @@ export class UserController {
             }).then(res => {
                 window.location.href = "home.html";
             });
+        }
+    }
+    disablePasswordInput(event) {
+        event.preventDefault();
+        let checkbox = document.querySelector('#passwordChange');
+        let password = document.querySelector('#password');
+        let passwordConfirm = document.querySelector('#passwordConfirm');
+        if (checkbox.checked) {
+            password.removeAttribute('disabled');
+            passwordConfirm.removeAttribute('disabled');
+        }
+        else {
+            password.value = '';
+            passwordConfirm.value = '';
+            password.classList.remove('is-valid');
+            password.classList.remove('is-invalid');
+            passwordConfirm.classList.remove('is-valid');
+            passwordConfirm.classList.remove('is-invalid');
+            password.setAttribute('disabled', 'true');
+            passwordConfirm.setAttribute('disabled', 'true');
         }
     }
 }

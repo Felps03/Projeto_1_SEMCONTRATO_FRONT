@@ -2,9 +2,11 @@ import { User } from '../models/User';
 import { UserService } from "../services/UserService";
 import { AuthenticateService } from '../services/index';
 
-import { validate } from '../helpers/index'
+import { validate } from '../helpers/index';
+
 import * as vals from '../validation/userValidate';
-import { noFalse } from '../utils/listCheck'
+import { noFalse } from '../utils/listCheck';
+import { InputWrapper } from '../utils/index';
 
 export class UserController {
 
@@ -31,23 +33,19 @@ export class UserController {
         this.passwordConfirm = <HTMLInputElement>document.querySelector('#passwordConfirm');
         this.id = <HTMLInputElement>document.querySelector('#id');
 
-        // init validations
-
-
         this.addVals = [
             validate(this.name, vals.name),
             validate(this.lastName, vals.lastName),
             validate(this.userName, vals.username),
             validate(this.email, vals.email),
             // validate(this.photo, vals.photo),
-            validate(this.password, vals.password),
+            validate(this.password, vals.editPassword),
             validate(this.dateOfBirth, vals.dateOfBirth),
-            validate(this.passwordConfirm, vals.passwordConfirm, this.password)
+            validate(this.passwordConfirm, vals.editPasswordConfirm, this.password)
         ];
     }
 
     add(event: Event) {
-
         event.preventDefault();
 
         if (noFalse(this.addVals)) {
@@ -58,11 +56,12 @@ export class UserController {
                 this.userName.value.toString(),
                 this.email.value.toString(),
                 // this.photo.value.toString(),
-                this.password.value.toString(),
                 this.dateOfBirth.value.toString(),
+                this.password.value.toString(),
             );
 
             const userService = new UserService();
+
             userService.add(user)
                 .then(result => {
                     const token = result.headers.get("Token");
@@ -74,7 +73,6 @@ export class UserController {
                 .then(res => {
                     localStorage.setItem('email', res.email)
                     localStorage.setItem('id', res._id)
-                    // console.log(result[0]['email']);
                     window.location.href = "home.html";
                 })
         }
@@ -123,8 +121,8 @@ export class UserController {
                 this.lastName.value.toString(),
                 this.userName.value.toString(),
                 this.email.value.toString(),
-                this.password.value.toString(),
-                dataOfBirth
+                dataOfBirth,
+                this.password.value.toString()
             );
 
             const userService = new UserService();
@@ -138,6 +136,30 @@ export class UserController {
         }
     }
 
+    //TODO colocar isso no lugar certo
+    disablePasswordInput(event: Event) {
+        event.preventDefault();
+
+        let checkbox = <HTMLInputElement>document.querySelector('#passwordChange');
+        let password = <HTMLInputElement>document.querySelector('#password');
+        let passwordConfirm = <HTMLInputElement>document.querySelector('#passwordConfirm');
+
+        if (checkbox.checked) {
+            password.removeAttribute('disabled');
+            passwordConfirm.removeAttribute('disabled');
+        } else {
+            password.value = '';
+            passwordConfirm.value = '';
+
+            password.classList.remove('is-valid');
+            password.classList.remove('is-invalid');
+            passwordConfirm.classList.remove('is-valid');
+            passwordConfirm.classList.remove('is-invalid');
+
+            password.setAttribute('disabled', 'true');
+            passwordConfirm.setAttribute('disabled', 'true');
+        }
+    }
 
     /*list() {
         event.preventDefault();
