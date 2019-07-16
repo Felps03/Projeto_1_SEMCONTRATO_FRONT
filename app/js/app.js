@@ -8,7 +8,7 @@ if (add != null) {
 let nameSpan = document.querySelector('#nameSpan');
 let userNameSpan = document.querySelector('#userNameSpan');
 let homeController = new HomeController();
-const data = homeController.getUserData();
+const data = homeController.getUser();
 if (data) {
     data.then(data => {
         if (nameSpan != null) {
