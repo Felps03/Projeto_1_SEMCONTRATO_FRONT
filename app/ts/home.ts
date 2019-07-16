@@ -5,8 +5,8 @@ import { DailyNoteController } from "./controllers/DailyNoteController";
 import { getUser } from "./utils/userData";
 import { AuthenticateController } from "./controllers/AuthenticateController";
 
-let homeController = new HomeController();
 let userData = getUser();
+let homeController = new HomeController();
 
 window.addEventListener('load', homeController.listLastHelp.bind(homeController));
 window.addEventListener('load', homeController.listDailyDate.bind(homeController)); 
