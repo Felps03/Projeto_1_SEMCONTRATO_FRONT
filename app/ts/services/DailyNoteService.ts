@@ -50,7 +50,7 @@ export class DailyNoteService {
      * @param date para buscar a daily da data informada
      */
     listDate(data: string, page: number) {
-        console.log(`${HOST}dailys/daily/${data}/1`);
+        //console.log(`${HOST}dailys/daily/${data}/1`);
         return fetch(`${HOST}dailys/daily/${data}/1`, {
             method: 'GET',
             headers: {
@@ -97,8 +97,8 @@ export class DailyNoteService {
         // if (day.length < 2 ) day = "0" + day;
 
         // let today = `${year}-${month}-${day}`
-
-        return fetch(`${HOST}/dailys/user/${id}`, {
+        // console.log(`${HOST}/dailys/user/${id}`)
+        return fetch(`${HOST}dailys/user/${id}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, */*',

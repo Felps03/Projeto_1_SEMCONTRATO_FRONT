@@ -39,12 +39,25 @@ window.addEventListener("load", () => {
     let today = `${year}-${month}-${day}`
 
     dateField.value = today
-    listDateDaily(event)        
+    listDateDaily(event)
+    dailyButton(event)
 })
+
+function dailyButton(event: Event){
+    controller.registered(event)
+        .then(res => {
+            if (res.status == 400) {
+                document.getElementById('dailyModal').click();
+                document.getElementById('add_daily').setAttribute("disabled", "disabled");
+                return
+            }
+        })
+}
 
 function registeredDaily(event: Event){
     controller.add(event)
         .then(res => {
+            console.log(res)
             if (res.status == 200) {
                 listDateDaily(event); 
                 document.getElementById('dailyModal').click();

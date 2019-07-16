@@ -37,7 +37,6 @@ export class DailyNoteService {
     }
     ;
     listDate(data, page) {
-        console.log(`${HOST}dailys/daily/${data}/1`);
         return fetch(`${HOST}dailys/daily/${data}/1`, {
             method: 'GET',
             headers: {
@@ -68,7 +67,7 @@ export class DailyNoteService {
         });
     }
     registeredDaily(id) {
-        return fetch(`${HOST}/dailys/user/${id}`, {
+        return fetch(`${HOST}dailys/user/${id}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
