@@ -5,8 +5,11 @@ import { AuthenticateService } from '../services/index';
 import { validate } from '../helpers/index'
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck'
+import { MessageView } from '../views/MessageView';
 
 export class UserController {
+
+    private messageView: MessageView
 
     private name: HTMLInputElement;
     private lastName: HTMLInputElement;
@@ -31,8 +34,9 @@ export class UserController {
         this.passwordConfirm = <HTMLInputElement>document.querySelector('#passwordConfirm');
         this.id = <HTMLInputElement>document.querySelector('#id');
 
-        // init validations
+        this.messageView = new MessageView('#message-view')
 
+        // init validations
 
         this.addVals = [
             validate(this.name, vals.name),
@@ -63,19 +67,32 @@ export class UserController {
             );
 
             const userService = new UserService();
-            userService.add(user)
-                .then(result => {
-                    const token = result.headers.get("Token");
-                    if (token != null) {
-                        localStorage.setItem('tkn', token);
-                    };
-                    return result.json()
-                })
-                .then(res => {
+            new Promise((resolve, reject) => {
+                userService.add(user)
+                    .then(result => {
+                        if (result.status === 200) {
+                            const token = result.headers.get("Token");
+                            if (token != null) {
+                                localStorage.setItem('tkn', token);
+                            };
+                            resolve(result.json())
+                        } else {
+                            reject(result)
+                        }
+                    })
+            })
+                .then((res: any) => {
                     localStorage.setItem('email', res.email)
                     localStorage.setItem('id', res._id)
                     // console.log(result[0]['email']);
                     window.location.href = "home.html";
+                })
+
+                .catch((res: any) => res.json())
+                .then((res: any) => {
+                    console.log(res)
+                    if (res.erro)
+                        this.messageView.update(res.erro)
                 })
         }
     }

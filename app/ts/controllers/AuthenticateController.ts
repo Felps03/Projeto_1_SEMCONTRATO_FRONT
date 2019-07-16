@@ -1,11 +1,14 @@
 import { Authenticate } from "../models/index";
-import { AuthenticateService } from "../services/AuthenticateService";
+import { AuthenticateService, UserService } from "../services/index";
+import { MessageView } from '../views/MessageView'
+
 import { validate } from '../helpers/index'
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck'
-import { UserService } from "../services/UserService";
 
 export class AuthenticateController {
+
+    private messageView: MessageView
 
     private email: HTMLInputElement;
     private password: HTMLInputElement;
@@ -16,6 +19,10 @@ export class AuthenticateController {
     private passRecVals: (() => boolean)[];
 
     constructor() {
+        try {
+            this.messageView = new MessageView('#message-view')
+        } catch { }
+
         this.email = <HTMLInputElement>document.getElementById('email');
         this.password = <HTMLInputElement>document.getElementById('password');
 
@@ -44,7 +51,12 @@ export class AuthenticateController {
 
             console.log(this.email.value);
 
-            authenticateService.authenticate(this.email.value.toString(), this.password.value.toString())
+            authenticateService.authenticate(this.email.value, this.password.value)
+                .catch(res => res.json())
+                .then((res: any) => {
+                    if (res.erro)
+                        this.messageView.update(res.erro)
+                });
         }
 
         event.preventDefault();
@@ -58,11 +70,25 @@ export class AuthenticateController {
             const userService = new UserService();
             const authenticateService = new AuthenticateService();
 
-            authenticateService.resetPassword(this.email.value.toString())
-                .then(res => res.json())
+            authenticateService.resetPassword(this.emailRec.value.toString())
                 .then(res => {
-                    console.log(res);
-                    window.location.href = 'index.html';
+                    console.log('status', res.status)
+                    // 200, 201, 202, 203...
+                    if (Math.floor(res.status / 100) === 2) {
+                        res.json()
+                            .then(() => {
+                                document.getElementById('recoveryModal-close').click();
+                                this.messageView.update('Foi enviado um email para você, siga as instruções contidas nele para continuar.<br>Por favor verificar a seção de <i>spam</i>.');
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            })
+                    } else {
+                        res.json()
+                            .then((erres) => {
+                                this.messageView.update(erres.erro);
+                            })
+                    }
                 });
         }
     }

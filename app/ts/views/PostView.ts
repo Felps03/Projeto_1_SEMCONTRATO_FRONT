@@ -25,7 +25,7 @@ export class PostView extends View<Post> {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Pergunta</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button id="view-modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
