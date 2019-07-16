@@ -72,6 +72,9 @@ export class AuthenticateService {
                 "emailCode": emailCode,
                 "email": email
             })
+       }).catch(err => {
+           console.log(err);
+           return err;
         })
         // Comentado porque não achei onde chama
         // .then(res => {

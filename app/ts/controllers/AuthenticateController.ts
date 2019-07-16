@@ -63,7 +63,7 @@ export class AuthenticateController {
                 .then(res => {
                     console.log(res);
                     window.location.href = 'index.html';
-                });
+                }).catch(erro => console.log(erro));
         }
     }
 

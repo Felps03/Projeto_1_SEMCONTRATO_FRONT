@@ -49,6 +49,9 @@ export class AuthenticateService {
                 "emailCode": emailCode,
                 "email": email
             })
+        }).catch(err => {
+            console.log(err);
+            return err;
         });
     }
     logout() {
