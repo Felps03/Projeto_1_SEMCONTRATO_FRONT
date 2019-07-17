@@ -51,7 +51,7 @@
 
                             <input type="date" name="filter" class="form-control form-control-sm ext-placeholder input-circle" id="date_filter">
                             <div id="filtervalidator"></div>
-
+                            
                             <button type="button" name="new_daily" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle mt-add-daily" id="filter">Buscar
                             </button>
 
@@ -60,11 +60,13 @@
                     </div>
 
                     <div class="col-12 col-sm-8">
-                        <button type="button" name="new_daily" class="btn btn-outline-success btn-sm pr-4 pl-4 float-right input-circle mt-add-daily" data-toggle="modal" data-target="#dailyModal">Adicionar Daily
+                        <button type="button" name="new_daily" class="btn btn-outline-success btn-sm pr-4 pl-4 float-right input-circle mt-add-daily" data-toggle="modal" data-target="#dailyModal" id="add_daily">Adicionar Daily
                         </button>
                     </div>
                 </div>
 
+               <div id="status_daily"></div>
+               
                 <table class="table table-hover mt-4">
                     <!-- cabeçalho -->
                     <thead class="bg-light">
@@ -78,16 +80,16 @@
                         </tr>
                     </thead>
                     <tbody id="dayliesResult">
-
+                        
                     </tbody>
                 </table>
                 <div id="pages">
                 </div>
             </div>
         </section>
-
+        
     </div>
-
+    
     <!-- New Daily modal -->
     <div class="modal fade" id="dailyModal" tabindex="-1" role="dialog" aria-labelledby="dailyTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -100,10 +102,11 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <div id="newResult"> </div>
                 <div class="modal-body">
-
+                    
                     <form class="form" method="post" id="daily-form" autocomplete="off">
-
+                        
                         <div class="form-group">
                             <label for="first"><strong>1. </strong>O que eu fiz ontem?</label>
                             <textarea name="first" class="form-control form-control-sm input-circle" id="yesterday" placeholder="Informe sua resposta aqui" autofocus></textarea>

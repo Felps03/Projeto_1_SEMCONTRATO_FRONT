@@ -1,7 +1,7 @@
 import { HOST } from '../config/index';
 export class DailyNoteService {
     add(yesterday, today, impediment, date) {
-        fetch(`${HOST}dailys/daily`, {
+        return fetch(`${HOST}dailys/daily`, {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -16,12 +16,6 @@ export class DailyNoteService {
                 "date": new Date().toISOString().slice(0, 10),
                 "email": localStorage.getItem('email')
             })
-        })
-            .then(res => res.json())
-            .then(res => {
-            if (res.status == 200) {
-                console.log("funcionou");
-            }
         });
     }
     update(daily, ID) {
@@ -45,7 +39,6 @@ export class DailyNoteService {
     }
     ;
     listDate(data, page) {
-        console.log(`${HOST}dailys/daily/${data}/1`);
         return fetch(`${HOST}dailys/daily/${data}/1`, {
             method: 'GET',
             headers: {
@@ -75,6 +68,16 @@ export class DailyNoteService {
                 'Content-Type': 'application/json',
                 "Authorization": `Bearer ${localStorage.getItem('tkn')}`,
                 'id_user': localStorage.getItem('id')
+            }
+        });
+    }
+    registeredDaily(id) {
+        return fetch(`${HOST}dailys/user/${id}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`
             }
         });
     }

@@ -1,9 +1,10 @@
 import { DailyNote } from '../models/index';
 import { HOST } from '../config/index';
+import { today } from '../validation/dailyNoteValidate';
 
 export class DailyNoteService {
     add(yesterday: string, today: string, impediment: string, date: Date) {
-        fetch(`${HOST}dailys/daily`, {
+        return fetch(`${HOST}dailys/daily`, {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -18,15 +19,7 @@ export class DailyNoteService {
                 "date": new Date().toISOString().slice(0, 10),
                 "email": localStorage.getItem('email')
             })
-
         })
-            .then(res => res.json())
-            .then(res => {
-                if (res.status == 200) {
-                    console.log("funcionou");
-                }
-            })
-        //.then(res => console.log(res));
     }
 
     /**
@@ -59,7 +52,7 @@ export class DailyNoteService {
      * @param date para buscar a daily da data informada
      */
     listDate(data: string, page: number) {
-        console.log(`${HOST}dailys/daily/${data}/1`);
+        //console.log(`${HOST}dailys/daily/${data}/1`);
         return fetch(`${HOST}dailys/daily/${data}/1`, {
             method: 'GET',
             headers: {
@@ -97,7 +90,27 @@ export class DailyNoteService {
                 'id_user': localStorage.getItem('id')
             }
         })
+    }
 
+    registeredDaily(id: string) {
+    
+        // let year = `${new Date().getFullYear()}`;
+        // let month = `${new Date().getMonth()+1}`;
+        // let day = `${new Date().getDate()}`;
+
+        // if (month.length < 2 ) month = "0" + month;
+        // if (day.length < 2 ) day = "0" + day;
+
+        // let today = `${year}-${month}-${day}`
+        // console.log(`${HOST}/dailys/user/${id}`)
+        return fetch(`${HOST}dailys/user/${id}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`
+            }
+        })
     }
 
 }
