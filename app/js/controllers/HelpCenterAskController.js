@@ -2,6 +2,9 @@ import { HelpCenterAskService } from '../services/index';
 import { PostAsk } from '../models/PostAsk';
 import { PostAsksView } from "../views/PostAsksView";
 import { PostAsks } from '../models/index';
+import { validate } from '../helpers/index';
+import * as vals from '../validation/helpCenterAskValidate';
+import { noFalse } from '../utils/index';
 export class HelpCenterAskController {
     constructor() {
         this.postAsksView = new PostAsksView('#post-ask-list');
@@ -11,7 +14,11 @@ export class HelpCenterAskController {
             addForm.addEventListener('submit', this.add.bind(this));
         this.postAsksView.childrenDidMount((postAsk) => {
             const editForm = document.getElementById(`comment-edit-form-${postAsk.Id}`);
+            const editField = document.getElementById(`comment-edit-${postAsk.Id}`);
             const deleteBtn = document.getElementById(`comment-del-${postAsk.Id}`);
+            this.editVals.set(postAsk.Id, [
+                validate(editField, vals.comment)
+            ]);
             if (editForm) {
                 editForm.addEventListener('submit', this.update.bind(this, postAsk.Id));
             }
@@ -19,54 +26,62 @@ export class HelpCenterAskController {
                 deleteBtn.addEventListener('click', this.delete.bind(this, postAsk.Id));
             }
         });
+        this.addVals = [
+            validate(this.addComment, vals.comment)
+        ];
+        this.editVals = new Map();
     }
     add(event) {
         event.preventDefault();
-        const postIdField = document.getElementById('post-meta');
-        if (!(postIdField)) {
-            return;
+        if (noFalse(this.addVals)) {
+            const postIdField = document.getElementById('post-meta');
+            if (!(postIdField)) {
+                return;
+            }
+            const ID_POST = postIdField.getAttribute('data-id');
+            if (!ID_POST) {
+                return;
+            }
+            const postAsk = new PostAsk(ID_POST, this.addComment.value, localStorage.getItem('id') || '');
+            const helpCenterService = new HelpCenterAskService();
+            helpCenterService.add(postAsk)
+                .then(result => {
+                return result.json();
+            }).then(res => {
+                this.listByPost(event);
+            })
+                .catch(error => {
+                console.error(error);
+            });
         }
-        const ID_POST = postIdField.getAttribute('data-id');
-        if (!ID_POST) {
-            return;
-        }
-        const postAsk = new PostAsk(ID_POST, this.addComment.value, localStorage.getItem('id') || '');
-        const helpCenterService = new HelpCenterAskService();
-        helpCenterService.add(postAsk)
-            .then(result => {
-            return result.json();
-        }).then(res => {
-            this.listByPost(event);
-        })
-            .catch(error => {
-            console.error(error);
-        });
     }
     update(id, event) {
         event.preventDefault();
-        const postIdField = document.getElementById('post-meta');
-        const textareaEl = document.querySelector(`#comment-edit-form-${id} textarea`);
-        if (!textareaEl) {
-            return;
+        if (noFalse(this.editVals.get(id))) {
+            const postIdField = document.getElementById('post-meta');
+            const textareaEl = document.querySelector(`#comment-edit-form-${id} textarea`);
+            if (!textareaEl) {
+                return;
+            }
+            if (!(postIdField)) {
+                return;
+            }
+            const ID_POST = postIdField.getAttribute('data-id');
+            if (!ID_POST) {
+                return;
+            }
+            const postAsk = new PostAsk(ID_POST, textareaEl.value, localStorage.getItem('id') || '', id);
+            const helpCenterService = new HelpCenterAskService();
+            helpCenterService.update(postAsk, id)
+                .then(result => {
+                return result.json();
+            }).then(res => {
+                this.listByPost(event);
+            })
+                .catch(error => {
+                console.error(error);
+            });
         }
-        if (!(postIdField)) {
-            return;
-        }
-        const ID_POST = postIdField.getAttribute('data-id');
-        if (!ID_POST) {
-            return;
-        }
-        const postAsk = new PostAsk(ID_POST, textareaEl.value, localStorage.getItem('id') || '', id);
-        const helpCenterService = new HelpCenterAskService();
-        helpCenterService.update(postAsk, id)
-            .then(result => {
-            return result.json();
-        }).then(res => {
-            this.listByPost(event);
-        })
-            .catch(error => {
-            console.error(error);
-        });
     }
     list(event) {
         event.preventDefault();
@@ -95,6 +110,7 @@ export class HelpCenterAskController {
             .then(result => {
             return result.json();
         }).then(res => {
+            console.log('CHE', res);
             this.postAsksView.update(PostAsks.from(res.filter((ask) => ask['id_helpCenter'] === ID_POST)));
         })
             .catch(error => {

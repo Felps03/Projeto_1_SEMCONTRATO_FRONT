@@ -7,16 +7,18 @@ import { PostsView } from '../views/PostsView';
 import { PostView } from '../views/PostView';
 import { HelpCenterAskController } from './HelpCenterAskController';
 import { MessageView } from '../views/MessageView';
+import { PaginationView } from '../views/PaginationView';
 export class HelpCenterController {
-    constructor() {
-        this.searchTitle = document.getElementById('search-title');
-        this.searchDesc = document.getElementById('search-desc');
+    constructor(currentPage = 1) {
+        this.searchTitle = document.getElementById('search-joker');
         this.addTitle = document.getElementById('add-title');
         this.addDesc = document.getElementById('add-desc');
         this.postsView = new PostsView('#post-list');
         this.postView = new PostView('#view-view-modal');
+        this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
         this.messageView = new MessageView('#message-view');
-        this.currentPage = 1;
+        this.currentPage = currentPage;
+        this.paginationView.update(currentPage);
         this.addVals = [
             validate(this.addTitle, vals.title),
             validate(this.addDesc, vals.desc),
@@ -41,6 +43,10 @@ export class HelpCenterController {
             }
             this.helpCenterAsk.listByPost(new Event(''));
         });
+    }
+    set CurrentPage(page) {
+        this.currentPage = page;
+        this.paginationView.update(this.currentPage);
     }
     add(event) {
         event.preventDefault();
@@ -162,31 +168,7 @@ export class HelpCenterController {
         event.preventDefault();
         let title = this.searchTitle.value;
         const helpCenterService = new HelpCenterService();
-        helpCenterService.findByTitle(title)
-            .then(result => {
-            return result.json();
-        }).then(res => {
-            const posts = Posts.from(res.slice(0, -1));
-            this.postsView.update(posts);
-            Array.from(document.getElementsByClassName('post-expand'))
-                .forEach(el => {
-                const i = el.getAttribute('data-i');
-                if (i) {
-                    el.addEventListener('click', () => {
-                        this.postView.update(posts.get(+i));
-                    });
-                }
-            });
-        })
-            .catch(error => {
-            console.error(error);
-        });
-    }
-    findByDesc(event) {
-        event.preventDefault();
-        let desc = this.searchDesc.value;
-        const helpCenterService = new HelpCenterService();
-        helpCenterService.findByDesc(desc)
+        helpCenterService.findByJoker(title)
             .then(result => {
             return result.json();
         }).then(res => {

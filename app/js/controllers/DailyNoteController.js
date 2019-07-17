@@ -32,7 +32,7 @@ export class DailyNoteController {
         if (noFalse(this.addVals)) {
             let dailyNote = new DailyNote(this.yesterday.value.toString(), this.today.value.toString(), this.impediment.value.toString(), new Date());
             let dailyNoteService = new DailyNoteService();
-            let dailyNoteAux = dailyNoteService.add(this.yesterday.value, this.today.value, this.impediment.value, new Date());
+            return dailyNoteService.add(this.yesterday.value, this.today.value, this.impediment.value, new Date());
         }
     }
     listD(event) {
@@ -58,4 +58,9 @@ export class DailyNoteController {
         });
     }
     ;
+    registered(event) {
+        event.preventDefault();
+        let service = new DailyNoteService();
+        return service.registeredDaily(localStorage.getItem('id'));
+    }
 }

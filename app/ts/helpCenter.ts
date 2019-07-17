@@ -7,19 +7,25 @@ let userData = getUser();
 const controller = new HelpCenterController();
 const homeController = new HomeController();
 
+// check for pagination
+const url = new URLSearchParams(location.search);
+if (url.get('page')) {
+    controller.CurrentPage = +url.get('page');
+}
+
 let cadastrar = document.querySelector("#cadastroHelpCenter");
 if (cadastrar) {
     cadastrar.addEventListener('click', controller.add.bind(controller));
     window.addEventListener('load', controller.list.bind(controller));
 }
 
-const searchTitle = document.getElementById('search-title')
-const searchDesc = document.getElementById('search-desc')
+const searchTitle = document.getElementById('search-joker')
+// const searchDesc = document.getElementById('search-desc')
 
 if (searchTitle)
     searchTitle.addEventListener('change', controller.findByTitle.bind(controller))
-if (searchDesc)
-    searchDesc.addEventListener('change', controller.findByDesc.bind(controller))
+// if (searchDesc)
+//     searchDesc.addEventListener('change', controller.findByDesc.bind(controller))
 
 // User Menu
 

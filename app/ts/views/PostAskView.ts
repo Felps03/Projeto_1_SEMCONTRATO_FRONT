@@ -18,31 +18,33 @@ export class PostAskView extends View<PostAsk> {
 
         this.lastModel = model
 
+        const canEdit = model.Author === localStorage.getItem('id') || localStorage.getItem('isAdmin') === 'true'
+
         return `
             <div class="card mb-2">
                 <div class="card-body inline-block">
                     <h5>${model.AuthorName}</h5>
                     <form action="" class="comment-edit" id="comment-edit-form-${model.Id}">
 
-                    ${ this.editing ? `
+                    ${ model.Author ? canEdit && this.editing ? `
                     <div class="form-group">
                         <textarea name="first" class="form-control form-control-sm input-circle"
-                            id="comment" placeholder="Sugira soluções ou contribua à discussão"
+                            id="comment-edit-${model.Id}" placeholder="Sugira soluções ou contribua à discussão"
                             autofocus>${model.Desc}</textarea>
                         <div id="comment-editvalidator"></div>
                     </div>
-                    ` : `<p>${model.Desc}</p>`}
+                    ` : `<p>${model.Desc}</p>` : ''}
 
-                    ${ this.editing ? `
+                    ${ model.Author ? canEdit && this.editing ? `
                     <button type="submit"
                         class="btn btn-warning d-flex align-items-center">Enviar <i
                             class="material-icons ml-2">send</i></button>
-                    ` : ''}
+                    ` : '' : ''}
 
                     </form>
                 </div>
                 
-                <div class="d-inline-flex d-row justify-content-end align-items-center float-right ${ model.Author ? model.Author === localStorage.getItem('id') ? '' : 'invisible' : 'invisible'}">
+                <div class="d-inline-flex d-row justify-content-end align-items-center float-right ${ model.Author ? canEdit ? '' : 'invisible' : 'invisible'}">
                     <button type="button" id="comment-del-${model.Id}" class="btn btn-outline-danger btn-sm pt-2 ml-1">
                         <i class="small material-icons">delete</i>
                     </button>

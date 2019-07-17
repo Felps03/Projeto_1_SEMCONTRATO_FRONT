@@ -9,6 +9,7 @@ import { PostsView } from '../views/PostsView';
 import { PostView } from '../views/PostView';
 import { HelpCenterAskController } from './HelpCenterAskController';
 import { MessageView } from '../views/MessageView';
+import { PaginationView } from '../views/PaginationView';
 
 export class HelpCenterController {
 
@@ -17,7 +18,7 @@ export class HelpCenterController {
     private helpCenterAsk: HelpCenterAskController
 
     private searchTitle: HTMLInputElement
-    private searchDesc: HTMLInputElement
+    // private searchDesc: HTMLInputElement
 
     private addTitle: HTMLInputElement
     private addDesc: HTMLInputElement
@@ -27,25 +28,29 @@ export class HelpCenterController {
 
     private postsView: PostsView
     private postView: PostView
+    private paginationView: PaginationView
 
     private addVals: (() => boolean)[]
     private editVals: (() => boolean)[]
 
     private currentPage: number
 
-    constructor() {
-        this.searchTitle = <HTMLInputElement>document.getElementById('search-title')
-        this.searchDesc = <HTMLInputElement>document.getElementById('search-desc')
+    constructor(currentPage: number = 1) {
+        this.searchTitle = <HTMLInputElement>document.getElementById('search-joker')
+        // this.searchDesc = <HTMLInputElement>document.getElementById('search-desc')
 
         this.addTitle = <HTMLInputElement>document.getElementById('add-title')
         this.addDesc = <HTMLInputElement>document.getElementById('add-desc')
 
         this.postsView = new PostsView('#post-list')
         this.postView = new PostView('#view-view-modal')
+        this.paginationView = new PaginationView('#pagination', 'app-help-center.html')
 
         this.messageView = new MessageView('#message-view')
 
-        this.currentPage = 1
+        this.currentPage = currentPage
+
+        this.paginationView.update(currentPage)
 
         // init validations
 
@@ -85,6 +90,10 @@ export class HelpCenterController {
         })
     }
 
+    set CurrentPage(page: number) {
+        this.currentPage = page
+        this.paginationView.update(this.currentPage)
+    }
 
     add(event: Event) {
         event.preventDefault();
@@ -244,7 +253,7 @@ export class HelpCenterController {
         event.preventDefault();
         let title = this.searchTitle.value;
         const helpCenterService = new HelpCenterService();
-        helpCenterService.findByTitle(title)
+        helpCenterService.findByJoker(title)
             .then(result => {
                 return result.json()
             }).then(res => {
@@ -270,34 +279,34 @@ export class HelpCenterController {
             });
     }
 
-    findByDesc(event: Event) {
-        event.preventDefault();
-        let desc = this.searchDesc.value;
-        const helpCenterService = new HelpCenterService();
-        helpCenterService.findByDesc(desc)
-            .then(result => {
-                return result.json()
-            }).then(res => {
-                const posts = Posts.from(res.slice(0, -1))
-                this.postsView.update(posts)
-                //   console.log(posts)
-                Array.from(document.getElementsByClassName('post-expand'))
-                    .forEach(el => {
-                        const i = el.getAttribute('data-i')
-                        if (i) {
-                            el.addEventListener('click', () => {
+    // findByDesc(event: Event) {
+    //     event.preventDefault();
+    //     let desc = this.searchDesc.value;
+    //     const helpCenterService = new HelpCenterService();
+    //     helpCenterService.findByDesc(desc)
+    //         .then(result => {
+    //             return result.json()
+    //         }).then(res => {
+    //             const posts = Posts.from(res.slice(0, -1))
+    //             this.postsView.update(posts)
+    //             //   console.log(posts)
+    //             Array.from(document.getElementsByClassName('post-expand'))
+    //                 .forEach(el => {
+    //                     const i = el.getAttribute('data-i')
+    //                     if (i) {
+    //                         el.addEventListener('click', () => {
 
-                                this.postView.update(
-                                    posts.get(+i)
-                                )
+    //                             this.postView.update(
+    //                                 posts.get(+i)
+    //                             )
 
-                            })
-                        }
-                    })
-            })
-            .catch(error => {
-                console.error(error)
-            });
-    }
+    //                         })
+    //                     }
+    //                 })
+    //         })
+    //         .catch(error => {
+    //             console.error(error)
+    //         });
+    // }
 
 }
