@@ -44,6 +44,7 @@ export class AuthenticateController {
             const authenticateService = new AuthenticateService();
             authenticateService.resetPassword(this.emailRec.value.toString())
                 .then(res => {
+<<<<<<< HEAD
                 console.log('status', res.status);
                 if (Math.floor(res.status / 100) === 2) {
                     res.json()
@@ -62,6 +63,11 @@ export class AuthenticateController {
                     });
                 }
             });
+=======
+                console.log(res);
+                window.location.href = 'index.html';
+            }).catch(erro => console.log(erro));
+>>>>>>> pass_rec_val
         }
     }
     logout(event) {

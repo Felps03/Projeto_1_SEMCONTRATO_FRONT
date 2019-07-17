@@ -35,6 +35,8 @@ export class PasswordRecoveryController {
     changePassword(event: Event) {
         event.preventDefault();
 
+        let mesage = document.querySelector("#link-expired");
+
         if (noFalse(this.changePasswordVals)) {
 
             let url_string = window.location.href;
@@ -45,8 +47,20 @@ export class PasswordRecoveryController {
 
             console.log('pimba');
 
-            authenticateService.verifyCode(URL_KEY, this.email.value, this.password.value);
+            authenticateService.verifyCode(URL_KEY, this.email.value, this.password.value)
+                .then(res => res.json())
+                .then(res => {
+                
+                    let erro = res;
+                
+                    mesage.textContent = erro.erro;
 
+                    if (erro.erro) document.getElementById("link-expired").style.display = "block";
+                  
+                }).catch(err => {
+                    console.log(err) ;
+                    mesage.textContent = JSON.stringify(err);
+                });
         }
 
     }

@@ -45,18 +45,20 @@
                         </div>
                         <hr class="register-line">
 
+                        <div class="alert alert-danger" id="link-expired" style="display: none;" role="alert"></div>
+
                         <div class="form-group">
                             <label for="email">Email:</label>
                             <input type="text" name="email" class="form-control form-control-sm input-circle"
                                 id="email_rec" placeholder="Informe seu email" autofocus
-                                value= "">
+                                value= "felipe@gmail.com">
                             <div id="emailvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="password_rec">Nova Senha:</label>
                             <input type="password" name="senha" class="form-control form-control-sm input-circle"
-                                id="password_rec" placeholder="Informe uma nova senha" autofocus value="">
+                                id="password_rec" placeholder="Informe uma nova senha" autofocus value="123123" pattern=".{6,8}">
                             <div id="passwordvalidator_rec"></div>
                         </div>
 
@@ -64,15 +66,18 @@
                             <label for="password_rec_conf">Confirmação:</label>
                             <input type="password" name="password_rec_conf"
                                 class="form-control form-control-sm input-circle" id="password_rec_conf"
-                                placeholder="Informe a senha novamente" maxlength="8" value="">
+                                placeholder="Informe a senha novamente" value="123123" pattern=".{6,8}">
                             <div id="passwordvalidator_rec_conf"></div>
                         </div>
 
                         <button type="submit" name="send"
                             class="btn btn-outline-warning btn-sm float-right mb-3 mt-3 pr-4 pl-4 input-circle"
                             id="recoverycodeT">Alterar Senha
-                        </button>
+                        </button>                 
+                      
                     </form>
+
+
                 </div>
             </div>
         </div>
