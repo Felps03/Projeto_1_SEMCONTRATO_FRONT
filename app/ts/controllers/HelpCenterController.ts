@@ -8,6 +8,7 @@ import { noFalse } from '../utils/listCheck'
 import { PostsView } from '../views/PostsView';
 import { PostView } from '../views/PostView';
 import { HelpCenterAskController } from './HelpCenterAskController';
+import { PaginationView } from '../views/PaginationView';
 
 export class HelpCenterController {
 
@@ -24,13 +25,14 @@ export class HelpCenterController {
 
     private postsView: PostsView
     private postView: PostView
+    private paginationView: PaginationView
 
     private addVals: (() => boolean)[]
     private editVals: (() => boolean)[]
 
     private currentPage: number
 
-    constructor() {
+    constructor(currentPage: number = 1) {
         this.searchTitle = <HTMLInputElement>document.getElementById('search-title')
         this.searchDesc = <HTMLInputElement>document.getElementById('search-desc')
 
@@ -39,8 +41,11 @@ export class HelpCenterController {
 
         this.postsView = new PostsView('#post-list')
         this.postView = new PostView('#view-view-modal')
+        this.paginationView = new PaginationView('#pagination', 'app-help-center.html')
 
-        this.currentPage = 1
+        this.currentPage = currentPage
+
+        this.paginationView.update(currentPage)
 
         // init validations
 
@@ -80,6 +85,10 @@ export class HelpCenterController {
         })
     }
 
+    set CurrentPage(page: number) {
+        this.currentPage = page
+        this.paginationView.update(this.currentPage)
+    }
 
     add(event: Event) {
         event.preventDefault();

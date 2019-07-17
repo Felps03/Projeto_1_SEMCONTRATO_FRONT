@@ -2,6 +2,10 @@ import { HelpCenterController } from "./controllers/HelpCenterController";
 import { HomeController } from "./controllers/HomeController";
 const controller = new HelpCenterController();
 const homeController = new HomeController();
+const url = new URLSearchParams(location.search);
+if (url.get('page')) {
+    controller.CurrentPage = +url.get('page');
+}
 let cadastrar = document.querySelector("#cadastroHelpCenter");
 if (cadastrar) {
     cadastrar.addEventListener('click', controller.add.bind(controller));
