@@ -67,6 +67,12 @@ export class AuthenticateController {
     logout(event) {
         event.preventDefault();
         const authenticateService = new AuthenticateService();
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        authenticateService.logout();
+=======
+>>>>>>> fix_user_menu
         authenticateService.logout().then(res => {
             if (res.status == 400) {
                 alert("Houve um erro ao Deslogar");
@@ -82,5 +88,9 @@ export class AuthenticateController {
             console.log("error: ", error);
             return error;
         });
+<<<<<<< HEAD
+=======
+>>>>>>> 722076c46efd1a6ece820e49d2e423c0ea4df0af
+>>>>>>> fix_user_menu
     }
 }

@@ -2,7 +2,9 @@ const url = new URLSearchParams(location.search);
 const url_owner = url.get('owner');
 const url_daily = url.get('id');
 import { EditDailyController } from "./controllers/EditDailyController";
+import { getUser } from "./utils/userData";
 const idResult = document.querySelector('#editResult');
+let userData = getUser();
 if ((localStorage.getItem('isAdmin') == 'true') || (localStorage.getItem('id') === url_owner)) {
     let update = document.getElementById('editdaily-form');
     if (update) {

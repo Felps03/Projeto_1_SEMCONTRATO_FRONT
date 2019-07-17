@@ -3,6 +3,7 @@ const url_owner = url.get('owner');
 const url_daily = url.get('id');
 
 import { EditDailyController } from "./controllers/EditDailyController";
+import { getUser } from "./utils/userData";
 // import { DailyNote } from "./models/index";
 
 // const update = document.querySelector('#update_daily');
@@ -12,7 +13,7 @@ import { EditDailyController } from "./controllers/EditDailyController";
 // const today = document.querySelector('#edit-today')
 // const impediment = document.querySelector('#edit-impediment')
 const idResult = document.querySelector('#editResult')
-
+let userData = getUser();
 // let newYesterday: string;
 // let newToday: string;
 // let newImpediment: string;

@@ -21,7 +21,7 @@ export class UserMenuView extends View {
 
                     <div class="dropdown-divider"></div>
 
-                    <a class="dropdown-item d-flex align-items-center" href="index.html" id="logout">
+                    <a class="dropdown-item d-flex align-items-center" id="logout">
                         <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
                 </div>
             </div>
