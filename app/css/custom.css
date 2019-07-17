@@ -196,3 +196,9 @@ body { background: #0e1e24; }
     margin-top: 7px;
     margin-right: -0.45rem;
 }
+
+.msg-status {
+    margin-left: 15px;
+    width: 100%;
+    margin-right: 15px;
+}

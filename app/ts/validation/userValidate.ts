@@ -76,12 +76,11 @@ export function password(pw: InputWrapper): string | null {
 }
 
 export function editPassword(pw: InputWrapper): string | null {
-    if (pw.value) {
-        // above
-        return password(pw)
+    if (pw.value || pw.el.getAttribute('disabled') == null) {
+        return password(pw);
     }
 
-    return null
+    return null;
 }
 
 export function passwordConfirm(pw: InputWrapper, confirm: HTMLInputElement): string | null {
@@ -95,9 +94,8 @@ export function passwordConfirm(pw: InputWrapper, confirm: HTMLInputElement): st
 }
 
 export function editPasswordConfirm(pw: InputWrapper, confirm: HTMLInputElement): string | null {
-    if (pw.value || confirm.value) {
-        // above
-        return passwordConfirm(pw, confirm)
+    if (pw.value && confirm.value || (pw.el.getAttribute('disabled') == null && confirm.getAttribute('disabled') == null)) {
+        return passwordConfirm(pw, confirm);
     }
 
     return null
