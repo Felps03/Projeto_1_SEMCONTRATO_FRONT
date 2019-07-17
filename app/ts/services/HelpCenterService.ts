@@ -69,8 +69,8 @@ export class HelpCenterService {
         })
     }
 
-    findByTitle(title: string) {
-        return fetch(`${HOST}helps/post/title/1`, {
+    findByJoker(joker: string) {
+        return fetch(`${HOST}helps/post/joker/1`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -78,22 +78,22 @@ export class HelpCenterService {
                 'Authorization': `Bearer ${localStorage.getItem('tkn')}`
             },
             body: JSON.stringify({
-                "title": title
+                "joker": joker
             })
         });
     }
 
-    findByDesc(desc: string) {
-        return fetch(`${HOST}helps/post/desc/1`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
-            },
-            body: JSON.stringify({
-                "desc": desc
-            })
-        });
-    }
+    // findByDesc(desc: string) {
+    //     return fetch(`${HOST}helps/post/desc/1`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+    //         },
+    //         body: JSON.stringify({
+    //             "desc": desc
+    //         })
+    //     });
+    // }
 }

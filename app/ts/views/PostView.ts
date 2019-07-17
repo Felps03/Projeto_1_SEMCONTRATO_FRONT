@@ -18,6 +18,8 @@ export class PostView extends View<Post> {
 
         this.lastModel = model
 
+        const canEdit = model.AuthorId === localStorage.getItem('id') || localStorage.getItem('isAdmin') === 'true'
+
         //console.log('>', model)
 
         return `
@@ -34,7 +36,7 @@ export class PostView extends View<Post> {
                     <div id="post-meta" data-id="${model.Id}"></div>
 
                     <form action="" id="edit-form">
-                        ${model.AuthorId ? model.AuthorId === localStorage.getItem('id') && this.editing ? `
+                        ${model.AuthorId ? canEdit && this.editing ? `
                         <div class="form-group">
                             <label for="edit-title">Título:</label>
                             <div class="input-group">
@@ -49,7 +51,7 @@ export class PostView extends View<Post> {
                             <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
                         </div>`: ''}
 
-                        ${model.AuthorId ? model.AuthorId === localStorage.getItem('id') && this.editing ? `
+                        ${model.AuthorId ? canEdit && this.editing ? `
                         <div class="form-group">
                             <label for="edit-desc">Descrição:</label>
                             <div class="input-group">
@@ -60,7 +62,7 @@ export class PostView extends View<Post> {
                         </div>` : `
                         <p>${model.Desc.replace('\n', '<br>')}</p>` : ''}
 
-                        ${model.AuthorId ? model.AuthorId === localStorage.getItem('id') && this.editing ? `
+                        ${model.AuthorId ? canEdit && this.editing ? `
                         <button type="submit"
                             class="btn btn-warning d-flex align-items-center">Enviar <i
                                 class="material-icons ml-2">send</i></button>
@@ -83,7 +85,7 @@ export class PostView extends View<Post> {
                             <div id="commentvalidator"></div>
                         </div>
 
-                        <div class="d-inline-flex d-row justify-content-start align-items-center ${ model.AuthorId ? model.AuthorId === localStorage.getItem('id') ? '' : 'invisible' : 'invisible'} ">
+                        <div class="d-inline-flex d-row justify-content-start align-items-center ${ model.AuthorId ? canEdit ? '' : 'invisible' : 'invisible'} ">
                             <button type="button" id="delete-btn" class="btn btn-outline-danger btn-sm pt-2 ml-1" data-toggle="modal" data-target="#confirm-del-modal">
                                 <i class="small material-icons">delete</i>
                             </button>
