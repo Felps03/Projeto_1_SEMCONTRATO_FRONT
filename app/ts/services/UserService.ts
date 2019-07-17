@@ -17,13 +17,11 @@ export class UserService {
                 "lastName": user.LastName,
                 "userName": user.UserName,
                 "email": user.Email,
-                "password": user.Password,
-                "dateOfBirth": user.DateOfBirth
+                "dateOfBirth": user.DateOfBirth,
+                "password": user.Password
             })
         })
     }
-
-
 
     /**
      * listar todos usuários
@@ -52,24 +50,40 @@ export class UserService {
     update(user: User, ID: string) {
         let dateOfBirth = user.DateOfBirth.replace(/,/g, '-');
 
-        // console.log(user.LastName)
-
-        return fetch(`${HOST}users/user/${ID}`, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
-            },
-            body: JSON.stringify({
-                "name": user.Name,
-                "lastName": user.LastName,
-                "userName": user.UserName,
-                "email": user.Email,
-                "password": user.Password,
-                "dateOfBirth": dateOfBirth
+        if (user.Password == '') {
+            return fetch(`${HOST}users/user/${ID}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                },
+                body: JSON.stringify({
+                    "name": user.Name,
+                    "lastName": user.LastName,
+                    "userName": user.UserName,
+                    "email": user.Email,
+                    "dateOfBirth": dateOfBirth
+                })
             })
-        })
+        } else {
+            return fetch(`${HOST}users/user/${ID}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                },
+                body: JSON.stringify({
+                    "name": user.Name,
+                    "lastName": user.LastName,
+                    "userName": user.UserName,
+                    "email": user.Email,
+                    "dateOfBirth": dateOfBirth,
+                    "password": user.Password
+                })
+            })
+        }
     };
 
     /**
@@ -137,5 +151,4 @@ export class UserService {
             },
         })
     }
-
 }

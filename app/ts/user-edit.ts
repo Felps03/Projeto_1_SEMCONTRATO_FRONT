@@ -7,5 +7,13 @@ if (update) {
     update.addEventListener('submit', userController.update.bind(userController))
 }
 
+let passwordChange = document.getElementById("passwordChange");
+if (passwordChange) {
+    const userController = new UserController();
+    passwordChange.addEventListener('change', userController.disablePasswordInput.bind(userController));
+}
+
 let userController = new UserController().getUserData();
+
+
 
