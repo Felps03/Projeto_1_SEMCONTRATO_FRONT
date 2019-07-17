@@ -21,39 +21,11 @@
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container">
             <div class="navbar-header ml-n3">
-                <a href="home.html"><img src="app/img/logo_compasso.png"></a>
+                <img src="app/img/logo_compasso.png">
             </div>
-
             <!-- User menu -->
-            <div class="dropdown mr-n4 txt-user" style="float:right;">
-                <div class="d-flex align-items-center btn" data-toggle="dropdown">
-                    <img src="app/img/user.png" class="rounded-circle" width="60px">
-                    <i class="material-icons">arrow_drop_down</i>
-                </div>
-                <div class="dropdown-menu dropdown-menu-right align-user">
-                    <div class="dropdown-item">
-                        <span id="nameSpan"></span>
-                        <span id="userNameSpan"></span>
-                    </div>
-                    <div class="dropdown-divider"></div>
+            <div id="user-menu-login-link"></div>
 
-                    <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
-                        <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
-                    <div class="dropdown-divider"></div>
-
-                    <a class="dropdown-item d-flex align-items-center" href="home.html">
-                        <i class="material-icons mr-2">home</i>Home</a>
-
-                    <a class="dropdown-item d-flex align-items-center" href="app-daily-note.html">
-                        <i class="material-icons mr-2">event_note</i>Daily Note</a>
-                    <a class="dropdown-item d-flex align-items-center" href="app-help-center.html">
-                        <i class="material-icons mr-2">lightbulb_outline</i>Help Center</a>
-                    <div class="dropdown-divider"></div>
-
-                    <a class="dropdown-item d-flex align-items-center" href="index.html" id="logout">
-                        <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
-                </div>
-            </div>
         </div>
     </nav>
 
@@ -98,7 +70,6 @@
         <!-- DailyNote e HelpCenter -->
         <div class="row mt-5 mb-5 justify-content-between">
 
-            
             <!-- DailyNote -->
             <div class="col-12 col-sm-7 section-lastdaily">
                 <div class="col-12">
@@ -165,8 +136,8 @@
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app/lib/particlejs/particle.min.js"></script>
     <script src="app/lib/particlejs/particle-config.js"></script>
-    <script src="app/js/logout.js"></script>
     <script src="app/js/home.js"></script>
+    <script src="app/js/logout.js"></script>
 </body>
 
 </html>

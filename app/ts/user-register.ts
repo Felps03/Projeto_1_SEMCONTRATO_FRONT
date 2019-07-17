@@ -1,4 +1,8 @@
 import { UserController } from "./controllers/UserController";
+import { getUser } from "./utils/userData";
+import { HomeController } from "./controllers/HomeController";
+
+let userData = getUser();
 
 document.addEventListener("DOMContentLoaded", function (event) {      
     if(localStorage.getItem('tkn')){

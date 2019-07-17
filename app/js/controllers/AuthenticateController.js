@@ -44,6 +44,24 @@ export class AuthenticateController {
     logout(event) {
         event.preventDefault();
         const authenticateService = new AuthenticateService();
+<<<<<<< HEAD
         authenticateService.logout();
+=======
+        authenticateService.logout().then(res => {
+            if (res.status == 400) {
+                alert("Houve um erro ao Deslogar");
+            }
+            if (res.status == 200) {
+                localStorage.removeItem("tkn");
+                localStorage.removeItem("email");
+                localStorage.removeItem("isAdmin");
+                localStorage.removeItem("id");
+                window.location.href = 'index.html';
+            }
+        }).catch(error => {
+            console.log("error: ", error);
+            return error;
+        });
+>>>>>>> 722076c46efd1a6ece820e49d2e423c0ea4df0af
     }
 }

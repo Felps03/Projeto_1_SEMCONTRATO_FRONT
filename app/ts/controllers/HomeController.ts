@@ -2,13 +2,19 @@ import { UserService } from "../services/UserService";
 import { HelpCenterService } from "../services/HelpCenterService";
 import { DailyNoteService } from "../services/DailyNoteService";
 import { DailyNote } from "../models/index";
+import { UserMenuView } from "../views/UserMenuView";
 
 export class HomeController {
 
-    constructor() { }
+    private user : UserMenuView; 
+
+    constructor() { 
+        this.user = new UserMenuView("#user-menu-login-link");
+        this.user.update('');
+    }
 
 
-    getUserData() {
+    getUser() {
         let data;
 
         if (!localStorage.getItem('tkn')) {

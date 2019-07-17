@@ -1,6 +1,8 @@
 import { DailyNoteController } from "./controllers/DailyNoteController";
 import { DailyNote } from "./models/index";
+import { getUser } from "./utils/userData";
 
+let userData = getUser();
 let dailyesResult = document.querySelector("#dayliesResult")
 let totalPagesDiv = document.querySelector("#pages")
 let id_daily: string;
@@ -11,12 +13,10 @@ const dateValue = dateField.value || url_date;
 
 const controller = new DailyNoteController();
 
-
 let cadastrar = document.querySelector("#daily-form");
 if (cadastrar) {
     cadastrar.addEventListener('submit', controller.add.bind(controller));
 }
-
 
 let listDate = document.querySelector("#filter");
 if (listDate) {
@@ -25,7 +25,6 @@ if (listDate) {
         listDate.addEventListener('click', listDateDaily);
     }
 }
-
 
 window.addEventListener("load", () => {
     if ((url.get('date')) && (url.get('page'))) {
@@ -36,12 +35,9 @@ window.addEventListener("load", () => {
 
 })
 
-
-
 function listDateDaily(event: Event) {
-    dailyesResult.innerHTML = ''; // <------------
+    dailyesResult.innerHTML = '';
     const result = controller.listD(event);
-
 
     if (result) {
         result

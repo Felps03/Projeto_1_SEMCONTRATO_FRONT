@@ -4,6 +4,7 @@ import { validate } from '../helpers/index'
 import * as vals from '../validation/dailyNoteValidate';
 import { noFalse } from '../utils/listCheck';
 import { DailyNotesView } from '../views/DailyNotesView';
+import { UserMenuView } from '../views/UserMenuView';
 
 export class DailyNoteController {
 
@@ -19,6 +20,7 @@ export class DailyNoteController {
 
     private addVals: (() => boolean)[];
     private editVals: (() => boolean)[];
+    private user : UserMenuView; 
 
 
     constructor() {
@@ -44,6 +46,8 @@ export class DailyNoteController {
             validate(this.editImpediment, vals.impediment)
         ];
 
+        this.user = new UserMenuView("#user-menu-login-link");
+        this.user.update('');
     }
 
     add(event: Event) {

@@ -1,5 +1,4 @@
 /* Colors */
-
 .bg-primary { background-color: #f8fdff } 
 
 .bg-second { background-color: #283772 } 
@@ -95,6 +94,12 @@
     border-left: 8px solid #f1be1d;
     text-indent: 8px;
     color: #283772;
+}
+
+.vt-apps-line {
+    padding-top: 2px;
+    border-left: 1px solid #283772;
+    text-indent: 8px;
 }
 
 /* Menu */

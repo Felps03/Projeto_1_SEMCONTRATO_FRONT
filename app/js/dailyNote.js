@@ -1,5 +1,7 @@
 import { DailyNoteController } from "./controllers/DailyNoteController";
 import { DailyNote } from "./models/index";
+import { getUser } from "./utils/userData";
+let userData = getUser();
 let dailyesResult = document.querySelector("#dayliesResult");
 let totalPagesDiv = document.querySelector("#pages");
 let id_daily;
