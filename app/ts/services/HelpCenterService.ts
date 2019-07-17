@@ -10,7 +10,8 @@ export class HelpCenterService {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
             },
             body: JSON.stringify({
                 "title": post.Title,
@@ -26,7 +27,8 @@ export class HelpCenterService {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
             },
             body: JSON.stringify({
                 "id_user": localStorage.getItem('id'),
@@ -42,7 +44,8 @@ export class HelpCenterService {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
             }
         })
     }
@@ -53,7 +56,8 @@ export class HelpCenterService {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
             }
         })
     }
@@ -64,7 +68,8 @@ export class HelpCenterService {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
             }
         })
     }
@@ -75,7 +80,8 @@ export class HelpCenterService {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
             },
             body: JSON.stringify({
                 "joker": joker
