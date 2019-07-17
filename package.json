@@ -24,6 +24,8 @@
         "popper.js": "^1.15.0"
     },
     "devDependencies": {
+        "@babel/core": "^7.5.4",
+        "@babel/preset-typescript": "^7.3.3",
         "@fortawesome/fontawesome-free": "^5.8.1",
         "@types/jquery": "^2.0.53",
         "concurrently": "^3.4.0",
