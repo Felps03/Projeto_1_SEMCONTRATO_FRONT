@@ -123,7 +123,7 @@ export class HelpCenterController {
             this.list(event);
         })
             .catch(error => {
-            console.error(error);
+            console.log(error);
         });
     }
     findByTitle(event) {
