@@ -7,15 +7,18 @@ import { PostsView } from '../views/PostsView';
 import { PostView } from '../views/PostView';
 import { HelpCenterAskController } from './HelpCenterAskController';
 import { MessageView } from '../views/MessageView';
+import { PaginationView } from '../views/PaginationView';
 export class HelpCenterController {
-    constructor() {
+    constructor(currentPage = 1) {
         this.searchTitle = document.getElementById('search-joker');
         this.addTitle = document.getElementById('add-title');
         this.addDesc = document.getElementById('add-desc');
         this.postsView = new PostsView('#post-list');
         this.postView = new PostView('#view-view-modal');
+        this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
         this.messageView = new MessageView('#message-view');
-        this.currentPage = 1;
+        this.currentPage = currentPage;
+        this.paginationView.update(currentPage);
         this.addVals = [
             validate(this.addTitle, vals.title),
             validate(this.addDesc, vals.desc),
@@ -40,6 +43,10 @@ export class HelpCenterController {
             }
             this.helpCenterAsk.listByPost(new Event(''));
         });
+    }
+    set CurrentPage(page) {
+        this.currentPage = page;
+        this.paginationView.update(this.currentPage);
     }
     add(event) {
         event.preventDefault();
