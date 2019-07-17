@@ -127,16 +127,38 @@ export class UserController {
 
             const userService = new UserService();
 
+            let msg = document.getElementById('retrieve-msg')
+
             userService.update(user, id.value)
                 .then(result => {
+                    if (result.status == 201) {
+
+                        document.querySelector('#nameSpan').textContent = this.name.value;
+                        document.querySelector('#userNameSpan').textContent = `(${this.userName.value})`;
+
+                        msg.innerHTML = `
+                        <div class="alert alert-success alert-dismissible fade show msg-status" role="alert">
+                            <strong>Dados atualizados com sucesso!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    `;
+                    } else if (result.status >= 300) {
+                        msg.innerHTML = `
+                            <div class="alert alert-danger alert-dismissible fade show msg-status" role="alert">
+                                <strong>Erro ao atualizar os dados.</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        `;
+                    }
                     return result.json();
-                }).then(res => {
-                    window.location.href = "home.html";
                 })
         }
     }
 
-    //TODO colocar isso no lugar certo
     disablePasswordInput(event: Event) {
         event.preventDefault();
 
@@ -160,26 +182,4 @@ export class UserController {
             passwordConfirm.setAttribute('disabled', 'true');
         }
     }
-
-    /*list() {
-        event.preventDefault();
-
-        const userService = new UserService();
-        let usuarios = userService.lista();
-
-        console.log(user);
-        console.log(usuarios);
-
-    }
-
-    remove() {
-
-    }
-
-    findById() {
-
-    }
-
-    */
-
 }
