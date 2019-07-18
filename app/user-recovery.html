@@ -84,22 +84,18 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="app/lib/particlejs/particle.min.js"></script>
-    <script src="app/lib/particlejs/particle-config.js"></script>
-    <script src="./app/js/controllers/UserController.js"></script>
-    <script src="./app/js/services/UserService.js"></script>
-    <script src="./app/js/services/AuthenticateService.js"></script>
-    <script src="./app/js/user-recovery.js"></script>
-    <script src="app/js/logout.js"></script>
+    <script src="./lib/jquery/jquery.min.js"></script>
+    <script src="./lib/bootstrap/bootstrap.min.js"></script>
+    <script src="./lib/particlejs/particle.min.js"></script>
+    <script src="./lib/particlejs/particle-config.js"></script>
+
+    <script src="lib/system.js"></script>
     <script>
-        //TODO in TS
-        if (localStorage.getItem('email')) {
-            var emailHeader = localStorage.getItem('email');
-            document.getElementById("email_rec").value = emailHeader;
-        }
+        System.defaultJSExtensions = true;
+        System.import('js/user-recovery.js').catch(err => console.error(err));
+        System.import('js/logout.js').catch(err => console.error(err));
     </script>
+
 </body>
 
 </html>
