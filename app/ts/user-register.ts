@@ -1,3 +1,10 @@
+
+$(document).ready(function () {
+    if (localStorage.getItem('tkn')) {
+        window.location.href = "home.html";
+    }
+});
+/*
 import { UserController } from "./controllers/UserController";
 import { getUser } from "./utils/userData";
 import { HomeController } from "./controllers/HomeController";
@@ -15,3 +22,5 @@ if (cadastrar) {
     const userController = new UserController();
     cadastrar.addEventListener('submit', userController.add.bind(userController));
 }
+
+*/
