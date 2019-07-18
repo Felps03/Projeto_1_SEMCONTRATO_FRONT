@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="/logo_compasso.e93d2675.ico">
+    <link rel="stylesheet" href="/bootstrap.min.67ad0677.css">
+    <link href="/icons.7d67b9eb.css" rel="stylesheet">
+    <link href="/fonts.d2372f57.css" rel="stylesheet">
+    <link href="/particle.4e859140.css" rel="stylesheet">
+    <link rel="stylesheet" href="/custom.56eb9bdc.css">
+    <title>Página Principal</title>
+</head>
+
+<body>
+    <!-- particles.js -->
+    <div id="particles-js"></div>
+
+    <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
+        <div class="container">
+            <div class="navbar-header ml-n3">
+                <img src="/logo_compasso.a47afe81.png">
+            </div>
+            <!-- User menu -->
+            <div id="user-menu-login-link"></div>
+
+        </div>
+    </nav>
+
+    <div class="container page-position">
+        <div class="row mt-5 d-flex justify-content-center">
+
+            <!-- Daily Note -->
+            <div class="card card-size">
+                <img class="card-img-top" src="/daily-card.1a9370a0.jpeg" alt="Card image cap">
+
+                <div class="card-body">
+                    <div class="vt-line mb-3">
+                        <h5 class="card-title"><strong>Daily Note</strong></h5>
+                    </div>
+                    <p class="card-text text-justify">Registre e modifique as informações da sua Daily, e também,
+                        visualize as reuniões diárias do seu time.</p>
+                    <a href="/app-daily-note.html">
+                        <button name="daily" class="btn btn-outline-success btn-sm pr-3 pl-3 float-right input-circle">Acessar</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Help Center -->
+            <div class="card card-size ml-4">
+                <img class="card-img-top" src="/help-card.7d30c764.jpg" alt="Card image cap">
+
+                <div class="card-body">
+                    <div class="vt-line mb-3">
+                        <h5 class="card-title"><strong>Help Center</strong></h5>
+                    </div>
+                    <p class="card-text text-justify">Envie perguntas sobre os erros durante o uso de ferramentas e
+                        receba soluções através de respostas de outros usuários.</p>
+                    <a href="/app-help-center.html">
+                        <button name="daily" class="btn btn-outline-success btn-sm pr-3 pl-3 float-right input-circle">Acessar</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- DailyNote e HelpCenter -->
+        <div class="row mt-5 mb-5 justify-content-between">
+
+            <!-- DailyNote -->
+            <div class="col-12 col-sm-7 section-lastdaily">
+                <div class="col-12">
+                    <div class="vt-line mt-4 mb-4">
+                        <h3><strong>Última Daily</strong></h3>
+                    </div>
+                    
+                    <hr class="lastdaily-line">
+
+                    <table class="table table-hover mt-4">
+                        <thead class="bg-light">
+                            <tr>
+                                <th scope="col">Autor</th>
+                                <th scope="col">Ontem</th>
+                                <th scope="col">Hoje</th>
+                                <th scope="col">Impedimentos</th>
+                            </tr>
+                        </thead>
+                        <tbody id="all-dailys"></tbody>
+                    </table> 
+                </div>
+            </div>
+
+
+            <!-- HelpCenter -->
+            <div class="col-12 col-sm-4 section-help">
+                <div class="col-12">
+                    <div class="vt-line mt-4 mb-4">
+                        <h3><strong>Perguntas Recentes</strong></h3>
+                    </div>
+
+                    <hr class="help-line">
+
+                    <div id="last-helps"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- View resp modal -->
+    <div class="modal fade" id="respModal" tabindex="-1" role="dialog" aria-labelledby="respTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title vt-line mt-2" id="respTitle">
+                        <h3><strong>Respostas</strong></h3>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- respostas -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/jquery.min.1fe4ab91.js"></script>
+    <script src="/bootstrap.min.115db8b0.js"></script>
+    <script src="/particle.min.3de5a8b0.js"></script>
+    <script src="/particle-config.7e3b670a.js"></script>
+    <script src="/home.e6bf4faa.js"></script>
+    <script src="/logout.c3cc6401.js"></script>
+</body>
+
+</html>

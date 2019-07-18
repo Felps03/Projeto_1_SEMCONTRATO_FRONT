@@ -28,7 +28,7 @@ export class DailyNoteService {
      */
 
     update(daily: DailyNote, ID: string) {
-        console.log(ID)
+        // console.log(ID)
         return fetch(`${HOST}dailys/daily/${ID}`, {
             method: 'PUT',
             headers: {
@@ -93,7 +93,7 @@ export class DailyNoteService {
     }
 
     registeredDaily(id: string) {
-    
+
         // let year = `${new Date().getFullYear()}`;
         // let month = `${new Date().getMonth()+1}`;
         // let day = `${new Date().getDate()}`;

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="/logo_compasso.e93d2675.ico">
+    <link rel="stylesheet" href="/bootstrap.min.67ad0677.css">
+    <link href="/icons.7d67b9eb.css" rel="stylesheet">
+    <link href="/fonts.d2372f57.css" rel="stylesheet">
+    <link href="/particle.4e859140.css" rel="stylesheet">
+    <link rel="stylesheet" href="/custom.56eb9bdc.css">
+    <title>Recuperação de Senha</title>
+</head>
+
+<body>
+    <!-- particles.js -->
+    <div id="particles-js"></div>
+
+    <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
+        <div class="container">
+            <div class="row navbar-header align-baseline ml-n3">
+                <img src="/logo_compasso.a47afe81.png">
+                <div class="vt-apps-line ml-2"></div>
+                <a href="/app-daily-note.html" class="menu-item mt-3 ml-4"><h5><strong>Daily Note</strong></h5></a>
+                <a href="/app-help-center.html" class="menu-item mt-3 ml-4"><h5><strong>Help Center</strong></h5></a>
+            </div>
+
+            <!-- User menu -->
+            <div id="user-menu-login-link"></div>
+            
+        </div>
+    </nav>
+
+    <div class="container page-position">
+        <div class="row centered">
+            <div class="col-11 col-md-5 section-recovery">
+                <div class="ml-2 mr-2" id="error"></div>
+                <div class="col-12">
+                    <form class="form" method="post" id="recovery-code-form" autocomplete="off">
+
+                        <div class="vt-line mt-4 mb-4">
+                            <h3><strong>Recuperar Senha</strong></h3>
+                        </div>
+                        <hr class="register-line">
+
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="text" name="email" class="form-control form-control-sm input-circle" id="email_rec" placeholder="Informe seu email" autofocus="" value="">
+                            <div id="emailvalidator"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password_rec">Nova Senha:</label>
+                            <input type="password" name="senha" class="form-control form-control-sm input-circle" id="password_rec" placeholder="Informe uma nova senha" autofocus="" value="">
+                            <div id="passwordvalidator_rec"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password_rec_conf">Confirmação:</label>
+                            <input type="password" name="password_rec_conf" class="form-control form-control-sm input-circle" id="password_rec_conf" placeholder="Informe a senha novamente" maxlength="8" value="">
+                            <div id="passwordvalidator_rec_conf"></div>
+                        </div>
+
+                        <button type="submit" name="send" class="btn btn-outline-warning btn-sm float-right mb-3 mt-3 pr-4 pl-4 input-circle" id="recoverycodeT">Alterar Senha
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="/jquery.min.1fe4ab91.js"></script>
+    <script src="/bootstrap.min.115db8b0.js"></script>
+    <script src="/particle.min.3de5a8b0.js"></script>
+    <script src="/particle-config.7e3b670a.js"></script>
+    <script src="/UserController.f8b072fb.js"></script>
+    <script src="/UserService.91748535.js"></script>
+    <script src="/AuthenticateService.11c474e0.js"></script>
+    <script src="/user-recovery.d20ea554.js"></script>
+    <script src="/logout.c3cc6401.js"></script>
+    <script>
+        //TODO in TS
+        if (localStorage.getItem('email')) {
+            var emailHeader = localStorage.getItem('email');
+            document.getElementById("email_rec").value = emailHeader;
+        }
+    </script>
+</body>
+
+</html>

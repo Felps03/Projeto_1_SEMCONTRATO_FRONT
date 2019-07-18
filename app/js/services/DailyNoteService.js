@@ -29,7 +29,6 @@ System.register(["../config/index"], function (exports_1, context_1) {
                     });
                 }
                 update(daily, ID) {
-                    console.log(ID);
                     return fetch(`${index_1.HOST}dailys/daily/${ID}`, {
                         method: 'PUT',
                         headers: {
