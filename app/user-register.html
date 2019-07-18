@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="app/img/logo_compasso.ico">
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link href="app/lib/materialize/icons/icons.css" rel="stylesheet">
-    <link href="app/lib/materialize/fonts/fonts.css" rel="stylesheet">
-    <link href="app/lib/particlejs/particle.css" rel="stylesheet">
-    <link rel="stylesheet" href="app/css/custom.css">
+    <link rel="icon" href="./img/logo_compasso.ico">
+    <link rel="stylesheet" href="./lib/bootstrap/bootstrap.min.css">
+    <link href="./lib/materialize/icons/icons.css" rel="stylesheet">
+    <link href="./lib/materialize/fonts/fonts.css" rel="stylesheet">
+    <link href="./lib/particlejs/particle.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/custom.css">
     <title>Área de Cadastro do Usuário</title>
 
     <!-- intentional -->
@@ -24,7 +24,7 @@
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container">
             <div class="row navbar-header align-baseline ml-n3">
-                <img src="app/img/logo_compasso.png">
+                <img src="./img/logo_compasso.png">
                 <div class="vt-apps-line ml-2"></div>
                 <a href="app-daily-note.html" class="menu-item mt-3 ml-4"><h5><strong>Daily Note</strong></h5></a>
                 <a href="app-help-center.html" class="menu-item mt-3 ml-4"><h5><strong>Help Center</strong></h5></a>
@@ -176,29 +176,14 @@
         </div>
     </div>
 
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="app/lib/particlejs/particle.min.js"></script>
-    <script src="app/lib/particlejs/particle-config.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="./lib/jquery/jquery.min.js"></script>
+    <script src="./lib/bootstrap/bootstrap.min.js"></script>
+    <script src="./lib/particlejs/particle.min.js"></script>
+    <script src="./lib/particlejs/particle-config.js"></script>
     <script>
-        // const photo = document.getElementById("photo");
-        // const send = document.getElementById("file_send");
+    
         const customTxt = document.getElementById("custom-text");
-
-        // send.addEventListener("click", function() {
-        //     photo.click();
-        // });
-
-        // photo.addEventListener("change", function() {
-        //     if (photo.value) {
-        //         customTxt.innerHTML = photo.value.match(
-        //             /[\/\\]([\w\d\s\.\-\(\)]+)$/
-        //         )[1];
-        //     } else {
-        //         customTxt.innerHTML = "Nenhuma imagem selecionada.";
-        //     }
-        // });
 
         document.getElementById('dateOfBirth').onkeyup = function () {
             let dateHolder = document.getElementById('dateOfBirth');
@@ -209,23 +194,16 @@
             }
         }
 
-        // document.getElementById('file_send').onblur = function() {
-        //     let photoHolder = document.getElementById('custom-text');
-        //     let photoValue = photoHolder.textContent;
-
-        //     if (photoValue != 'Selecione foto.') {
-        //         photoHolder.classList.remove("ext-placeholder");
-        //     }
-        // }
     </script>
-    <!-- 
-    <script src="app/js/models/User.js"></script>
-    <script src="app/js/services/UserService.js"></script>
-    <script src="app/js/controllers/UserController.js"></script>
-    <script src="app/js/app.js"></script> -->
-    <script src="app/js/index.js"></script> -->
-    <script src="app/js/user-register.js"></script>
 
+    <script src="lib/system.js"></script>
+    <script>
+        System.defaultJSExtensions = true;
+        System.import('js/index.js').catch(err => console.error(err));
+        System.import('js/user-register.js').catch(err => console.error(err));
+        System.import('js/logout.js').catch(err => console.error(err));
+
+    </script>
 </body>
 
 </html>

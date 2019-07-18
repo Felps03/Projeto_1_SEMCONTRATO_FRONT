@@ -1,40 +1,30 @@
 {
-    "name": "client",
-    "version": "1.0.0",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "concurrently \"npm run watch\" \"parcel serve index.html -p 8080\"",
-        "build": "parcel build index.html",
-        "tsc": "./node_modules/.bin/tsc",
-        "watch": "tsc -w",
-        "serverType": "lite-server --baseDir=app",
-        "startType": "npm start",
-        "startTeste": "tsc -w"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "bootstrap": "^4.3.1",
-        "express-validator": "^5.3.1",
-        "http-server": "^0.11.1",
-        "materialize-css": "^1.0.0-rc.2",
-        "nodemon": "^1.19.1",
-        "popper.js": "^1.15.0"
-    },
-    "devDependencies": {
-        "@fortawesome/fontawesome-free": "^5.8.1",
-        "@types/jquery": "^2.0.53",
-        "concurrently": "^3.4.0",
-        "jquery": "^3.4.1",
-        "lite-server": "^2.3.0",
-        "parcel": "^1.12.3",
-        "parcel-bundler": "^1.12.3",
-        "typescript": "^3.5.2"
-    },
-    "directories": {
-        "lib": "lib"
-    },
-    "description": ""
+  "name": "semcontrato",
+  "version": "1.0.0",
+  "description": "sem descricao",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc",
+    "start": "node server.js",
+    "prod": "nodemon server.js",
+    "watch": "tsc -w",
+    "server": "lite-server --baseDir=app",
+    "startType": "concurrently \"npm run watch\" \"npm run server\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jquery": "^2.0.42",
+    "concurrently": "^3.4.0",
+    "lite-server": "^2.3.0",
+    "typescript": "^2.3.2"
+  },
+  "engines": {
+    "node": "8.10"
+  },
+  "dependencies": {
+    "nodemon": "^1.19.1",
+    "express": "^4.17.1"
+  }
 }

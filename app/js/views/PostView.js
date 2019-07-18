@@ -1,14 +1,24 @@
-import { View } from './View';
-export class PostView extends View {
-    constructor(selector, escape = false) {
-        super(selector, escape);
-        this.editing = false;
-        this.lastModel = null;
-    }
-    template(model) {
-        this.lastModel = model;
-        const canEdit = model.AuthorId === localStorage.getItem('id') || localStorage.getItem('isAdmin') === 'true';
-        return `
+System.register(["./View"], function (exports_1, context_1) {
+    "use strict";
+    var View_1, PostView;
+    var __moduleName = context_1 && context_1.id;
+    return {
+        setters: [
+            function (View_1_1) {
+                View_1 = View_1_1;
+            }
+        ],
+        execute: function () {
+            PostView = class PostView extends View_1.View {
+                constructor(selector, escape = false) {
+                    super(selector, escape);
+                    this.editing = false;
+                    this.lastModel = null;
+                }
+                template(model) {
+                    this.lastModel = model;
+                    const canEdit = model.AuthorId === localStorage.getItem('id') || localStorage.getItem('isAdmin') === 'true';
+                    return `
             
             <div class="modal-content">
                 <div class="modal-header">
@@ -93,25 +103,29 @@ export class PostView extends View {
             </div>
 
         `;
-    }
-    update(model) {
-        super.update(model);
-        if (this.lastModel) {
-            const editBtn = document.getElementById('edit-btn');
-            if (editBtn) {
-                editBtn.addEventListener('click', this.toggleEditing.bind(this));
-            }
+                }
+                update(model) {
+                    super.update(model);
+                    if (this.lastModel) {
+                        const editBtn = document.getElementById('edit-btn');
+                        if (editBtn) {
+                            editBtn.addEventListener('click', this.toggleEditing.bind(this));
+                        }
+                    }
+                    if (this.didMountFn)
+                        this.didMountFn();
+                }
+                toggleEditing() {
+                    this.editing = !this.editing;
+                    if (this.lastModel) {
+                        this.update(this.lastModel);
+                    }
+                }
+                didMount(cb) {
+                    this.didMountFn = cb;
+                }
+            };
+            exports_1("PostView", PostView);
         }
-        if (this.didMountFn)
-            this.didMountFn();
-    }
-    toggleEditing() {
-        this.editing = !this.editing;
-        if (this.lastModel) {
-            this.update(this.lastModel);
-        }
-    }
-    didMount(cb) {
-        this.didMountFn = cb;
-    }
-}
+    };
+});

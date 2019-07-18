@@ -1,14 +1,24 @@
-import { View } from './View';
-export class PostAskView extends View {
-    constructor(selector, escape = false) {
-        super(selector, escape);
-        this.editing = false;
-        this.lastModel = null;
-    }
-    template(model) {
-        this.lastModel = model;
-        const canEdit = model.Author === localStorage.getItem('id') || localStorage.getItem('isAdmin') === 'true';
-        return `
+System.register(["./View"], function (exports_1, context_1) {
+    "use strict";
+    var View_1, PostAskView;
+    var __moduleName = context_1 && context_1.id;
+    return {
+        setters: [
+            function (View_1_1) {
+                View_1 = View_1_1;
+            }
+        ],
+        execute: function () {
+            PostAskView = class PostAskView extends View_1.View {
+                constructor(selector, escape = false) {
+                    super(selector, escape);
+                    this.editing = false;
+                    this.lastModel = null;
+                }
+                template(model) {
+                    this.lastModel = model;
+                    const canEdit = model.Author === localStorage.getItem('id') || localStorage.getItem('isAdmin') === 'true';
+                    return `
             <div class="card mb-2">
                 <div class="card-body inline-block">
                     <h5>${model.AuthorName}</h5>
@@ -42,25 +52,29 @@ export class PostAskView extends View {
                 </div>
             </div>
         `;
-    }
-    update(model) {
-        super.update(model);
-        if (this.lastModel) {
-            const editBtn = document.getElementById(`edit-comment-${model.Id}`);
-            if (editBtn) {
-                editBtn.addEventListener('click', this.toggleEditing.bind(this));
-            }
+                }
+                update(model) {
+                    super.update(model);
+                    if (this.lastModel) {
+                        const editBtn = document.getElementById(`edit-comment-${model.Id}`);
+                        if (editBtn) {
+                            editBtn.addEventListener('click', this.toggleEditing.bind(this));
+                        }
+                    }
+                    if (this.didMountFn)
+                        this.didMountFn(model);
+                }
+                toggleEditing() {
+                    this.editing = !this.editing;
+                    if (this.lastModel) {
+                        this.update(this.lastModel);
+                    }
+                }
+                didMount(cb) {
+                    this.didMountFn = cb;
+                }
+            };
+            exports_1("PostAskView", PostAskView);
         }
-        if (this.didMountFn)
-            this.didMountFn(model);
-    }
-    toggleEditing() {
-        this.editing = !this.editing;
-        if (this.lastModel) {
-            this.update(this.lastModel);
-        }
-    }
-    didMount(cb) {
-        this.didMountFn = cb;
-    }
-}
+    };
+});

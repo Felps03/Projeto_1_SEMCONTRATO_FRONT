@@ -4,8 +4,8 @@ import { HomeController } from "./controllers/HomeController";
 
 let userData = getUser();
 
-document.addEventListener("DOMContentLoaded", function (event) {      
-    if(localStorage.getItem('tkn')){
+document.addEventListener("DOMContentLoaded", function (event) {
+    if (localStorage.getItem('tkn')) {
         window.location.href = "home.html";
     }
 });

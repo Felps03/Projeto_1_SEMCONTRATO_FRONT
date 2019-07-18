@@ -5,12 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="app/img/logo_compasso.ico">
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link href="app/lib/materialize/icons/icons.css" rel="stylesheet">
-    <link href="app/lib/materialize/fonts/fonts.css" rel="stylesheet">
-    <link href="app/lib/particlejs/particle.css" rel="stylesheet">
-    <link rel="stylesheet" href="app/css/custom.css">
+    <link rel="icon" href="./img/logo_compasso.ico">
+    <link rel="icon" href="./img/logo_compasso.ico">
+    <link rel="stylesheet" href="./lib/bootstrap/bootstrap.min.css">
+    <link href="./lib/materialize/icons/icons.css" rel="stylesheet">
+    <link href="./lib/materialize/fonts/fonts.css" rel="stylesheet">
+    <link href="./lib/particlejs/particle.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/custom.css">
     <title>Página Principal</title>
 </head>
 
@@ -21,7 +22,7 @@
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container">
             <div class="navbar-header ml-n3">
-                <img src="app/img/logo_compasso.png">
+                <img src="./img/logo_compasso.png">
             </div>
             <!-- User menu -->
             <div id="user-menu-login-link"></div>
@@ -34,7 +35,7 @@
 
             <!-- Daily Note -->
             <div class="card card-size">
-                <img class="card-img-top" src="app/img/daily-card.jpeg" alt="Card image cap">
+                <img class="card-img-top" src="./img/daily-card.jpeg" alt="Card image cap">
 
                 <div class="card-body">
                     <div class="vt-line mb-3">
@@ -51,7 +52,7 @@
 
             <!-- Help Center -->
             <div class="card card-size ml-4">
-                <img class="card-img-top" src="app/img/help-card.jpg" alt="Card image cap">
+                <img class="card-img-top" src="./img/help-card.jpg" alt="Card image cap">
 
                 <div class="card-body">
                     <div class="vt-line mb-3">
@@ -132,12 +133,20 @@
         </div>
     </div>
 
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="app/lib/particlejs/particle.min.js"></script>
-    <script src="app/lib/particlejs/particle-config.js"></script>
-    <script src="app/js/home.js"></script>
-    <script src="app/js/logout.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="./lib/jquery/jquery.min.js"></script>
+    <script src="./lib/bootstrap/bootstrap.min.js"></script>
+    <script src="./lib/particlejs/particle.min.js"></script>
+    <script src="./lib/particlejs/particle-config.js"></script>
+
+  
+    <script src="lib/system.js"></script>
+    <script>
+        System.defaultJSExtensions = true;
+        System.import('js/home.js').catch(err => console.error(err));
+        System.import('js/logout.js').catch(err => console.error(err));
+    </script>
+
 </body>
 
 </html>

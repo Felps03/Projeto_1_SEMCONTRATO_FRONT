@@ -1,7 +1,17 @@
-import { View } from './View';
-export class PostsView extends View {
-    template(model) {
-        return `
+System.register(["./View"], function (exports_1, context_1) {
+    "use strict";
+    var View_1, PostsView;
+    var __moduleName = context_1 && context_1.id;
+    return {
+        setters: [
+            function (View_1_1) {
+                View_1 = View_1_1;
+            }
+        ],
+        execute: function () {
+            PostsView = class PostsView extends View_1.View {
+                template(model) {
+                    return `
         <div class="container">
             ${model.toArray().map((post, i) => `
             <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
@@ -31,5 +41,9 @@ export class PostsView extends View {
             `).join('')}
         </div>
         `;
-    }
-}
+                }
+            };
+            exports_1("PostsView", PostsView);
+        }
+    };
+});
