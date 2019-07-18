@@ -18,13 +18,13 @@
     "@types/jquery": "^2.0.42",
     "concurrently": "^3.4.0",
     "lite-server": "^2.3.0",
-    "typescript": "^2.3.2",
-    "express": "^4.17.1"
+    "typescript": "^2.3.2"
   },
   "engines": {
     "node": "8.10"
   },
   "dependencies": {
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "express": "^4.17.1"
   }
 }
