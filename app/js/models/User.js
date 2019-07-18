@@ -6,13 +6,13 @@ System.register([], function (exports_1, context_1) {
         setters: [],
         execute: function () {
             User = class User {
-                constructor(name, lastName, userName, email, password, dateOfBirth) {
+                constructor(name, lastName, userName, email, dateOfBirth, password) {
                     this.name = name;
                     this.lastName = lastName;
                     this.userName = userName;
                     this.email = email;
-                    this.password = password;
                     this.dateOfBirth = dateOfBirth;
+                    this.password = password;
                 }
                 get Name() {
                     return this.name;

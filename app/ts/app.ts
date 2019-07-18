@@ -1,11 +1,30 @@
-import { AuthenticateController } from './controllers/AuthenticateController';
+import { HomeController } from "./controllers/HomeController";
+import { UserController } from "./controllers/UserController";
 
-$(document).ready(function () {
-    if (localStorage.getItem('tkn')) {
-        window.location.href = "home.html";
-    }
-});
+const controller = new UserController();
+let add = document.querySelector('.form');
 
-const controllerAuth = new AuthenticateController();
-$('#login-form').submit(controllerAuth.authenticate.bind(controllerAuth));
-$('#recovery-pass-form').submit(controllerAuth.resetPassword.bind(controllerAuth));
+if (add != null) {
+    add.addEventListener('submit', controller.add.bind(controller));
+}
+
+let nameSpan = document.querySelector('#nameSpan');
+let userNameSpan = document.querySelector('#userNameSpan');
+
+let homeController = new HomeController();
+
+const data = homeController.getUser();
+
+if (data) {
+    data.then(data => {
+        if (nameSpan != null) {
+            nameSpan.textContent = data.name;
+        }
+        if (userNameSpan != null) {
+            userNameSpan.textContent = `(${data.userName})`;
+        }
+    })
+}
+else {
+    window.location.href = "index.html"
+}

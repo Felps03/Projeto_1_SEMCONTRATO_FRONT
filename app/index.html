@@ -5,22 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
     <link rel="icon" href="./img/logo_compasso.ico">
-
     <link rel="stylesheet" href="./lib/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="./lib/materialize/icons/icons.css">
-    <link rel="stylesheet" href="./lib/materialize/fonts/fonts.css">
-    <link rel="stylesheet" href="./lib/particlejs/particle.css">
+    <link href="./lib/materialize/icons/icons.css" rel="stylesheet">
+    <link href="./lib/materialize/fonts/fonts.css" rel="stylesheet">
+    <link href="./lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
-
     <title>Área de Acesso</title>
-
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
 </head>
 
 <body>
+    <!-- particles.js -->
     <div id="particles-js"></div>
 
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
@@ -28,12 +24,8 @@
             <div class="row navbar-header align-baseline ml-n3">
                 <img src="./img/logo_compasso.png">
                 <div class="vt-apps-line ml-2"></div>
-                <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
-                    <h5><strong>Daily Note</strong></h5>
-                </a>
-                <a href="app-help-center.html" class="menu-item mt-3 ml-4">
-                    <h5><strong>Help Center</strong></h5>
-                </a>
+                <a href="app-daily-note.html" class="menu-item mt-3 ml-4"><h5><strong>Daily Note</strong></h5></a>
+                <a href="app-help-center.html" class="menu-item mt-3 ml-4"><h5><strong>Help Center</strong></h5></a>
             </div>
             <h5 class="txt-primary"><strong>Seja bem-vindo!</strong></h5>
         </div>
@@ -201,9 +193,7 @@
         </div>
     </div>
 
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    
     <script src="./lib/jquery/jquery.min.js"></script>
     <script src="./lib/bootstrap/bootstrap.min.js"></script>
     <script src="./lib/particlejs/particle.min.js"></script>
@@ -212,7 +202,7 @@
     <script src="lib/system.js"></script>
     <script>
         System.defaultJSExtensions = true;
-        System.import('js/app.js').catch(err => console.error(err));
+        System.import('js/index.js').catch(err => console.error(err));
     </script>
 
 </body>

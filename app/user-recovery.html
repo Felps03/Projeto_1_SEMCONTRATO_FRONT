@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="./img/logo_compasso.ico">
+    <link rel="stylesheet" href="./lib/bootstrap/bootstrap.min.css">
+    <link href="./lib/materialize/icons/icons.css" rel="stylesheet">
+    <link href="./lib/materialize/fonts/fonts.css" rel="stylesheet">
+    <link href="./lib/particlejs/particle.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/custom.css">
+    <title>Recuperação de Senha</title>
+</head>
+
+<body>
+    <!-- particles.js -->
+    <div id="particles-js"></div>
+
+    <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
+        <div class="container">
+            <div class="row navbar-header align-baseline ml-n3">
+                <img src="app/img/logo_compasso.png">
+                <div class="vt-apps-line ml-2"></div>
+                <a href="app-daily-note.html" class="menu-item mt-3 ml-4"><h5><strong>Daily Note</strong></h5></a>
+                <a href="app-help-center.html" class="menu-item mt-3 ml-4"><h5><strong>Help Center</strong></h5></a>
+            </div>
+
+            <!-- User menu -->
+            <div id="user-menu-login-link"></div>
+            
+        </div>
+    </nav>
+
+    <div class="container page-position">
+        <div class="row centered">
+            <div class="col-11 col-md-5 section-recovery">
+                <div class="ml-2 mr-2" id="error"></div>
+                <div class="col-12">
+                    <form class="form" method="post" id="recovery-code-form" autocomplete="off">
+
+                        <div class="vt-line mt-4 mb-4">
+                            <h3><strong>Recuperar Senha</strong></h3>
+                        </div>
+                        <hr class="register-line">
+
+                        <div class="alert alert-danger" id="link-expired" style="display: none;" role="alert"></div>
+
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="text" name="email" class="form-control form-control-sm input-circle"
+                                id="email_rec" placeholder="Informe seu email" autofocus
+                                value= "felipe@gmail.com">
+                            <div id="emailvalidator"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password_rec">Nova Senha:</label>
+                            <input type="password" name="senha" class="form-control form-control-sm input-circle"
+                                id="password_rec" placeholder="Informe uma nova senha" autofocus value="123123" pattern=".{6,8}">
+                            <div id="passwordvalidator_rec"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password_rec_conf">Confirmação:</label>
+                            <input type="password" name="password_rec_conf"
+                                class="form-control form-control-sm input-circle" id="password_rec_conf"
+                                placeholder="Informe a senha novamente" value="123123" pattern=".{6,8}">
+                            <div id="passwordvalidator_rec_conf"></div>
+                        </div>
+
+                        <button type="submit" name="send"
+                            class="btn btn-outline-warning btn-sm float-right mb-3 mt-3 pr-4 pl-4 input-circle"
+                            id="recoverycodeT">Alterar Senha
+                        </button>                 
+                      
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="app/lib/particlejs/particle.min.js"></script>
+    <script src="app/lib/particlejs/particle-config.js"></script>
+    <script src="./app/js/controllers/UserController.js"></script>
+    <script src="./app/js/services/UserService.js"></script>
+    <script src="./app/js/services/AuthenticateService.js"></script>
+    <script src="./app/js/user-recovery.js"></script>
+    <script src="app/js/logout.js"></script>
+    <script>
+        //TODO in TS
+        if (localStorage.getItem('email')) {
+            var emailHeader = localStorage.getItem('email');
+            document.getElementById("email_rec").value = emailHeader;
+        }
+    </script>
+</body>
+
+</html>
