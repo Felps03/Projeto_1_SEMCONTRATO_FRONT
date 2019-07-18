@@ -80,6 +80,7 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
                             const fullString = header_pagination + string_li + footer_pagination;
                             nav_pagination.innerHTML = fullString;
                             totalPagesDiv.innerHTML = '';
+                            totalPagesDiv.appendChild(nav_pagination);
                         }
                         return;
                     }
@@ -122,6 +123,7 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
                 <td>         </td>
                 </tr>`;
         }
+        dailyesResult.appendChild(body);
     }
     return {
         setters: [

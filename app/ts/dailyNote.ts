@@ -136,7 +136,7 @@ function listDateDaily(event: Event) {
 						const fullString: string = header_pagination + string_li + footer_pagination;
 						nav_pagination.innerHTML = fullString;
 						totalPagesDiv.innerHTML = '';
-						// totalPagesDiv.append(nav_pagination)
+						totalPagesDiv.appendChild(nav_pagination)
 						// console.log(fullString);
 					}
 					return;
@@ -182,5 +182,5 @@ function mountTable(dayliesResult: any, daily: DailyNote, owner: string, id_user
                 </tr>`;
 	}
 
-	// dailyesResult.append(body);
+	dailyesResult.appendChild(body);
 }
