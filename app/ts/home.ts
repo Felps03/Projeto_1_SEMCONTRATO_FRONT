@@ -8,5 +8,13 @@ import { AuthenticateController } from "./controllers/AuthenticateController";
 let userData = getUser();
 let homeController = new HomeController();
 
-window.addEventListener('load', homeController.listLastHelp.bind(homeController));
-window.addEventListener('load', homeController.listDailyDate.bind(homeController)); 
+let mostraDaily = document.getElementById("mostra-daily");
+let mostraHelp = document.getElementById("mostra-help");
+
+mostraDaily.addEventListener('click', homeController.listDailyDate.bind(homeController));
+mostraHelp.addEventListener('click', homeController.listLastHelp.bind(homeController));
+
+$(document).ready(function() {
+    document.getElementById('mostra-daily').click();
+    document.getElementById('mostra-help').click();
+});

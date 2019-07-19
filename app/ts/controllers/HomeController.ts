@@ -13,7 +13,6 @@ export class HomeController {
         this.user.update('');
     }
 
-
     getUser() {
         let data;
 
@@ -39,16 +38,17 @@ export class HomeController {
     listLastHelp(event: Event) {
         event.preventDefault();
         const helpCenterService = new HelpCenterService()
+
         helpCenterService.listLastHelp()
             .then(result => {
                 return result.json();
-            }).then(result=> {
+            }).then(result => {
                 let row = <HTMLElement>document.querySelector('#last-helps');
+                row.innerHTML = "";
 
-              
+                console.log("entrou na listagem das perguntas");
 
                 for (let i = 0; i< result.docs.length; i++) {
-                    console.log(result.docs[i]);
                     row.innerHTML +=`
                     <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
                         <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
@@ -82,7 +82,7 @@ export class HomeController {
 
     listDailyDate(event: Event) {
         event.preventDefault();
-
+        console.log('dssad');
         let date = new Date().toLocaleDateString('pt-BR').slice(0,10);
         const dailyNoteService = new DailyNoteService();
 
@@ -97,6 +97,9 @@ export class HomeController {
                 return result.json();
             }).then(result => {
                 let row = <HTMLTableElement>document.querySelector('#all-dailys');
+                row.innerHTML = "";
+
+                console.log("entrou na listagem das dailys");
 
                 for (let i = 0; i< result.length-1; i++) {
                     row.innerHTML += `
