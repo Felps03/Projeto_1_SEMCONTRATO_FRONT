@@ -18,6 +18,10 @@ let userData = getUser();
 // let newToday: string;
 // let newImpediment: string;
 
+$('#daily_cancel').click((e) => {
+    e.preventDefault();
+    window.location.href = "app-daily-note.html";
+});
 
 if ((localStorage.getItem('isAdmin') == 'true') || (localStorage.getItem('id') === url_owner)) {
 
@@ -32,6 +36,9 @@ if ((localStorage.getItem('isAdmin') == 'true') || (localStorage.getItem('id') =
                     if (res.status === 200) {
                         idResult.textContent = "Daily Editada com sucesso"
                         idResult.className = "alert alert-info"
+                        setTimeout(() => {
+                            window.location.href = "app-daily-note.html";
+                        }, 5000)
                     }
                 })
         })

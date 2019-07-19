@@ -23,8 +23,12 @@
             <div class="row navbar-header align-baseline ml-n3">
                 <img src="./img/logo_compasso.png">
                 <div class="vt-apps-line ml-2"></div>
-                <a href="app-daily-note.html" class="menu-item mt-3 ml-4"><h5><strong>Daily Note</strong></h5></a>
-                <a href="app-help-center.html" class="menu-item mt-3 ml-4"><h5><strong>Help Center</strong></h5></a>
+                <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
+                    <h5><strong>Daily Note</strong></h5>
+                </a>
+                <a href="app-help-center.html" class="menu-item mt-3 ml-4">
+                    <h5><strong>Help Center</strong></h5>
+                </a>
             </div>
 
             <!-- User menu -->
@@ -72,7 +76,7 @@
                         class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle"
                         id="update_daily">Editar</button>
                     <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-2 pl-2 input-circle"
-                        data-dismiss="modal">Cancelar</button>
+                        data-dismiss="modal" id="daily_cancel">Cancelar</button>
                 </form>
 
         </section>
@@ -83,7 +87,7 @@
     <script src="./lib/bootstrap/bootstrap.min.js"></script>
     <script src="./lib/particlejs/particle.min.js"></script>
     <script src="./lib/particlejs/particle-config.js"></script>
-      
+
     <script src="lib/system.js"></script>
     <script>
         System.defaultJSExtensions = true;

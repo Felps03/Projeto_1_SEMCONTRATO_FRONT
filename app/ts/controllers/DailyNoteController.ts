@@ -20,7 +20,7 @@ export class DailyNoteController {
 
     private addVals: (() => boolean)[];
     private editVals: (() => boolean)[];
-    private user : UserMenuView; 
+    private user: UserMenuView;
 
 
     constructor() {
@@ -65,11 +65,35 @@ export class DailyNoteController {
 
             let dailyNoteService = new DailyNoteService();
 
+            let message = document.querySelector("#fail");
+            let messageGood = document.querySelector("#success");
+
             return dailyNoteService.add(
                 this.yesterday.value,
                 this.today.value,
                 this.impediment.value,
                 new Date())
+            // .then(res => {
+            //     if (res.status == 200) {
+            //         messageGood.textContent = 'Daily cadastrada com sucesso';
+            //         document.getElementById('dailyModal').click();
+            //         document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+            //     }
+
+            //     else {
+            //         let erro = res;
+            //         console.log(res)
+
+            //         //message.textContent = erro.erro;
+            //         document.getElementById("status_daily").style.display = "block";
+            //         document.getElementById('dailyModal').click();
+            //         document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+            //     }
+
+
+
+            //     return res.json()
+            // })
         }
     }
 
@@ -83,15 +107,15 @@ export class DailyNoteController {
         let value = date.value || urlDate;
         const url_page = new URLSearchParams(location.search).get('page');
         const page = parseInt(url_page) || 1;
-              
+
         let dailyNoteService = new DailyNoteService();
 
-        let year = date.value.slice(0,4);
-        let month =  date.value.slice(6,7);
-        let day =  date.value.slice(8,10);
+        let year = date.value.slice(0, 4);
+        let month = date.value.slice(6, 7);
+        let day = date.value.slice(8, 10);
 
-        day =  ("00" + day).slice(-2);
-        month =  ("00" + month).slice(-2);       
+        day = ("00" + day).slice(-2);
+        month = ("00" + month).slice(-2);
 
         let fullDate = `${year}-${month}-${day}`;
 
@@ -106,7 +130,7 @@ export class DailyNoteController {
             });
     };
 
-    registered(event: Event){
+    registered(event: Event) {
         event.preventDefault();
 
         let service = new DailyNoteService();

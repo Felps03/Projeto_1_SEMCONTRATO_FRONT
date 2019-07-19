@@ -2,8 +2,31 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
     "use strict";
     var DailyNoteController_1, index_1, userData_1, userData, dailyesResult, totalPagesDiv, id_daily, url, url_date, dateField, dateValue, controller, cadastrar, listDate;
     var __moduleName = context_1 && context_1.id;
+    function load() {
+        if (url.get('date') && url.get('page')) {
+            listDateDaily(event);
+        }
+        let year = `${new Date().getFullYear()}`;
+        let month = `${new Date().getMonth() + 1}`;
+        let day = `${new Date().getDate()}`;
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+        let today = `${year}-${month}-${day}`;
+        dateField.value = today;
+        listDateDaily(event);
+        dailyButton(event);
+        login(event);
+    }
+    function login(event) {
+        if (!localStorage.getItem('id') || localStorage.getItem('id') === 'undefined' || localStorage.getItem('id') === null) {
+            document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+        }
+    }
     function dailyButton(event) {
-        controller.registered(event).then((res) => {
+        controller.registered(event)
+            .then((res) => {
             if (res.status == 400) {
                 document.getElementById('dailyModal').click();
                 document.getElementById('add_daily').setAttribute('disabled', 'disabled');
@@ -12,8 +35,8 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
         });
     }
     function registeredDaily(event) {
-        controller.add(event).then((res) => {
-            console.log(res);
+        controller.add(event)
+            .then((res) => {
             if (res.status == 200) {
                 listDateDaily(event);
                 document.getElementById('dailyModal').click();
@@ -156,21 +179,18 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
                     listDate.addEventListener('click', listDateDaily);
                 }
             }
-            window.addEventListener('load', () => {
-                if (url.get('date') && url.get('page')) {
-                    listDateDaily(event);
-                }
-                let year = `${new Date().getFullYear()}`;
-                let month = `${new Date().getMonth() + 1}`;
-                let day = `${new Date().getDate()}`;
-                if (month.length < 2)
-                    month = '0' + month;
-                if (day.length < 2)
-                    day = '0' + day;
-                let today = `${year}-${month}-${day}`;
-                dateField.value = today;
-                listDateDaily(event);
-                dailyButton(event);
+            load();
+            $('#cancel').click((e) => {
+                e.preventDefault();
+                var dirtyFormID = 'daily-form';
+                var resetForm = document.getElementById(dirtyFormID);
+                let yesterday = document.querySelector('#yesterday');
+                let today = document.querySelector('#today');
+                let impediment = document.querySelector('#impediment');
+                yesterday.classList.remove('is-valid');
+                impediment.classList.remove('is-invalid');
+                impediment.classList.remove('is-valid');
+                resetForm.reset();
             });
         }
     };

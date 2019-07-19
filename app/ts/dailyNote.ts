@@ -25,9 +25,12 @@ if (listDate) {
 	}
 }
 
-window.addEventListener('load', () => {
+// window.addEventListener('load', load); 
+load()
+
+function load() {
 	if (url.get('date') && url.get('page')) {
-		// console.log('oi do load')
+		// 	// console.log('oi do load')
 		listDateDaily(event);
 	}
 
@@ -41,28 +44,38 @@ window.addEventListener('load', () => {
 	let today = `${year}-${month}-${day}`;
 
 	dateField.value = today;
+
 	listDateDaily(event);
 	dailyButton(event);
-});
+	login(event);
+}
+
+function login(event: Event) {
+	if (!localStorage.getItem('id') || localStorage.getItem('id') === 'undefined' || localStorage.getItem('id') === null) {
+		document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+	}
+}
 
 function dailyButton(event: Event) {
-	controller.registered(event).then((res) => {
-		if (res.status == 400) {
-			document.getElementById('dailyModal').click();
-			document.getElementById('add_daily').setAttribute('disabled', 'disabled');
-			return;
-		}
-	});
+	controller.registered(event)
+		.then((res) => {
+			//console.log(res.status)
+			if (res.status == 400) {
+				document.getElementById('dailyModal').click();
+				document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+				return;
+			}
+		});
 }
 
 function registeredDaily(event: Event) {
-	controller.add(event).then((res) => {
-		console.log(res);
-		if (res.status == 200) {
-			listDateDaily(event);
-			document.getElementById('dailyModal').click();
-			document.getElementById('add_daily').setAttribute('disabled', 'disabled');
-			document.getElementById('status_daily').innerHTML = `
+	controller.add(event)
+		.then((res) => {
+			if (res.status == 200) {
+				listDateDaily(event);
+				document.getElementById('dailyModal').click();
+				document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+				document.getElementById('status_daily').innerHTML = `
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>Daily cadastrada com sucesso!</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -70,11 +83,11 @@ function registeredDaily(event: Event) {
                         </button>
                     </div>
                 `;
-			return;
-		} else if (res.status == 400) {
-			document.getElementById('dailyModal').click();
-			document.getElementById('add_daily').setAttribute('disabled', 'disabled');
-			document.getElementById('status_daily').innerHTML = `
+				return;
+			} else if (res.status == 400) {
+				document.getElementById('dailyModal').click();
+				document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+				document.getElementById('status_daily').innerHTML = `
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <strong>Você já cadastrou sua daily!</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -82,9 +95,9 @@ function registeredDaily(event: Event) {
                         </button>
                     </div>
                 `;
-			return;
-		}
-	});
+				return;
+			}
+		});
 }
 
 function listDateDaily(event: Event) {
@@ -93,7 +106,6 @@ function listDateDaily(event: Event) {
 
 	if (result) {
 		result.then((result) => {
-			// console.log(result);
 			result.forEach((r: any) => {
 				// const r = result[0];
 				// console.log(r.hasOwnProperty('totalDocs'));
@@ -184,3 +196,19 @@ function mountTable(dayliesResult: any, daily: DailyNote, owner: string, id_user
 
 	dailyesResult.appendChild(body);
 }
+
+$('#cancel').click((e) => {
+	e.preventDefault();
+
+	var dirtyFormID = 'daily-form';
+	var resetForm = <HTMLFormElement>document.getElementById(dirtyFormID);
+
+	let yesterday = <HTMLInputElement>document.querySelector('#yesterday');
+	let today = <HTMLInputElement>document.querySelector('#today');
+	let impediment = <HTMLInputElement>document.querySelector('#impediment');
+
+	yesterday.classList.remove('is-valid');
+	impediment.classList.remove('is-invalid');
+	impediment.classList.remove('is-valid');
+	resetForm.reset();
+});

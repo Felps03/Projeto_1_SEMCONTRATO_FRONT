@@ -5,6 +5,9 @@ System.register([], function (exports_1, context_1) {
         if (!(first.value.trim().length > 3)) {
             return 'Descrição muito pequena.';
         }
+        else if (!first.value.match('([a-z])')) {
+            return 'Não pode só numeros.';
+        }
         else {
             return null;
         }
@@ -14,6 +17,9 @@ System.register([], function (exports_1, context_1) {
         if (!(today.value.trim().length > 3)) {
             return 'Descrição muito pequena.';
         }
+        else if (!today.value.match('([a-z])')) {
+            return 'Não pode só numeros.';
+        }
         else {
             return null;
         }
@@ -22,6 +28,9 @@ System.register([], function (exports_1, context_1) {
     function impediment(third) {
         if (!(third.value.trim().length > 3)) {
             return 'Descrição muito pequena.';
+        }
+        else if (!third.value.match('([a-z])')) {
+            return 'Não pode só numeros.';
         }
         else {
             return null;

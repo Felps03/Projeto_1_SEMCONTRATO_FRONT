@@ -52,6 +52,8 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     if (listCheck_1.noFalse(this.addVals)) {
                         let dailyNote = new DailyNote_1.DailyNote(this.yesterday.value.toString(), this.today.value.toString(), this.impediment.value.toString(), new Date());
                         let dailyNoteService = new DailyNoteService_1.DailyNoteService();
+                        let message = document.querySelector("#fail");
+                        let messageGood = document.querySelector("#success");
                         return dailyNoteService.add(this.yesterday.value, this.today.value, this.impediment.value, new Date());
                     }
                 }
