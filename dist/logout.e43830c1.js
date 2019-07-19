@@ -126,13 +126,16 @@ Object.defineProperty(exports, "__esModule", {
 exports.HOST = void 0;
 var HOST = 'http://localhost:3000/';
 exports.HOST = HOST;
+<<<<<<< HEAD
 },{}],"app/js/services/AuthenticateService.js":[function(require,module,exports) {
+=======
+},{}],"app/js/services/DailyNoteService.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.AuthenticateService = void 0;
+exports.DailyNoteService = void 0;
 
 var _index = require("../config/index");
 
@@ -142,6 +145,671 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var DailyNoteService =
+/*#__PURE__*/
+function () {
+  function DailyNoteService() {
+    _classCallCheck(this, DailyNoteService);
+  }
+
+  _createClass(DailyNoteService, [{
+    key: "add",
+    value: function add(yesterday, today, impediment, date) {
+      fetch("".concat(_index.HOST, "dailys/daily"), {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          "Authorization": "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "yesterday": yesterday,
+          "today": today,
+          "impediment": impediment,
+          "date": new Date().toISOString().slice(0, 10),
+          "email": localStorage.getItem('email')
+        })
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        if (res.status == 200) {
+          console.log("funcionou");
+        }
+      });
+    }
+  }, {
+    key: "update",
+    value: function update(daily, ID) {
+      console.log(ID);
+      return fetch("".concat(_index.HOST, "dailys/daily/").concat(ID), {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "id_user": localStorage.getItem('id'),
+          "yesterday": daily.Yesterday,
+          "today": daily.Today,
+          "impediment": daily.Impediment,
+          "date": daily.Date
+        })
+      });
+    }
+  }, {
+    key: "listDate",
+    value: function listDate(data, page) {
+      console.log("".concat(_index.HOST, "dailys/daily/").concat(data, "/1"));
+      return fetch("".concat(_index.HOST, "dailys/daily/").concat(data, "/1"), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          "Authorization": "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }, {
+    key: "listAll",
+    value: function listAll() {
+      return fetch("".concat(_index.HOST, "dailys"), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }, {
+    key: "listDailyById",
+    value: function listDailyById(id) {
+      return fetch("".concat(_index.HOST, "dailys/").concat(id), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          "Authorization": "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }]);
+
+  return DailyNoteService;
+}();
+
+exports.DailyNoteService = DailyNoteService;
+},{"../config/index":"app/js/config/index.js"}],"app/js/services/AuthenticateService.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AuthenticateService = void 0;
+
+<<<<<<< HEAD
+var _index = require("../config/index");
+=======
+var _index = require("../config/index");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var AuthenticateService =
+/*#__PURE__*/
+function () {
+  function AuthenticateService() {
+    _classCallCheck(this, AuthenticateService);
+  }
+
+  _createClass(AuthenticateService, [{
+    key: "authenticate",
+    value: function authenticate(email, password) {
+      return new Promise(function (resolve, reject) {
+        fetch("".concat(_index.HOST, "users/authenticate"), {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            "email": email,
+            "password": password
+          })
+        }).then(function (res) {
+          if (res.status !== 200) {
+            return reject(res);
+          }
+
+          var token = res.headers.get("Token");
+
+          if (token != null) {
+            localStorage.setItem('tkn', token);
+          }
+
+          res.json().then(function (result) {
+            localStorage.setItem('email', result[0]['email']);
+            localStorage.setItem('id', result[0]['_id']);
+            localStorage.setItem('isAdmin', result[0]['isAdmin']);
+            window.location.href = "home.html";
+            resolve();
+          });
+        });
+      });
+    }
+  }, {
+    key: "resetPassword",
+    value: function resetPassword(email) {
+      return fetch("".concat(_index.HOST, "users/user/recover"), {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "email": email
+        })
+      });
+    }
+  }, {
+    key: "verifyCode",
+    value: function verifyCode(emailCode, email, password) {
+      return fetch("".concat(_index.HOST, "users/code/verify"), {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "emailCode": emailCode,
+          "email": email
+        })
+      });
+    }
+  }, {
+    key: "logout",
+    value: function logout() {
+      return fetch("".concat(_index.HOST, "users/logout"), {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem("tkn"))
+        }
+      }).then(function (res) {
+        if (res.status == 400) {
+          alert("Houve um erro ao Deslogar");
+        }
+
+        if (res.status == 200) {
+          localStorage.removeItem("tkn");
+          localStorage.removeItem("email");
+          localStorage.removeItem("id");
+          window.location.href = 'index.html';
+        }
+      }).catch(function (error) {
+        console.log("error: ", error);
+        return error;
+      });
+    }
+  }]);
+
+  return AuthenticateService;
+}();
+
+exports.AuthenticateService = AuthenticateService;
+},{"../config/index":"app/js/config/index.js"}],"app/js/services/UserService.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.UserService = void 0;
+
+var _index = require("../config/index");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var UserService =
+/*#__PURE__*/
+function () {
+  function UserService() {
+    _classCallCheck(this, UserService);
+  }
+
+  _createClass(UserService, [{
+    key: "add",
+    value: function add(user) {
+      return fetch("".concat(_index.HOST, "users/user"), {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "name": user.Name,
+          "lastName": user.LastName,
+          "userName": user.UserName,
+          "email": user.Email,
+          "password": user.Password,
+          "dateOfBirth": user.DateOfBirth
+        })
+      });
+    }
+  }, {
+    key: "list",
+    value: function list() {
+      return fetch("".concat(_index.HOST, "admin/users"), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+        }
+      });
+    }
+  }, {
+    key: "update",
+    value: function update(user, ID) {
+      var dateOfBirth = user.DateOfBirth.replace(/,/g, '-');
+      return fetch("".concat(_index.HOST, "users/user/").concat(ID), {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+        },
+        body: JSON.stringify({
+          "name": user.Name,
+          "lastName": user.LastName,
+          "userName": user.UserName,
+          "email": user.Email,
+          "password": user.Password,
+          "dateOfBirth": dateOfBirth
+        })
+      });
+    }
+  }, {
+    key: "remove",
+    value: function remove(ID) {
+      return fetch("".concat(_index.HOST, "users/user/").concat(ID), {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+        }
+      });
+    }
+  }, {
+    key: "changePassword",
+    value: function changePassword(email, password) {
+      return fetch("".concat(_index.HOST, "users/changePassword"), {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "email": email,
+          "password": password
+        })
+      });
+    }
+  }, {
+    key: "findByEmail",
+    value: function findByEmail(email) {
+      return fetch("".concat(_index.HOST, "users/").concat(email), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+        }
+      });
+    }
+  }, {
+    key: "getData",
+    value: function getData() {
+      var email = localStorage.getItem('email');
+      return fetch("".concat(_index.HOST, "users/").concat(email), {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+        }
+      });
+    }
+  }]);
+
+  return UserService;
+}();
+
+exports.UserService = UserService;
+},{"../config/index":"app/js/config/index.js"}],"app/js/services/HelpCenterService.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.HelpCenterService = void 0;
+
+var _index = require("../config/index");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var HelpCenterService =
+/*#__PURE__*/
+function () {
+  function HelpCenterService() {
+    _classCallCheck(this, HelpCenterService);
+  }
+
+  _createClass(HelpCenterService, [{
+    key: "add",
+    value: function add(post) {
+      return fetch("".concat(_index.HOST, "helps/post/"), {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "title": post.Title,
+          "desc": post.Desc,
+          "id_user": localStorage.getItem('id')
+        })
+      });
+    }
+  }, {
+    key: "update",
+    value: function update(post, ID) {
+      return fetch("".concat(_index.HOST, "helps/post/").concat(ID), {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "id_user": localStorage.getItem('id'),
+          "title": post.Title,
+          "desc": post.Desc
+        })
+      });
+    }
+  }, {
+    key: "list",
+    value: function list(page) {
+      return fetch("".concat(_index.HOST, "helps/list/post/").concat(page), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }, {
+    key: "listLastHelp",
+    value: function listLastHelp() {
+      return fetch("".concat(_index.HOST, "helps/last/"), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }, {
+    key: "remove",
+    value: function remove(ID) {
+      return fetch("".concat(_index.HOST, "helps/post/").concat(ID), {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }, {
+    key: "findByJoker",
+    value: function findByJoker(joker) {
+      return fetch("".concat(_index.HOST, "helps/post/joker/1"), {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "joker": joker
+        })
+      });
+    }
+  }]);
+
+  return HelpCenterService;
+}();
+
+exports.HelpCenterService = HelpCenterService;
+},{"../config/index":"app/js/config/index.js"}],"app/js/services/HelpCenterServiceAsk.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.HelpCenterAskService = void 0;
+
+var _index = require("../config/index");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var HelpCenterAskService =
+/*#__PURE__*/
+function () {
+  function HelpCenterAskService() {
+    _classCallCheck(this, HelpCenterAskService);
+  }
+
+  _createClass(HelpCenterAskService, [{
+    key: "add",
+    value: function add(post) {
+      console.log(post);
+      return fetch("".concat(_index.HOST, "helps/ask/"), {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "id_user": post.Author,
+          "desc": post.Desc,
+          "id_helpCenter": post.helpCenter
+        })
+      });
+    }
+  }, {
+    key: "update",
+    value: function update(post, ID) {
+      return fetch("".concat(_index.HOST, "helps/ask/").concat(ID), {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "id_user": post.Author,
+          "desc": post.Desc,
+          "id_helpCenter": post.helpCenter
+        })
+      });
+    }
+  }, {
+    key: "list",
+    value: function list(page) {
+      return fetch("".concat(_index.HOST, "helps/list/ask/").concat(page), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }, {
+    key: "remove",
+    value: function remove(ID) {
+      return fetch("".concat(_index.HOST, "helps/ask/").concat(ID), {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }, {
+    key: "findById",
+    value: function findById(ID) {
+      return fetch("".concat(_index.HOST, "helps/ask/").concat(ID), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }]);
+
+  return HelpCenterAskService;
+}();
+
+exports.HelpCenterAskService = HelpCenterAskService;
+},{"../config/index":"app/js/config/index.js"}],"app/js/services/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _DailyNoteService = require("./DailyNoteService");
+
+Object.keys(_DailyNoteService).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _DailyNoteService[key];
+    }
+  });
+});
+
+var _AuthenticateService = require("./AuthenticateService");
+
+Object.keys(_AuthenticateService).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _AuthenticateService[key];
+    }
+  });
+});
+
+var _UserService = require("./UserService");
+
+Object.keys(_UserService).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _UserService[key];
+    }
+  });
+});
+
+var _HelpCenterService = require("./HelpCenterService");
+
+Object.keys(_HelpCenterService).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _HelpCenterService[key];
+    }
+  });
+});
+
+var _HelpCenterServiceAsk = require("./HelpCenterServiceAsk");
+
+Object.keys(_HelpCenterServiceAsk).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _HelpCenterServiceAsk[key];
+    }
+  });
+});
+},{"./DailyNoteService":"app/js/services/DailyNoteService.js","./AuthenticateService":"app/js/services/AuthenticateService.js","./UserService":"app/js/services/UserService.js","./HelpCenterService":"app/js/services/HelpCenterService.js","./HelpCenterServiceAsk":"app/js/services/HelpCenterServiceAsk.js"}],"app/js/views/View.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.View = void 0;
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+<<<<<<< HEAD
 var AuthenticateService =
 /*#__PURE__*/
 function () {
@@ -227,6 +895,91 @@ function () {
 
 exports.AuthenticateService = AuthenticateService;
 },{"../config/index":"app/js/config/index.js"}],"app/js/utils/InputWrapper.js":[function(require,module,exports) {
+=======
+var View =
+/*#__PURE__*/
+function () {
+  function View(selector) {
+    var escape = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+    _classCallCheck(this, View);
+
+    var temp = document.querySelector(selector);
+
+    if (temp) {
+      this._el = temp;
+    } else {
+      throw new Error("Element ".concat(selector, " not found"));
+    }
+
+    this._escape = escape;
+  }
+
+  _createClass(View, [{
+    key: "update",
+    value: function update(model) {
+      var template = this.template(model);
+      if (this._escape) template = template.replace(/<script>[\s\S]*?<\/script>/g, '');
+      this._el.innerHTML = template;
+    }
+  }]);
+
+  return View;
+}();
+
+exports.View = View;
+},{}],"app/js/views/MessageView.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MessageView = void 0;
+
+var _View2 = require("./View");
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var MessageView =
+/*#__PURE__*/
+function (_View) {
+  _inherits(MessageView, _View);
+
+  function MessageView() {
+    _classCallCheck(this, MessageView);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(MessageView).apply(this, arguments));
+  }
+
+  _createClass(MessageView, [{
+    key: "template",
+    value: function template(model) {
+      return "<p class=\"alert alert-warning\">".concat(model, "</p>");
+    }
+  }]);
+
+  return MessageView;
+}(_View2.View);
+
+exports.MessageView = MessageView;
+},{"./View":"app/js/views/View.js"}],"app/js/utils/InputWrapper.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -494,6 +1247,7 @@ function noFalse(fns) {
   });
   return isValid;
 }
+<<<<<<< HEAD
 },{}],"app/js/services/UserService.js":[function(require,module,exports) {
 "use strict";
 
@@ -629,6 +1383,9 @@ function () {
 
 exports.UserService = UserService;
 },{"../config/index":"app/js/config/index.js"}],"app/js/controllers/AuthenticateController.js":[function(require,module,exports) {
+=======
+},{}],"app/js/controllers/AuthenticateController.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -636,16 +1393,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AuthenticateController = void 0;
 
+<<<<<<< HEAD
 var _AuthenticateService = require("../services/AuthenticateService");
 
 var _index = require("../helpers/index");
+=======
+var _index = require("../services/index");
+
+var _MessageView = require("../views/MessageView");
+
+var _index2 = require("../helpers/index");
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 
 var vals = _interopRequireWildcard(require("../validation/userValidate"));
 
 var _listCheck = require("../utils/listCheck");
 
+<<<<<<< HEAD
 var _UserService = require("../services/UserService");
 
+=======
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -660,23 +1428,48 @@ function () {
   function AuthenticateController() {
     _classCallCheck(this, AuthenticateController);
 
+<<<<<<< HEAD
+=======
+    try {
+      this.messageView = new _MessageView.MessageView('#message-view');
+    } catch (_a) {}
+
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
     this.email = document.getElementById('email');
     this.password = document.getElementById('password');
     this.emailRec = document.getElementById('email_rec');
 
     try {
+<<<<<<< HEAD
       this.authVals = [(0, _index.validate)(this.email, vals.email), (0, _index.validate)(this.password, vals.password)];
       this.passRecVals = [(0, _index.validate)(this.emailRec, vals.email)];
+=======
+      this.authVals = [(0, _index2.validate)(this.email, vals.email), (0, _index2.validate)(this.password, vals.password)];
+      this.passRecVals = [(0, _index2.validate)(this.emailRec, vals.email)];
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
     } catch (e) {}
   }
 
   _createClass(AuthenticateController, [{
     key: "authenticate",
     value: function authenticate(event) {
+<<<<<<< HEAD
       if ((0, _listCheck.noFalse)(this.authVals)) {
         var authenticateService = new _AuthenticateService.AuthenticateService();
         console.log(this.email.value);
         authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
+=======
+      var _this = this;
+
+      if ((0, _listCheck.noFalse)(this.authVals)) {
+        var authenticateService = new _index.AuthenticateService();
+        console.log(this.email.value);
+        authenticateService.authenticate(this.email.value, this.password.value).catch(function (res) {
+          return res.json();
+        }).then(function (res) {
+          if (res.erro) _this.messageView.update(res.erro);
+        });
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
       }
 
       event.preventDefault();
@@ -684,6 +1477,7 @@ function () {
   }, {
     key: "resetPassword",
     value: function resetPassword(event) {
+<<<<<<< HEAD
       event.preventDefault();
 
       if ((0, _listCheck.noFalse)(this.passRecVals)) {
@@ -694,6 +1488,31 @@ function () {
         }).then(function (res) {
           console.log(res);
           window.location.href = 'index.html';
+=======
+      var _this2 = this;
+
+      event.preventDefault();
+
+      if ((0, _listCheck.noFalse)(this.passRecVals)) {
+        var userService = new _index.UserService();
+        var authenticateService = new _index.AuthenticateService();
+        authenticateService.resetPassword(this.emailRec.value.toString()).then(function (res) {
+          console.log('status', res.status);
+
+          if (Math.floor(res.status / 100) === 2) {
+            res.json().then(function () {
+              document.getElementById('recoveryModal-close').click();
+
+              _this2.messageView.update('Foi enviado um email para você, siga as instruções contidas nele para continuar.<br>Por favor verificar a seção de <i>spam</i>.');
+            }).catch(function (error) {
+              console.error(error);
+            });
+          } else {
+            res.json().then(function (erres) {
+              _this2.messageView.update(erres.erro);
+            });
+          }
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         });
       }
     }
@@ -701,7 +1520,11 @@ function () {
     key: "logout",
     value: function logout(event) {
       event.preventDefault();
+<<<<<<< HEAD
       var authenticateService = new _AuthenticateService.AuthenticateService();
+=======
+      var authenticateService = new _index.AuthenticateService();
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
       authenticateService.logout().then(function (res) {
         if (res.status == 400) {
           alert("Houve um erro ao Deslogar");
@@ -710,6 +1533,10 @@ function () {
         if (res.status == 200) {
           localStorage.removeItem("tkn");
           localStorage.removeItem("email");
+<<<<<<< HEAD
+=======
+          localStorage.removeItem("isAdmin");
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
           localStorage.removeItem("id");
           window.location.href = 'index.html';
         }
@@ -724,13 +1551,21 @@ function () {
 }();
 
 exports.AuthenticateController = AuthenticateController;
+<<<<<<< HEAD
 },{"../services/AuthenticateService":"app/js/services/AuthenticateService.js","../helpers/index":"app/js/helpers/index.js","../validation/userValidate":"app/js/validation/userValidate.js","../utils/listCheck":"app/js/utils/listCheck.js","../services/UserService":"app/js/services/UserService.js"}],"app/js/logout.js":[function(require,module,exports) {
+=======
+},{"../services/index":"app/js/services/index.js","../views/MessageView":"app/js/views/MessageView.js","../helpers/index":"app/js/helpers/index.js","../validation/userValidate":"app/js/validation/userValidate.js","../utils/listCheck":"app/js/utils/listCheck.js"}],"app/js/logout.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 var _AuthenticateController = require("./controllers/AuthenticateController");
 
 var controller = new _AuthenticateController.AuthenticateController();
+<<<<<<< HEAD
 var logout = document.querySelector("#logout");
+=======
+var logout = document.getElementById('logout');
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 
 if (logout) {
   logout.addEventListener('click', controller.logout.bind(controller));
@@ -763,7 +1598,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "54293" + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61111" + '/');
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 
   ws.onmessage = function (event) {
     checkedAssets = {};

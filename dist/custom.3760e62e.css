@@ -1,5 +1,8 @@
 /* Colors */
+<<<<<<< HEAD
 
+=======
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 .bg-primary { background-color: #f8fdff } 
 
 .bg-second { background-color: #283772 } 
@@ -97,6 +100,15 @@
     color: #283772;
 }
 
+<<<<<<< HEAD
+=======
+.vt-apps-line {
+    padding-top: 2px;
+    border-left: 1px solid #283772;
+    text-indent: 8px;
+}
+
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 /* Menu */
 
 .custom-icon {color: #f1be1d }

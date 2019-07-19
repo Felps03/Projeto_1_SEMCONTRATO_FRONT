@@ -12,10 +12,14 @@
     <link href="./lib/materialize/fonts/fonts.css" rel="stylesheet">
     <link href="./lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
+    <link rel="stylesheet" href="./css/chatbot.css">
     <title>Página Principal</title>
 </head>
 
 <body>
+
+    <div id="chatbot-view"></div>
+
     <!-- particles.js -->
     <div id="particles-js"></div>
 
@@ -77,7 +81,7 @@
                     <div class="vt-line mt-4 mb-4">
                         <h3><strong>Última Daily</strong></h3>
                     </div>
-                    
+
                     <hr class="lastdaily-line">
 
                     <table class="table table-hover mt-4">
@@ -90,7 +94,7 @@
                             </tr>
                         </thead>
                         <tbody id="all-dailys"></tbody>
-                    </table> 
+                    </table>
                 </div>
             </div>
 
@@ -110,10 +114,9 @@
         </div>
     </div>
 
-    
+
     <!-- View resp modal -->
-    <div class="modal fade" id="respModal" tabindex="-1" role="dialog" aria-labelledby="respTitle"
-        aria-hidden="true">
+    <div class="modal fade" id="respModal" tabindex="-1" role="dialog" aria-labelledby="respTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -139,7 +142,7 @@
     <script src="./lib/particlejs/particle.min.js"></script>
     <script src="./lib/particlejs/particle-config.js"></script>
 
-  
+
     <script src="lib/system.js"></script>
     <script>
         System.defaultJSExtensions = true;

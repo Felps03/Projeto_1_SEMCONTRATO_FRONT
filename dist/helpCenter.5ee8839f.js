@@ -624,7 +624,12 @@ function () {
         headers: {
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           "Authorization": "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          "Authorization": "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         },
         body: JSON.stringify({
           "yesterday": yesterday,
@@ -650,7 +655,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         },
         body: JSON.stringify({
           "id_user": localStorage.getItem('id'),
@@ -670,7 +680,12 @@ function () {
         headers: {
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           "Authorization": "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          "Authorization": "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         }
       });
     }
@@ -682,7 +697,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         }
       });
     }
@@ -694,7 +714,12 @@ function () {
         headers: {
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           "Authorization": "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          "Authorization": "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         }
       });
     }
@@ -730,6 +755,7 @@ function () {
   _createClass(AuthenticateService, [{
     key: "authenticate",
     value: function authenticate(email, password) {
+<<<<<<< HEAD
       return fetch("".concat(_index.HOST, "users/authenticate"), {
         method: 'POST',
         mode: 'cors',
@@ -755,6 +781,39 @@ function () {
         localStorage.setItem('id', result[0]['_id']);
         localStorage.setItem('isAdmin', result[0]['isAdmin']);
         window.location.href = "home.html";
+=======
+      return new Promise(function (resolve, reject) {
+        fetch("".concat(_index.HOST, "users/authenticate"), {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            "email": email,
+            "password": password
+          })
+        }).then(function (res) {
+          if (res.status !== 200) {
+            return reject(res);
+          }
+
+          var token = res.headers.get("Token");
+
+          if (token != null) {
+            localStorage.setItem('tkn', token);
+          }
+
+          res.json().then(function (result) {
+            localStorage.setItem('email', result[0]['email']);
+            localStorage.setItem('id', result[0]['_id']);
+            localStorage.setItem('isAdmin', result[0]['isAdmin']);
+            window.location.href = "home.html";
+            resolve();
+          });
+        });
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
       });
     }
   }, {
@@ -796,6 +855,23 @@ function () {
           'Content-Type': 'application/json',
           'Authorization': "Bearer ".concat(localStorage.getItem("tkn"))
         }
+<<<<<<< HEAD
+=======
+      }).then(function (res) {
+        if (res.status == 400) {
+          alert("Houve um erro ao Deslogar");
+        }
+
+        if (res.status == 200) {
+          localStorage.removeItem("tkn");
+          localStorage.removeItem("email");
+          localStorage.removeItem("id");
+          window.location.href = 'index.html';
+        }
+      }).catch(function (error) {
+        console.log("error: ", error);
+        return error;
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
       });
     }
   }]);
@@ -969,7 +1045,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         },
         body: JSON.stringify({
           "title": post.Title,
@@ -986,7 +1067,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         },
         body: JSON.stringify({
           "id_user": localStorage.getItem('id'),
@@ -1003,7 +1089,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         }
       });
     }
@@ -1015,7 +1106,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         }
       });
     }
@@ -1033,6 +1129,7 @@ function () {
       });
     }
   }, {
+<<<<<<< HEAD
     key: "findByTitle",
     value: function findByTitle(title) {
       return fetch("".concat(_index.HOST, "helps/post/title/1"), {
@@ -1051,14 +1148,27 @@ function () {
     key: "findByDesc",
     value: function findByDesc(desc) {
       return fetch("".concat(_index.HOST, "helps/post/desc/1"), {
+=======
+    key: "findByJoker",
+    value: function findByJoker(joker) {
+      return fetch("".concat(_index.HOST, "helps/post/joker/1"), {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
         },
         body: JSON.stringify({
           "desc": desc
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "joker": joker
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         })
       });
     }
@@ -1100,7 +1210,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         },
         body: JSON.stringify({
           "id_user": post.Author,
@@ -1117,7 +1232,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         },
         body: JSON.stringify({
           "id_user": post.Author,
@@ -1134,7 +1254,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         }
       });
     }
@@ -1159,7 +1284,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         }
       });
     }
@@ -1416,7 +1546,10 @@ function () {
   _createClass(View, [{
     key: "update",
     value: function update(model) {
+<<<<<<< HEAD
       console.log('>>>>~~~~ ', model);
+=======
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
       var template = this.template(model);
       if (this._escape) template = template.replace(/<script>[\s\S]*?<\/script>/g, '');
       this._el.innerHTML = template;
@@ -1533,7 +1666,12 @@ function (_View) {
     key: "template",
     value: function template(model) {
       this.lastModel = model;
+<<<<<<< HEAD
       return "\n            \n            <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                    <h5 class=\"modal-title\">Pergunta</h5>\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                </div>\n                <div class=\"modal-body\">\n\n                    <div id=\"post-meta\" data-id=\"".concat(model.Id, "\"></div>\n\n                    <form action=\"\" id=\"edit-form\">\n                        ").concat(model.AuthorId ? model.AuthorId === localStorage.getItem('id') && this.editing ? "\n                        <div class=\"form-group\">\n                            <label for=\"edit-title\">T\xEDtulo:</label>\n                            <div class=\"input-group\">\n                                <input type=\"text\" name=\"title\" id=\"edit-title\"\n                                    class=\"form-control form-control input-circle\"\n                                    placeholder=\"Pesquisar por t\xEDtulo\" value=\"".concat(model.Title, "\">\n                                <div id=\"edit-titlevalidator\"></div>\n                            </div>\n                        </div>") : "\n                        <div class=\"d-flex align-items-center\">\n                            <h2>".concat(model.Title, "</h2>\n                            <!-- <img class=\"rounded-circle\" width=\"70\" src=\"app/img/teste.jpg\" alt=\"Card image cap\"> -->\n                        </div>") : '', "\n\n                        ").concat(model.AuthorId ? model.AuthorId === localStorage.getItem('id') && this.editing ? "\n                        <div class=\"form-group\">\n                            <label for=\"edit-desc\">Descri\xE7\xE3o:</label>\n                            <div class=\"input-group\">\n                                <textarea name=\"desc\" class=\"form-control input-circle\" id=\"edit-desc\"\n                                    placeholder=\"Pesquisar por descri\xE7\xE3o\" autofocus>".concat(model.Desc, "</textarea>\n                                <div id=\"edit-descvalidator\"></div>\n                            </div>\n                        </div>") : "\n                        <p>".concat(model.Desc.replace('\n', '<br>'), "</p>") : '', "\n\n                        ").concat(model.AuthorId ? model.AuthorId === localStorage.getItem('id') && this.editing ? "\n                        <button type=\"submit\"\n                            class=\"btn btn-warning d-flex align-items-center\">Enviar <i\n                                class=\"material-icons ml-2\">send</i></button>\n                        " : '' : '', "\n\n                    </form>\n\n                </div>\n\n                <div id=\"post-ask-list\"></div>\n\n                <div class=\"container border-top p-3\">\n\n                    <form action=\"\" id=\"comment-form\">\n                        <div class=\"form-group\">\n                            <label for=\"first\">Comentar:</label>\n                            <textarea name=\"first\" class=\"form-control form-control-sm input-circle\"\n                                id=\"comment\" placeholder=\"Sugira solu\xE7\xF5es ou contribua \xE0 discuss\xE3o\"\n                                autofocus></textarea>\n                            <div id=\"commentvalidator\"></div>\n                        </div>\n\n                        <div class=\"d-inline-flex d-row justify-content-start align-items-center ").concat(model.AuthorId ? model.AuthorId === localStorage.getItem('id') ? '' : 'invisible' : 'invisible', " \">\n                            <button type=\"button\" id=\"delete-btn\" class=\"btn btn-outline-danger btn-sm pt-2 ml-1\" data-toggle=\"modal\" data-target=\"#confirm-del-modal\">\n                                <i class=\"small material-icons\">delete</i>\n                            </button>\n                            <button type=\"button\" id=\"edit-btn\" class=\"btn btn-outline-warning btn-sm pt-2 ml-1\">\n                                <i class=\"small material-icons\">edit</i>\n                            </button>\n                        </div>\n                        \n                        <div class=\"d-inline-flex d-row justify-content-end align-items-center float-right\">\n                            <button type=\"button\" class=\"btn btn-secondary m-1\"\n                                data-dismiss=\"modal\">Cancelar</button>\n                            <button type=\"submit\"\n                                class=\"btn btn-primary d-flex align-items-center\">Enviar <i\n                                    class=\"material-icons ml-2\">send</i></button>\n                        </div>\n                    </form>\n\n                </div>\n            </div>\n\n        ");
+=======
+      var canEdit = model.AuthorId === localStorage.getItem('id') || localStorage.getItem('isAdmin') === 'true';
+      return "\n            \n            <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                    <h5 class=\"modal-title\">Pergunta</h5>\n                    <button id=\"view-modal-close\" type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                </div>\n                <div class=\"modal-body\">\n\n                    <div id=\"post-meta\" data-id=\"".concat(model.Id, "\"></div>\n\n                    <form action=\"\" id=\"edit-form\">\n                        ").concat(model.AuthorId ? canEdit && this.editing ? "\n                        <div class=\"form-group\">\n                            <label for=\"edit-title\">T\xEDtulo:</label>\n                            <div class=\"input-group\">\n                                <input type=\"text\" name=\"title\" id=\"edit-title\"\n                                    class=\"form-control form-control input-circle\"\n                                    placeholder=\"Pesquisar por t\xEDtulo\" value=\"".concat(model.Title, "\">\n                                <div id=\"edit-titlevalidator\"></div>\n                            </div>\n                        </div>") : "\n                        <div class=\"d-flex align-items-center\">\n                            <h2>".concat(model.Title, "</h2>\n                            <!-- <img class=\"rounded-circle\" width=\"70\" src=\"app/img/teste.jpg\" alt=\"Card image cap\"> -->\n                        </div>") : '', "\n\n                        ").concat(model.AuthorId ? canEdit && this.editing ? "\n                        <div class=\"form-group\">\n                            <label for=\"edit-desc\">Descri\xE7\xE3o:</label>\n                            <div class=\"input-group\">\n                                <textarea name=\"desc\" class=\"form-control input-circle\" id=\"edit-desc\"\n                                    placeholder=\"Pesquisar por descri\xE7\xE3o\" autofocus>".concat(model.Desc, "</textarea>\n                                <div id=\"edit-descvalidator\"></div>\n                            </div>\n                        </div>") : "\n                        <p>".concat(model.Desc.replace('\n', '<br>'), "</p>") : '', "\n\n                        ").concat(model.AuthorId ? canEdit && this.editing ? "\n                        <button type=\"submit\"\n                            class=\"btn btn-warning d-flex align-items-center\">Enviar <i\n                                class=\"material-icons ml-2\">send</i></button>\n                        " : '' : '', "\n\n                    </form>\n\n                </div>\n\n                <div id=\"post-ask-list\"></div>\n\n                <div class=\"container border-top p-3\">\n\n                    <form action=\"\" id=\"comment-form\">\n                        <div class=\"form-group\">\n                            <label for=\"first\">Comentar:</label>\n                            <textarea name=\"first\" class=\"form-control form-control-sm input-circle\"\n                                id=\"comment\" placeholder=\"Sugira solu\xE7\xF5es ou contribua \xE0 discuss\xE3o\"\n                                autofocus></textarea>\n                            <div id=\"commentvalidator\"></div>\n                        </div>\n\n                        <div class=\"d-inline-flex d-row justify-content-start align-items-center ").concat(model.AuthorId ? canEdit ? '' : 'invisible' : 'invisible', " \">\n                            <button type=\"button\" id=\"delete-btn\" class=\"btn btn-outline-danger btn-sm pt-2 ml-1\" data-toggle=\"modal\" data-target=\"#confirm-del-modal\">\n                                <i class=\"small material-icons\">delete</i>\n                            </button>\n                            <button type=\"button\" id=\"edit-btn\" class=\"btn btn-outline-warning btn-sm pt-2 ml-1\">\n                                <i class=\"small material-icons\">edit</i>\n                            </button>\n                        </div>\n                        \n                        <div class=\"d-inline-flex d-row justify-content-end align-items-center float-right\">\n                            <button type=\"button\" class=\"btn btn-secondary m-1\"\n                                data-dismiss=\"modal\">Cancelar</button>\n                            <button type=\"submit\"\n                                class=\"btn btn-primary d-flex align-items-center\">Enviar <i\n                                    class=\"material-icons ml-2\">send</i></button>\n                        </div>\n                    </form>\n\n                </div>\n            </div>\n\n        ");
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
     }
   }, {
     key: "update",
@@ -1624,7 +1762,12 @@ function (_View) {
     key: "template",
     value: function template(model) {
       this.lastModel = model;
+<<<<<<< HEAD
       return "\n            <div class=\"card mb-2\">\n                <div class=\"card-body inline-block\">\n                    <h5>".concat(model.AuthorName, "</h5>\n                    <form action=\"\" class=\"comment-edit\" id=\"comment-edit-form-").concat(model.Id, "\">\n\n                    ").concat(this.editing ? "\n                    <div class=\"form-group\">\n                        <textarea name=\"first\" class=\"form-control form-control-sm input-circle\"\n                            id=\"comment\" placeholder=\"Sugira solu\xE7\xF5es ou contribua \xE0 discuss\xE3o\"\n                            autofocus>".concat(model.Desc, "</textarea>\n                        <div id=\"comment-editvalidator\"></div>\n                    </div>\n                    ") : "<p>".concat(model.Desc, "</p>"), "\n\n                    ").concat(this.editing ? "\n                    <button type=\"submit\"\n                        class=\"btn btn-warning d-flex align-items-center\">Enviar <i\n                            class=\"material-icons ml-2\">send</i></button>\n                    " : '', "\n\n                    </form>\n                </div>\n                \n                <div class=\"d-inline-flex d-row justify-content-end align-items-center float-right ").concat(model.Author ? model.Author === localStorage.getItem('id') ? '' : 'invisible' : 'invisible', "\">\n                    <button type=\"button\" id=\"comment-del-").concat(model.Id, "\" class=\"btn btn-outline-danger btn-sm pt-2 ml-1\">\n                        <i class=\"small material-icons\">delete</i>\n                    </button>\n                    <button type=\"button\" class=\"btn btn-outline-warning btn-sm pt-2 ml-1\" id=\"edit-comment-").concat(model.Id, "\">\n                        <i class=\"small material-icons\">edit</i>\n                    </button>\n                </div>\n            </div>\n        ");
+=======
+      var canEdit = model.Author === localStorage.getItem('id') || localStorage.getItem('isAdmin') === 'true';
+      return "\n            <div class=\"card mb-2\">\n                <div class=\"card-body inline-block\">\n                    <h5>".concat(model.AuthorName, "</h5>\n                    <form action=\"\" class=\"comment-edit\" id=\"comment-edit-form-").concat(model.Id, "\">\n\n                    ").concat(model.Author ? canEdit && this.editing ? "\n                    <div class=\"form-group\">\n                        <textarea name=\"first\" class=\"form-control form-control-sm input-circle\"\n                            id=\"comment-edit-".concat(model.Id, "\" placeholder=\"Sugira solu\xE7\xF5es ou contribua \xE0 discuss\xE3o\"\n                            autofocus>").concat(model.Desc, "</textarea>\n                        <div id=\"comment-editvalidator\"></div>\n                    </div>\n                    ") : "<p>".concat(model.Desc, "</p>") : '', "\n\n                    ").concat(model.Author ? canEdit && this.editing ? "\n                    <button type=\"submit\"\n                        class=\"btn btn-warning d-flex align-items-center\">Enviar <i\n                            class=\"material-icons ml-2\">send</i></button>\n                    " : '' : '', "\n\n                    </form>\n                </div>\n                \n                <div class=\"d-inline-flex d-row justify-content-end align-items-center float-right ").concat(model.Author ? canEdit ? '' : 'invisible' : 'invisible', "\">\n                    <button type=\"button\" id=\"comment-del-").concat(model.Id, "\" class=\"btn btn-outline-danger btn-sm pt-2 ml-1\">\n                        <i class=\"small material-icons\">delete</i>\n                    </button>\n                    <button type=\"button\" class=\"btn btn-outline-warning btn-sm pt-2 ml-1\" id=\"edit-comment-").concat(model.Id, "\">\n                        <i class=\"small material-icons\">edit</i>\n                    </button>\n                </div>\n            </div>\n        ");
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
     }
   }, {
     key: "update",
@@ -1744,7 +1887,56 @@ function (_View) {
 }(_View2.View);
 
 exports.PostAsksView = PostAsksView;
+<<<<<<< HEAD
 },{"./View":"app/js/views/View.js","./PostAskView":"app/js/views/PostAskView.js"}],"app/js/controllers/HelpCenterAskController.js":[function(require,module,exports) {
+=======
+},{"./View":"app/js/views/View.js","./PostAskView":"app/js/views/PostAskView.js"}],"app/js/validation/helpCenterAskValidate.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.comment = comment;
+
+function comment(comment) {
+  if (!(comment.value.trim().length > 3)) {
+    return 'Comentário muito pequeno.';
+  } else {
+    return null;
+  }
+}
+},{}],"app/js/utils/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _InputWrapper = require("./InputWrapper");
+
+Object.keys(_InputWrapper).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _InputWrapper[key];
+    }
+  });
+});
+
+var _listCheck = require("./listCheck");
+
+Object.keys(_listCheck).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _listCheck[key];
+    }
+  });
+});
+},{"./InputWrapper":"app/js/utils/InputWrapper.js","./listCheck":"app/js/utils/listCheck.js"}],"app/js/controllers/HelpCenterAskController.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1760,6 +1952,17 @@ var _PostAsksView = require("../views/PostAsksView");
 
 var _index2 = require("../models/index");
 
+<<<<<<< HEAD
+=======
+var _index3 = require("../helpers/index");
+
+var vals = _interopRequireWildcard(require("../validation/helpCenterAskValidate"));
+
+var _index4 = require("../utils/index");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1780,9 +1983,16 @@ function () {
     if (addForm) addForm.addEventListener('submit', this.add.bind(this));
     this.postAsksView.childrenDidMount(function (postAsk) {
       var editForm = document.getElementById("comment-edit-form-".concat(postAsk.Id));
+<<<<<<< HEAD
       console.log(editForm);
       var deleteBtn = document.getElementById("comment-del-".concat(postAsk.Id));
       console.log(' ~~~ ~', deleteBtn);
+=======
+      var editField = document.getElementById("comment-edit-".concat(postAsk.Id));
+      var deleteBtn = document.getElementById("comment-del-".concat(postAsk.Id));
+
+      _this.editVals.set(postAsk.Id, [(0, _index3.validate)(editField, vals.comment)]);
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 
       if (editForm) {
         editForm.addEventListener('submit', _this.update.bind(_this, postAsk.Id));
@@ -1792,6 +2002,11 @@ function () {
         deleteBtn.addEventListener('click', _this.delete.bind(_this, postAsk.Id));
       }
     });
+<<<<<<< HEAD
+=======
+    this.addVals = [(0, _index3.validate)(this.addComment, vals.comment)];
+    this.editVals = new Map();
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
   }
 
   _createClass(HelpCenterAskController, [{
@@ -1800,6 +2015,7 @@ function () {
       var _this2 = this;
 
       event.preventDefault();
+<<<<<<< HEAD
       var postIdField = document.getElementById('post-meta');
 
       if (!postIdField) {
@@ -1821,6 +2037,32 @@ function () {
       }).catch(function (error) {
         console.error(error);
       });
+=======
+
+      if ((0, _index4.noFalse)(this.addVals)) {
+        var postIdField = document.getElementById('post-meta');
+
+        if (!postIdField) {
+          return;
+        }
+
+        var ID_POST = postIdField.getAttribute('data-id');
+
+        if (!ID_POST) {
+          return;
+        }
+
+        var postAsk = new _PostAsk.PostAsk(ID_POST, this.addComment.value, localStorage.getItem('id') || '');
+        var helpCenterService = new _index.HelpCenterAskService();
+        helpCenterService.add(postAsk).then(function (result) {
+          return result.json();
+        }).then(function (res) {
+          _this2.listByPost(event);
+        }).catch(function (error) {
+          console.error(error);
+        });
+      }
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
     }
   }, {
     key: "update",
@@ -1828,6 +2070,7 @@ function () {
       var _this3 = this;
 
       event.preventDefault();
+<<<<<<< HEAD
       var postIdField = document.getElementById('post-meta');
       var textareaEl = document.querySelector("#comment-edit-form-".concat(id, " textarea"));
 
@@ -1855,6 +2098,37 @@ function () {
       }).catch(function (error) {
         console.error(error);
       });
+=======
+
+      if ((0, _index4.noFalse)(this.editVals.get(id))) {
+        var postIdField = document.getElementById('post-meta');
+        var textareaEl = document.querySelector("#comment-edit-form-".concat(id, " textarea"));
+
+        if (!textareaEl) {
+          return;
+        }
+
+        if (!postIdField) {
+          return;
+        }
+
+        var ID_POST = postIdField.getAttribute('data-id');
+
+        if (!ID_POST) {
+          return;
+        }
+
+        var postAsk = new _PostAsk.PostAsk(ID_POST, textareaEl.value, localStorage.getItem('id') || '', id);
+        var helpCenterService = new _index.HelpCenterAskService();
+        helpCenterService.update(postAsk, id).then(function (result) {
+          return result.json();
+        }).then(function (res) {
+          _this3.listByPost(event);
+        }).catch(function (error) {
+          console.error(error);
+        });
+      }
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
     }
   }, {
     key: "list",
@@ -1908,8 +2182,11 @@ function () {
       helpCenterService.remove(id).then(function (result) {
         return result.json();
       }).then(function (res) {
+<<<<<<< HEAD
         console.log(res);
 
+=======
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         _this5.listByPost(event);
       }).catch(function (error) {
         console.error(error);
@@ -1932,7 +2209,142 @@ function () {
 }();
 
 exports.HelpCenterAskController = HelpCenterAskController;
+<<<<<<< HEAD
 },{"../services/index":"app/js/services/index.js","../models/PostAsk":"app/js/models/PostAsk.js","../views/PostAsksView":"app/js/views/PostAsksView.js","../models/index":"app/js/models/index.js"}],"app/js/controllers/HelpCenterController.js":[function(require,module,exports) {
+=======
+},{"../services/index":"app/js/services/index.js","../models/PostAsk":"app/js/models/PostAsk.js","../views/PostAsksView":"app/js/views/PostAsksView.js","../models/index":"app/js/models/index.js","../helpers/index":"app/js/helpers/index.js","../validation/helpCenterAskValidate":"app/js/validation/helpCenterAskValidate.js","../utils/index":"app/js/utils/index.js"}],"app/js/views/MessageView.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MessageView = void 0;
+
+var _View2 = require("./View");
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var MessageView =
+/*#__PURE__*/
+function (_View) {
+  _inherits(MessageView, _View);
+
+  function MessageView() {
+    _classCallCheck(this, MessageView);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(MessageView).apply(this, arguments));
+  }
+
+  _createClass(MessageView, [{
+    key: "template",
+    value: function template(model) {
+      return "<p class=\"alert alert-warning\">".concat(model, "</p>");
+    }
+  }]);
+
+  return MessageView;
+}(_View2.View);
+
+exports.MessageView = MessageView;
+},{"./View":"app/js/views/View.js"}],"app/js/views/PaginationView.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.PaginationView = void 0;
+
+var _View2 = require("./View");
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var PaginationView =
+/*#__PURE__*/
+function (_View) {
+  _inherits(PaginationView, _View);
+
+  function PaginationView(selector, baseUrl) {
+    var _this;
+
+    var escape = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+    _classCallCheck(this, PaginationView);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PaginationView).call(this, selector, escape));
+    _this.baseUrl = baseUrl;
+    return _this;
+  }
+
+  _createClass(PaginationView, [{
+    key: "generatePageNs",
+    value: function generatePageNs(actual) {
+      var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 3;
+      var half = Math.floor(perPage / 2);
+      var ns = [];
+
+      if (actual <= half) {
+        for (var i = 0; i < perPage; i++) {
+          ns.push(i + 1);
+        }
+      } else {
+        for (var _i = actual - half; _i <= actual + half; _i++) {
+          ns.push(_i);
+        }
+      }
+
+      return ns;
+    }
+  }, {
+    key: "template",
+    value: function template(model) {
+      var _this2 = this;
+
+      console.log(model);
+      console.log(this.generatePageNs(model));
+      return "\n        <li class=\"page-item\">\n            <a class=\"page-link\" href=\"".concat(this.baseUrl, "?page=").concat(model - 1, "\" aria-label=\"Anterior\">\n                <span aria-hidden=\"true\" class=\"txt-primary\">&laquo;</span>\n                <span class=\"sr-only txt-primary\">Anterior</span>\n            </a>\n        </li>\n\n        ").concat(this.generatePageNs(model).map(function (n) {
+        return "\n            <li class=\"page-item\"><a class=\"page-link txt-primary\" href=\"".concat(_this2.baseUrl, "?page=").concat(n, "\">").concat(n, "</a></li>\n        ");
+      }).join(''), "\n        \n        <li class=\"page-item\">\n            <a class=\"page-link\" href=\"").concat(this.baseUrl, "?page=").concat(model + 1, "\" aria-label=\"Pr\xF3ximo\">\n                <span aria-hidden=\"true\" class=\"txt-primary\">&raquo;</span>\n                <span class=\"sr-only txt-primary\">Pr\xF3ximo</span>\n            </a>\n        </li>\n        ");
+    }
+  }]);
+
+  return PaginationView;
+}(_View2.View);
+
+exports.PaginationView = PaginationView;
+},{"./View":"app/js/views/View.js"}],"app/js/controllers/HelpCenterController.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1956,6 +2368,13 @@ var _PostView = require("../views/PostView");
 
 var _HelpCenterAskController = require("./HelpCenterAskController");
 
+<<<<<<< HEAD
+=======
+var _MessageView = require("../views/MessageView");
+
+var _PaginationView = require("../views/PaginationView");
+
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1970,15 +2389,30 @@ function () {
   function HelpCenterController() {
     var _this = this;
 
+<<<<<<< HEAD
     _classCallCheck(this, HelpCenterController);
 
     this.searchTitle = document.getElementById('search-title');
     this.searchDesc = document.getElementById('search-desc');
+=======
+    var currentPage = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
+    _classCallCheck(this, HelpCenterController);
+
+    this.searchTitle = document.getElementById('search-joker');
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
     this.addTitle = document.getElementById('add-title');
     this.addDesc = document.getElementById('add-desc');
     this.postsView = new _PostsView.PostsView('#post-list');
     this.postView = new _PostView.PostView('#view-view-modal');
+<<<<<<< HEAD
     this.currentPage = 1;
+=======
+    this.paginationView = new _PaginationView.PaginationView('#pagination', 'app-help-center.html');
+    this.messageView = new _MessageView.MessageView('#message-view');
+    this.currentPage = currentPage;
+    this.paginationView.update(currentPage);
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
     this.addVals = [(0, _index3.validate)(this.addTitle, vals.title), (0, _index3.validate)(this.addDesc, vals.desc)];
     this.postView.didMount(function () {
       _this.helpCenterAsk = new _HelpCenterAskController.HelpCenterAskController();
@@ -2014,7 +2448,27 @@ function () {
         var post = new _index.Post(this.addTitle.value.toString(), this.addDesc.value.toString());
         var helpCenterService = new _index2.HelpCenterService();
         helpCenterService.add(post).then(function (result) {
+<<<<<<< HEAD
           return result.json();
+=======
+          if (Math.floor(result.status / 100) === 2) {
+            result.json().then(function () {
+              _this2.list(event);
+
+              document.getElementById('add-modal-close').click();
+
+              _this2.messageView.update('Adicionado com sucesso!');
+            }).catch(function (error) {
+              console.error(error);
+            });
+          } else {
+            result.json().then(function (res) {
+              _this2.list(event);
+
+              _this2.messageView.update(res.erro);
+            });
+          }
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         }).then(function (res) {}).then(function () {
           _this2.list(event);
         }).catch(function (error) {
@@ -2100,11 +2554,32 @@ function () {
 
       var helpCenterService = new _index2.HelpCenterService();
       helpCenterService.remove(ID_POST).then(function (result) {
+<<<<<<< HEAD
         return result.json();
       }).then(function (res) {
         _this5.list(event);
       }).catch(function (error) {
         console.log(error);
+=======
+        if (Math.floor(result.status / 100) === 2) {
+          result.json().then(function (res) {
+            _this5.list(event);
+
+            document.getElementById('confirm-del-modal-close').click();
+            document.getElementById('view-modal-close').click();
+
+            _this5.messageView.update('Deletado com sucesso.');
+          });
+        } else {
+          result.json().then(function (res) {
+            _this5.list(event);
+
+            _this5.messageView.update(res.erro);
+          });
+        }
+      }).catch(function (error) {
+        console.error(error);
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
       });
     }
   }, {
@@ -2115,7 +2590,11 @@ function () {
       event.preventDefault();
       var title = this.searchTitle.value;
       var helpCenterService = new _index2.HelpCenterService();
+<<<<<<< HEAD
       helpCenterService.findByTitle(title).then(function (result) {
+=======
+      helpCenterService.findByJoker(title).then(function (result) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         return result.json();
       }).then(function (res) {
         var posts = _index.Posts.from(res.slice(0, -1));
@@ -2136,6 +2615,7 @@ function () {
       });
     }
   }, {
+<<<<<<< HEAD
     key: "findByDesc",
     value: function findByDesc(event) {
       var _this7 = this;
@@ -2170,6 +2650,70 @@ function () {
 
 exports.HelpCenterController = HelpCenterController;
 },{"../models/index":"app/js/models/index.js","../services/index":"app/js/services/index.js","../helpers/index":"app/js/helpers/index.js","../validation/helpCenterValidate":"app/js/validation/helpCenterValidate.js","../utils/listCheck":"app/js/utils/listCheck.js","../views/PostsView":"app/js/views/PostsView.js","../views/PostView":"app/js/views/PostView.js","./HelpCenterAskController":"app/js/controllers/HelpCenterAskController.js"}],"app/js/controllers/HomeController.js":[function(require,module,exports) {
+=======
+    key: "CurrentPage",
+    set: function set(page) {
+      this.currentPage = page;
+      this.paginationView.update(this.currentPage);
+    }
+  }]);
+
+  return HelpCenterController;
+}();
+
+exports.HelpCenterController = HelpCenterController;
+},{"../models/index":"app/js/models/index.js","../services/index":"app/js/services/index.js","../helpers/index":"app/js/helpers/index.js","../validation/helpCenterValidate":"app/js/validation/helpCenterValidate.js","../utils/listCheck":"app/js/utils/listCheck.js","../views/PostsView":"app/js/views/PostsView.js","../views/PostView":"app/js/views/PostView.js","./HelpCenterAskController":"app/js/controllers/HelpCenterAskController.js","../views/MessageView":"app/js/views/MessageView.js","../views/PaginationView":"app/js/views/PaginationView.js"}],"app/js/views/UserMenuView.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.UserMenuView = void 0;
+
+var _View2 = require("./View");
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var UserMenuView =
+/*#__PURE__*/
+function (_View) {
+  _inherits(UserMenuView, _View);
+
+  function UserMenuView() {
+    _classCallCheck(this, UserMenuView);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(UserMenuView).apply(this, arguments));
+  }
+
+  _createClass(UserMenuView, [{
+    key: "template",
+    value: function template() {
+      return localStorage.getItem('tkn') ? "\n            <div class=\"dropdown mr-n4 txt-user\" style=\"float:right;\">\n                <div class=\"d-flex align-items-center btn\" data-toggle=\"dropdown\">\n                    <span id=\"nameSpan\"></span>\n                    <img src=\"https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png\" class=\"rounded-circle\" width=\"60px\">\n                    <i class=\"material-icons ml-n2\">arrow_drop_down</i>\n                </div>\n                <div class=\"dropdown-menu dropdown-menu-right align-user\">\n                    <div class=\"dropdown-item\">    \n                        Usu\xE1rio: <span id=\"userNameSpan\"></span>\n                    </div>\n                    <div class=\"dropdown-divider\"></div>\n\n                    <a class=\"dropdown-item d-flex align-items-center\" href=\"user-edit.html\">\n                        <i class=\"material-icons mr-2\">edit</i>Alterar Cadastro</a>\n                    <a class=\"dropdown-item d-flex align-items-center\" href=\"home.html\">\n                        <i class=\"material-icons mr-2\">home</i>Home</a>\n\n                    <div class=\"dropdown-divider\"></div>\n\n                    <a class=\"dropdown-item d-flex align-items-center\" id=\"logout\">\n                        <i class=\"material-icons mr-2\">power_settings_new</i><strong>Sair</strong></a>\n                </div>\n            </div>\n        " : "<a href=\"index.html\" class=\"menu-item\"><h5><strong>Login</strong></h5></a>";
+    }
+  }]);
+
+  return UserMenuView;
+}(_View2.View);
+
+exports.UserMenuView = UserMenuView;
+},{"./View":"app/js/views/View.js"}],"app/js/controllers/HomeController.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2183,6 +2727,11 @@ var _HelpCenterService = require("../services/HelpCenterService");
 
 var _DailyNoteService = require("../services/DailyNoteService");
 
+<<<<<<< HEAD
+=======
+var _UserMenuView = require("../views/UserMenuView");
+
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -2194,11 +2743,22 @@ var HomeController =
 function () {
   function HomeController() {
     _classCallCheck(this, HomeController);
+<<<<<<< HEAD
   }
 
   _createClass(HomeController, [{
     key: "getUserData",
     value: function getUserData() {
+=======
+
+    this.user = new _UserMenuView.UserMenuView("#user-menu-login-link");
+    this.user.update('');
+  }
+
+  _createClass(HomeController, [{
+    key: "getUser",
+    value: function getUser() {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
       var data;
 
       if (!localStorage.getItem('tkn')) {
@@ -2262,15 +2822,60 @@ function () {
 }();
 
 exports.HomeController = HomeController;
+<<<<<<< HEAD
 },{"../services/UserService":"app/js/services/UserService.js","../services/HelpCenterService":"app/js/services/HelpCenterService.js","../services/DailyNoteService":"app/js/services/DailyNoteService.js"}],"app/js/helpCenter.js":[function(require,module,exports) {
+=======
+},{"../services/UserService":"app/js/services/UserService.js","../services/HelpCenterService":"app/js/services/HelpCenterService.js","../services/DailyNoteService":"app/js/services/DailyNoteService.js","../views/UserMenuView":"app/js/views/UserMenuView.js"}],"app/js/utils/userData.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getUser = getUser;
+
+var _HomeController = require("../controllers/HomeController");
+
+function getUser() {
+  var homeController = new _HomeController.HomeController();
+  var data = homeController.getUser();
+
+  if (data) {
+    data.then(function (data) {
+      var userData = {
+        name: data.name,
+        userName: data.userName
+      };
+      return userData;
+    }).then(function (userData) {
+      document.querySelector('#nameSpan').innerHTML = userData.name;
+      document.querySelector('#userNameSpan').innerHTML = userData.userName;
+    });
+  }
+}
+},{"../controllers/HomeController":"app/js/controllers/HomeController.js"}],"app/js/helpCenter.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 var _HelpCenterController = require("./controllers/HelpCenterController");
 
 var _HomeController = require("./controllers/HomeController");
 
+<<<<<<< HEAD
 var controller = new _HelpCenterController.HelpCenterController();
 var homeController = new _HomeController.HomeController();
+=======
+var _userData = require("./utils/userData");
+
+var userData = (0, _userData.getUser)();
+var controller = new _HelpCenterController.HelpCenterController();
+var homeController = new _HomeController.HomeController();
+var url = new URLSearchParams(location.search);
+
+if (url.get('page')) {
+  controller.CurrentPage = +url.get('page');
+}
+
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 var cadastrar = document.querySelector("#cadastroHelpCenter");
 
 if (cadastrar) {
@@ -2278,6 +2883,7 @@ if (cadastrar) {
   window.addEventListener('load', controller.list.bind(controller));
 }
 
+<<<<<<< HEAD
 var searchTitle = document.getElementById('search-title');
 var searchDesc = document.getElementById('search-desc');
 if (searchTitle) searchTitle.addEventListener('change', controller.findByTitle.bind(controller));
@@ -2300,6 +2906,11 @@ if (data) {
   window.location.href = "index.html";
 }
 },{"./controllers/HelpCenterController":"app/js/controllers/HelpCenterController.js","./controllers/HomeController":"app/js/controllers/HomeController.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+=======
+var searchTitle = document.getElementById('search-joker');
+if (searchTitle) searchTitle.addEventListener('change', controller.findByTitle.bind(controller));
+},{"./controllers/HelpCenterController":"app/js/controllers/HelpCenterController.js","./controllers/HomeController":"app/js/controllers/HomeController.js","./utils/userData":"app/js/utils/userData.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2327,7 +2938,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "54293" + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61111" + '/');
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 
   ws.onmessage = function (event) {
     checkedAssets = {};

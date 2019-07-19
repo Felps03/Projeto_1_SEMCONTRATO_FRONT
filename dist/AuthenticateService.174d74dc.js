@@ -152,6 +152,7 @@ function () {
   _createClass(AuthenticateService, [{
     key: "authenticate",
     value: function authenticate(email, password) {
+<<<<<<< HEAD
       return fetch("".concat(_index.HOST, "users/authenticate"), {
         method: 'POST',
         mode: 'cors',
@@ -177,6 +178,39 @@ function () {
         localStorage.setItem('id', result[0]['_id']);
         localStorage.setItem('isAdmin', result[0]['isAdmin']);
         window.location.href = "home.html";
+=======
+      return new Promise(function (resolve, reject) {
+        fetch("".concat(_index.HOST, "users/authenticate"), {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            "email": email,
+            "password": password
+          })
+        }).then(function (res) {
+          if (res.status !== 200) {
+            return reject(res);
+          }
+
+          var token = res.headers.get("Token");
+
+          if (token != null) {
+            localStorage.setItem('tkn', token);
+          }
+
+          res.json().then(function (result) {
+            localStorage.setItem('email', result[0]['email']);
+            localStorage.setItem('id', result[0]['_id']);
+            localStorage.setItem('isAdmin', result[0]['isAdmin']);
+            window.location.href = "home.html";
+            resolve();
+          });
+        });
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
       });
     }
   }, {
@@ -218,6 +252,23 @@ function () {
           'Content-Type': 'application/json',
           'Authorization': "Bearer ".concat(localStorage.getItem("tkn"))
         }
+<<<<<<< HEAD
+=======
+      }).then(function (res) {
+        if (res.status == 400) {
+          alert("Houve um erro ao Deslogar");
+        }
+
+        if (res.status == 200) {
+          localStorage.removeItem("tkn");
+          localStorage.removeItem("email");
+          localStorage.removeItem("id");
+          window.location.href = 'index.html';
+        }
+      }).catch(function (error) {
+        console.log("error: ", error);
+        return error;
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
       });
     }
   }]);
@@ -254,7 +305,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "54293" + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61111" + '/');
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 
   ws.onmessage = function (event) {
     checkedAssets = {};

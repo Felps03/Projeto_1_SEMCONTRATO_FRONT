@@ -126,7 +126,127 @@ Object.defineProperty(exports, "__esModule", {
 exports.HOST = void 0;
 var HOST = 'http://localhost:3000/';
 exports.HOST = HOST;
+<<<<<<< HEAD
 },{}],"app/js/services/AuthenticateService.js":[function(require,module,exports) {
+=======
+},{}],"app/js/services/DailyNoteService.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DailyNoteService = void 0;
+
+var _index = require("../config/index");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var DailyNoteService =
+/*#__PURE__*/
+function () {
+  function DailyNoteService() {
+    _classCallCheck(this, DailyNoteService);
+  }
+
+  _createClass(DailyNoteService, [{
+    key: "add",
+    value: function add(yesterday, today, impediment, date) {
+      fetch("".concat(_index.HOST, "dailys/daily"), {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          "Authorization": "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "yesterday": yesterday,
+          "today": today,
+          "impediment": impediment,
+          "date": new Date().toISOString().slice(0, 10),
+          "email": localStorage.getItem('email')
+        })
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        if (res.status == 200) {
+          console.log("funcionou");
+        }
+      });
+    }
+  }, {
+    key: "update",
+    value: function update(daily, ID) {
+      console.log(ID);
+      return fetch("".concat(_index.HOST, "dailys/daily/").concat(ID), {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "id_user": localStorage.getItem('id'),
+          "yesterday": daily.Yesterday,
+          "today": daily.Today,
+          "impediment": daily.Impediment,
+          "date": daily.Date
+        })
+      });
+    }
+  }, {
+    key: "listDate",
+    value: function listDate(data, page) {
+      console.log("".concat(_index.HOST, "dailys/daily/").concat(data, "/1"));
+      return fetch("".concat(_index.HOST, "dailys/daily/").concat(data, "/1"), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          "Authorization": "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }, {
+    key: "listAll",
+    value: function listAll() {
+      return fetch("".concat(_index.HOST, "dailys"), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }, {
+    key: "listDailyById",
+    value: function listDailyById(id) {
+      return fetch("".concat(_index.HOST, "dailys/").concat(id), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          "Authorization": "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }]);
+
+  return DailyNoteService;
+}();
+
+exports.DailyNoteService = DailyNoteService;
+},{"../config/index":"app/js/config/index.js"}],"app/js/services/AuthenticateService.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -152,6 +272,7 @@ function () {
   _createClass(AuthenticateService, [{
     key: "authenticate",
     value: function authenticate(email, password) {
+<<<<<<< HEAD
       return fetch("".concat(_index.HOST, "users/authenticate"), {
         method: 'POST',
         mode: 'cors',
@@ -177,6 +298,39 @@ function () {
         localStorage.setItem('id', result[0]['_id']);
         localStorage.setItem('isAdmin', result[0]['isAdmin']);
         window.location.href = "home.html";
+=======
+      return new Promise(function (resolve, reject) {
+        fetch("".concat(_index.HOST, "users/authenticate"), {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            "email": email,
+            "password": password
+          })
+        }).then(function (res) {
+          if (res.status !== 200) {
+            return reject(res);
+          }
+
+          var token = res.headers.get("Token");
+
+          if (token != null) {
+            localStorage.setItem('tkn', token);
+          }
+
+          res.json().then(function (result) {
+            localStorage.setItem('email', result[0]['email']);
+            localStorage.setItem('id', result[0]['_id']);
+            localStorage.setItem('isAdmin', result[0]['isAdmin']);
+            window.location.href = "home.html";
+            resolve();
+          });
+        });
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
       });
     }
   }, {
@@ -218,6 +372,22 @@ function () {
           'Content-Type': 'application/json',
           'Authorization': "Bearer ".concat(localStorage.getItem("tkn"))
         }
+<<<<<<< HEAD
+=======
+      }).then(function (res) {
+        if (res.status == 400) {
+          alert("Houve um erro ao Deslogar");
+        }
+
+        if (res.status == 200) {
+          localStorage.removeItem("tkn");
+          localStorage.removeItem("email");
+          localStorage.removeItem("id");
+          window.location.href = 'index.html';
+        }
+      }).catch(function (error) {
+        console.log("error: ", error);
+        return error;
       });
     }
   }]);
@@ -226,7 +396,537 @@ function () {
 }();
 
 exports.AuthenticateService = AuthenticateService;
+},{"../config/index":"app/js/config/index.js"}],"app/js/services/UserService.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.UserService = void 0;
+
+var _index = require("../config/index");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var UserService =
+/*#__PURE__*/
+function () {
+  function UserService() {
+    _classCallCheck(this, UserService);
+  }
+
+  _createClass(UserService, [{
+    key: "add",
+    value: function add(user) {
+      return fetch("".concat(_index.HOST, "users/user"), {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "name": user.Name,
+          "lastName": user.LastName,
+          "userName": user.UserName,
+          "email": user.Email,
+          "password": user.Password,
+          "dateOfBirth": user.DateOfBirth
+        })
+      });
+    }
+  }, {
+    key: "list",
+    value: function list() {
+      return fetch("".concat(_index.HOST, "admin/users"), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+        }
+      });
+    }
+  }, {
+    key: "update",
+    value: function update(user, ID) {
+      var dateOfBirth = user.DateOfBirth.replace(/,/g, '-');
+      return fetch("".concat(_index.HOST, "users/user/").concat(ID), {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+        },
+        body: JSON.stringify({
+          "name": user.Name,
+          "lastName": user.LastName,
+          "userName": user.UserName,
+          "email": user.Email,
+          "password": user.Password,
+          "dateOfBirth": dateOfBirth
+        })
+      });
+    }
+  }, {
+    key: "remove",
+    value: function remove(ID) {
+      return fetch("".concat(_index.HOST, "users/user/").concat(ID), {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+        }
+      });
+    }
+  }, {
+    key: "changePassword",
+    value: function changePassword(email, password) {
+      return fetch("".concat(_index.HOST, "users/changePassword"), {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "email": email,
+          "password": password
+        })
+      });
+    }
+  }, {
+    key: "findByEmail",
+    value: function findByEmail(email) {
+      return fetch("".concat(_index.HOST, "users/").concat(email), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+        }
+      });
+    }
+  }, {
+    key: "getData",
+    value: function getData() {
+      var email = localStorage.getItem('email');
+      return fetch("".concat(_index.HOST, "users/").concat(email), {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+        }
+      });
+    }
+  }]);
+
+  return UserService;
+}();
+
+exports.UserService = UserService;
+},{"../config/index":"app/js/config/index.js"}],"app/js/services/HelpCenterService.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.HelpCenterService = void 0;
+
+var _index = require("../config/index");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var HelpCenterService =
+/*#__PURE__*/
+function () {
+  function HelpCenterService() {
+    _classCallCheck(this, HelpCenterService);
+  }
+
+  _createClass(HelpCenterService, [{
+    key: "add",
+    value: function add(post) {
+      return fetch("".concat(_index.HOST, "helps/post/"), {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "title": post.Title,
+          "desc": post.Desc,
+          "id_user": localStorage.getItem('id')
+        })
+      });
+    }
+  }, {
+    key: "update",
+    value: function update(post, ID) {
+      return fetch("".concat(_index.HOST, "helps/post/").concat(ID), {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "id_user": localStorage.getItem('id'),
+          "title": post.Title,
+          "desc": post.Desc
+        })
+      });
+    }
+  }, {
+    key: "list",
+    value: function list(page) {
+      return fetch("".concat(_index.HOST, "helps/list/post/").concat(page), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }, {
+    key: "listLastHelp",
+    value: function listLastHelp() {
+      return fetch("".concat(_index.HOST, "helps/last/"), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }, {
+    key: "remove",
+    value: function remove(ID) {
+      return fetch("".concat(_index.HOST, "helps/post/").concat(ID), {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }, {
+    key: "findByJoker",
+    value: function findByJoker(joker) {
+      return fetch("".concat(_index.HOST, "helps/post/joker/1"), {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "joker": joker
+        })
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
+      });
+    }
+  }]);
+
+<<<<<<< HEAD
+  return AuthenticateService;
+}();
+
+exports.AuthenticateService = AuthenticateService;
 },{"../config/index":"app/js/config/index.js"}],"app/js/utils/InputWrapper.js":[function(require,module,exports) {
+=======
+  return HelpCenterService;
+}();
+
+exports.HelpCenterService = HelpCenterService;
+},{"../config/index":"app/js/config/index.js"}],"app/js/services/HelpCenterServiceAsk.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.HelpCenterAskService = void 0;
+
+var _index = require("../config/index");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var HelpCenterAskService =
+/*#__PURE__*/
+function () {
+  function HelpCenterAskService() {
+    _classCallCheck(this, HelpCenterAskService);
+  }
+
+  _createClass(HelpCenterAskService, [{
+    key: "add",
+    value: function add(post) {
+      console.log(post);
+      return fetch("".concat(_index.HOST, "helps/ask/"), {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "id_user": post.Author,
+          "desc": post.Desc,
+          "id_helpCenter": post.helpCenter
+        })
+      });
+    }
+  }, {
+    key: "update",
+    value: function update(post, ID) {
+      return fetch("".concat(_index.HOST, "helps/ask/").concat(ID), {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "id_user": post.Author,
+          "desc": post.Desc,
+          "id_helpCenter": post.helpCenter
+        })
+      });
+    }
+  }, {
+    key: "list",
+    value: function list(page) {
+      return fetch("".concat(_index.HOST, "helps/list/ask/").concat(page), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }, {
+    key: "remove",
+    value: function remove(ID) {
+      return fetch("".concat(_index.HOST, "helps/ask/").concat(ID), {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }, {
+    key: "findById",
+    value: function findById(ID) {
+      return fetch("".concat(_index.HOST, "helps/ask/").concat(ID), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        }
+      });
+    }
+  }]);
+
+  return HelpCenterAskService;
+}();
+
+exports.HelpCenterAskService = HelpCenterAskService;
+},{"../config/index":"app/js/config/index.js"}],"app/js/services/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _DailyNoteService = require("./DailyNoteService");
+
+Object.keys(_DailyNoteService).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _DailyNoteService[key];
+    }
+  });
+});
+
+var _AuthenticateService = require("./AuthenticateService");
+
+Object.keys(_AuthenticateService).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _AuthenticateService[key];
+    }
+  });
+});
+
+var _UserService = require("./UserService");
+
+Object.keys(_UserService).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _UserService[key];
+    }
+  });
+});
+
+var _HelpCenterService = require("./HelpCenterService");
+
+Object.keys(_HelpCenterService).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _HelpCenterService[key];
+    }
+  });
+});
+
+var _HelpCenterServiceAsk = require("./HelpCenterServiceAsk");
+
+Object.keys(_HelpCenterServiceAsk).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _HelpCenterServiceAsk[key];
+    }
+  });
+});
+},{"./DailyNoteService":"app/js/services/DailyNoteService.js","./AuthenticateService":"app/js/services/AuthenticateService.js","./UserService":"app/js/services/UserService.js","./HelpCenterService":"app/js/services/HelpCenterService.js","./HelpCenterServiceAsk":"app/js/services/HelpCenterServiceAsk.js"}],"app/js/views/View.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.View = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var View =
+/*#__PURE__*/
+function () {
+  function View(selector) {
+    var escape = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+    _classCallCheck(this, View);
+
+    var temp = document.querySelector(selector);
+
+    if (temp) {
+      this._el = temp;
+    } else {
+      throw new Error("Element ".concat(selector, " not found"));
+    }
+
+    this._escape = escape;
+  }
+
+  _createClass(View, [{
+    key: "update",
+    value: function update(model) {
+      var template = this.template(model);
+      if (this._escape) template = template.replace(/<script>[\s\S]*?<\/script>/g, '');
+      this._el.innerHTML = template;
+    }
+  }]);
+
+  return View;
+}();
+
+exports.View = View;
+},{}],"app/js/views/MessageView.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MessageView = void 0;
+
+var _View2 = require("./View");
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var MessageView =
+/*#__PURE__*/
+function (_View) {
+  _inherits(MessageView, _View);
+
+  function MessageView() {
+    _classCallCheck(this, MessageView);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(MessageView).apply(this, arguments));
+  }
+
+  _createClass(MessageView, [{
+    key: "template",
+    value: function template(model) {
+      return "<p class=\"alert alert-warning\">".concat(model, "</p>");
+    }
+  }]);
+
+  return MessageView;
+}(_View2.View);
+
+exports.MessageView = MessageView;
+},{"./View":"app/js/views/View.js"}],"app/js/utils/InputWrapper.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -390,6 +1090,7 @@ function email(email) {
   if (!email.value.trim()) {
     return 'Email vazio.';
   } else if (!/^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9_-])+(\.([a-zA-Z0-9_-])+)+$/.test(email.value)) {
+<<<<<<< HEAD
     return 'Email inválido. Exemplo: abc123@def.gh';
   }
 
@@ -629,6 +1330,113 @@ function () {
 
 exports.UserService = UserService;
 },{"../config/index":"app/js/config/index.js"}],"app/js/controllers/AuthenticateController.js":[function(require,module,exports) {
+=======
+    return 'Email inválido. Exemplo: abc123@def.gh';
+  }
+
+  return null;
+}
+
+var ALLOWED_EXTS = ['png', 'jpg', 'jpeg'];
+
+function photo(file) {
+  if (!file.value) {
+    return 'Imagem obrigatória.';
+  }
+
+  var fileExt = file.value.split('.').pop();
+
+  if (!fileExt || ALLOWED_EXTS.indexOf(fileExt) === -1) {
+    return 'Formato de arquivo de imagem inválido.';
+  }
+
+  return null;
+}
+
+function password(pw) {
+  if (pw.value.trim().length < 6 || pw.value.trim().length > 8) {
+    return 'Senha deve ter tamanho entre 6 e 8 dígitos.';
+  } else if (pw.value.indexOf(' ') !== -1) {
+    return 'Senha não pode conter espaços.';
+  }
+
+  return null;
+}
+
+function editPassword(pw) {
+  if (pw.value) {
+    return password(pw);
+  }
+
+  return null;
+}
+
+function passwordConfirm(pw, confirm) {
+  if (!pw.value.trim()) {
+    return 'Confirmação obrigatória.';
+  } else if (pw.value !== confirm.value) {
+    return 'Senhas não batem';
+  }
+
+  return null;
+}
+
+function editPasswordConfirm(pw, confirm) {
+  if (pw.value || confirm.value) {
+    return passwordConfirm(pw, confirm);
+  }
+
+  return null;
+}
+
+function code(code) {
+  if (!code.value.trim()) {
+    return 'Código obrigatório.';
+  }
+
+  return null;
+}
+
+function dateOfBirth(date) {
+  var inputDate = new Date(date.value.trim());
+  var day = inputDate.getDate();
+  var month = inputDate.getMonth();
+  var year = inputDate.getFullYear();
+  var isDate = true;
+  if (isNaN(day) || isNaN(month) || isNaN(year)) isDate = false;
+  if ((month + 1 == 4 || month + 1 == 6 || month + 1 == 9 || month + 1 == 11) && day > 30) isDate = false;
+  if (year % 4 != 0 && month + 1 == 2 && day + 1 > 28) isDate = false;
+  if (year % 4 == 0 && month + 1 == 2 && day + 1 > 29) isDate = false;
+
+  if (!isDate) {
+    return 'Data inválida.';
+  }
+
+  if (inputDate > new Date()) {
+    return 'Obrigatório já ter nascido.';
+  }
+
+  return null;
+}
+},{}],"app/js/utils/listCheck.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.noFalse = noFalse;
+
+function noFalse(fns) {
+  var isValid = true;
+  fns.forEach(function (fn) {
+    if (!fn()) {
+      isValid = false;
+    }
+  });
+  return isValid;
+}
+},{}],"app/js/controllers/AuthenticateController.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -636,16 +1444,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AuthenticateController = void 0;
 
+<<<<<<< HEAD
 var _AuthenticateService = require("../services/AuthenticateService");
 
 var _index = require("../helpers/index");
+=======
+var _index = require("../services/index");
+
+var _MessageView = require("../views/MessageView");
+
+var _index2 = require("../helpers/index");
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 
 var vals = _interopRequireWildcard(require("../validation/userValidate"));
 
 var _listCheck = require("../utils/listCheck");
 
+<<<<<<< HEAD
 var _UserService = require("../services/UserService");
 
+=======
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -660,23 +1479,48 @@ function () {
   function AuthenticateController() {
     _classCallCheck(this, AuthenticateController);
 
+<<<<<<< HEAD
+=======
+    try {
+      this.messageView = new _MessageView.MessageView('#message-view');
+    } catch (_a) {}
+
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
     this.email = document.getElementById('email');
     this.password = document.getElementById('password');
     this.emailRec = document.getElementById('email_rec');
 
     try {
+<<<<<<< HEAD
       this.authVals = [(0, _index.validate)(this.email, vals.email), (0, _index.validate)(this.password, vals.password)];
       this.passRecVals = [(0, _index.validate)(this.emailRec, vals.email)];
+=======
+      this.authVals = [(0, _index2.validate)(this.email, vals.email), (0, _index2.validate)(this.password, vals.password)];
+      this.passRecVals = [(0, _index2.validate)(this.emailRec, vals.email)];
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
     } catch (e) {}
   }
 
   _createClass(AuthenticateController, [{
     key: "authenticate",
     value: function authenticate(event) {
+<<<<<<< HEAD
       if ((0, _listCheck.noFalse)(this.authVals)) {
         var authenticateService = new _AuthenticateService.AuthenticateService();
         console.log(this.email.value);
         authenticateService.authenticate(this.email.value.toString(), this.password.value.toString());
+=======
+      var _this = this;
+
+      if ((0, _listCheck.noFalse)(this.authVals)) {
+        var authenticateService = new _index.AuthenticateService();
+        console.log(this.email.value);
+        authenticateService.authenticate(this.email.value, this.password.value).catch(function (res) {
+          return res.json();
+        }).then(function (res) {
+          if (res.erro) _this.messageView.update(res.erro);
+        });
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
       }
 
       event.preventDefault();
@@ -684,6 +1528,7 @@ function () {
   }, {
     key: "resetPassword",
     value: function resetPassword(event) {
+<<<<<<< HEAD
       event.preventDefault();
 
       if ((0, _listCheck.noFalse)(this.passRecVals)) {
@@ -694,6 +1539,31 @@ function () {
         }).then(function (res) {
           console.log(res);
           window.location.href = 'index.html';
+=======
+      var _this2 = this;
+
+      event.preventDefault();
+
+      if ((0, _listCheck.noFalse)(this.passRecVals)) {
+        var userService = new _index.UserService();
+        var authenticateService = new _index.AuthenticateService();
+        authenticateService.resetPassword(this.emailRec.value.toString()).then(function (res) {
+          console.log('status', res.status);
+
+          if (Math.floor(res.status / 100) === 2) {
+            res.json().then(function () {
+              document.getElementById('recoveryModal-close').click();
+
+              _this2.messageView.update('Foi enviado um email para você, siga as instruções contidas nele para continuar.<br>Por favor verificar a seção de <i>spam</i>.');
+            }).catch(function (error) {
+              console.error(error);
+            });
+          } else {
+            res.json().then(function (erres) {
+              _this2.messageView.update(erres.erro);
+            });
+          }
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         });
       }
     }
@@ -701,7 +1571,11 @@ function () {
     key: "logout",
     value: function logout(event) {
       event.preventDefault();
+<<<<<<< HEAD
       var authenticateService = new _AuthenticateService.AuthenticateService();
+=======
+      var authenticateService = new _index.AuthenticateService();
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
       authenticateService.logout().then(function (res) {
         if (res.status == 400) {
           alert("Houve um erro ao Deslogar");
@@ -710,6 +1584,10 @@ function () {
         if (res.status == 200) {
           localStorage.removeItem("tkn");
           localStorage.removeItem("email");
+<<<<<<< HEAD
+=======
+          localStorage.removeItem("isAdmin");
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
           localStorage.removeItem("id");
           window.location.href = 'index.html';
         }
@@ -724,7 +1602,11 @@ function () {
 }();
 
 exports.AuthenticateController = AuthenticateController;
+<<<<<<< HEAD
 },{"../services/AuthenticateService":"app/js/services/AuthenticateService.js","../helpers/index":"app/js/helpers/index.js","../validation/userValidate":"app/js/validation/userValidate.js","../utils/listCheck":"app/js/utils/listCheck.js","../services/UserService":"app/js/services/UserService.js"}],"app/js/models/DailyNote.js":[function(require,module,exports) {
+=======
+},{"../services/index":"app/js/services/index.js","../views/MessageView":"app/js/views/MessageView.js","../helpers/index":"app/js/helpers/index.js","../validation/userValidate":"app/js/validation/userValidate.js","../utils/listCheck":"app/js/utils/listCheck.js"}],"app/js/models/DailyNote.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -776,6 +1658,7 @@ function () {
 }();
 
 exports.DailyNote = DailyNote;
+<<<<<<< HEAD
 },{}],"app/js/services/DailyNoteService.js":[function(require,module,exports) {
 "use strict";
 
@@ -888,6 +1771,9 @@ function () {
 
 exports.DailyNoteService = DailyNoteService;
 },{"../config/index":"app/js/config/index.js"}],"app/js/validation/dailyNoteValidate.js":[function(require,module,exports) {
+=======
+},{}],"app/js/validation/dailyNoteValidate.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -920,7 +1806,61 @@ function impediment(third) {
     return null;
   }
 }
+<<<<<<< HEAD
 },{}],"app/js/controllers/DailyNoteController.js":[function(require,module,exports) {
+=======
+},{}],"app/js/views/UserMenuView.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.UserMenuView = void 0;
+
+var _View2 = require("./View");
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var UserMenuView =
+/*#__PURE__*/
+function (_View) {
+  _inherits(UserMenuView, _View);
+
+  function UserMenuView() {
+    _classCallCheck(this, UserMenuView);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(UserMenuView).apply(this, arguments));
+  }
+
+  _createClass(UserMenuView, [{
+    key: "template",
+    value: function template() {
+      return localStorage.getItem('tkn') ? "\n            <div class=\"dropdown mr-n4 txt-user\" style=\"float:right;\">\n                <div class=\"d-flex align-items-center btn\" data-toggle=\"dropdown\">\n                    <span id=\"nameSpan\"></span>\n                    <img src=\"https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png\" class=\"rounded-circle\" width=\"60px\">\n                    <i class=\"material-icons ml-n2\">arrow_drop_down</i>\n                </div>\n                <div class=\"dropdown-menu dropdown-menu-right align-user\">\n                    <div class=\"dropdown-item\">    \n                        Usu\xE1rio: <span id=\"userNameSpan\"></span>\n                    </div>\n                    <div class=\"dropdown-divider\"></div>\n\n                    <a class=\"dropdown-item d-flex align-items-center\" href=\"user-edit.html\">\n                        <i class=\"material-icons mr-2\">edit</i>Alterar Cadastro</a>\n                    <a class=\"dropdown-item d-flex align-items-center\" href=\"home.html\">\n                        <i class=\"material-icons mr-2\">home</i>Home</a>\n\n                    <div class=\"dropdown-divider\"></div>\n\n                    <a class=\"dropdown-item d-flex align-items-center\" id=\"logout\">\n                        <i class=\"material-icons mr-2\">power_settings_new</i><strong>Sair</strong></a>\n                </div>\n            </div>\n        " : "<a href=\"index.html\" class=\"menu-item\"><h5><strong>Login</strong></h5></a>";
+    }
+  }]);
+
+  return UserMenuView;
+}(_View2.View);
+
+exports.UserMenuView = UserMenuView;
+},{"./View":"app/js/views/View.js"}],"app/js/controllers/DailyNoteController.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -938,6 +1878,11 @@ var vals = _interopRequireWildcard(require("../validation/dailyNoteValidate"));
 
 var _listCheck = require("../utils/listCheck");
 
+<<<<<<< HEAD
+=======
+var _UserMenuView = require("../views/UserMenuView");
+
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -962,6 +1907,11 @@ function () {
     this.editImpediment = document.querySelector('#edit-impediment');
     this.addVals = [(0, _index.validate)(this.yesterday, vals.yesterday), (0, _index.validate)(this.today, vals.today), (0, _index.validate)(this.impediment, vals.impediment)];
     this.editVals = [(0, _index.validate)(this.editYesterday, vals.yesterday), (0, _index.validate)(this.editToday, vals.today), (0, _index.validate)(this.editImpediment, vals.impediment)];
+<<<<<<< HEAD
+=======
+    this.user = new _UserMenuView.UserMenuView("#user-menu-login-link");
+    this.user.update('');
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
   }
 
   _createClass(DailyNoteController, [{
@@ -1003,7 +1953,11 @@ function () {
 }();
 
 exports.DailyNoteController = DailyNoteController;
+<<<<<<< HEAD
 },{"../models/DailyNote":"app/js/models/DailyNote.js","../services/DailyNoteService":"app/js/services/DailyNoteService.js","../helpers/index":"app/js/helpers/index.js","../validation/dailyNoteValidate":"app/js/validation/dailyNoteValidate.js","../utils/listCheck":"app/js/utils/listCheck.js"}],"app/js/index.js":[function(require,module,exports) {
+=======
+},{"../models/DailyNote":"app/js/models/DailyNote.js","../services/DailyNoteService":"app/js/services/DailyNoteService.js","../helpers/index":"app/js/helpers/index.js","../validation/dailyNoteValidate":"app/js/validation/dailyNoteValidate.js","../utils/listCheck":"app/js/utils/listCheck.js","../views/UserMenuView":"app/js/views/UserMenuView.js"}],"app/js/index.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 var _AuthenticateController = require("./controllers/AuthenticateController");
@@ -1061,7 +2015,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "54293" + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61111" + '/');
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 
   ws.onmessage = function (event) {
     checkedAssets = {};

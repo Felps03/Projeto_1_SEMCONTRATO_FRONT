@@ -291,7 +291,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         },
         body: JSON.stringify({
           "title": post.Title,
@@ -308,7 +313,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         },
         body: JSON.stringify({
           "id_user": localStorage.getItem('id'),
@@ -325,7 +335,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         }
       });
     }
@@ -337,7 +352,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         }
       });
     }
@@ -355,13 +375,20 @@ function () {
       });
     }
   }, {
+<<<<<<< HEAD
     key: "findByTitle",
     value: function findByTitle(title) {
       return fetch("".concat(_index.HOST, "helps/post/title/1"), {
+=======
+    key: "findByJoker",
+    value: function findByJoker(joker) {
+      return fetch("".concat(_index.HOST, "helps/post/joker/1"), {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
         },
         body: JSON.stringify({
@@ -381,6 +408,13 @@ function () {
         },
         body: JSON.stringify({
           "desc": desc
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+        },
+        body: JSON.stringify({
+          "joker": joker
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         })
       });
     }
@@ -421,7 +455,12 @@ function () {
         headers: {
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           "Authorization": "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          "Authorization": "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         },
         body: JSON.stringify({
           "yesterday": yesterday,
@@ -447,7 +486,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         },
         body: JSON.stringify({
           "id_user": localStorage.getItem('id'),
@@ -467,7 +511,12 @@ function () {
         headers: {
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           "Authorization": "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          "Authorization": "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         }
       });
     }
@@ -479,7 +528,12 @@ function () {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           'Authorization': "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          'Authorization': "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         }
       });
     }
@@ -491,7 +545,12 @@ function () {
         headers: {
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json',
+<<<<<<< HEAD
           "Authorization": "Bearer ".concat(localStorage.getItem('tkn'))
+=======
+          "Authorization": "Bearer ".concat(localStorage.getItem('tkn')),
+          'id_user': localStorage.getItem('id')
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
         }
       });
     }
@@ -501,7 +560,107 @@ function () {
 }();
 
 exports.DailyNoteService = DailyNoteService;
+<<<<<<< HEAD
 },{"../config/index":"app/js/config/index.js"}],"app/js/controllers/HomeController.js":[function(require,module,exports) {
+=======
+},{"../config/index":"app/js/config/index.js"}],"app/js/views/View.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.View = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var View =
+/*#__PURE__*/
+function () {
+  function View(selector) {
+    var escape = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+    _classCallCheck(this, View);
+
+    var temp = document.querySelector(selector);
+
+    if (temp) {
+      this._el = temp;
+    } else {
+      throw new Error("Element ".concat(selector, " not found"));
+    }
+
+    this._escape = escape;
+  }
+
+  _createClass(View, [{
+    key: "update",
+    value: function update(model) {
+      var template = this.template(model);
+      if (this._escape) template = template.replace(/<script>[\s\S]*?<\/script>/g, '');
+      this._el.innerHTML = template;
+    }
+  }]);
+
+  return View;
+}();
+
+exports.View = View;
+},{}],"app/js/views/UserMenuView.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.UserMenuView = void 0;
+
+var _View2 = require("./View");
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var UserMenuView =
+/*#__PURE__*/
+function (_View) {
+  _inherits(UserMenuView, _View);
+
+  function UserMenuView() {
+    _classCallCheck(this, UserMenuView);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(UserMenuView).apply(this, arguments));
+  }
+
+  _createClass(UserMenuView, [{
+    key: "template",
+    value: function template() {
+      return localStorage.getItem('tkn') ? "\n            <div class=\"dropdown mr-n4 txt-user\" style=\"float:right;\">\n                <div class=\"d-flex align-items-center btn\" data-toggle=\"dropdown\">\n                    <span id=\"nameSpan\"></span>\n                    <img src=\"https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png\" class=\"rounded-circle\" width=\"60px\">\n                    <i class=\"material-icons ml-n2\">arrow_drop_down</i>\n                </div>\n                <div class=\"dropdown-menu dropdown-menu-right align-user\">\n                    <div class=\"dropdown-item\">    \n                        Usu\xE1rio: <span id=\"userNameSpan\"></span>\n                    </div>\n                    <div class=\"dropdown-divider\"></div>\n\n                    <a class=\"dropdown-item d-flex align-items-center\" href=\"user-edit.html\">\n                        <i class=\"material-icons mr-2\">edit</i>Alterar Cadastro</a>\n                    <a class=\"dropdown-item d-flex align-items-center\" href=\"home.html\">\n                        <i class=\"material-icons mr-2\">home</i>Home</a>\n\n                    <div class=\"dropdown-divider\"></div>\n\n                    <a class=\"dropdown-item d-flex align-items-center\" id=\"logout\">\n                        <i class=\"material-icons mr-2\">power_settings_new</i><strong>Sair</strong></a>\n                </div>\n            </div>\n        " : "<a href=\"index.html\" class=\"menu-item\"><h5><strong>Login</strong></h5></a>";
+    }
+  }]);
+
+  return UserMenuView;
+}(_View2.View);
+
+exports.UserMenuView = UserMenuView;
+},{"./View":"app/js/views/View.js"}],"app/js/controllers/HomeController.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -515,6 +674,11 @@ var _HelpCenterService = require("../services/HelpCenterService");
 
 var _DailyNoteService = require("../services/DailyNoteService");
 
+<<<<<<< HEAD
+=======
+var _UserMenuView = require("../views/UserMenuView");
+
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -526,11 +690,22 @@ var HomeController =
 function () {
   function HomeController() {
     _classCallCheck(this, HomeController);
+<<<<<<< HEAD
   }
 
   _createClass(HomeController, [{
     key: "getUserData",
     value: function getUserData() {
+=======
+
+    this.user = new _UserMenuView.UserMenuView("#user-menu-login-link");
+    this.user.update('');
+  }
+
+  _createClass(HomeController, [{
+    key: "getUser",
+    value: function getUser() {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
       var data;
 
       if (!localStorage.getItem('tkn')) {
@@ -594,6 +769,7 @@ function () {
 }();
 
 exports.HomeController = HomeController;
+<<<<<<< HEAD
 },{"../services/UserService":"app/js/services/UserService.js","../services/HelpCenterService":"app/js/services/HelpCenterService.js","../services/DailyNoteService":"app/js/services/DailyNoteService.js"}],"app/js/home.js":[function(require,module,exports) {
 "use strict";
 
@@ -621,6 +797,47 @@ if (data) {
 window.addEventListener('load', homeController.listLastHelp.bind(homeController));
 window.addEventListener('load', homeController.listDailyDate.bind(homeController));
 },{"./controllers/HomeController":"app/js/controllers/HomeController.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+=======
+},{"../services/UserService":"app/js/services/UserService.js","../services/HelpCenterService":"app/js/services/HelpCenterService.js","../services/DailyNoteService":"app/js/services/DailyNoteService.js","../views/UserMenuView":"app/js/views/UserMenuView.js"}],"app/js/utils/userData.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getUser = getUser;
+
+var _HomeController = require("../controllers/HomeController");
+
+function getUser() {
+  var homeController = new _HomeController.HomeController();
+  var data = homeController.getUser();
+
+  if (data) {
+    data.then(function (data) {
+      var userData = {
+        name: data.name,
+        userName: data.userName
+      };
+      return userData;
+    }).then(function (userData) {
+      document.querySelector('#nameSpan').innerHTML = userData.name;
+      document.querySelector('#userNameSpan').innerHTML = userData.userName;
+    });
+  }
+}
+},{"../controllers/HomeController":"app/js/controllers/HomeController.js"}],"app/js/home.js":[function(require,module,exports) {
+"use strict";
+
+var _HomeController = require("./controllers/HomeController");
+
+var _userData = require("./utils/userData");
+
+var userData = (0, _userData.getUser)();
+var homeController = new _HomeController.HomeController();
+window.addEventListener('load', homeController.listLastHelp.bind(homeController));
+window.addEventListener('load', homeController.listDailyDate.bind(homeController));
+},{"./controllers/HomeController":"app/js/controllers/HomeController.js","./utils/userData":"app/js/utils/userData.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -648,7 +865,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "54293" + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61111" + '/');
+>>>>>>> aed165049f5063b566ae51a2c6188c8fe4f5c014
 
   ws.onmessage = function (event) {
     checkedAssets = {};
