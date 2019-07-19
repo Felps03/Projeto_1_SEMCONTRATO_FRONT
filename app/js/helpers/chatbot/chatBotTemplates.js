@@ -1,6 +1,6 @@
 System.register([], function (exports_1, context_1) {
     "use strict";
-    var button, options;
+    var button, options, link;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [],
@@ -16,6 +16,7 @@ System.register([], function (exports_1, context_1) {
                 html += '</div>';
                 return html;
             });
+            exports_1("link", link = (text, href) => `<a href="${href}" target="_blank">${text}</a>`);
         }
     };
 });

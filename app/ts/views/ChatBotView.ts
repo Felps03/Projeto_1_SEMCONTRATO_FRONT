@@ -23,6 +23,10 @@ export class ChatBotView extends View<Chat> {
     <div id="chatbot-tab" class="align-items-center d-flex right-0 pl-3">
         <i class="material-icons">chat</i>
         <h5 class="m-1">Chat</h5>
+
+        <!--<a class="w-100" href="#" id="refresh-chat">
+            <i class="material-icons float-right mr-3">refresh</i>
+        </a>-->
     </div>
     <div id="chatbot-body">
 
@@ -72,6 +76,9 @@ export class ChatBotView extends View<Chat> {
 
     update(model: Chat) {
         super.update(model)
+
+        const chatBotHistory = document.getElementById('chatbot-history')
+        chatBotHistory.scrollTo(0, chatBotHistory.scrollHeight)
 
         document.getElementById('chatbot-tab').addEventListener('click', () => {
             this.active = !this.active
