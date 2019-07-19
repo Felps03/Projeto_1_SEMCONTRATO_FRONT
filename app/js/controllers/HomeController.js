@@ -52,8 +52,8 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                     }).then(result => {
                         let row = document.querySelector('#last-helps');
                         row.innerHTML = "";
-                        console.log("entrou na listagem das perguntas");
-                        for (let i = 0; i < result.docs.length; i++) {
+                        let a = result.docs.length;
+                        for (let i = a - 1; i >= 0; i--) {
                             row.innerHTML += `
                     <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
                         <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
@@ -86,7 +86,6 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                 }
                 listDailyDate(event) {
                     event.preventDefault();
-                    console.log('dssad');
                     let date = new Date().toLocaleDateString('pt-BR').slice(0, 10);
                     const dailyNoteService = new DailyNoteService_1.DailyNoteService();
                     let year = date.slice(6, 10);
@@ -99,7 +98,6 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                     }).then(result => {
                         let row = document.querySelector('#all-dailys');
                         row.innerHTML = "";
-                        console.log("entrou na listagem das dailys");
                         for (let i = 0; i < result.length - 1; i++) {
                             row.innerHTML += `
                     <tr>
