@@ -13,6 +13,14 @@ if (url.get('page')) {
     controller.CurrentPage = +url.get('page');
 }
 
+let mostraHelp = document.getElementById("mostra-help");
+
+mostraHelp.addEventListener('click', controller.list.bind(controller));
+
+$(document).ready(function() {
+    document.getElementById('mostra-help').click();
+});
+
 let cadastrar = document.querySelector("#cadastroHelpCenter");
 if (cadastrar) {
     cadastrar.addEventListener('click', controller.add.bind(controller));

@@ -1,6 +1,6 @@
 System.register(["./controllers/HelpCenterController", "./controllers/HomeController", "./utils/userData"], function (exports_1, context_1) {
     "use strict";
-    var HelpCenterController_1, HomeController_1, userData_1, userData, controller, homeController, url, cadastrar, searchTitle;
+    var HelpCenterController_1, HomeController_1, userData_1, userData, controller, homeController, url, mostraHelp, cadastrar, searchTitle;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -22,6 +22,11 @@ System.register(["./controllers/HelpCenterController", "./controllers/HomeContro
             if (url.get('page')) {
                 controller.CurrentPage = +url.get('page');
             }
+            mostraHelp = document.getElementById("mostra-help");
+            mostraHelp.addEventListener('click', controller.list.bind(controller));
+            $(document).ready(function () {
+                document.getElementById('mostra-help').click();
+            });
             cadastrar = document.querySelector("#cadastroHelpCenter");
             if (cadastrar) {
                 cadastrar.addEventListener('click', controller.add.bind(controller));
