@@ -35,7 +35,7 @@ export class DailyNoteService {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
-                'id_user': localStorage.getItem('id')
+                // 'id_user': localStorage.getItem('id')
             },
             body: JSON.stringify({
                 "id_user": localStorage.getItem('id'),
