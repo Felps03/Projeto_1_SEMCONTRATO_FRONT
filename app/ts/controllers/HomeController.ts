@@ -6,13 +6,12 @@ import { UserMenuView } from "../views/UserMenuView";
 
 export class HomeController {
 
-    private user : UserMenuView; 
+    private user: UserMenuView;
 
-    constructor() { 
+    constructor() {
         this.user = new UserMenuView("#user-menu-login-link");
         this.user.update('');
     }
-
 
     getUser() {
         let data;
@@ -39,17 +38,18 @@ export class HomeController {
     listLastHelp(event: Event) {
         event.preventDefault();
         const helpCenterService = new HelpCenterService()
+
         helpCenterService.listLastHelp()
             .then(result => {
                 return result.json();
-            }).then(result=> {
+            }).then(result => {
                 let row = <HTMLElement>document.querySelector('#last-helps');
+                row.innerHTML = "";
 
-              
+                let a = result.docs.length
 
-                for (let i = 0; i< result.docs.length; i++) {
-                    console.log(result.docs[i]);
-                    row.innerHTML +=`
+                for (let i = a - 1; i >= 0; i--) {
+                    row.innerHTML += `
                     <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
                         <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
                             <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
@@ -72,7 +72,7 @@ export class HomeController {
                             </div>
                         </div>
                     </div>
-                    `; 
+                    `;
                 }
             })
             .catch(error => {
@@ -82,23 +82,23 @@ export class HomeController {
 
     listDailyDate(event: Event) {
         event.preventDefault();
-
-        let date = new Date().toLocaleDateString('pt-BR').slice(0,10);
+        let date = new Date().toLocaleDateString('pt-BR').slice(0, 10);
         const dailyNoteService = new DailyNoteService();
 
-        let year = date.slice(6,10);
-        let month = date.slice(3,5);
-        let day = date.slice(0,2);
+        let year = date.slice(6, 10);
+        let month = date.slice(3, 5);
+        let day = date.slice(0, 2);
 
         let fullDate = `${year}-${month}-${day}`;
-        
+
         dailyNoteService.listDate(fullDate, 1)
             .then(result => {
                 return result.json();
             }).then(result => {
                 let row = <HTMLTableElement>document.querySelector('#all-dailys');
+                row.innerHTML = "";
 
-                for (let i = 0; i< result.length-1; i++) {
+                for (let i = 0; i < result.length - 1; i++) {
                     row.innerHTML += `
                     <tr>
                         <td>${result[i]['owner']}</td>
