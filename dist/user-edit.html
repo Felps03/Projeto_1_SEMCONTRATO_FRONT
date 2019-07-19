@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="/logo_compasso.84ad590f.ico">
+    <link rel="stylesheet" href="/bootstrap.min.2e858bcc.css">
+    <link href="/icons.9b3c2f19.css" rel="stylesheet">
+    <link href="/fonts.8a7fe291.css" rel="stylesheet">
+    <link href="/particle.f7a78145.css" rel="stylesheet">
+    <link rel="stylesheet" href="/custom.3760e62e.css">
+    <title>Dados do Usuário</title>
+<script src="/home.js"></script></head>
+
+<body>
+    <div id="particles-js"></div>
+
+    <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
+        <div class="container">
+            <div class="navbar-header ml-n3">
+                <a href="/home.html"><img src="/logo_compasso.3bb2a965.png"></a>
+            </div>
+
+            <div class="dropdown mr-n4 txt-user" style="float:right;">
+                <div class="d-flex align-items-center btn" data-toggle="dropdown">
+                    <img src="/user.d31f6881.png" class="rounded-circle" width="60px">
+                    <i class="material-icons">arrow_drop_down</i>
+                </div>
+                <div class="dropdown-menu dropdown-menu-right align-user">
+                    <div class="dropdown-item">
+                        <span id="nameSpan"></span>
+                        <span id="userNameSpan"></span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item d-flex align-items-center" href="/user-edit.html">
+                        <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item d-flex align-items-center" href="/home.html">
+                        <i class="material-icons mr-2">home</i>Home</a>
+
+                    <a class="dropdown-item d-flex align-items-center" href="/app-daily-note.html">
+                        <i class="material-icons mr-2">event_note</i>Daily Note</a>
+                    <a class="dropdown-item d-flex align-items-center" href="/app-help-center.html">
+                        <i class="material-icons mr-2">lightbulb_outline</i>Help Center</a>
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item d-flex align-items-center" href="/index.html" id="logout">
+                        <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container page-position col-12 col-sm-7" id="register">
+        <section class="section-register custom-bx">
+            <form class="pt-1 pl-4 pr-4 pb-4" method="post" id="user-edit" autocomplete="off" enctype="multipart/form-data">
+                <div class="vt-line mt-4 mb-4">
+                    <h3>
+                        <strong>Dados do Usuário</strong>
+                    </h3>
+                </div>
+
+                <hr class="register-line">
+
+                <div class="vt-line mb-3 mt-5">
+                    <h5>
+                        <strong>Dados pessoais</strong>
+                    </h5>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="name">Nome:</label>
+                            <input type="text" name="name" class="form-control form-control-sm input-circle" id="name">
+                            <div id="namevalidator"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="lastName">Sobrenome:</label>
+                            <input type="text" name="lastName" class="form-control form-control-sm input-circle" id="lastName">
+                            <div id="lastnamevalidator"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="dateOfBirth">Data de nascimento:</label>
+                    <input type="date" name="dateOfBirth" class="form-control form-control-sm input-circle" id="dateOfBirth">
+                    <div id="birthdatevalidator"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="text" name="email" class="form-control form-control-sm input-circle" id="email" disabled="">
+                    <div id="emailvalidator"></div>
+                </div>
+
+                <div class="vt-line mt-5 mb-3">
+                    <h5>
+                        <strong>Dados de usuário</strong>
+                    </h5>
+                </div>
+
+                <!-- <div class="form-group">
+                    <label for="photo">Foto de Perfil:</label>
+                    <div name="photo">
+                        <input type="file" id="photo" name="file_photo" hidden="hidden" />
+                        <div id="photovalidator" class="mt-1"></div>
+                        <button type="button" class="btn btn-secondary btn-sm input-circle" id="file_send">Escolher foto
+                        </button>
+                        <span id="custom-text">Clique para escolher.</span>
+                    </div>
+                </div> -->
+
+                <div class="form-group">
+                    <label for="userName">Nome de usuário:</label>
+                    <input type="text" name="userName" class="form-control form-control-sm input-circle" id="userName">
+                    <div id="usernamevalidator"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="password">Nova senha:</label>
+                            <input type="password" name="password" class="form-control form-control-sm input-circle" id="password">
+                            <div id="passwordvalidator"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="password">Confirmação:</label>
+                            <input type="password" name="pass_passwordConfirm" class="form-control form-control-sm input-circle" id="passwordConfirm">
+                            <div id="passwordconfirmvalidator"></div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="id">
+                </div>
+
+                <button type="submit" name="send" class="btn btn-outline-success btn-sm mt-3 pr-3 pl-3 float-right input-circle" id="edit-user">salvar</button>
+                <button type="button" name="reset" class="btn btn-outline-danger btn-sm mt-3 pr-3 pl-3 mr-2 float-right input-circle" data-toggle="modal" data-target="#cancelModal">Cancelar</button>
+
+            </form>
+        </section>
+    </div>
+
+    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title vt-line mt-2" id="recoveryTitle">
+                        <h3>
+                            <strong>Cancelar Processo</strong>
+                        </h3>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">Deseja cancelar o processo de cadastro?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger btn-sm pr-4 pl-4 input-circle" data-dismiss="modal">Não</button>
+                    <a href="/home.html">
+                        <button type="button" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle" id="cancelEdit">Sim</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/jquery.min.1e3ea97e.js"></script>
+    <script src="/bootstrap.min.45389b0b.js"></script>
+    <script src="/particle.min.2f13c4ac.js"></script>
+    <script src="/particle-config.709db045.js"></script>
+
+    <script src="/User.d25b8724.js"></script>
+    <script src="/UserService.1fa62cf1.js"></script>
+    <script src="/UserController.8408bf9a.js"></script>
+    <script src="/app.d350fddc.js"></script>
+    <script src="/user-edit.a7c1cb98.js"></script>
+</body>
+
+</html>
