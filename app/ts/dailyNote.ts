@@ -212,7 +212,8 @@ $('#cancel').click((e) => {
 	let impediment = <HTMLInputElement>document.querySelector('#impediment');
 
 	yesterday.classList.remove('is-valid');
-	impediment.classList.remove('is-invalid');
+	today.classList.remove('is-valid');
 	impediment.classList.remove('is-valid');
+	
 	resetForm.reset();
 });

@@ -188,7 +188,7 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
                 let today = document.querySelector('#today');
                 let impediment = document.querySelector('#impediment');
                 yesterday.classList.remove('is-valid');
-                impediment.classList.remove('is-invalid');
+                today.classList.remove('is-valid');
                 impediment.classList.remove('is-valid');
                 resetForm.reset();
             });
