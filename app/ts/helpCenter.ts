@@ -5,7 +5,7 @@ import { getUser } from "./utils/userData";
 
 let userData = getUser();
 const controller = new HelpCenterController();
-const homeController = new HomeController();
+// const homeController = new HomeController();
 
 // check for pagination
 const url = new URLSearchParams(location.search);

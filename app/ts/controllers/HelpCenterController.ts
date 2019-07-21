@@ -176,7 +176,7 @@ export class HelpCenterController {
 				return result.json();
 			})
 			.then((res) => {
-				console.log(res);
+				// console.log(res);
 
 				const posts = Posts.from(res.slice(0, -1));
 				this.postsView.update(posts);

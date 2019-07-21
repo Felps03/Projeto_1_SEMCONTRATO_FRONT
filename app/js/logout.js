@@ -12,6 +12,7 @@ System.register(["./controllers/AuthenticateController"], function (exports_1, c
             controller = new AuthenticateController_1.AuthenticateController();
             logout = document.getElementById('logout');
             if (logout) {
+                console.log("chegou na integracao");
                 logout.addEventListener('click', controller.logout.bind(controller));
             }
         }
