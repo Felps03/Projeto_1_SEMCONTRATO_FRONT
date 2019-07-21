@@ -1,0 +1,28 @@
+System.register(["./controllers/UserController", "./utils/userData"], function (exports_1, context_1) {
+    "use strict";
+    var UserController_1, userData_1, userData, cadastrar;
+    var __moduleName = context_1 && context_1.id;
+    return {
+        setters: [
+            function (UserController_1_1) {
+                UserController_1 = UserController_1_1;
+            },
+            function (userData_1_1) {
+                userData_1 = userData_1_1;
+            }
+        ],
+        execute: function () {
+            userData = userData_1.getUser();
+            document.addEventListener("DOMContentLoaded", function (event) {
+                if (localStorage.getItem('tkn')) {
+                    window.location.href = "home.html";
+                }
+            });
+            cadastrar = document.querySelector('#user-register');
+            if (cadastrar) {
+                const userController = new UserController_1.UserController();
+                cadastrar.addEventListener('submit', userController.add.bind(userController));
+            }
+        }
+    };
+});
