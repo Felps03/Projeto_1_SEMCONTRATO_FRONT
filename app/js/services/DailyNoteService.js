@@ -49,13 +49,11 @@ System.register(["../config/index"], function (exports_1, context_1) {
                 }
                 ;
                 listDate(data, page) {
-                    return fetch(`${index_1.HOST}dailys/daily/${data}/1`, {
+                    return fetch(`${index_1.HOST}dailys/list/${data}/${page}`, {
                         method: 'GET',
                         headers: {
                             'Accept': 'application/json, text/plain, */*',
                             'Content-Type': 'application/json',
-                            "Authorization": `Bearer ${localStorage.getItem('tkn')}`,
-                            'id_user': localStorage.getItem('id')
                         }
                     });
                 }

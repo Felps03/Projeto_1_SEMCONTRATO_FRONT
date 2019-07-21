@@ -53,13 +53,13 @@ export class DailyNoteService {
      */
     listDate(data: string, page: number) {
         //console.log(`${HOST}dailys/daily/${data}/1`);
-        return fetch(`${HOST}dailys/daily/${data}/1`, {
+        return fetch(`${HOST}dailys/list/${data}/${page}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
-                "Authorization": `Bearer ${localStorage.getItem('tkn')}`,
-                'id_user': localStorage.getItem('id')
+                // "Authorization": `Bearer ${localStorage.getItem('tkn')}`,
+                // 'id_user': localStorage.getItem('id')
             }
         })
     }
@@ -93,7 +93,7 @@ export class DailyNoteService {
     }
 
     registeredDaily(id: string) {
-    
+
         // let year = `${new Date().getFullYear()}`;
         // let month = `${new Date().getMonth()+1}`;
         // let day = `${new Date().getDate()}`;

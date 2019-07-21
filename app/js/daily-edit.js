@@ -17,6 +17,10 @@ System.register(["./controllers/EditDailyController", "./utils/userData"], funct
             url_daily = url.get('id');
             idResult = document.querySelector('#editResult');
             userData = userData_1.getUser();
+            $('#daily_cancel').click((e) => {
+                e.preventDefault();
+                window.location.href = "app-daily-note.html";
+            });
             if ((localStorage.getItem('isAdmin') == 'true') || (localStorage.getItem('id') === url_owner)) {
                 let update = document.getElementById('editdaily-form');
                 if (update) {
@@ -27,6 +31,9 @@ System.register(["./controllers/EditDailyController", "./utils/userData"], funct
                             if (res.status === 200) {
                                 idResult.textContent = "Daily Editada com sucesso";
                                 idResult.className = "alert alert-info";
+                                setTimeout(() => {
+                                    window.location.href = "app-daily-note.html";
+                                }, 5000);
                             }
                         });
                     });

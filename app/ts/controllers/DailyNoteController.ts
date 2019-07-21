@@ -20,7 +20,7 @@ export class DailyNoteController {
 
     private addVals: (() => boolean)[];
     private editVals: (() => boolean)[];
-    private user : UserMenuView; 
+    private user: UserMenuView;
 
 
     constructor() {
@@ -65,11 +65,35 @@ export class DailyNoteController {
 
             let dailyNoteService = new DailyNoteService();
 
+            let message = document.querySelector("#fail");
+            let messageGood = document.querySelector("#success");
+
             return dailyNoteService.add(
                 this.yesterday.value,
                 this.today.value,
                 this.impediment.value,
                 new Date())
+            // .then(res => {
+            //     if (res.status == 200) {
+            //         messageGood.textContent = 'Daily cadastrada com sucesso';
+            //         document.getElementById('dailyModal').click();
+            //         document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+            //     }
+
+            //     else {
+            //         let erro = res;
+            //         console.log(res)
+
+            //         //message.textContent = erro.erro;
+            //         document.getElementById("status_daily").style.display = "block";
+            //         document.getElementById('dailyModal').click();
+            //         document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+            //     }
+
+
+
+            //     return res.json()
+            // })
         }
     }
 
@@ -80,21 +104,24 @@ export class DailyNoteController {
         // console.log(date)
         let urlDate = new URLSearchParams(location.search).get('date');
         // console.log(urlDate)
-        let value = date.value || urlDate;
+        // let value = date.value || urlDate;
+        let value = urlDate || date.value;
+        // console.log("a data no controller é: ", value);
         const url_page = new URLSearchParams(location.search).get('page');
         const page = parseInt(url_page) || 1;
-              
+
         let dailyNoteService = new DailyNoteService();
 
-        let year = date.value.slice(0,4);
-        let month =  date.value.slice(6,7);
-        let day =  date.value.slice(8,10);
+        let year = date.value.slice(0, 4);
+        let month = date.value.slice(6, 7);
+        let day = date.value.slice(8, 10);
 
-        day =  ("00" + day).slice(-2);
-        month =  ("00" + month).slice(-2);       
+        day = ("00" + day).slice(-2);
+        month = ("00" + month).slice(-2);
 
         let fullDate = `${year}-${month}-${day}`;
-
+        // console.log("a data completa no controller é: ", fullDate)
+        // console.log("A page no controller é: ", page)
         return dailyNoteService.listDate(fullDate, page)
             .then(res => {
                 // console.log(res)
@@ -106,7 +133,7 @@ export class DailyNoteController {
             });
     };
 
-    registered(event: Event){
+    registered(event: Event) {
         event.preventDefault();
 
         let service = new DailyNoteService();

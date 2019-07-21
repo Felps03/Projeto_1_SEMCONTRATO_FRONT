@@ -50,15 +50,15 @@ export class PasswordRecoveryController {
             authenticateService.verifyCode(URL_KEY, this.email.value, this.password.value)
                 .then(res => res.json())
                 .then(res => {
-                
+
                     let erro = res;
-                
+
                     mesage.textContent = erro.erro;
 
                     if (erro.erro) document.getElementById("link-expired").style.display = "block";
-                  
+
                 }).catch(err => {
-                    console.log(err) ;
+                    console.log(err);
                     mesage.textContent = JSON.stringify(err);
                 });
         }
