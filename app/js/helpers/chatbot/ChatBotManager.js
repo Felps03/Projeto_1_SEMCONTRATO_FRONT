@@ -1,6 +1,6 @@
-System.register(["../../models/Chat", "./chatBotTree"], function (exports_1, context_1) {
+System.register(["../../models/Chat", "./chatBotTree", "../../utils/normalizeTxt", "./chatAnswerParser"], function (exports_1, context_1) {
     "use strict";
-    var Chat_1, chatBotTree_1, ChatBotManager;
+    var Chat_1, chatBotTree_1, normalizeTxt_1, chatAnswerParser_1, ChatBotManager;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -9,17 +9,24 @@ System.register(["../../models/Chat", "./chatBotTree"], function (exports_1, con
             },
             function (chatBotTree_1_1) {
                 chatBotTree_1 = chatBotTree_1_1;
+            },
+            function (normalizeTxt_1_1) {
+                normalizeTxt_1 = normalizeTxt_1_1;
+            },
+            function (chatAnswerParser_1_1) {
+                chatAnswerParser_1 = chatAnswerParser_1_1;
             }
         ],
         execute: function () {
             ChatBotManager = class ChatBotManager {
                 constructor() {
                     this.chat = new Chat_1.Chat();
+                    this.state = new Map();
                 }
                 init() {
                     this.getFromStorage();
                     if (this.chat.History.length === 0) {
-                        this.message([this.toBranch(chatBotTree_1.mainBranch)]);
+                        this.message([[Chat_1.ChatAgent.Bot, this.toBranch(chatBotTree_1.mainBranch)]]);
                     }
                     this.store();
                     return this.chat;
@@ -36,18 +43,29 @@ System.register(["../../models/Chat", "./chatBotTree"], function (exports_1, con
                         if (chatBotTree_1.dialog[this.context]) {
                             let success = false;
                             const lastMsg = this.chat.LastMsg;
-                            const normalizedMsg = lastMsg ? lastMsg[1].toLocaleLowerCase() : '';
+                            const normalizedMsg = lastMsg ? normalizeTxt_1.normalize(lastMsg[1]) : '';
                             for (let branch of chatBotTree_1.dialog[this.context]) {
                                 if (branch.call) {
                                     for (let synonym of branch.call) {
-                                        if (normalizedMsg.indexOf(synonym) !== -1) {
+                                        const processed = new RegExp(synonym).exec(normalizedMsg);
+                                        if (processed) {
                                             success = true;
+                                            if (branch.process) {
+                                                branch.process(this.state, processed);
+                                            }
+                                            const actualState = this.state;
                                             const possiblePre = this.toBranch(branch);
                                             setTimeout(() => {
                                                 let msgs = [];
-                                                msgs.push([Chat_1.ChatAgent.Bot, branch.answer]);
+                                                msgs.push([
+                                                    Chat_1.ChatAgent.Bot,
+                                                    chatAnswerParser_1.parseState(actualState, branch.answer)
+                                                ]);
                                                 if (possiblePre) {
-                                                    msgs.push(possiblePre);
+                                                    msgs.push([
+                                                        Chat_1.ChatAgent.Bot,
+                                                        chatAnswerParser_1.parseState(actualState, possiblePre)
+                                                    ]);
                                                 }
                                                 resolve(this.message(msgs));
                                             }, 500);
@@ -59,7 +77,12 @@ System.register(["../../models/Chat", "./chatBotTree"], function (exports_1, con
                             if (!success) {
                                 setTimeout(() => {
                                     this.store();
-                                    resolve(this.message([[Chat_1.ChatAgent.Bot, chatBotTree_1.dialog['understandnt'][0].answer]]));
+                                    resolve(this.message([
+                                        [
+                                            Chat_1.ChatAgent.Bot,
+                                            chatBotTree_1.dialog['understandnt'][0].answer
+                                        ]
+                                    ]));
                                 }, 500);
                             }
                         }
@@ -76,9 +99,12 @@ System.register(["../../models/Chat", "./chatBotTree"], function (exports_1, con
                 }
                 toBranch(branch) {
                     this.context = branch.goto;
+                    if (this.context === chatBotTree_1.mainBranch.goto) {
+                        this.state = new Map();
+                    }
                     this.store();
                     if (chatBotTree_1.dialog[this.context][0].pre) {
-                        return [Chat_1.ChatAgent.Bot, chatBotTree_1.dialog[this.context][0].pre];
+                        return chatBotTree_1.dialog[this.context][0].pre;
                     }
                 }
                 getFromStorage() {

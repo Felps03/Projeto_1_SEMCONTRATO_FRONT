@@ -1,9 +1,9 @@
-import { View } from './View';
-import { DailyNote, User } from '../models/index';
-import { Chat, ChatAgent } from '../models/Chat';
+import { View } from './View'
+import { DailyNote, User } from '../models/index'
+import { Chat, ChatAgent } from '../models/Chat'
+import { parseView } from '../helpers/chatbot/chatAnswerParser'
 
 export class ChatBotView extends View<Chat> {
-
     private didMountFn: Function
     private lastModel: Chat | null
     private active: boolean
@@ -15,11 +15,12 @@ export class ChatBotView extends View<Chat> {
     }
 
     template(model: Chat): string {
-
         this.lastModel = model
 
         return `
-<div id="chatbot-area" class="position-fixed rounded-0 shadow ${this.active ? 'active' : ''}">
+<div id="chatbot-area" class="position-fixed rounded-0 shadow ${
+            this.active ? 'active' : ''
+        }">
     <div id="chatbot-tab" class="align-items-center d-flex right-0 pl-3">
         <i class="material-icons">chat</i>
         <h5 class="m-1">Chat</h5>
@@ -32,11 +33,15 @@ export class ChatBotView extends View<Chat> {
 
         <div id="chatbot-history">
             <ul>
-            ${
-            model.History.map((msg: [ChatAgent, string]) => {
-
+            ${model.History.map((msg: [ChatAgent, string]) => {
                 // if the author is the user, escape it
-                msg[1] = msg[0] === ChatAgent.User ? msg[1].replace('<', '&lt;').replace('>', '&gt;') : msg[1]
+
+                if (msg[0] === ChatAgent.User) {
+                    msg[1] = msg[1].replace('<', '&lt;').replace('>', '&gt;')
+                } else {
+                    msg[1] = parseView(msg[1])
+                }
+
                 msg[1] = msg[1].replace('\n', '<br>')
 
                 return `
@@ -45,9 +50,8 @@ export class ChatBotView extends View<Chat> {
                         ${msg[1]}
                     </span>
                 </li>
-            `}
-            ).join('')
-            } 
+            `
+            }).join('')} 
             </ul>
         </div>
 
@@ -71,7 +75,7 @@ export class ChatBotView extends View<Chat> {
 
     </div>
 </div>
-        `;
+        `
     }
 
     update(model: Chat) {
@@ -85,8 +89,7 @@ export class ChatBotView extends View<Chat> {
             this.update(this.lastModel)
         })
 
-        if (this.didMountFn)
-            this.didMountFn(model)
+        if (this.didMountFn) this.didMountFn(model)
     }
 
     didMount(cb: Function) {

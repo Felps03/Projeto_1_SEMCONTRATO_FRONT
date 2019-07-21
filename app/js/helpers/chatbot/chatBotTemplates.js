@@ -5,18 +5,20 @@ System.register([], function (exports_1, context_1) {
     return {
         setters: [],
         execute: function () {
-            exports_1("button", button = (text, value) => `
-<button type="button" class="btn btn-primary btn-sm m-1" data-value="${value}">${text}</button>
+            exports_1("button", button = (text) => `
+    <button type="button" class="btn btn-primary btn-sm m-1" data-value="${text}">${text}</button>
 `);
             exports_1("options", options = (content) => {
                 let html = '\n<div class="chatbot-options d-flex flex-row mt-1">';
-                for (const key in content) {
-                    html += button(key, content[key]);
-                }
+                content.forEach(option => {
+                    html += button(option);
+                });
                 html += '</div>';
                 return html;
             });
-            exports_1("link", link = (text, href) => `<a href="${href}" target="_blank">${text}</a>`);
+            exports_1("link", link = (text, href) => `
+    <a href="${href}" target="_blank">${text}</a>
+`);
         }
     };
 });
