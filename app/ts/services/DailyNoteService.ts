@@ -28,14 +28,14 @@ export class DailyNoteService {
      */
 
     update(daily: DailyNote, ID: string) {
-        console.log(ID)
+        // console.log(ID)
         return fetch(`${HOST}dailys/daily/${ID}`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
-                'id_user': localStorage.getItem('id')
+                // 'id_user': localStorage.getItem('id')
             },
             body: JSON.stringify({
                 "id_user": localStorage.getItem('id'),
