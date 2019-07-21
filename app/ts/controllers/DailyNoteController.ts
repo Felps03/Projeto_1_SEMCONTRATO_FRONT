@@ -104,7 +104,9 @@ export class DailyNoteController {
         // console.log(date)
         let urlDate = new URLSearchParams(location.search).get('date');
         // console.log(urlDate)
-        let value = date.value || urlDate;
+        // let value = date.value || urlDate;
+        let value = urlDate || date.value;
+        // console.log("a data no controller é: ", value);
         const url_page = new URLSearchParams(location.search).get('page');
         const page = parseInt(url_page) || 1;
 
@@ -118,7 +120,8 @@ export class DailyNoteController {
         month = ("00" + month).slice(-2);
 
         let fullDate = `${year}-${month}-${day}`;
-
+        // console.log("a data completa no controller é: ", fullDate)
+        // console.log("A page no controller é: ", page)
         return dailyNoteService.listDate(fullDate, page)
             .then(res => {
                 // console.log(res)

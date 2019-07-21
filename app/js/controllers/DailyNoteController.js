@@ -61,7 +61,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     event.preventDefault();
                     let date = document.querySelector('#date_filter');
                     let urlDate = new URLSearchParams(location.search).get('date');
-                    let value = date.value || urlDate;
+                    let value = urlDate || date.value;
                     const url_page = new URLSearchParams(location.search).get('page');
                     const page = parseInt(url_page) || 1;
                     let dailyNoteService = new DailyNoteService_1.DailyNoteService();

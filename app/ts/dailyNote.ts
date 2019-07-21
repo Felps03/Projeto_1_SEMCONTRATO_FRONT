@@ -9,7 +9,6 @@ let id_daily: string;
 const url = new URLSearchParams(location.search);
 const url_date = url.get('date');
 const dateField = <HTMLInputElement>document.querySelector('#date_filter');
-const dateValue = dateField.value || url_date;
 
 const controller = new DailyNoteController();
 
@@ -17,6 +16,8 @@ let cadastrar = document.querySelector('#daily-form');
 if (cadastrar) {
 	cadastrar.addEventListener('submit', registeredDaily);
 }
+
+load()
 
 let listDate = document.querySelector('#filter');
 if (listDate) {
@@ -26,7 +27,8 @@ if (listDate) {
 }
 
 // window.addEventListener('load', load); 
-load()
+
+// const dateValue = dateField.value || url_date;
 
 function load() {
 	if (url.get('date') && url.get('page')) {
@@ -43,7 +45,7 @@ function load() {
 
 	let today = `${year}-${month}-${day}`;
 
-	dateField.value = today;
+	dateField.value = url_date || today;
 
 	listDateDaily(event);
 	dailyButton(event);
@@ -76,25 +78,25 @@ function registeredDaily(event: Event) {
 				document.getElementById('dailyModal').click();
 				document.getElementById('add_daily').setAttribute('disabled', 'disabled');
 				document.getElementById('status_daily').innerHTML = `
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>Daily cadastrada com sucesso!</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                `;
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<strong>Daily cadastrada com sucesso!</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+			`;
 				return;
 			} else if (res.status == 400) {
 				document.getElementById('dailyModal').click();
 				document.getElementById('add_daily').setAttribute('disabled', 'disabled');
 				document.getElementById('status_daily').innerHTML = `
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Você já cadastrou sua daily!</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                `;
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			<strong>Você já cadastrou sua daily!</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+			`;
 				return;
 			}
 		});
@@ -121,6 +123,8 @@ function listDateDaily(event: Event) {
 					let header_pagination: string = '';
 					let string_li: string = '';
 					let footer_pagination: string = '';
+					const dateValue = url_date || dateField.value;
+					// console.log("a data é: ", dateValue);
 					if (totalPagesDiv) {
 						header_pagination = `
                         <nav aria-label="daily-nav" class="float-right">
@@ -136,13 +140,13 @@ function listDateDaily(event: Event) {
 							string_li += `
                             <li class="page-item"><a class="page-link" href="app-daily-note.html?page=${i +
 								1}&date=${dateValue}">${i + 1}</a></li>
-                            `;
+								`;
 						}
 						// console.log(string_li);
 						footer_pagination = `
-                        <li class="page-item" >
+							<li class="page-item" >
                         
-                        `;
+							`;
 						// console.log(footer_pagination);
 						const nav_pagination = document.createElement('nav');
 						const fullString: string = header_pagination + string_li + footer_pagination;

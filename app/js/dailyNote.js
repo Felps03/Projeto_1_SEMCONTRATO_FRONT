@@ -1,6 +1,6 @@
 System.register(["./controllers/DailyNoteController", "./models/index", "./utils/userData"], function (exports_1, context_1) {
     "use strict";
-    var DailyNoteController_1, index_1, userData_1, userData, dailyesResult, totalPagesDiv, id_daily, url, url_date, dateField, dateValue, controller, cadastrar, listDate;
+    var DailyNoteController_1, index_1, userData_1, userData, dailyesResult, totalPagesDiv, id_daily, url, url_date, dateField, controller, cadastrar, listDate;
     var __moduleName = context_1 && context_1.id;
     function load() {
         if (url.get('date') && url.get('page')) {
@@ -14,7 +14,7 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
         if (day.length < 2)
             day = '0' + day;
         let today = `${year}-${month}-${day}`;
-        dateField.value = today;
+        dateField.value = url_date || today;
         listDateDaily(event);
         dailyButton(event);
         login(event);
@@ -42,26 +42,26 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
                 document.getElementById('dailyModal').click();
                 document.getElementById('add_daily').setAttribute('disabled', 'disabled');
                 document.getElementById('status_daily').innerHTML = `
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>Daily cadastrada com sucesso!</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                `;
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<strong>Daily cadastrada com sucesso!</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+			`;
                 return;
             }
             else if (res.status == 400) {
                 document.getElementById('dailyModal').click();
                 document.getElementById('add_daily').setAttribute('disabled', 'disabled');
                 document.getElementById('status_daily').innerHTML = `
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Você já cadastrou sua daily!</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                `;
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			<strong>Você já cadastrou sua daily!</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+			`;
                 return;
             }
         });
@@ -79,6 +79,7 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
                         let header_pagination = '';
                         let string_li = '';
                         let footer_pagination = '';
+                        const dateValue = url_date || dateField.value;
                         if (totalPagesDiv) {
                             header_pagination = `
                         <nav aria-label="daily-nav" class="float-right">
@@ -93,12 +94,12 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
                                 string_li += `
                             <li class="page-item"><a class="page-link" href="app-daily-note.html?page=${i +
                                     1}&date=${dateValue}">${i + 1}</a></li>
-                            `;
+								`;
                             }
                             footer_pagination = `
-                        <li class="page-item" >
+							<li class="page-item" >
                         
-                        `;
+							`;
                             const nav_pagination = document.createElement('nav');
                             const fullString = header_pagination + string_li + footer_pagination;
                             nav_pagination.innerHTML = fullString;
@@ -167,19 +168,18 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
             url = new URLSearchParams(location.search);
             url_date = url.get('date');
             dateField = document.querySelector('#date_filter');
-            dateValue = dateField.value || url_date;
             controller = new DailyNoteController_1.DailyNoteController();
             cadastrar = document.querySelector('#daily-form');
             if (cadastrar) {
                 cadastrar.addEventListener('submit', registeredDaily);
             }
+            load();
             listDate = document.querySelector('#filter');
             if (listDate) {
                 if (dailyesResult) {
                     listDate.addEventListener('click', listDateDaily);
                 }
             }
-            load();
             $('#cancel').click((e) => {
                 e.preventDefault();
                 var dirtyFormID = 'daily-form';
