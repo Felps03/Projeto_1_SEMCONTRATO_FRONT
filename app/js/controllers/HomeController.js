@@ -51,8 +51,9 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         return result.json();
                     }).then(result => {
                         let row = document.querySelector('#last-helps');
-                        for (let i = 0; i < result.docs.length; i++) {
-                            console.log(result.docs[i]);
+                        row.innerHTML = "";
+                        let a = result.docs.length;
+                        for (let i = a - 1; i >= 0; i--) {
                             row.innerHTML += `
                     <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
                         <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
@@ -96,6 +97,7 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         return result.json();
                     }).then(result => {
                         let row = document.querySelector('#all-dailys');
+                        row.innerHTML = "";
                         for (let i = 0; i < result.length - 1; i++) {
                             row.innerHTML += `
                     <tr>

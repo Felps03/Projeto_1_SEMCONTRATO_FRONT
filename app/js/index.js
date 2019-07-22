@@ -12,11 +12,9 @@ System.register(["./controllers/AuthenticateController", "./controllers/DailyNot
             }
         ],
         execute: function () {
-            document.addEventListener("DOMContentLoaded", function (event) {
-                if (localStorage.getItem('tkn')) {
-                    window.location.href = "home.html";
-                }
-            });
+            if (localStorage.getItem('tkn')) {
+                window.location.href = "home.html";
+            }
             authenticate = document.querySelector('#login-form');
             if (authenticate) {
                 const authenticateController = new AuthenticateController_1.AuthenticateController();

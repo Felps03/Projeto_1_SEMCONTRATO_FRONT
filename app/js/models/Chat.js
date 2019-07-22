@@ -23,8 +23,8 @@ System.register([], function (exports_1, context_1) {
                 get LastMsg() {
                     return this.history[this.history.length - 1];
                 }
-                static parse(str) {
-                    return new Chat(JSON.parse(str).history);
+                static parse(obj) {
+                    return new Chat(obj.history);
                 }
             };
             exports_1("Chat", Chat);

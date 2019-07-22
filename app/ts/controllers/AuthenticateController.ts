@@ -95,6 +95,9 @@ export class AuthenticateController {
 
     logout(event: Event) {
         event.preventDefault();
+
+        console.log("chegou no controller");
+
         const authenticateService = new AuthenticateService();
 
         authenticateService.logout().then(res => {
