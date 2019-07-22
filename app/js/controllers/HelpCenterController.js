@@ -132,6 +132,9 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                             console.error(error);
                         });
                     }
+                    else {
+                        console.log('vals');
+                    }
                 }
                 list(event) {
                     event.preventDefault();

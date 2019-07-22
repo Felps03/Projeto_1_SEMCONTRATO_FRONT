@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    <div id="chatbot-view"></div>
     <!-- particles.js -->
     <div id="particles-js"></div>
 
@@ -31,13 +32,17 @@
             <div class="row navbar-header align-baseline ml-n3">
                 <a href="home.html"><img src="./img/logo_compasso.png"></a>
                 <div class="vt-apps-line ml-2"></div>
-                <a href="app-daily-note.html" class="menu-item mt-3 ml-4"><h5><strong>Daily Note</strong></h5></a>
-                <a href="app-help-center.html" class="menu-item mt-3 ml-4"><h5><strong>Help Center</strong></h5></a>
+                <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
+                    <h5><strong>Daily Note</strong></h5>
+                </a>
+                <a href="app-help-center.html" class="menu-item mt-3 ml-4">
+                    <h5><strong>Help Center</strong></h5>
+                </a>
             </div>
 
             <!-- User menu -->
             <div id="user-menu-login-link"></div>
-            
+
         </div>
     </nav>
 
@@ -199,6 +204,7 @@
         System.defaultJSExtensions = true;
         System.import('js/helpCenter.js').catch(err => console.error(err));
         System.import('js/logout.js').catch(err => console.error(err));
+        System.import('js/chatbot.js').catch(err => console.error(err))
     </script>
 </body>
 

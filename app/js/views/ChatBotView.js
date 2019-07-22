@@ -1,6 +1,6 @@
-System.register(["./View", "../models/Chat"], function (exports_1, context_1) {
+System.register(["./View", "../models/Chat", "../helpers/chatbot/chatAnswerParser"], function (exports_1, context_1) {
     "use strict";
-    var View_1, Chat_1, ChatBotView;
+    var View_1, Chat_1, chatAnswerParser_1, ChatBotView;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -9,6 +9,9 @@ System.register(["./View", "../models/Chat"], function (exports_1, context_1) {
             },
             function (Chat_1_1) {
                 Chat_1 = Chat_1_1;
+            },
+            function (chatAnswerParser_1_1) {
+                chatAnswerParser_1 = chatAnswerParser_1_1;
             }
         ],
         execute: function () {
@@ -34,7 +37,12 @@ System.register(["./View", "../models/Chat"], function (exports_1, context_1) {
         <div id="chatbot-history">
             <ul>
             ${model.History.map((msg) => {
-                        msg[1] = msg[0] === Chat_1.ChatAgent.User ? msg[1].replace('<', '&lt;').replace('>', '&gt;') : msg[1];
+                        if (msg[0] === Chat_1.ChatAgent.User) {
+                            msg[1] = msg[1].replace('<', '&lt;').replace('>', '&gt;');
+                        }
+                        else {
+                            msg[1] = chatAnswerParser_1.parseView(msg[1]);
+                        }
                         msg[1] = msg[1].replace('\n', '<br>');
                         return `
                 <li data-author="${msg[0]}" class="shadow-sm">

@@ -58,8 +58,20 @@ export class DailyNoteService {
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
-                // "Authorization": `Bearer ${localStorage.getItem('tkn')}`,
-                // 'id_user': localStorage.getItem('id')
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
+            }
+        })
+    }
+
+    listUser(username: string, page: number) {
+        return fetch(`${HOST}dailys/list/user/${username}/${page}`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('tkn')}`,
+                id_user: localStorage.getItem('id')
             }
         })
     }

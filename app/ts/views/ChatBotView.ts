@@ -1,6 +1,7 @@
 import { View } from './View';
 import { DailyNote, User } from '../models/index';
 import { Chat, ChatAgent } from '../models/Chat';
+import { parseView } from '../helpers/chatbot/chatAnswerParser';
 
 export class ChatBotView extends View<Chat> {
 
@@ -32,22 +33,25 @@ export class ChatBotView extends View<Chat> {
 
         <div id="chatbot-history">
             <ul>
-            ${
-            model.History.map((msg: [ChatAgent, string]) => {
+            ${model.History.map((msg: [ChatAgent, string]) => {
+            // if the author is the user, escape it
 
-                // if the author is the user, escape it
-                msg[1] = msg[0] === ChatAgent.User ? msg[1].replace('<', '&lt;').replace('>', '&gt;') : msg[1]
-                msg[1] = msg[1].replace('\n', '<br>')
+            if (msg[0] === ChatAgent.User) {
+                msg[1] = msg[1].replace('<', '&lt;').replace('>', '&gt;')
+            } else {
+                msg[1] = parseView(msg[1])
+            }
 
-                return `
+            msg[1] = msg[1].replace('\n', '<br>')
+
+            return `
                 <li data-author="${msg[0]}" class="shadow-sm">
                     <span class="chatbot-msg">
                         ${msg[1]}
                     </span>
                 </li>
-            `}
-            ).join('')
-            } 
+            `
+        }).join('')} 
             </ul>
         </div>
 

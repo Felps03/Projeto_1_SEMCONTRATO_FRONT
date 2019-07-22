@@ -53,7 +53,7 @@ export class HelpCenterController {
 
 		// init validations
 
-		this.addVals = [ validate(this.addTitle, vals.title), validate(this.addDesc, vals.desc) ];
+		this.addVals = [validate(this.addTitle, vals.title), validate(this.addDesc, vals.desc)];
 
 		this.postView.didMount(() => {
 			this.helpCenterAsk = new HelpCenterAskController();
@@ -75,7 +75,7 @@ export class HelpCenterController {
 
 			// if one exists, both exist
 			if (this.editTitle) {
-				this.editVals = [ validate(this.editTitle, vals.title), validate(this.editDesc, vals.desc) ];
+				this.editVals = [validate(this.editTitle, vals.title), validate(this.editDesc, vals.desc)];
 			}
 
 			this.helpCenterAsk.listByPost(new Event(''));
@@ -163,6 +163,8 @@ export class HelpCenterController {
 				.catch((error) => {
 					console.error(error);
 				});
+		} else {
+			console.log('vals')
 		}
 	}
 

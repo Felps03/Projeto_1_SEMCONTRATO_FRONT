@@ -133,6 +133,21 @@ export class DailyNoteController {
             });
     };
 
+    listU(event: Event) {
+        event.preventDefault()
+
+        let urlUser = new URLSearchParams(location.search).get('user')
+        const url_page = new URLSearchParams(location.search).get('page')
+        const page = +url_page || 1
+
+        const dailyNoteService = new DailyNoteService()
+        console.log(urlUser, page)
+        return dailyNoteService.listUser(urlUser, page).then(res => {
+            // console.log(res)
+            return res.json()
+        })
+    }
+
     registered(event: Event) {
         event.preventDefault();
 
