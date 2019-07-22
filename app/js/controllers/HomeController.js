@@ -49,17 +49,19 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                     helpCenterService.listLastHelp()
                         .then(result => {
                         return result.json();
-                    }).then(result => {
+                    })
+                        .then(result => {
                         let row = document.querySelector('#last-helps');
                         row.innerHTML = "";
-                        let a = result.docs.length;
-                        for (let i = a - 1; i >= 0; i--) {
+                        let results = result.length;
+                        for (let aux = 0; aux < 3; aux++) {
+                            console.log(result);
                             row.innerHTML += `
                     <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
                         <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
                             <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
                                 <div>
-                                    <h5 class="mt-2 mb-2 ml-4">Usuário</h5>
+                                    <h5 class="mt-2 mb-2 ml-4">${result[aux]['owner']}</h5>
                                     <button type="button" name="view"
                                         class="btn btn-outline-info btn-sm input-circle pt-2 ml-4" id="resp-view"
                                         data-toggle="modal" data-target="#respModal">
@@ -71,8 +73,8 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         <div class="col-md-9 col-12 card-body">
                             <div class="card mb-2">
                                 <div class="card-body">
-                                    <h5>${result.docs[i]['title']}</h5>
-                                    <p>${result.docs[i]['desc']}</p>
+                                    <h5>${result[aux]['title']}</h5>
+                                    <p>${result[aux]['desc']}</p>
                                 </div>
                             </div>
                         </div>
