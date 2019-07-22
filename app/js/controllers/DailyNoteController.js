@@ -28,12 +28,12 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                 constructor() {
                     this.yesterday = document.querySelector('#yesterday');
                     this.today = document.querySelector('#today');
-                    this.impediment = document.querySelector('#impediment');
+                    this.impediment = (document.querySelector('#impediment'));
                     this.date = document.querySelector('#date');
                     this.listDate = document.querySelector('#filter');
-                    this.editYesterday = document.querySelector('#edit-yesterday');
+                    this.editYesterday = (document.querySelector('#edit-yesterday'));
                     this.editToday = document.querySelector('#edit-today');
-                    this.editImpediment = document.querySelector('#edit-impediment');
+                    this.editImpediment = (document.querySelector('#edit-impediment'));
                     this.addVals = [
                         index_1.validate(this.yesterday, vals.yesterday),
                         index_1.validate(this.today, vals.today),
@@ -44,7 +44,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         index_1.validate(this.editToday, vals.today),
                         index_1.validate(this.editImpediment, vals.impediment)
                     ];
-                    this.user = new UserMenuView_1.UserMenuView("#user-menu-login-link");
+                    this.user = new UserMenuView_1.UserMenuView('#user-menu-login-link');
                     this.user.update('');
                 }
                 add(event) {
@@ -52,8 +52,8 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     if (listCheck_1.noFalse(this.addVals)) {
                         let dailyNote = new DailyNote_1.DailyNote(this.yesterday.value.toString(), this.today.value.toString(), this.impediment.value.toString(), new Date());
                         let dailyNoteService = new DailyNoteService_1.DailyNoteService();
-                        let message = document.querySelector("#fail");
-                        let messageGood = document.querySelector("#success");
+                        let message = document.querySelector('#fail');
+                        let messageGood = document.querySelector('#success');
                         return dailyNoteService.add(this.yesterday.value, this.today.value, this.impediment.value, new Date());
                     }
                 }
@@ -68,10 +68,11 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     let year = date.value.slice(0, 4);
                     let month = date.value.slice(6, 7);
                     let day = date.value.slice(8, 10);
-                    day = ("00" + day).slice(-2);
-                    month = ("00" + month).slice(-2);
+                    day = ('00' + day).slice(-2);
+                    month = ('00' + month).slice(-2);
                     let fullDate = `${year}-${month}-${day}`;
-                    return dailyNoteService.listDate(fullDate, page)
+                    return dailyNoteService
+                        .listDate(fullDate, page)
                         .then(res => {
                         return res.json();
                     })
@@ -79,7 +80,17 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         return result;
                     });
                 }
-                ;
+                listU(event) {
+                    event.preventDefault();
+                    let urlUser = new URLSearchParams(location.search).get('user');
+                    const url_page = new URLSearchParams(location.search).get('page');
+                    const page = +url_page || 1;
+                    const dailyNoteService = new DailyNoteService_1.DailyNoteService();
+                    console.log(urlUser, page);
+                    return dailyNoteService.listUser(urlUser, page).then(res => {
+                        return res.json();
+                    });
+                }
                 registered(event) {
                     event.preventDefault();
                     let service = new DailyNoteService_1.DailyNoteService();

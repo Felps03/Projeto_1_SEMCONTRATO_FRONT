@@ -3,6 +3,7 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
     var DailyNoteController_1, index_1, userData_1, userData, dailyesResult, totalPagesDiv, id_daily, url, url_date, dateField, controller, cadastrar, listDate;
     var __moduleName = context_1 && context_1.id;
     function load() {
+        const event = new Event('');
         if (url.get('date') && url.get('page')) {
             listDateDaily(event);
         }
@@ -15,32 +16,43 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
             day = '0' + day;
         let today = `${year}-${month}-${day}`;
         dateField.value = url_date || today;
-        listDateDaily(event);
+        if (url.get('user')) {
+            listUserDaily(event);
+        }
+        else {
+            listDateDaily(event);
+        }
         dailyButton(event);
         login(event);
     }
     function login(event) {
-        if (!localStorage.getItem('id') || localStorage.getItem('id') === 'undefined' || localStorage.getItem('id') === null) {
-            document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+        if (!localStorage.getItem('id') ||
+            localStorage.getItem('id') === 'undefined' ||
+            localStorage.getItem('id') === null) {
+            document
+                .getElementById('add_daily')
+                .setAttribute('disabled', 'disabled');
         }
     }
     function dailyButton(event) {
-        controller.registered(event)
-            .then((res) => {
+        controller.registered(event).then(res => {
             if (res.status == 400) {
                 document.getElementById('dailyModal').click();
-                document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+                document
+                    .getElementById('add_daily')
+                    .setAttribute('disabled', 'disabled');
                 return;
             }
         });
     }
     function registeredDaily(event) {
-        controller.add(event)
-            .then((res) => {
+        controller.add(event).then(res => {
             if (res.status == 200) {
                 listDateDaily(event);
                 document.getElementById('dailyModal').click();
-                document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+                document
+                    .getElementById('add_daily')
+                    .setAttribute('disabled', 'disabled');
                 document.getElementById('status_daily').innerHTML = `
 			<div class="alert alert-success alert-dismissible fade show" role="alert">
 			<strong>Daily cadastrada com sucesso!</strong>
@@ -53,7 +65,9 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
             }
             else if (res.status == 400) {
                 document.getElementById('dailyModal').click();
-                document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+                document
+                    .getElementById('add_daily')
+                    .setAttribute('disabled', 'disabled');
                 document.getElementById('status_daily').innerHTML = `
 			<div class="alert alert-danger alert-dismissible fade show" role="alert">
 			<strong>Você já cadastrou sua daily!</strong>
@@ -70,7 +84,61 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
         dailyesResult.innerHTML = '';
         const result = controller.listD(event);
         if (result) {
-            result.then((result) => {
+            result.then(result => {
+                result.forEach((r) => {
+                    const daily = new index_1.DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
+                    let totalPages;
+                    if (r.hasOwnProperty('totalPages')) {
+                        totalPages = parseInt(r.totalPages);
+                        let header_pagination = '';
+                        let string_li = '';
+                        let footer_pagination = '';
+                        const dateValue = url_date || dateField.value;
+                        if (totalPagesDiv) {
+                            header_pagination = `
+                        <nav aria-label="daily-nav" class="float-right">
+                        <ul class="pagination">
+                        <li class="page-item">
+                        </a>
+                        </li>
+                        `;
+                            let i = 0;
+                            string_li = '';
+                            for (i; i < totalPages; i++) {
+                                string_li += `
+                            <li class="page-item"><a class="page-link" href="app-daily-note.html?page=${i +
+                                    1}&date=${dateValue}">${i + 1}</a></li>
+								`;
+                            }
+                            footer_pagination = `
+							<li class="page-item" >
+                        
+							`;
+                            const nav_pagination = document.createElement('nav');
+                            const fullString = header_pagination + string_li + footer_pagination;
+                            nav_pagination.innerHTML = fullString;
+                            totalPagesDiv.innerHTML = '';
+                            totalPagesDiv.appendChild(nav_pagination);
+                        }
+                        return;
+                    }
+                    const owner = r.owner;
+                    const id_owner = r.id_user;
+                    id_daily = r.id_daily;
+                    if (dailyesResult) {
+                        mountTable(dailyesResult, daily, owner, id_owner, id_daily);
+                    }
+                    id_daily = '';
+                    return;
+                });
+            });
+        }
+    }
+    function listUserDaily(event) {
+        dailyesResult.innerHTML = '';
+        const result = controller.listU(event);
+        if (result) {
+            result.then(result => {
                 result.forEach((r) => {
                     const daily = new index_1.DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
                     let totalPages;
@@ -122,10 +190,12 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
     }
     function mountTable(dayliesResult, daily, owner, id_user, id_daily) {
         const body = document.createElement('tr');
-        if (localStorage.getItem('isAdmin') === 'true' || id_user === localStorage.getItem('id')) {
+        if (localStorage.getItem('isAdmin') === 'true' ||
+            id_user === localStorage.getItem('id')) {
             body.innerHTML = `<tr>
                 <td>${owner}</td>
-                <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() + 1}/${daily.Date.getUTCFullYear()} </td>
+                <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() +
+                1}/${daily.Date.getUTCFullYear()} </td>
                 <td>${daily.Yesterday}</td>
                 <td>${daily.Today}</td>
                 <td>${daily.Impediment}</td>
@@ -140,7 +210,8 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
         else {
             body.innerHTML = `<tr>
                 <td>${owner}</td>
-                <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() + 1}/${daily.Date.getUTCFullYear()} </td>
+                <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() +
+                1}/${daily.Date.getUTCFullYear()} </td>
                 <td>${daily.Yesterday}</td>
                 <td>${daily.Today}</td>
                 <td>${daily.Impediment}</td>
@@ -180,7 +251,7 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
                     listDate.addEventListener('click', listDateDaily);
                 }
             }
-            $('#cancel').click((e) => {
+            $('#cancel').click(e => {
                 e.preventDefault();
                 var dirtyFormID = 'daily-form';
                 var resetForm = document.getElementById(dirtyFormID);

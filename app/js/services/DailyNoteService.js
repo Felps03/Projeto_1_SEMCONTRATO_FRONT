@@ -14,17 +14,17 @@ System.register(["../config/index"], function (exports_1, context_1) {
                     return fetch(`${index_1.HOST}dailys/daily`, {
                         method: 'post',
                         headers: {
-                            'Accept': 'application/json, text/plain, */*',
+                            Accept: 'application/json, text/plain, */*',
                             'Content-Type': 'application/json',
-                            "Authorization": `Bearer ${localStorage.getItem('tkn')}`,
-                            'id_user': localStorage.getItem('id')
+                            Authorization: `Bearer ${localStorage.getItem('tkn')}`,
+                            id_user: localStorage.getItem('id')
                         },
                         body: JSON.stringify({
-                            "yesterday": yesterday,
-                            "today": today,
-                            "impediment": impediment,
-                            "date": new Date().toISOString().slice(0, 10),
-                            "email": localStorage.getItem('email')
+                            yesterday: yesterday,
+                            today: today,
+                            impediment: impediment,
+                            date: new Date().toISOString().slice(0, 10),
+                            email: localStorage.getItem('email')
                         })
                     });
                 }
@@ -33,27 +33,37 @@ System.register(["../config/index"], function (exports_1, context_1) {
                     return fetch(`${index_1.HOST}dailys/daily/${ID}`, {
                         method: 'PUT',
                         headers: {
-                            'Accept': 'application/json',
+                            Accept: 'application/json',
                             'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
-                            'id_user': localStorage.getItem('id')
+                            Authorization: `Bearer ${localStorage.getItem('tkn')}`,
+                            id_user: localStorage.getItem('id')
                         },
                         body: JSON.stringify({
-                            "id_user": localStorage.getItem('id'),
-                            "yesterday": daily.Yesterday,
-                            "today": daily.Today,
-                            "impediment": daily.Impediment,
-                            "date": daily.Date
+                            id_user: localStorage.getItem('id'),
+                            yesterday: daily.Yesterday,
+                            today: daily.Today,
+                            impediment: daily.Impediment,
+                            date: daily.Date
                         })
                     });
                 }
-                ;
                 listDate(data, page) {
                     return fetch(`${index_1.HOST}dailys/list/${data}/${page}`, {
                         method: 'GET',
                         headers: {
-                            'Accept': 'application/json, text/plain, */*',
+                            Accept: 'application/json, text/plain, */*',
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                }
+                listUser(username, page) {
+                    return fetch(`${index_1.HOST}dailys/list/user/${username}/${page}`, {
+                        method: 'GET',
+                        headers: {
+                            Accept: 'application/json, text/plain, */*',
                             'Content-Type': 'application/json',
+                            Authorization: `Bearer ${localStorage.getItem('tkn')}`,
+                            id_user: localStorage.getItem('id')
                         }
                     });
                 }
@@ -61,10 +71,10 @@ System.register(["../config/index"], function (exports_1, context_1) {
                     return fetch(`${index_1.HOST}dailys`, {
                         method: 'GET',
                         headers: {
-                            'Accept': 'application/json',
+                            Accept: 'application/json',
                             'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
-                            'id_user': localStorage.getItem('id')
+                            Authorization: `Bearer ${localStorage.getItem('tkn')}`,
+                            id_user: localStorage.getItem('id')
                         }
                     });
                 }
@@ -72,10 +82,10 @@ System.register(["../config/index"], function (exports_1, context_1) {
                     return fetch(`${index_1.HOST}dailys/${id}`, {
                         method: 'GET',
                         headers: {
-                            'Accept': 'application/json, text/plain, */*',
+                            Accept: 'application/json, text/plain, */*',
                             'Content-Type': 'application/json',
-                            "Authorization": `Bearer ${localStorage.getItem('tkn')}`,
-                            'id_user': localStorage.getItem('id')
+                            Authorization: `Bearer ${localStorage.getItem('tkn')}`,
+                            id_user: localStorage.getItem('id')
                         }
                     });
                 }
@@ -83,9 +93,9 @@ System.register(["../config/index"], function (exports_1, context_1) {
                     return fetch(`${index_1.HOST}dailys/user/${id}`, {
                         method: 'GET',
                         headers: {
-                            'Accept': 'application/json, text/plain, */*',
+                            Accept: 'application/json, text/plain, */*',
                             'Content-Type': 'application/json',
-                            "Authorization": `Bearer ${localStorage.getItem('tkn')}`
+                            Authorization: `Bearer ${localStorage.getItem('tkn')}`
                         }
                     });
                 }
