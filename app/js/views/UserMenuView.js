@@ -35,7 +35,7 @@ System.register(["./View"], function (exports_1, context_1) {
                         <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
                 </div>
             </div>
-        ` : `<a href="index.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+        ` : `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
                 }
             };
             exports_1("UserMenuView", UserMenuView);

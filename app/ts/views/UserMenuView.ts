@@ -27,6 +27,6 @@ export class UserMenuView extends View<String> {
                         <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
                 </div>
             </div>
-        ` : `<a href="index.html" class="menu-item"><h5><strong>Login</strong></h5></a>` ;
+        ` : `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>` ;
     }
 }

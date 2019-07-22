@@ -1,36 +1,25 @@
-System.register(["./controllers/AuthenticateController", "./controllers/DailyNoteController"], function (exports_1, context_1) {
+System.register(["./controllers/HomeController", "./utils/userData", "./controllers/ChatBotController"], function (exports_1, context_1) {
     "use strict";
-    var AuthenticateController_1, DailyNoteController_1, authenticate, addDailyNote;
+    var HomeController_1, userData_1, ChatBotController_1, userData, homeController, chatBotController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
-            function (AuthenticateController_1_1) {
-                AuthenticateController_1 = AuthenticateController_1_1;
+            function (HomeController_1_1) {
+                HomeController_1 = HomeController_1_1;
             },
-            function (DailyNoteController_1_1) {
-                DailyNoteController_1 = DailyNoteController_1_1;
+            function (userData_1_1) {
+                userData_1 = userData_1_1;
+            },
+            function (ChatBotController_1_1) {
+                ChatBotController_1 = ChatBotController_1_1;
             }
         ],
         execute: function () {
-            document.addEventListener("DOMContentLoaded", function (event) {
-                if (localStorage.getItem('tkn')) {
-                    window.location.href = "home.html";
-                }
-            });
-            authenticate = document.querySelector('#login-form');
-            if (authenticate) {
-                const authenticateController = new AuthenticateController_1.AuthenticateController();
-                authenticate.addEventListener('submit', authenticateController.authenticate.bind(authenticateController));
-                let recuperarEmail = document.querySelector('#recovery-pass-form');
-                if (recuperarEmail) {
-                    recuperarEmail.addEventListener('submit', authenticateController.resetPassword.bind(authenticateController));
-                }
-            }
-            addDailyNote = document.querySelector('#daily-form');
-            if (addDailyNote) {
-                const dailyNoteController = new DailyNoteController_1.DailyNoteController();
-                addDailyNote.addEventListener('submit', dailyNoteController.add.bind(dailyNoteController));
-            }
+            userData = userData_1.getUser();
+            homeController = new HomeController_1.HomeController();
+            chatBotController = new ChatBotController_1.ChatBotController();
+            window.addEventListener('load', homeController.listLastHelp.bind(homeController));
+            window.addEventListener('load', homeController.listDailyDate.bind(homeController));
         }
     };
 });
