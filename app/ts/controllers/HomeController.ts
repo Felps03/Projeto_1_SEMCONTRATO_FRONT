@@ -13,6 +13,10 @@ export class HomeController {
         this.user.update('');
     }
 
+    clickHelpASK(event: Event) {
+        console.log((<HTMLElement>event.target).parentElement.id);
+    }
+
     getUser() {
         let data;
 
@@ -37,13 +41,13 @@ export class HomeController {
 
     listLastHelp(event: Event) {
         event.preventDefault();
-        console.log('oi');
         const helpCenterService = new HelpCenterService()
 
         helpCenterService.listLastHelp()
             .then(result => {
                 return result.json();
             }).then(result => {
+                console.log(result.docs, "Resut");
                 let row = <HTMLElement>document.querySelector('#last-helps');
                 row.innerHTML = "";
 
@@ -56,8 +60,8 @@ export class HomeController {
                             <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
                                 <div>
                                     <h5 class="mt-2 mb-2 ml-4">Usuário</h5>
-                                    <button type="button" name="view"
-                                        class="btn btn-outline-info btn-sm input-circle pt-2 ml-4" id="resp-view"
+                                    <button type="button" name="view" 
+                                        class="btn btn-outline-info btn-sm input-circle pt-2 ml-4" id="${result.docs[i]['_id']}"
                                         data-toggle="modal" data-target="#respModal">
                                         <i class="small material-icons">description</i>
                                     </button>
@@ -68,7 +72,8 @@ export class HomeController {
                             <div class="card mb-2">
                                 <div class="card-body">
                                     <h5>${result.docs[i]['title']}</h5>
-                                    <p>${result.docs[i]['desc']}</p>
+                                    <p>${result.docs[i]['desc']}</p> 
+                                    <p id="idHelp">${result.docs[i]['_id']}</p> 
                                 </div>
                             </div>
                         </div>

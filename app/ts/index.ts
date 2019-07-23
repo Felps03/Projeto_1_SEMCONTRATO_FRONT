@@ -16,7 +16,25 @@ let mostraHelp = document.getElementById("mostra-help");
 mostraDaily.addEventListener('click', homeController.listDailyDate.bind(homeController));
 mostraHelp.addEventListener('click', homeController.listLastHelp.bind(homeController));
 
-$(document).ready(function() {
+let clickHelp = document.getElementById("last-helps");
+
+
+
+
+$(document).ready(function () {
     document.getElementById('mostra-daily').click();
     document.getElementById('mostra-help').click();
+
+
+   
+    clickHelp.addEventListener("click", function (event: Event) {
+        let temp = (<HTMLElement>event.target).parentElement.parentElement.parentElement.parentElement.parentElement.lastElementChild;
+        let idHelpCenter = (temp.querySelector('.card .card-body #idHelp').textContent);
+        console.log(idHelpCenter);
+    
+    })
+
+    //clickHelp.addEventListener('click', homeController.clickHelpASK.bind(homeController));
+
 });
+
