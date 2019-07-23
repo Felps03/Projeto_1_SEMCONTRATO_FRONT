@@ -108,7 +108,8 @@ export class ChatBotManager {
             'chatLog',
             JSON.stringify({
                 chat: this.chat,
-                context: this.context
+                context: this.context,
+                state: this.state
             })
         )
     }
@@ -130,6 +131,7 @@ export class ChatBotManager {
         if (chatLog) {
             this.chat = Chat.parse(chatLog.chat)
             this.context = chatLog.context
+            this.state = chatLog.state
         }
     }
 

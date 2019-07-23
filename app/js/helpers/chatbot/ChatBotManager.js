@@ -94,7 +94,8 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/normalizeTxt
                 store() {
                     localStorage.setItem('chatLog', JSON.stringify({
                         chat: this.chat,
-                        context: this.context
+                        context: this.context,
+                        state: this.state
                     }));
                 }
                 toBranch(branch) {
@@ -112,6 +113,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/normalizeTxt
                     if (chatLog) {
                         this.chat = Chat_1.Chat.parse(chatLog.chat);
                         this.context = chatLog.context;
+                        this.state = chatLog.state;
                     }
                 }
                 clear() {

@@ -27,6 +27,7 @@ System.register(["../models/index", "../views/ChatBotView", "../helpers/chatbot/
                 constructor() {
                     this.chatBotView = new ChatBotView_1.ChatBotView('#chatbot-view');
                     this.chatBotView.didMount((model) => {
+                        document.getElementById('chatbot-clear').addEventListener('click', this.clear.bind(this));
                         Array.from(document.getElementById('chatbot-history').getElementsByTagName('button')).forEach(button => {
                             button.addEventListener('click', this.message.bind(this, new Event(''), [index_1.ChatAgent.User, button.getAttribute('data-value')]));
                         });

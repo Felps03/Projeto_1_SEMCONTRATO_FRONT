@@ -16,7 +16,7 @@ export class ChatBotController {
 
         this.chatBotView.didMount((model: Chat) => {
 
-            // document.getElementById('refresh-chat').addEventListener('click', this.clear.bind(this))
+            document.getElementById('chatbot-clear').addEventListener('click', this.clear.bind(this))
 
             Array.from(
                 document.getElementById('chatbot-history').getElementsByTagName('button')).forEach(button => {
