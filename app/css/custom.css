@@ -347,13 +347,23 @@ body {
 
     text-align: end;
 
-    background-color: #283772;
+    background-color: #dba600;
 }
 
 #chatbot-history ul li[data-author='bot'] {
     align-self: flex-start;
 
-    background-color: #dba600;
+    background-color: #283772;
+}
+
+#chatbot-history ul li a {
+    color: #dba600;
+
+    text-decoration: underline;
+}
+
+#chatbot-history ul li a:hover {
+    text-decoration: none;
 }
 
 #chatbot-input {

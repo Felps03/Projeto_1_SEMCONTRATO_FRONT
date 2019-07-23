@@ -5,7 +5,7 @@ System.register([], function (exports_1, context_1) {
     return {
         setters: [],
         execute: function () {
-            exports_1("button", button = (text) => `<button type="button" class="btn btn-primary btn-sm m-1" data-value="${text}">${text}</button>`);
+            exports_1("button", button = (text) => `<button type="button" class="btn btn-outline-warning btn-sm float-right m-1 input-circle" data-value="${text}">${text}</button>`);
             exports_1("options", options = (...content) => {
                 let html = '\n<div class="chatbot-options d-flex flex-row mt-1">';
                 content.forEach(option => {
