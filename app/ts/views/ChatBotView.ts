@@ -46,9 +46,7 @@ export class ChatBotView extends View<Chat> {
 
             return `
                 <li data-author="${msg[0]}" class="shadow-sm">
-                    <span class="chatbot-msg">
                         ${msg[1]}
-                    </span>
                 </li>
             `
         }).join('')} 

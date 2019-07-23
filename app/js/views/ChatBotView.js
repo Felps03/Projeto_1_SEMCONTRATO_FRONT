@@ -46,9 +46,9 @@ System.register(["./View", "../models/Chat", "../helpers/chatbot/chatAnswerParse
                         msg[1] = msg[1].replace('\n', '<br>');
                         return `
                 <li data-author="${msg[0]}" class="shadow-sm">
-                    <span class="chatbot-msg">
+
                         ${msg[1]}
-                    </span>
+
                 </li>
             `;
                     }).join('')} 

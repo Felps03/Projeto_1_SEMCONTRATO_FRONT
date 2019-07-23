@@ -348,6 +348,11 @@ body {
     background-color: #dba600;
 }
 
+#chatbot-history ul li button:only-child {
+    /* don't know why the offset, it just is */
+    width: calc(100% - .5rem);
+}
+
 #chatbot-input {
     height: var(--input-height);
 }
