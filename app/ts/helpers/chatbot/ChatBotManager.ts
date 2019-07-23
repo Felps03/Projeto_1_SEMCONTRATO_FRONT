@@ -47,8 +47,12 @@ export class ChatBotManager {
                 for (let branch of dialog[this.context]) {
                     if (branch.call) {
                         for (let synonym of branch.call) {
+
+                            if (branch.normalize === undefined)
+                                branch.normalize = true
+
                             const processed = new RegExp(synonym).exec(
-                                normalizedMsg
+                                branch.normalize ? normalizedMsg : lastMsg[1]
                             )
 
                             if (processed) {
@@ -109,7 +113,7 @@ export class ChatBotManager {
             JSON.stringify({
                 chat: this.chat,
                 context: this.context,
-                state: this.state
+                state: [...this.state]
             })
         )
     }
@@ -131,7 +135,7 @@ export class ChatBotManager {
         if (chatLog) {
             this.chat = Chat.parse(chatLog.chat)
             this.context = chatLog.context
-            this.state = chatLog.state
+            this.state = new Map(chatLog.state)
         }
     }
 

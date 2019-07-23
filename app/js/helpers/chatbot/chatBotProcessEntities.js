@@ -25,7 +25,7 @@ System.register([], function (exports_1, context_1) {
             else {
                 finalYearS = yearS;
             }
-            state.set(name, `${finalYearS}-${monthS}-${dayS}`);
+            state.set(name, `${finalYearS}-${('00' + monthS).slice(-2)}-${(('00' + dayS).slice(-2))}`);
         };
     }
     exports_1("date", date);

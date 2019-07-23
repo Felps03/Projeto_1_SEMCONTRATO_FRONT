@@ -47,7 +47,9 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/normalizeTxt
                             for (let branch of chatBotTree_1.dialog[this.context]) {
                                 if (branch.call) {
                                     for (let synonym of branch.call) {
-                                        const processed = new RegExp(synonym).exec(normalizedMsg);
+                                        if (branch.normalize === undefined)
+                                            branch.normalize = true;
+                                        const processed = new RegExp(synonym).exec(branch.normalize ? normalizedMsg : lastMsg[1]);
                                         if (processed) {
                                             success = true;
                                             if (branch.process) {
@@ -95,7 +97,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/normalizeTxt
                     localStorage.setItem('chatLog', JSON.stringify({
                         chat: this.chat,
                         context: this.context,
-                        state: this.state
+                        state: [...this.state]
                     }));
                 }
                 toBranch(branch) {
@@ -113,7 +115,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/normalizeTxt
                     if (chatLog) {
                         this.chat = Chat_1.Chat.parse(chatLog.chat);
                         this.context = chatLog.context;
-                        this.state = chatLog.state;
+                        this.state = new Map(chatLog.state);
                     }
                 }
                 clear() {

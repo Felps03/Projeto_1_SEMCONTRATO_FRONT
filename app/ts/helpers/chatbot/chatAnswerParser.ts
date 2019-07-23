@@ -6,7 +6,7 @@ const TEMPLATES: { [key: string]: Function } = {
     link: templates.link
 }
 
-// parse e.g. $list_daily_note_date to e.g. 2019-7-19
+// parse e.g. $list_daily_note_date to e.g. 2019-07-19
 export function parseState(state: Map<string, string>, raw: string) {
     let response = raw
     response = response

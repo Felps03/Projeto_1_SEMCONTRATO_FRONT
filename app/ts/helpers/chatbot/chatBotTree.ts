@@ -3,6 +3,8 @@ import * as process from './chatBotProcessEntities'
 export type DialogBranch = {
     // go into branch if one call matches
     call?: string[] | RegExp[]
+    // whether to normalize the input for better matching
+    normalize?: boolean
     // the branch to go
     goto?: string
 
@@ -107,8 +109,12 @@ export const dialog: { [node: string]: DialogBranch[] } = {
     list_daily_user: [
         {
             call: [/(\w+)/],
+            normalize: false,
             goto: 'main',
-            process: process.raw('list_daily_note_user'),
+            process: (state: Map<string, string>, match: RegExpExecArray) => {
+                console.log('match ~>', match)
+                process.raw('list_daily_note_user')(state, match)
+            },
             answer: `{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`
         }
     ],
