@@ -133,6 +133,10 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
                         `;
                             }
                             return result.json();
+                        }).then(() => {
+                            setTimeout(() => {
+                                msg.innerHTML = "";
+                            }, 3000);
                         });
                     }
                 }

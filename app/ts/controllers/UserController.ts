@@ -172,7 +172,11 @@ export class UserController {
                         `;
                     }
                     return result.json();
-                })
+                }).then(() => {
+                    setTimeout(() => {
+                        msg.innerHTML = "";
+                    }, 3000);
+                });
         }
     }
 
