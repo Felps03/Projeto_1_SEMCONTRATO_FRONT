@@ -37,6 +37,7 @@ export class HomeController {
 
     listLastHelp(event: Event) {
         event.preventDefault();
+        console.log('oi');
         const helpCenterService = new HelpCenterService()
 
         helpCenterService.listLastHelp()

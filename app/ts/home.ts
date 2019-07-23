@@ -1,22 +1,24 @@
-import { HomeController } from "./controllers/HomeController";
-import { UserService } from "./services/UserService";
-import { HelpCenterController } from "./controllers/HelpCenterController";
-import { DailyNoteController } from "./controllers/DailyNoteController";
-import { getUser } from "./utils/userData";
 import { AuthenticateController } from "./controllers/AuthenticateController";
-import { ChatBotController } from "./controllers/ChatBotController";
+import { UserController } from "./controllers/UserController";
+import { DailyNoteController } from "./controllers/DailyNoteController";
 
-let userData = getUser();
-let homeController = new HomeController();
-let chatBotController = new ChatBotController();
+if (localStorage.getItem('tkn')) {
+    window.location.href = "home.html";
+}
 
-let mostraDaily = document.getElementById("mostra-daily");
-let mostraHelp = document.getElementById("mostra-help");
+let authenticate = document.querySelector('#login-form');
+if (authenticate) {
+    const authenticateController = new AuthenticateController();
+    authenticate.addEventListener('submit', authenticateController.authenticate.bind(authenticateController));
 
-mostraDaily.addEventListener('click', homeController.listDailyDate.bind(homeController));
-mostraHelp.addEventListener('click', homeController.listLastHelp.bind(homeController));
+    let recuperarEmail = document.querySelector('#recovery-pass-form');
+    if (recuperarEmail) {
+        recuperarEmail.addEventListener('submit', authenticateController.resetPassword.bind(authenticateController));
+    }
+}
 
-$(document).ready(function() {
-    document.getElementById('mostra-daily').click();
-    document.getElementById('mostra-help').click();
-});
+let addDailyNote = document.querySelector('#daily-form');
+if (addDailyNote) {
+    const dailyNoteController = new DailyNoteController();
+    addDailyNote.addEventListener('submit', dailyNoteController.add.bind(dailyNoteController));
+}
