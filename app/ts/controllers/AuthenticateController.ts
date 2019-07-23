@@ -96,25 +96,32 @@ export class AuthenticateController {
     logout(event: Event) {
         event.preventDefault();
 
-        console.log("chegou no controller");
-
-        const authenticateService = new AuthenticateService();
-
-        authenticateService.logout().then(res => {
-            if (res.status == 400) {
-                alert("Houve um erro ao Deslogar");
-            }
-            if (res.status == 200) {
-                localStorage.removeItem("tkn");
-                localStorage.removeItem("email");
-                localStorage.removeItem("isAdmin");
-                localStorage.removeItem("id");
-                window.location.href = 'index.html';
-            }
-        }).catch(error => {
-            console.log("error: ", error);
-            return error;
-        });
-
+        localStorage.clear();
+        window.location.href = 'index.html';
     }
+
+    // logout(event: Event) {
+    //     event.preventDefault();
+
+    //     console.log("chegou no controller");
+
+    //     const authenticateService = new AuthenticateService();
+
+    //     authenticateService.logout().then(res => {
+    //         if (res.status == 400) {
+    //             alert("Houve um erro ao Deslogar");
+    //         }
+    //         if (res.status == 200) {
+    //             localStorage.removeItem("tkn");
+    //             localStorage.removeItem("email");
+    //             localStorage.removeItem("isAdmin");
+    //             localStorage.removeItem("id");
+    //             window.location.href = 'index.html';
+    //         }
+    //     }).catch(error => {
+    //         console.log("error: ", error);
+    //         return error;
+    //     });
+
+    // }
 }

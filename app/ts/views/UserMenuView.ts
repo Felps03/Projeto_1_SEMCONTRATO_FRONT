@@ -3,14 +3,17 @@ import { View } from './View';
 export class UserMenuView extends View<String> {
 
     template(): string {
+        new Promise(function(resolve, reject) {
+            resolve()
+        })
         return localStorage.getItem('tkn') ? `
-            <div class="dropdown mr-n4 txt-user" style="float:right;">
+            <div class="dropdown mr-n4 txt-user" style="float:right;" id="b">
                 <div class="d-flex align-items-center btn" data-toggle="dropdown">
                     <span id="nameSpan"></span>
                     <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle" width="60px">
                     <i class="material-icons ml-n2">arrow_drop_down</i>
                 </div>
-                <div class="dropdown-menu dropdown-menu-right align-user">
+                <div class="dropdown-menu dropdown-menu-right align-user" id="c">
                     <div class="dropdown-item">    
                         Usuário: <span id="userNameSpan"></span>
                     </div>
