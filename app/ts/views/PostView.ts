@@ -20,7 +20,6 @@ export class PostView extends View<Post> {
 
         const canEdit = model.AuthorId === localStorage.getItem('id') || localStorage.getItem('isAdmin') === 'true'
 
-        //console.log('>', model)
 
         return `
             

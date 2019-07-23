@@ -4,7 +4,6 @@ import { Posts, User } from '../models/index';
 export class PostsView extends View<Posts> {
 
     template(model: Posts): string {
-
         return `
         <div class="container">
             ${model.toArray().map((post, i) => `
@@ -15,10 +14,9 @@ export class PostsView extends View<Posts> {
                             <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
                             <h5 class="mt-2 mb-2">${post.AuthorName ? post.AuthorName : ""}</h5>
                         </div>
-                        <button
-                            class="btn btn-lg btn-outline-success d-flex justify-content-center align-items-center post-expand"
-                            data-toggle="modal" data-target="#view-modal" data-i="${i}"><i
-                                class="material-icons">remove_red_eye</i></button>
+                        <a href="app-help-asks.html?id=${post.Id}">
+                        <i class="material-icons"> forum </i></a>
+
                     </div>
                 </div>
                 <div class="col-md-9 col-12 card-body">
