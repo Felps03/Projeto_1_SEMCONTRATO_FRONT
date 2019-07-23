@@ -49,13 +49,17 @@ export class ChatBotController {
         }
 
         this.chatBotView.update(
-            this.chatBotManager.message([msg])
+            this.chatBotManager.message(msg)
         )
 
-        this.chatBotView.update(await this.chatBotManager.answer())
+        for await (const chat of this.chatBotManager.answer()) {
+            this.chatBotView.update(chat)
+        }
     }
 
     clear(event: Event) {
+        event.preventDefault()
+
         this.chatBotView.update(
             this.chatBotManager.clear()
         )

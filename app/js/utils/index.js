@@ -1,4 +1,4 @@
-System.register(["./InputWrapper", "./listCheck"], function (exports_1, context_1) {
+System.register(["./InputWrapper", "./listCheck", "./delay", "./normalizeTxt"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function exportStar_1(m) {
@@ -15,6 +15,12 @@ System.register(["./InputWrapper", "./listCheck"], function (exports_1, context_
             },
             function (listCheck_1_1) {
                 exportStar_1(listCheck_1_1);
+            },
+            function (delay_1_1) {
+                exportStar_1(delay_1_1);
+            },
+            function (normalizeTxt_1_1) {
+                exportStar_1(normalizeTxt_1_1);
             }
         ],
         execute: function () {

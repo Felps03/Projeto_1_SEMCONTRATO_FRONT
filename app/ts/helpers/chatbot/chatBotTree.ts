@@ -11,7 +11,7 @@ export type DialogBranch = {
     process?: Function
 
     // what to say when entering branch
-    answer?: string
+    answer?: string[]
 
     // future
     artificialDelay?: boolean
@@ -23,7 +23,7 @@ export type DialogBranch = {
 }
 
 const BOT_NAME = 'Contratinho'
-const NOT_IMPLEMENTED_ANSWER = 'Hm... desculpa, não sei fazer isso ainda 😔'
+const NOT_IMPLEMENTED_ANSWER = ['Hm... desculpa, não sei fazer isso ainda 😔']
 const SELF_HTTPS_HOST = 'http://' + window.location.host
 
 const actualHours = new Date().getHours()
@@ -49,12 +49,20 @@ export const dialog: { [node: string]: DialogBranch[] } = {
         {
             call: ['dailynote', 'daily'],
             goto: 'cr_daily',
-            answer: `Ok. Sobre DailyNote, o que você quer fazer? {{options(Listar, Adicionar)}}`
+            answer: [
+                'Ok. Sobre DailyNote, o que você quer fazer?',
+                '{{button(Listar)}}',
+                '{{button(Adicionar)}}'
+            ]
         },
         {
             call: ['helpcenter', 'help'],
             goto: 'cr_help',
-            answer: `Ok. Sobre HelpCenter, o que você quer fazer? {{options(Listar, Adicionar)}}`
+            answer: [
+                'Ok. Sobre HelpCenter, o que você quer fazer?',
+                '{{button(Listar)}}',
+                '{{button(Adicionar)}}'
+            ]
         },
         {
             call: ['login'],
@@ -67,8 +75,12 @@ export const dialog: { [node: string]: DialogBranch[] } = {
         {
             call: ['listar', 'ver', 'mostrar'],
             goto: 'list_daily',
-            answer:
-                'Gostaria de filtrar por data ou usuário? {{options(Não, Data, Usuário)}}'
+            answer: [
+                'Gostaria de filtrar por data ou usuário?',
+                '{{button(Não)}}',
+                '{{button(Data)}}',
+                '{{button(Usuário)}}',
+            ]
         },
         {
             call: ['adicionar', 'incluir', 'inserir'],
@@ -81,17 +93,17 @@ export const dialog: { [node: string]: DialogBranch[] } = {
         {
             call: ['data', 'dia'],
             goto: 'list_daily_date',
-            answer: 'Ok. Que dia? (formato dd/mm/aaaa)'
+            answer: ['Ok. Que dia? (formato dd/mm/aaaa)']
         },
         {
             call: ['usuario'],
             goto: 'list_daily_user',
-            answer: 'Ok. Que usuário?'
+            answer: ['Ok. Que usuário?']
         },
         {
             call: ['nao', 'nop'],
             goto: 'main',
-            answer: `{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html)}}`
+            answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html)}}`]
         }
     ],
 
@@ -100,7 +112,7 @@ export const dialog: { [node: string]: DialogBranch[] } = {
             call: [/(\d{1,2})\/(\d{1,2})\/(\d+)/],
             goto: 'main',
             process: process.date('list_daily_note_date'),
-            answer: `{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?date=$list_daily_note_date)}}`
+            answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?date=$list_daily_note_date)}}`]
         }
     ],
 
@@ -109,7 +121,7 @@ export const dialog: { [node: string]: DialogBranch[] } = {
             call: [/(\w+)/],
             goto: 'main',
             process: process.raw('list_daily_note_user'),
-            answer: `{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`
+            answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`]
         }
     ],
 
@@ -117,7 +129,7 @@ export const dialog: { [node: string]: DialogBranch[] } = {
         {
             call: ['listar', 'ver', 'mostrar'],
             goto: 'main',
-            answer: `{{link(Clique aqui para ver os posts! 😃, ${SELF_HTTPS_HOST}/app-help-center.html)}}`
+            answer: [`{{link(Clique aqui para ver os posts! 😃, ${SELF_HTTPS_HOST}/app-help-center.html)}}`]
         },
         {
             call: ['adicionar', 'incluir', 'inserir'],
@@ -136,7 +148,7 @@ export const dialog: { [node: string]: DialogBranch[] } = {
     understandnt: [
         {
             goto: 'main',
-            answer: 'Hm... Desculpe, não entendi 😕'
+            answer: ['Hm... Desculpe, não entendi 😕']
         }
     ]
 }
