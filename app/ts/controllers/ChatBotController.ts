@@ -15,6 +15,9 @@ export class ChatBotController {
         this.chatBotView = new ChatBotView('#chatbot-view')
 
         this.chatBotView.didMount((model: Chat) => {
+
+            // document.getElementById('refresh-chat').addEventListener('click', this.clear.bind(this))
+
             Array.from(
                 document.getElementById('chatbot-history').getElementsByTagName('button')).forEach(button => {
 
@@ -46,9 +49,16 @@ export class ChatBotController {
         }
 
         this.chatBotView.update(
-            this.chatBotManager.message(msg)
+            this.chatBotManager.message([msg])
         )
+
         this.chatBotView.update(await this.chatBotManager.answer())
+    }
+
+    clear(event: Event) {
+        this.chatBotView.update(
+            this.chatBotManager.clear()
+        )
     }
 
 }

@@ -84,6 +84,7 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                 }
                 logout(event) {
                     event.preventDefault();
+                    console.log("chegou no controller");
                     const authenticateService = new index_1.AuthenticateService();
                     authenticateService.logout().then(res => {
                         if (res.status == 400) {

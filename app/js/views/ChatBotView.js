@@ -1,6 +1,6 @@
-System.register(["./View", "../models/Chat"], function (exports_1, context_1) {
+System.register(["./View", "../models/Chat", "../helpers/chatbot/chatAnswerParser"], function (exports_1, context_1) {
     "use strict";
-    var View_1, Chat_1, ChatBotView;
+    var View_1, Chat_1, chatAnswerParser_1, ChatBotView;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -9,6 +9,9 @@ System.register(["./View", "../models/Chat"], function (exports_1, context_1) {
             },
             function (Chat_1_1) {
                 Chat_1 = Chat_1_1;
+            },
+            function (chatAnswerParser_1_1) {
+                chatAnswerParser_1 = chatAnswerParser_1_1;
             }
         ],
         execute: function () {
@@ -24,13 +27,22 @@ System.register(["./View", "../models/Chat"], function (exports_1, context_1) {
     <div id="chatbot-tab" class="align-items-center d-flex right-0 pl-3">
         <i class="material-icons">chat</i>
         <h5 class="m-1">Chat</h5>
+
+        <!--<a class="w-100" href="#" id="refresh-chat">
+            <i class="material-icons float-right mr-3">refresh</i>
+        </a>-->
     </div>
     <div id="chatbot-body">
 
         <div id="chatbot-history">
             <ul>
             ${model.History.map((msg) => {
-                        msg[1] = msg[0] === Chat_1.ChatAgent.User ? msg[1].replace('<', '&lt;').replace('>', '&gt;') : msg[1];
+                        if (msg[0] === Chat_1.ChatAgent.User) {
+                            msg[1] = msg[1].replace('<', '&lt;').replace('>', '&gt;');
+                        }
+                        else {
+                            msg[1] = chatAnswerParser_1.parseView(msg[1]);
+                        }
                         msg[1] = msg[1].replace('\n', '<br>');
                         return `
                 <li data-author="${msg[0]}" class="shadow-sm">
@@ -67,6 +79,8 @@ System.register(["./View", "../models/Chat"], function (exports_1, context_1) {
                 }
                 update(model) {
                     super.update(model);
+                    const chatBotHistory = document.getElementById('chatbot-history');
+                    chatBotHistory.scrollTo(0, chatBotHistory.scrollHeight);
                     document.getElementById('chatbot-tab').addEventListener('click', () => {
                         this.active = !this.active;
                         this.update(this.lastModel);

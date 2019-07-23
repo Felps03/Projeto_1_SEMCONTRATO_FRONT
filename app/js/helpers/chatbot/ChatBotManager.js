@@ -1,84 +1,125 @@
-System.register(["../../models/Chat", "./chatBotTemplates", "./chatBotTree"], function (exports_1, context_1) {
+System.register(["../../models/Chat", "./chatBotTree", "../../utils/normalizeTxt", "./chatAnswerParser"], function (exports_1, context_1) {
     "use strict";
-    var Chat_1, templates, chatBotTree_1, BOT_NAME, ChatBotManager;
+    var Chat_1, chatBotTree_1, normalizeTxt_1, chatAnswerParser_1, ChatBotManager;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (Chat_1_1) {
                 Chat_1 = Chat_1_1;
             },
-            function (templates_1) {
-                templates = templates_1;
-            },
             function (chatBotTree_1_1) {
                 chatBotTree_1 = chatBotTree_1_1;
+            },
+            function (normalizeTxt_1_1) {
+                normalizeTxt_1 = normalizeTxt_1_1;
+            },
+            function (chatAnswerParser_1_1) {
+                chatAnswerParser_1 = chatAnswerParser_1_1;
             }
         ],
         execute: function () {
-            BOT_NAME = 'Teleckinho';
             ChatBotManager = class ChatBotManager {
                 constructor() {
                     this.chat = new Chat_1.Chat();
-                    this.context = Object.getOwnPropertyNames(chatBotTree_1.default)[0];
+                    this.state = new Map();
                 }
                 init() {
-                    const chatLog = localStorage.getItem('chatLog');
-                    if (!chatLog) {
-                        const actualHours = new Date().getHours();
-                        let greeting;
-                        if (actualHours >= 4 && actualHours < 12) {
-                            greeting = 'Bom dia';
-                        }
-                        else if (actualHours < 20) {
-                            greeting = 'Boa tarde';
-                        }
-                        else {
-                            greeting = 'Boa noite';
-                        }
-                        this.chat.add([Chat_1.ChatAgent.Bot, `${greeting}! Meu nome é ${BOT_NAME}, como posso ajudar? 🙂 ${templates.options({
-                                'DailyNote': 'DailyNote',
-                                'HelpCenter': 'HelpCenter',
-                                'Login': 'Login'
-                            })}`]);
+                    this.getFromStorage();
+                    if (this.chat.History.length === 0) {
+                        this.message([[Chat_1.ChatAgent.Bot, this.toBranch(chatBotTree_1.mainBranch)]]);
                     }
-                    else {
-                        this.chat = Chat_1.Chat.parse(chatLog);
-                    }
-                    localStorage.setItem('chatLog', JSON.stringify(this.chat));
+                    this.store();
                     return this.chat;
                 }
-                message(msg) {
-                    this.chat.add(msg);
-                    localStorage.setItem('chatLog', JSON.stringify(this.chat));
+                message(msgs) {
+                    msgs.forEach((msg) => {
+                        this.chat.add(msg);
+                    });
+                    this.store();
                     return this.chat;
                 }
                 answer() {
                     return new Promise((resolve, reject) => {
-                        if (chatBotTree_1.default[this.context]) {
+                        if (chatBotTree_1.dialog[this.context]) {
                             let success = false;
-                            const normalizedMsg = this.chat.LastMsg[1].toLocaleLowerCase();
-                            chatBotTree_1.default[this.context].forEach(branch => {
+                            const lastMsg = this.chat.LastMsg;
+                            const normalizedMsg = lastMsg ? normalizeTxt_1.normalize(lastMsg[1]) : '';
+                            for (let branch of chatBotTree_1.dialog[this.context]) {
                                 if (branch.call) {
-                                    branch.call.forEach(synonym => {
-                                        if (normalizedMsg.indexOf(synonym) !== -1) {
+                                    for (let synonym of branch.call) {
+                                        const processed = new RegExp(synonym).exec(normalizedMsg);
+                                        if (processed) {
                                             success = true;
-                                            this.context = branch.goto;
+                                            if (branch.process) {
+                                                branch.process(this.state, processed);
+                                            }
+                                            const actualState = this.state;
+                                            const possiblePre = this.toBranch(branch);
                                             setTimeout(() => {
-                                                localStorage.setItem('chatLog', JSON.stringify(this.chat));
-                                                resolve(this.message([Chat_1.ChatAgent.Bot, branch.answer]));
+                                                let msgs = [];
+                                                msgs.push([
+                                                    Chat_1.ChatAgent.Bot,
+                                                    chatAnswerParser_1.parseState(actualState, branch.answer)
+                                                ]);
+                                                if (possiblePre) {
+                                                    msgs.push([
+                                                        Chat_1.ChatAgent.Bot,
+                                                        chatAnswerParser_1.parseState(actualState, possiblePre)
+                                                    ]);
+                                                }
+                                                resolve(this.message(msgs));
                                             }, 500);
+                                            break;
                                         }
-                                    });
+                                    }
                                 }
-                            });
+                            }
                             if (!success) {
-                                resolve(this.message([Chat_1.ChatAgent.Bot, chatBotTree_1.default['undertandnt'][0].answer]));
+                                setTimeout(() => {
+                                    this.store();
+                                    resolve(this.message([
+                                        [
+                                            Chat_1.ChatAgent.Bot,
+                                            chatBotTree_1.dialog['understandnt'][0].answer
+                                        ]
+                                    ]));
+                                }, 500);
                             }
                         }
                         else {
-                            this.context = Object.getOwnPropertyNames(chatBotTree_1.default)[0];
+                            this.context = Object.getOwnPropertyNames(chatBotTree_1.dialog)[0];
                         }
                     });
+                }
+                store() {
+                    localStorage.setItem('chatLog', JSON.stringify({
+                        chat: this.chat,
+                        context: this.context
+                    }));
+                }
+                toBranch(branch) {
+                    this.context = branch.goto;
+                    if (this.context === chatBotTree_1.mainBranch.goto) {
+                        this.state = new Map();
+                    }
+                    this.store();
+                    if (chatBotTree_1.dialog[this.context][0].pre) {
+                        return chatBotTree_1.dialog[this.context][0].pre;
+                    }
+                }
+                getFromStorage() {
+                    const chatLog = JSON.parse(localStorage.getItem('chatLog'));
+                    if (chatLog) {
+                        this.chat = Chat_1.Chat.parse(chatLog.chat);
+                        this.context = chatLog.context;
+                    }
+                }
+                clear() {
+                    this.toBranch(chatBotTree_1.mainBranch);
+                    this.chat = new Chat_1.Chat();
+                    this.store();
+                    this.init();
+                    return this.chat;
                 }
                 get Chat() {
                     return this.chat;

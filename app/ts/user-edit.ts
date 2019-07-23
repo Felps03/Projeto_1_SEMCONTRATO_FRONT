@@ -1,4 +1,9 @@
 import { UserController } from "./controllers/UserController";
+import { getUser } from "./utils/userData";
+import { HomeController } from "./controllers/HomeController";
+
+let userData = getUser();
+let homeController = new HomeController();
 
 let update = document.getElementById("user-edit");
 if (update) {

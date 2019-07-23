@@ -66,28 +66,18 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
                                 }
                             });
                         }).then((res) => {
-                            userService.add(user)
-                                .then(result => {
-                                const token = result.headers.get("Token");
-                                if (token != null) {
-                                    localStorage.setItem('tkn', token);
-                                }
-                                ;
-                                return result.json();
-                            })
-                                .then(res => {
-                                localStorage.setItem('email', res.email);
-                                localStorage.setItem('id', res._id);
-                                window.location.href = "home.html";
-                            })
-                                .catch((res) => res.json())
-                                .then((res) => {
-                                console.log(res);
-                                if (res.erro)
-                                    this.messageView.update(res.erro);
-                            });
+                            localStorage.setItem('email', res.email);
+                            localStorage.setItem('id', res._id);
+                            window.location.href = "home.html";
+                        })
+                            .catch((res) => res.json())
+                            .then((res) => {
+                            console.log(res);
+                            if (res.erro)
+                                this.messageView.update(res.erro);
                         });
                     }
+                    ;
                 }
                 getUserData() {
                     if (!localStorage.getItem('tkn')) {

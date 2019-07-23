@@ -43,7 +43,7 @@ export class AuthenticateService {
                         localStorage.setItem('id', result[0]['_id'])
                         localStorage.setItem('isAdmin', result[0]['isAdmin'])
                         // console.log(result[0]['email']);
-                        window.location.href = "home.html";
+                        window.location.href = "index.html";
 
                         resolve()
                     })

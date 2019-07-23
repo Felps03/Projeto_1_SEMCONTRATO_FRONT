@@ -1,57 +1,38 @@
-import { Chat, ChatAgent } from "../../models/Chat";
-import * as templates from './chatBotTemplates'
-import dialog from './chatBotTree'
-
-const BOT_NAME = 'Teleckinho'
+import { Chat, ChatAgent } from '../../models/Chat'
+import { dialog, DialogBranch, mainBranch } from './chatBotTree'
+import { normalize } from '../../utils/normalizeTxt'
+import { parseState } from './chatAnswerParser'
 
 export class ChatBotManager {
-
     private chat: Chat
     private context: string
 
+    private state: Map<string, string>
+
     constructor() {
         this.chat = new Chat()
-        this.context = Object.getOwnPropertyNames(dialog)[0]
+        this.state = new Map<string, string>()
     }
 
     init() {
-        const chatLog = localStorage.getItem('chatLog')
+        this.getFromStorage()
 
-        if (!chatLog) {
-
-            const actualHours = new Date().getHours()
-            let greeting;
-
-            if (actualHours >= 4 && actualHours < 12) {
-                greeting = 'Bom dia'
-            } else if (actualHours < 20) {
-                greeting = 'Boa tarde'
-            } else {
-                greeting = 'Boa noite'
-            }
-
-            this.chat.add([ChatAgent.Bot, `${greeting}! Meu nome é ${BOT_NAME}, como posso ajudar? 🙂 ${
-                templates.options({
-                    'DailyNote': 'DailyNote',
-                    'HelpCenter': 'HelpCenter',
-                    'Login': 'Login'
-                })}`]
-            )
-
-        } else {
-
-            this.chat = Chat.parse(chatLog)
+        // simpler conditions weren't possible for some reason
+        if (this.chat.History.length === 0) {
+            this.message([[ChatAgent.Bot, this.toBranch(mainBranch)]])
         }
 
-        localStorage.setItem('chatLog', JSON.stringify(this.chat))
+        this.store()
 
         return this.chat
     }
 
-    message(msg: [ChatAgent, string]): Chat {
-        this.chat.add(msg)
+    message(msgs: [ChatAgent, string][]): Chat {
+        msgs.forEach((msg: [ChatAgent, string]) => {
+            this.chat.add(msg)
+        })
 
-        localStorage.setItem('chatLog', JSON.stringify(this.chat))
+        this.store()
 
         return this.chat
     }
@@ -60,35 +41,104 @@ export class ChatBotManager {
         return new Promise((resolve, reject) => {
             if (dialog[this.context]) {
                 let success = false
-                const normalizedMsg = this.chat.LastMsg[1].toLocaleLowerCase()
+                const lastMsg = this.chat.LastMsg
+                const normalizedMsg = lastMsg ? normalize(lastMsg[1]) : ''
 
-                dialog[this.context].forEach(branch => {
+                for (let branch of dialog[this.context]) {
                     if (branch.call) {
-                        branch.call.forEach(synonym => {
+                        for (let synonym of branch.call) {
+                            const processed = new RegExp(synonym).exec(
+                                normalizedMsg
+                            )
 
-                            if (normalizedMsg.indexOf(synonym) !== -1) {
+                            if (processed) {
                                 success = true
-                                this.context = branch.goto
+
+                                if (branch.process) {
+                                    branch.process(this.state, processed)
+                                }
+
+                                const actualState = this.state
+                                const possiblePre = this.toBranch(branch)
 
                                 setTimeout(() => {
-                                    localStorage.setItem('chatLog', JSON.stringify(this.chat))
+                                    let msgs: [ChatAgent, string][] = []
+                                    msgs.push([
+                                        ChatAgent.Bot,
+                                        parseState(actualState, branch.answer)
+                                    ])
+                                    if (possiblePre) {
+                                        msgs.push([
+                                            ChatAgent.Bot,
+                                            parseState(actualState, possiblePre)
+                                        ])
+                                    }
 
-                                    resolve(this.message([ChatAgent.Bot, branch.answer]))
+                                    resolve(this.message(msgs))
                                 }, 500)
 
+                                break
                             }
-
-                        })
+                        }
                     }
-                })
+                }
 
                 if (!success) {
-                    resolve(this.message([ChatAgent.Bot, dialog['undertandnt'][0].answer]))
+                    setTimeout(() => {
+                        this.store()
+
+                        resolve(
+                            this.message([
+                                [
+                                    ChatAgent.Bot,
+                                    dialog['understandnt'][0].answer
+                                ]
+                            ])
+                        )
+                    }, 500)
                 }
             } else {
                 this.context = Object.getOwnPropertyNames(dialog)[0]
             }
         })
+    }
+
+    store() {
+        localStorage.setItem(
+            'chatLog',
+            JSON.stringify({
+                chat: this.chat,
+                context: this.context
+            })
+        )
+    }
+
+    toBranch(branch: DialogBranch): string {
+        this.context = branch.goto
+        if (this.context === mainBranch.goto) {
+            this.state = new Map<string, string>()
+        }
+        this.store()
+
+        if (dialog[this.context][0].pre) {
+            return dialog[this.context][0].pre
+        }
+    }
+
+    getFromStorage() {
+        const chatLog = JSON.parse(localStorage.getItem('chatLog'))
+        if (chatLog) {
+            this.chat = Chat.parse(chatLog.chat)
+            this.context = chatLog.context
+        }
+    }
+
+    clear() {
+        this.toBranch(mainBranch)
+        this.chat = new Chat()
+        this.store()
+        this.init()
+        return this.chat
     }
 
     get Chat() {

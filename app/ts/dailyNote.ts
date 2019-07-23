@@ -47,7 +47,11 @@ function load() {
 
 	dateField.value = url_date || today;
 
-	listDateDaily(event);
+	if (url.get('user')) {
+		listUserDaily(event)
+	} else {
+		listDateDaily(event)
+	}
 	dailyButton(event);
 	login(event);
 }
@@ -170,6 +174,80 @@ function listDateDaily(event: Event) {
 	}
 }
 
+function listUserDaily(event: Event) {
+	dailyesResult.innerHTML = ''
+	const result = controller.listU(event)
+
+	if (result) {
+		result.then(result => {
+			result.forEach((r: any) => {
+				// const r = result[0];
+				// console.log(r.hasOwnProperty('totalDocs'));
+				// console.log(r);
+				const daily = new DailyNote(
+					r.yesterday,
+					r.today,
+					r.impediment,
+					new Date(r.date)
+				)
+				// daily.Id = r.id_daily;
+				// console.log(daily);
+
+				let totalPages: number
+				if (r.hasOwnProperty('totalPages')) {
+					totalPages = parseInt(r.totalPages)
+					// totalPages = 10;
+					let header_pagination: string = ''
+					let string_li: string = ''
+					let footer_pagination: string = ''
+					const dateValue = url_date || dateField.value
+					// console.log("a data é: ", dateValue);
+					if (totalPagesDiv) {
+						header_pagination = `
+                        <nav aria-label="daily-nav" class="float-right">
+                        <ul class="pagination">
+                        <li class="page-item">
+                        </a>
+                        </li>
+                        `
+						// console.log(header_pagination);
+						let i = 0
+						string_li = ''
+						for (i; i < totalPages; i++) {
+							string_li += `
+                            <li class="page-item"><a class="page-link" href="app-daily-note.html?page=${i +
+								1}&date=${dateValue}">${i + 1}</a></li>
+								`
+						}
+						// console.log(string_li);
+						footer_pagination = `
+							<li class="page-item" >
+                        
+							`
+						// console.log(footer_pagination);
+						const nav_pagination = document.createElement('nav')
+						const fullString: string =
+							header_pagination + string_li + footer_pagination
+						nav_pagination.innerHTML = fullString
+						totalPagesDiv.innerHTML = ''
+						totalPagesDiv.appendChild(nav_pagination)
+						// console.log(fullString);
+					}
+					return
+				}
+				const owner: string = r.owner
+				const id_owner: string = r.id_user
+				id_daily = r.id_daily
+				if (dailyesResult) {
+					mountTable(dailyesResult, daily, owner, id_owner, id_daily)
+				}
+				id_daily = ''
+				return
+			})
+		})
+	}
+}
+
 function mountTable(dayliesResult: any, daily: DailyNote, owner: string, id_user: string, id_daily: string) {
 	const body = document.createElement('tr');
 
@@ -212,7 +290,7 @@ $('#cancel').click((e) => {
 	let impediment = <HTMLInputElement>document.querySelector('#impediment');
 
 	yesterday.classList.remove('is-valid');
-	impediment.classList.remove('is-invalid');
+	today.classList.remove('is-valid');
 	impediment.classList.remove('is-valid');
 	resetForm.reset();
 });

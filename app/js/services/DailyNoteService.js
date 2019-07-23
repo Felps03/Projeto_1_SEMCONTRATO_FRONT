@@ -52,6 +52,19 @@ System.register(["../config/index"], function (exports_1, context_1) {
                         headers: {
                             'Accept': 'application/json, text/plain, */*',
                             'Content-Type': 'application/json',
+                            "Authorization": `Bearer ${localStorage.getItem('tkn')}`,
+                            'id_user': localStorage.getItem('id')
+                        }
+                    });
+                }
+                listUser(username, page) {
+                    return fetch(`${index_1.HOST}dailys/list/user/${username}/${page}`, {
+                        method: 'GET',
+                        headers: {
+                            Accept: 'application/json, text/plain, */*',
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${localStorage.getItem('tkn')}`,
+                            id_user: localStorage.getItem('id')
                         }
                     });
                 }

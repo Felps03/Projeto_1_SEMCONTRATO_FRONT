@@ -20,8 +20,8 @@ export class Chat {
         return this.history[this.history.length - 1]
     }
 
-    static parse(str: string): Chat {
-        return new Chat(JSON.parse(str).history)
+    static parse(obj: { [history: string]: [ChatAgent, string][] }): Chat {
+        return new Chat(obj.history)
     }
 
 }

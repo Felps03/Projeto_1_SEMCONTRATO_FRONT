@@ -1,6 +1,7 @@
 import { View } from './View';
 import { DailyNote, User } from '../models/index';
 import { Chat, ChatAgent } from '../models/Chat';
+import { parseView } from '../helpers/chatbot/chatAnswerParser';
 
 export class ChatBotView extends View<Chat> {
 
@@ -23,27 +24,34 @@ export class ChatBotView extends View<Chat> {
     <div id="chatbot-tab" class="align-items-center d-flex right-0 pl-3">
         <i class="material-icons">chat</i>
         <h5 class="m-1">Chat</h5>
+
+        <!--<a class="w-100" href="#" id="refresh-chat">
+            <i class="material-icons float-right mr-3">refresh</i>
+        </a>-->
     </div>
     <div id="chatbot-body">
 
         <div id="chatbot-history">
             <ul>
-            ${
-            model.History.map((msg: [ChatAgent, string]) => {
+            ${model.History.map((msg: [ChatAgent, string]) => {
+            // if the author is the user, escape it
 
-                // if the author is the user, escape it
-                msg[1] = msg[0] === ChatAgent.User ? msg[1].replace('<', '&lt;').replace('>', '&gt;') : msg[1]
-                msg[1] = msg[1].replace('\n', '<br>')
+            if (msg[0] === ChatAgent.User) {
+                msg[1] = msg[1].replace('<', '&lt;').replace('>', '&gt;')
+            } else {
+                msg[1] = parseView(msg[1])
+            }
 
-                return `
+            msg[1] = msg[1].replace('\n', '<br>')
+
+            return `
                 <li data-author="${msg[0]}" class="shadow-sm">
                     <span class="chatbot-msg">
                         ${msg[1]}
                     </span>
                 </li>
-            `}
-            ).join('')
-            } 
+            `
+        }).join('')} 
             </ul>
         </div>
 
@@ -72,6 +80,9 @@ export class ChatBotView extends View<Chat> {
 
     update(model: Chat) {
         super.update(model)
+
+        const chatBotHistory = document.getElementById('chatbot-history')
+        chatBotHistory.scrollTo(0, chatBotHistory.scrollHeight)
 
         document.getElementById('chatbot-tab').addEventListener('click', () => {
             this.active = !this.active

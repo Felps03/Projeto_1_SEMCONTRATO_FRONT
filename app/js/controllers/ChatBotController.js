@@ -42,9 +42,12 @@ System.register(["../models/index", "../views/ChatBotView", "../helpers/chatbot/
                         if (!msg) {
                             msg = [index_1.ChatAgent.User, this.messageInput.value];
                         }
-                        this.chatBotView.update(this.chatBotManager.message(msg));
+                        this.chatBotView.update(this.chatBotManager.message([msg]));
                         this.chatBotView.update(yield this.chatBotManager.answer());
                     });
+                }
+                clear(event) {
+                    this.chatBotView.update(this.chatBotManager.clear());
                 }
             };
             exports_1("ChatBotController", ChatBotController);

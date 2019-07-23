@@ -6,13 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="./img/logo_compasso.ico">
-    <link rel="icon" href="./img/logo_compasso.ico">
     <link rel="stylesheet" href="./lib/bootstrap/bootstrap.min.css">
     <link href="./lib/materialize/icons/icons.css" rel="stylesheet">
     <link href="./lib/materialize/fonts/fonts.css" rel="stylesheet">
     <link href="./lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
-    <link rel="stylesheet" href="./css/chatbot.css">
     <title>Página Principal</title>
 </head>
 
@@ -25,12 +23,23 @@
 
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container">
-            <div class="navbar-header ml-n3">
-                <a href="index.html"></a><img src="./img/logo_compasso.png"></a>
+            <div class="row navbar-header align-baseline ml-n3">
+                <a href="index.html"><img src="./img/logo_compasso.png"></a>
+                <div class="vt-apps-line ml-2"></div>
+                <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
+                    <h5>
+                        <strong>Daily Note</strong>
+                    </h5>
+                </a>
+                <a href="app-help-center.html" class="menu-item mt-3 ml-4">
+                    <h5>
+                        <strong>Help Center</strong>
+                    </h5>
+                </a>
             </div>
+
             <!-- User menu -->
             <div id="user-menu-login-link"></div>
-
         </div>
     </nav>
 
@@ -43,13 +52,13 @@
 
                 <div class="card-body">
                     <div class="vt-line mb-3">
-                        <h5 class="card-title"><strong>Daily Note</strong></h5>
+                        <h5 class="card-title">
+                            <strong>Daily Note</strong>
+                        </h5>
                     </div>
-                    <p class="card-text text-justify">Registre e modifique as informações da sua Daily, e também,
-                        visualize as reuniões diárias do seu time.</p>
+                    <p class="card-text text-justify">Registre e modifique as informações da sua Daily, e também, visualize as reuniões diárias do seu time.</p>
                     <a href="app-daily-note.html">
-                        <button name="daily"
-                            class="btn btn-outline-success btn-sm pr-3 pl-3 float-right input-circle">Acessar</button>
+                        <button name="daily" class="btn btn-outline-success btn-sm pr-3 pl-3 float-right input-circle">Acessar</button>
                     </a>
                 </div>
             </div>
@@ -60,13 +69,13 @@
 
                 <div class="card-body">
                     <div class="vt-line mb-3">
-                        <h5 class="card-title"><strong>Help Center</strong></h5>
+                        <h5 class="card-title">
+                            <strong>Help Center</strong>
+                        </h5>
                     </div>
-                    <p class="card-text text-justify">Envie perguntas sobre os erros durante o uso de ferramentas e
-                        receba soluções através de respostas de outros usuários.</p>
+                    <p class="card-text text-justify">Envie perguntas sobre os erros durante o uso de ferramentas e receba soluções através de respostas de outros usuários.</p>
                     <a href="app-help-center.html">
-                        <button name="daily"
-                            class="btn btn-outline-success btn-sm pr-3 pl-3 float-right input-circle">Acessar</button>
+                        <button name="daily" class="btn btn-outline-success btn-sm pr-3 pl-3 float-right input-circle">Acessar</button>
                     </a>
                 </div>
             </div>
@@ -79,7 +88,9 @@
             <div class="col-12 col-sm-7 section-lastdaily">
                 <div class="col-12">
                     <div class="vt-line mt-4 mb-4">
-                        <h3><strong>Última Daily</strong></h3>
+                        <h3>
+                            <strong>Última Daily</strong>
+                        </h3>
                     </div>
 
                     <hr class="lastdaily-line">
@@ -103,7 +114,9 @@
             <div class="col-12 col-sm-4 section-help">
                 <div class="col-12">
                     <div class="vt-line mt-4 mb-4">
-                        <h3><strong>Perguntas Recentes</strong></h3>
+                        <h3>
+                            <strong>Perguntas Recentes</strong>
+                        </h3>
                     </div>
 
                     <hr class="help-line">
@@ -121,7 +134,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="modal-title vt-line mt-2" id="respTitle">
-                        <h3><strong>Respostas</strong></h3>
+                        <h3>
+                            <strong>Respostas</strong>
+                        </h3>
                     </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
@@ -136,6 +151,9 @@
         </div>
     </div>
 
+    <button name="daily" id="mostra-daily" hidden></button>
+    <button name="daily" id="mostra-help" hidden></button>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="./lib/jquery/jquery.min.js"></script>
     <script src="./lib/bootstrap/bootstrap.min.js"></script>
@@ -147,9 +165,10 @@
     <script>
         System.defaultJSExtensions = true;
         System.import('js/index.js').catch(err => console.error(err));
-        System.import('js/logout.js').catch(err => console.error(err));
+        System.import('js/chatbot.js').catch(err => console.error(err))
     </script>
-
 </body>
+
+</html>
 
 </html>
