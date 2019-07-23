@@ -38,7 +38,7 @@ if ((localStorage.getItem('isAdmin') == 'true') || (localStorage.getItem('id') =
                         idResult.className = "alert alert-info"
                         setTimeout(() => {
                             window.location.href = "app-daily-note.html";
-                        }, 5000)
+                        }, 1000)
                     }
                 })
         })

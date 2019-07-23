@@ -33,7 +33,7 @@ System.register(["./controllers/EditDailyController", "./utils/userData"], funct
                                 idResult.className = "alert alert-info";
                                 setTimeout(() => {
                                     window.location.href = "app-daily-note.html";
-                                }, 5000);
+                                }, 1000);
                             }
                         });
                     });
