@@ -19,7 +19,7 @@ export class PostAsks {
         const newPostAsks = new PostAsks()
 
         arr.forEach((val: any) => {
-            newPostAsks.add(new PostAsk(val.id_helpCenter, val.desc, val.id_user, val.owner, val._id))
+            newPostAsks.add(new PostAsk(val.id_helpCenter, val.desc, val.id_user, val.owner, val._id, val.date))
         })
 
         return newPostAsks

@@ -6,7 +6,7 @@ export class Post {
         private desc: string,
         private authorId?: string,
         private authorName?: string,
-        // private date: Date,
+        private date?: Date,
         private id?: string
     ) { }
 
@@ -26,9 +26,11 @@ export class Post {
         return this.authorName
     }
 
-    // get Date() {
-    //     return this.date
-    // }
+    get Date() {
+        let hoje = new Date(this.date);
+        let options = { year: 'numeric', month: '2-digit', day: '2-digit' };       
+        return  hoje.toLocaleDateString('pt-BR', options)
+    }
 
     get Id() {
         return this.id
