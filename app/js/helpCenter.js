@@ -13,6 +13,8 @@ System.register(["./controllers/HelpCenterController", "./utils/userData"], func
         ],
         execute: function () {
             userData = userData_1.getUser();
+            if (!localStorage.getItem('tkn'))
+                document.getElementById('user-main').innerHTML = `<a href="index.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
             controller = new HelpCenterController_1.HelpCenterController();
             url = new URLSearchParams(location.search);
             if (url.get('page')) {

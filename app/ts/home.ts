@@ -7,6 +7,8 @@ import { AuthenticateController } from "./controllers/AuthenticateController";
 import { ChatBotController } from "./controllers/ChatBotController";
 
 let userData = getUser();
+if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="index.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+
 let homeController = new HomeController();
 let chatBotController = new ChatBotController();
 

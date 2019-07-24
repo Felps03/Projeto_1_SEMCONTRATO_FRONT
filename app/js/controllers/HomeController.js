@@ -1,6 +1,6 @@
-System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../views/UserMenuView"], function (exports_1, context_1) {
+System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService"], function (exports_1, context_1) {
     "use strict";
-    var UserService_1, HelpCenterService_1, DailyNoteService_1, UserMenuView_1, HomeController;
+    var UserService_1, HelpCenterService_1, DailyNoteService_1, HomeController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -12,17 +12,11 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
             },
             function (DailyNoteService_1_1) {
                 DailyNoteService_1 = DailyNoteService_1_1;
-            },
-            function (UserMenuView_1_1) {
-                UserMenuView_1 = UserMenuView_1_1;
             }
         ],
         execute: function () {
             HomeController = class HomeController {
-                constructor() {
-                    this.user = new UserMenuView_1.UserMenuView("#user-menu-login-link");
-                    this.user.update('');
-                }
+                constructor() { }
                 getUser() {
                     let data;
                     if (!localStorage.getItem('tkn')) {

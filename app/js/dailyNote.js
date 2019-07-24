@@ -222,6 +222,8 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
         ],
         execute: function () {
             userData = userData_1.getUser();
+            if (!localStorage.getItem('tkn'))
+                document.getElementById('user-main').innerHTML = `<a href="index.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
             dailyesResult = document.querySelector('#dayliesResult');
             totalPagesDiv = document.querySelector('#pages');
             url = new URLSearchParams(location.search);

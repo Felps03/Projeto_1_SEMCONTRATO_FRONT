@@ -13,6 +13,8 @@ System.register(["./controllers/UserController", "./utils/userData"], function (
         ],
         execute: function () {
             userData = userData_1.getUser();
+            if (!localStorage.getItem('tkn'))
+                document.getElementById('user-main').innerHTML = `<a href="index.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
             document.addEventListener("DOMContentLoaded", function (event) {
                 if (localStorage.getItem('tkn')) {
                     window.location.href = "home.html";

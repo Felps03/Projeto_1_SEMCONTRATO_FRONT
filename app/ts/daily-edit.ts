@@ -13,7 +13,9 @@ import { getUser } from "./utils/userData";
 // const today = document.querySelector('#edit-today')
 // const impediment = document.querySelector('#edit-impediment')
 const idResult = document.querySelector('#editResult')
+
 let userData = getUser();
+if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="index.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
 // let newYesterday: string;
 // let newToday: string;
 // let newImpediment: string;
