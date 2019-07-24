@@ -50,8 +50,9 @@ export class HelpCenterService {
         })
     }
 
+    //FIXME
     listLastHelp() {
-        return fetch(`${HOST}helps/last/`, {
+        return fetch(`${HOST}helps/list/post/1`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
