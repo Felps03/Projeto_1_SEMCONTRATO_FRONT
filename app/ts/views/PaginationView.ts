@@ -27,8 +27,8 @@ export class PaginationView extends View<number> {
 
     template(model: number): string {
 
-        console.log(model)
-        console.log(this.generatePageNs(model))
+       // console.log(model)
+       // console.log(this.generatePageNs(model))
 
         return `
         <li class="page-item">
