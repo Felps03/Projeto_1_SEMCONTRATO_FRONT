@@ -16,8 +16,8 @@ System.register([], function (exports_1, context_1) {
                     }
                     this._escape = escape;
                 }
-                update(model) {
-                    let template = this.template(model);
+                update(model, totalPages = 0) {
+                    let template = this.template(model, totalPages);
                     if (this._escape)
                         template = template.replace(/<script>[\s\S]*?<\/script>/g, '');
                     this._el.innerHTML = template;

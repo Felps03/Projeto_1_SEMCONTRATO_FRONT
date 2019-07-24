@@ -14,7 +14,7 @@ System.register(["./View"], function (exports_1, context_1) {
                     super(selector, escape);
                     this.baseUrl = baseUrl;
                 }
-                generatePageNs(actual, perPage = 3) {
+                generatePageNs(actual, totalPages, perPage = 3) {
                     const half = Math.floor(perPage / 2);
                     let ns = [];
                     if (actual <= half) {
@@ -23,15 +23,15 @@ System.register(["./View"], function (exports_1, context_1) {
                     }
                     else {
                         for (let i = actual - half; i <= actual + half; i++) {
-                            ns.push(i);
+                            if (totalPages >= i) {
+                                ns.push(i);
+                            }
                         }
                     }
                     return ns;
                 }
-                template(model) {
-                    console.log(model);
-                    console.log(this.generatePageNs(model));
-                    return `
+                template(model, totalPages) {
+                    let result = `
         <li class="page-item">
             <a class="page-link" href="${this.baseUrl}?page=${model - 1}" aria-label="Anterior">
                 <span aria-hidden="true" class="txt-primary">&laquo;</span>
@@ -39,17 +39,18 @@ System.register(["./View"], function (exports_1, context_1) {
             </a>
         </li>
 
-        ${this.generatePageNs(model).map(n => `
+        ${this.generatePageNs(model, totalPages).map(n => `
             <li class="page-item"><a class="page-link txt-primary" href="${this.baseUrl}?page=${n}">${n}</a></li>
-        `).join('')}
-        
-        <li class="page-item">
+        `).join('')}`;
+                    if (totalPages > model) {
+                        result += `<li class="page-item">
             <a class="page-link" href="${this.baseUrl}?page=${model + 1}" aria-label="Próximo">
                 <span aria-hidden="true" class="txt-primary">&raquo;</span>
                 <span class="sr-only txt-primary">Próximo</span>
             </a>
-        </li>
-        `;
+        </li>`;
+                    }
+                    return result;
                 }
             };
             exports_1("PaginationView", PaginationView);

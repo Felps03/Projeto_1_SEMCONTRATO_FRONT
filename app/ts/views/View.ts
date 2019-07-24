@@ -15,13 +15,13 @@ export abstract class View<T> {
         this._escape = escape;
     }
 
-    update(model: T) {
-        let template = this.template(model);
+    update(model: T, totalPages: number = 0) {
+        let template = this.template(model, totalPages);
         if (this._escape)
             template = template.replace(/<script>[\s\S]*?<\/script>/g, '');
         this._el.innerHTML = template;
     }
 
-    abstract template(model: T): string;
+    abstract template(model: T, totalPages: number): string;
 
 }

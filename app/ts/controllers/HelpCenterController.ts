@@ -33,8 +33,9 @@ export class HelpCenterController {
 	private editVals: (() => boolean)[];
 
 	private currentPage: number;
+	private totalPages: number;
 
-	constructor(currentPage: number = 1) {
+	constructor(currentPage: number = 1, totalPages: number = 1) {
 		this.searchTitle = <HTMLInputElement>document.getElementById('search-joker');
 		// this.searchDesc = <HTMLInputElement>document.getElementById('search-desc')
 
@@ -49,7 +50,9 @@ export class HelpCenterController {
 
 		this.currentPage = currentPage;
 
-		this.paginationView.update(currentPage);
+		this.totalPages = totalPages;
+
+		this.paginationView.update(this.currentPage, this.totalPages);
 
 		// init validations
 
@@ -84,7 +87,10 @@ export class HelpCenterController {
 
 	set CurrentPage(page: number) {
 		this.currentPage = page;
-		this.paginationView.update(this.currentPage);
+		this.paginationView.update(this.currentPage, this.totalPages);
+	}
+	set TotalPages(total: number) {
+		this.totalPages = total;
 	}
 
 	add(event: Event) {
@@ -178,10 +184,11 @@ export class HelpCenterController {
 				return result.json();
 			})
 			.then((res) => {
-				// console.log(res);
-
+				//console.log(res);
+				this.TotalPages = res[res.length-1].totalPages;
+				this.paginationView.update(this.currentPage, this.totalPages);
 				const posts = Posts.from(res.slice(0, -1));
-				this.postsView.update(posts);
+				this.postsView.update(posts, this.totalPages);
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');
 					if (i) {
