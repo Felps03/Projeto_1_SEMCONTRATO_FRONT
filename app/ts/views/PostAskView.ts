@@ -24,6 +24,7 @@ export class PostAskView extends View<PostAsk> {
             <div class="card mb-2">
                 <div class="card-body inline-block">
                     <h5>${model.AuthorName}</h5>
+                    <p class="mt-2 mb-2">${model.Date}</p>
                     <form action="" class="comment-edit" id="comment-edit-form-${model.Id}">
 
                     ${ model.Author ? canEdit && this.editing ? `
