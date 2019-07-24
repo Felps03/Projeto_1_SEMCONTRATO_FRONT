@@ -1,6 +1,6 @@
 System.register(["../models/DailyNote", "../services/DailyNoteService", "../helpers/index", "../validation/dailyNoteValidate", "../utils/listCheck", "../views/UserMenuView"], function (exports_1, context_1) {
     "use strict";
-    var DailyNote_1, DailyNoteService_1, index_1, vals, listCheck_1, UserMenuView_1, DailyNoteController;
+    var DailyNote_1, DailyNoteService_1, index_1, index_2, vals, listCheck_1, UserMenuView_1, DailyNoteController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -12,6 +12,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
             },
             function (index_1_1) {
                 index_1 = index_1_1;
+                index_2 = index_1_1;
             },
             function (vals_1) {
                 vals = vals_1;
@@ -95,6 +96,12 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     event.preventDefault();
                     let service = new DailyNoteService_1.DailyNoteService();
                     return service.registeredDaily(localStorage.getItem('id'));
+                }
+                cancel(event) {
+                    event.preventDefault();
+                    index_2.clean(document.querySelector('#yesterday'));
+                    index_2.clean(document.querySelector('#today'));
+                    index_2.clean(document.querySelector('#impediment'));
                 }
             };
             exports_1("DailyNoteController", DailyNoteController);
