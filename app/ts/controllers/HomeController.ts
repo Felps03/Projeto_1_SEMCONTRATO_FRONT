@@ -14,7 +14,13 @@ export class HomeController {
     }
 
     clickHelpASK(event: Event) {
-        console.log((<HTMLElement>event.target).parentElement.id);
+        let temp = (<HTMLElement>event.target).parentElement.parentElement.parentElement.parentElement.parentElement.lastElementChild;
+        let idHelpCenter = (temp.querySelector('.card .card-body #idHelp').textContent);
+        
+        console.log(idHelpCenter);
+        
+        window.location.href = `app-help-asks.html?id=${idHelpCenter}`;
+
     }
 
     getUser() {
@@ -46,23 +52,24 @@ export class HomeController {
         helpCenterService.listLastHelp()
             .then(result => {
                 return result.json();
-            }).then(result => {
-                console.log(result.docs, "Resut");
+            })
+            .then(result => {
                 let row = <HTMLElement>document.querySelector('#last-helps');
-                row.innerHTML = "";
+                row.innerHTML = "";               
 
-                let a = result.docs.length
+                for (let aux = 0; aux < 3; aux++) {                   
+                    let date = new Date(result[aux]['date']);
+                    let dateFormatted = `${date.getDate()+1}/${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}/${date.getFullYear()}`;
 
-                for (let i = a - 1; i >= 0; i--) {
                     row.innerHTML += `
                     <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
                         <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
                             <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
                                 <div>
-                                    <h5 class="mt-2 mb-2 ml-4">Usuário</h5>
-                                    <button type="button" name="view" 
-                                        class="btn btn-outline-info btn-sm input-circle pt-2 ml-4" id="${result.docs[i]['_id']}"
-                                        data-toggle="modal" data-target="#respModal">
+                                    <h5 class="mt-2 mb-2 ml-4">${result[aux]['owner']}</h5>
+                                    <p class="mt-2 mb-2 ml-4">${dateFormatted}</p>
+                                    <button type="button" name="view"
+                                        class="btn btn-outline-info btn-sm input-circle pt-2 ml-4" id="resp-view">
                                         <i class="small material-icons">description</i>
                                     </button>
                                 </div>  
@@ -71,9 +78,9 @@ export class HomeController {
                         <div class="col-md-9 col-12 card-body">
                             <div class="card mb-2">
                                 <div class="card-body">
-                                    <h5>${result.docs[i]['title']}</h5>
-                                    <p>${result.docs[i]['desc']}</p> 
-                                    <p id="idHelp">${result.docs[i]['_id']}</p> 
+                                    <h5>${result[aux]['title']}</h5>
+                                    <p>${result[aux]['desc']}</p>
+                                    <p id="idHelp" style="display:none">${result[aux]['_id']}</p> 
                                 </div>
                             </div>
                         </div>
