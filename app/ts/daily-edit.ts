@@ -15,7 +15,7 @@ import { getUser } from "./utils/userData";
 const idResult = document.querySelector('#editResult')
 
 let userData = getUser();
-if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="index.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
 // let newYesterday: string;
 // let newToday: string;
 // let newImpediment: string;
@@ -40,7 +40,7 @@ if ((localStorage.getItem('isAdmin') == 'true') || (localStorage.getItem('id') =
                         idResult.className = "alert alert-info"
                         setTimeout(() => {
                             window.location.href = "app-daily-note.html";
-                        }, 5000)
+                        }, 1000)
                     }
                 })
         })

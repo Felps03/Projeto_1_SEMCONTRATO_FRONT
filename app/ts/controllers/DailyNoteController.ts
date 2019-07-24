@@ -1,10 +1,12 @@
 import { DailyNote } from '../models/DailyNote';
 import { DailyNoteService } from '../services/DailyNoteService';
 import { validate } from '../helpers/index'
+import { clean } from '../helpers/index'
 import * as vals from '../validation/dailyNoteValidate';
 import { noFalse } from '../utils/listCheck';
 import { DailyNotesView } from '../views/DailyNotesView';
-// import { UserMenuView } from '../views/UserMenuView';
+import { UserMenuView } from '../views/UserMenuView';
+import { InputWrapper } from '../utils/index';
 
 export class DailyNoteController {
 
@@ -154,5 +156,14 @@ export class DailyNoteController {
         let service = new DailyNoteService();
 
         return service.registeredDaily(localStorage.getItem('id'))
+    }
+
+    cancel(event: Event) {
+        event.preventDefault();
+
+        clean(<HTMLInputElement>document.querySelector('#yesterday'));
+        clean(<HTMLInputElement>document.querySelector('#today'));
+        clean(<HTMLInputElement>document.querySelector('#impediment'));
+
     }
 }

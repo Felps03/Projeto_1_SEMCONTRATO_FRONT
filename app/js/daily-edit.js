@@ -18,7 +18,7 @@ System.register(["./controllers/EditDailyController", "./utils/userData"], funct
             idResult = document.querySelector('#editResult');
             userData = userData_1.getUser();
             if (!localStorage.getItem('tkn'))
-                document.getElementById('user-main').innerHTML = `<a href="index.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+                document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
             $('#daily_cancel').click((e) => {
                 e.preventDefault();
                 window.location.href = "app-daily-note.html";
@@ -35,7 +35,7 @@ System.register(["./controllers/EditDailyController", "./utils/userData"], funct
                                 idResult.className = "alert alert-info";
                                 setTimeout(() => {
                                     window.location.href = "app-daily-note.html";
-                                }, 5000);
+                                }, 1000);
                             }
                         });
                     });

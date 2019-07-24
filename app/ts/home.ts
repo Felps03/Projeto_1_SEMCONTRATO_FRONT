@@ -7,18 +7,27 @@ import { AuthenticateController } from "./controllers/AuthenticateController";
 import { ChatBotController } from "./controllers/ChatBotController";
 
 let userData = getUser();
-if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="index.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
 
 let homeController = new HomeController();
 let chatBotController = new ChatBotController();
 
-let mostraDaily = document.getElementById("mostra-daily");
-let mostraHelp = document.getElementById("mostra-help");
+if (localStorage.getItem('tkn')) {
+    window.location.href = "index.html";
+}
 
-mostraDaily.addEventListener('click', homeController.listDailyDate.bind(homeController));
-mostraHelp.addEventListener('click', homeController.listLastHelp.bind(homeController));
+let authenticate = document.querySelector('#login-form');
+if (authenticate) {
+    const authenticateController = new AuthenticateController();
+    authenticate.addEventListener('submit', authenticateController.authenticate.bind(authenticateController));
 
-$(document).ready(function() {
-    document.getElementById('mostra-daily').click();
-    document.getElementById('mostra-help').click();
-});
+    let recuperarEmail = document.querySelector('#recovery-pass-form');
+    if (recuperarEmail) {
+        recuperarEmail.addEventListener('submit', authenticateController.resetPassword.bind(authenticateController));
+    }
+}
+
+let addDailyNote = document.querySelector('#daily-form');
+if (addDailyNote) {
+    const dailyNoteController = new DailyNoteController();
+    addDailyNote.addEventListener('submit', dailyNoteController.add.bind(dailyNoteController));
+}

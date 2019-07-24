@@ -49,7 +49,7 @@ export class AuthenticateController {
 
             const authenticateService = new AuthenticateService();
 
-            console.log(this.email.value);
+            //console.log(this.email.value);
 
             authenticateService.authenticate(this.email.value, this.password.value)
                 .catch(res => res.json())
@@ -97,7 +97,7 @@ export class AuthenticateController {
         event.preventDefault();
 
         localStorage.clear();
-        window.location.href = 'index.html';
+        window.location.href = 'home.html';
     }
 
     // logout(event: Event) {

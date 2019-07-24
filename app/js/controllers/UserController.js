@@ -68,7 +68,7 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
                         }).then((res) => {
                             localStorage.setItem('email', res.email);
                             localStorage.setItem('id', res._id);
-                            window.location.href = "home.html";
+                            window.location.href = "index.html";
                         })
                             .catch((res) => res.json())
                             .then((res) => {
@@ -133,6 +133,10 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
                         `;
                             }
                             return result.json();
+                        }).then(() => {
+                            setTimeout(() => {
+                                msg.innerHTML = "";
+                            }, 3000);
                         });
                     }
                 }

@@ -1,17 +1,9 @@
-System.register(["./View"], function (exports_1, context_1) {
-    "use strict";
-    var View_1, UserMenuView;
-    var __moduleName = context_1 && context_1.id;
-    return {
-        setters: [
-            function (View_1_1) {
-                View_1 = View_1_1;
-            }
-        ],
-        execute: function () {
-            UserMenuView = class UserMenuView extends View_1.View {
-                template() {
-                    return localStorage.getItem('tkn') ? `
+import { View } from './View';
+
+export class UserMenuView extends View<String> {
+
+    template(): string {
+        return localStorage.getItem('tkn') ? `
             <div class="dropdown mr-n4 txt-user" style="float:right;">
                 <div class="d-flex align-items-center btn" data-toggle="dropdown">
                     <span id="nameSpan"></span>
@@ -35,10 +27,6 @@ System.register(["./View"], function (exports_1, context_1) {
                         <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
                 </div>
             </div>
-        ` : `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
-                }
-            };
-            exports_1("UserMenuView", UserMenuView);
-        }
-    };
-});
+        ` : `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>` ;
+    }
+}

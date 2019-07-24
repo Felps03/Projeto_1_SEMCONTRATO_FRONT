@@ -1,37 +1,24 @@
-import { AuthenticateController } from "./controllers/AuthenticateController";
-import { UserController } from "./controllers/UserController";
+import { HomeController } from "./controllers/HomeController";
+import { UserService } from "./services/UserService";
+import { HelpCenterController } from "./controllers/HelpCenterController";
 import { DailyNoteController } from "./controllers/DailyNoteController";
+import { getUser } from "./utils/userData";
+import { AuthenticateController } from "./controllers/AuthenticateController";
+import { ChatBotController } from "./controllers/ChatBotController";
 
-if (localStorage.getItem('tkn')) {
-    window.location.href = "home.html";
-}
+let userData = getUser();
+let homeController = new HomeController();
+let chatBotController = new ChatBotController();
 
-// document.addEventListener("DOMContentLoaded", function (event) {
-//     console.log("entrou na funcao");
-//     if (localStorage.getItem('tkn')) {
-//         window.location.href = "home.html";
-//     }
-// });
+if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
 
-let authenticate = document.querySelector('#login-form');
-if (authenticate) {
-    const authenticateController = new AuthenticateController();
-    authenticate.addEventListener('submit', authenticateController.authenticate.bind(authenticateController));
+let mostraDaily = document.getElementById("mostra-daily");
+let mostraHelp = document.getElementById("mostra-help");
 
-    let recuperarEmail = document.querySelector('#recovery-pass-form');
-    if (recuperarEmail) {
-        recuperarEmail.addEventListener('submit', authenticateController.resetPassword.bind(authenticateController));
-    }
-}
-//foi movido para user-register
-// let cadastrar = document.querySelector('#user-register');
-// if (cadastrar) {
-//     const userController = new UserController();
-//     cadastrar.addEventListener('submit', userController.add.bind(userController));
-// }
+mostraDaily.addEventListener('click', homeController.listDailyDate.bind(homeController));
+mostraHelp.addEventListener('click', homeController.listLastHelp.bind(homeController));
 
-let addDailyNote = document.querySelector('#daily-form');
-if (addDailyNote) {
-    const dailyNoteController = new DailyNoteController();
-    addDailyNote.addEventListener('submit', dailyNoteController.add.bind(dailyNoteController));
-}
+$(document).ready(function() {
+    document.getElementById('mostra-daily').click();
+    document.getElementById('mostra-help').click();
+});

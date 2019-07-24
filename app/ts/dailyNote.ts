@@ -3,7 +3,7 @@ import { DailyNote } from './models/index';
 import { getUser } from './utils/userData';
 
 let userData = getUser();
-if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="index.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
 
 let dailyesResult = document.querySelector('#dayliesResult');
 let totalPagesDiv = document.querySelector('#pages');
@@ -17,6 +17,12 @@ const controller = new DailyNoteController();
 let cadastrar = document.querySelector('#daily-form');
 if (cadastrar) {
 	cadastrar.addEventListener('submit', registeredDaily);
+}
+
+let cancel = document.getElementById("cancel");
+if (cancel) {
+	const dailyNoteController = new DailyNoteController();
+	cancel.addEventListener('click', dailyNoteController.cancel.bind(dailyNoteController));
 }
 
 load()
@@ -280,19 +286,3 @@ function mountTable(dayliesResult: any, daily: DailyNote, owner: string, id_user
 
 	dailyesResult.appendChild(body);
 }
-
-$('#cancel').click((e) => {
-	e.preventDefault();
-
-	var dirtyFormID = 'daily-form';
-	var resetForm = <HTMLFormElement>document.getElementById(dirtyFormID);
-
-	let yesterday = <HTMLInputElement>document.querySelector('#yesterday');
-	let today = <HTMLInputElement>document.querySelector('#today');
-	let impediment = <HTMLInputElement>document.querySelector('#impediment');
-
-	yesterday.classList.remove('is-valid');
-	today.classList.remove('is-valid');
-	impediment.classList.remove('is-valid');
-	resetForm.reset();
-});

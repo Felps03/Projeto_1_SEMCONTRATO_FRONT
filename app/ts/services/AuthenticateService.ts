@@ -12,6 +12,7 @@ export class AuthenticateService {
      */
     authenticate(email: string, password: string) {
         return new Promise((resolve, reject) => {
+            console.log('chegou');
             fetch(`${HOST}users/authenticate`, {
                 //fetch('http://localhost:3000/users/authenticate', {
                 method: 'POST',
@@ -43,7 +44,7 @@ export class AuthenticateService {
                         localStorage.setItem('id', result[0]['_id'])
                         localStorage.setItem('isAdmin', result[0]['isAdmin'])
                         // console.log(result[0]['email']);
-                        window.location.href = "home.html";
+                        window.location.href = "index.html";
 
                         resolve()
                     })

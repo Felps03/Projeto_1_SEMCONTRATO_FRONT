@@ -45,7 +45,6 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                 authenticate(event) {
                     if (listCheck_1.noFalse(this.authVals)) {
                         const authenticateService = new index_1.AuthenticateService();
-                        console.log(this.email.value);
                         authenticateService.authenticate(this.email.value, this.password.value)
                             .catch(res => res.json())
                             .then((res) => {
@@ -85,7 +84,7 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                 logout(event) {
                     event.preventDefault();
                     localStorage.clear();
-                    window.location.href = 'index.html';
+                    window.location.href = 'home.html';
                 }
             };
             exports_1("AuthenticateController", AuthenticateController);

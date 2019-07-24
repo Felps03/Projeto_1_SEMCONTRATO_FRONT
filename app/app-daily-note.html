@@ -23,7 +23,7 @@
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container">
             <div class="row navbar-header align-baseline ml-n3">
-                <a href="home.html"><img src="./img/logo_compasso.png"></a>
+                <a href="index.html"><img src="./img/logo_compasso.png"></a>
                 <div class="vt-apps-line ml-2"></div>
                 <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
                     <h5><strong>Daily Note</strong></h5>
@@ -32,7 +32,7 @@
                     <h5><strong>Help Center</strong></h5>
                 </a>
             </div>
-            
+
             <!-- User menu -->
             <!-- <div id="user-menu-login-link"></div> -->
             <div id="user-main">
@@ -43,14 +43,14 @@
                         <i class="material-icons ml-n2">arrow_drop_down</i>
                     </div>
                     <div class="dropdown-menu dropdown-menu-right align-user">
-                        <div class="dropdown-item">    
+                        <div class="dropdown-item">
                             Usuário: <span id="userNameSpan"></span>
                         </div>
                         <div class="dropdown-divider"></div>
 
                         <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
                             <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
-                        <a class="dropdown-item d-flex align-items-center" href="home.html">
+                        <a class="dropdown-item d-flex align-items-center" href="index.html">
                             <i class="material-icons mr-2">home</i>Home</a>
 
                         <div class="dropdown-divider"></div>
@@ -83,13 +83,10 @@
                             <!-- <input type="date" name="filter"
                                 class="form-control form-control-sm ext-placeholder input-circle" id="date_filter"> -->
 
-                            <input type="date" name="filter"
-                                class="form-control form-control-sm ext-placeholder input-circle" id="date_filter">
+                            <input type="date" name="filter" class="form-control form-control-sm ext-placeholder input-circle" id="date_filter">
                             <div id="filtervalidator"></div>
 
-                            <button type="button" name="new_daily"
-                                class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle mt-add-daily"
-                                id="filter">Buscar
+                            <button type="button" name="new_daily" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle mt-add-daily" id="filter">Buscar
                             </button>
 
                         </div>
@@ -97,9 +94,7 @@
                     </div>
 
                     <div class="col-12 col-sm-8">
-                        <button type="button" name="new_daily"
-                            class="btn btn-outline-success btn-sm pr-4 pl-4 float-right input-circle mt-add-daily"
-                            data-toggle="modal" data-target="#dailyModal" id="add_daily">Adicionar Daily
+                        <button type="button" name="new_daily" class="btn btn-outline-success btn-sm pr-4 pl-4 float-right input-circle mt-add-daily" data-toggle="modal" data-target="#dailyModal" id="add_daily">Adicionar Daily
                         </button>
                     </div>
                 </div>
@@ -163,32 +158,25 @@
 
                         <div class="form-group">
                             <label for="first"><strong>1. </strong>O que eu fiz ontem?</label>
-                            <textarea name="first" class="form-control form-control-sm input-circle" id="yesterday"
-                                placeholder="Informe sua resposta aqui" autofocus></textarea>
+                            <textarea name="first" class="form-control form-control-sm input-circle" id="yesterday" placeholder="Informe sua resposta aqui" autofocus></textarea>
                             <div id="firstvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="second"><strong>2. </strong>O que eu vou fazer hoje?</label>
-                            <textarea name="second" class="form-control form-control-sm input-circle" id="today"
-                                placeholder="Informe sua resposta aqui"></textarea>
+                            <textarea name="second" class="form-control form-control-sm input-circle" id="today" placeholder="Informe sua resposta aqui"></textarea>
                             <div id="secondvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="third"><strong>3. </strong>Eu tenho impedimentos? Se sim,
                                 qual(is)?</label>
-                            <textarea name="third" class="form-control form-control-sm input-circle" id="impediment"
-                                placeholder="Informe sua resposta aqui"></textarea>
+                            <textarea name="third" class="form-control form-control-sm input-circle" id="impediment" placeholder="Informe sua resposta aqui"></textarea>
                             <div id="thirdvalidator"></div>
                         </div>
 
-                        <button type="submit" name="send"
-                            class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle"
-                            id="recovery-pass">Adicionar</button>
-                        <button type="button"
-                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle"
-                            data-dismiss="modal" id="cancel">Cancelar</button>
+                        <button type="submit" name="send" class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle" id="recovery-pass">Adicionar</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle" data-dismiss="modal" id="cancel">Cancelar</button>
                     </form>
 
                 </div>
@@ -198,8 +186,7 @@
 
 
     <!-- View Daily modal -->
-    <div class="modal fade" id="viewdailyModal" tabindex="-1" role="dialog" aria-labelledby="viewdailyTitle"
-        aria-hidden="true">
+    <div class="modal fade" id="viewdailyModal" tabindex="-1" role="dialog" aria-labelledby="viewdailyTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -218,8 +205,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Nome:</label>
-                                    <input type="text" name="name" class="form-control form-control-sm input-circle"
-                                        id="name" disabled>
+                                    <input type="text" name="name" class="form-control form-control-sm input-circle" id="name" disabled>
                                     <div id="namevalidator"></div>
                                 </div>
                             </div>
@@ -227,9 +213,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="date">Data:</label>
-                                    <input type="date" name="filter"
-                                        class="form-control form-control-sm ext-placeholder input-circle" id="filter"
-                                        disabled>
+                                    <input type="date" name="filter" class="form-control form-control-sm ext-placeholder input-circle" id="filter" disabled>
                                     <div id="datevalidator"></div>
                                 </div>
                             </div>
@@ -237,29 +221,24 @@
 
                         <div class="form-group">
                             <label for="first"><strong>1. </strong>O que fez ontem?</label>
-                            <textarea name="first" class="form-control form-control-sm input-circle" id="first"
-                                disabled></textarea>
+                            <textarea name="first" class="form-control form-control-sm input-circle" id="first" disabled></textarea>
                             <div id="firstvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="second"><strong>2. </strong>O que vai fazer hoje?</label>
-                            <textarea name="second" class="form-control form-control-sm input-circle" id="second"
-                                disabled></textarea>
+                            <textarea name="second" class="form-control form-control-sm input-circle" id="second" disabled></textarea>
                             <div id="secondvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="third"><strong>3. </strong>Tem impedimentos? Se sim,
                                 qual(is)?</label>
-                            <textarea name="third" class="form-control form-control-sm input-circle" id="third"
-                                disabled></textarea>
+                            <textarea name="third" class="form-control form-control-sm input-circle" id="third" disabled></textarea>
                             <div id="thirdvalidator"></div>
                         </div>
 
-                        <button type="button"
-                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle"
-                            data-dismiss="modal">Voltar</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle" data-dismiss="modal">Voltar</button>
                     </form>
 
                 </div>
@@ -268,8 +247,7 @@
     </div>
 
     <!-- Update Daily modal -->
-    <div class="modal fade" id="editdailyModal" tabindex="-1" role="dialog" aria-labelledby="editdailyTitle"
-        aria-hidden="true">
+    <div class="modal fade" id="editdailyModal" tabindex="-1" role="dialog" aria-labelledby="editdailyTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -308,32 +286,25 @@
 
                         <div class="form-group">
                             <label for="first"><strong>1. </strong>O que eu fiz ontem?</label>
-                            <textarea name="first" class="form-control form-control-sm input-circle"
-                                id="edit-yesterday"></textarea>
+                            <textarea name="first" class="form-control form-control-sm input-circle" id="edit-yesterday"></textarea>
                             <div id="firstvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="second"><strong>2. </strong>O que eu vou fazer hoje?</label>
-                            <textarea name="second" class="form-control form-control-sm input-circle"
-                                id="edit-today"></textarea>
+                            <textarea name="second" class="form-control form-control-sm input-circle" id="edit-today"></textarea>
                             <div id="secondvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="third"><strong>3. </strong>Eu tenho impedimentos? Se sim,
                                 qual(is)?</label>
-                            <textarea name="third" class="form-control form-control-sm input-circle"
-                                id="edit-impediment"></textarea>
+                            <textarea name="third" class="form-control form-control-sm input-circle" id="edit-impediment"></textarea>
                             <div id="thirdvalidator"></div>
                         </div>
 
-                        <button type="submit" name="send"
-                            class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle"
-                            id="update_daily">Editar</button>
-                        <button type="button"
-                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-2 pl-2 input-circle"
-                            data-dismiss="modal">Cancelar</button>
+                        <button type="submit" name="send" class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle" id="update_daily">Editar</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-2 pl-2 input-circle" data-dismiss="modal">Cancelar</button>
                     </form>
 
                 </div>
@@ -348,7 +319,7 @@
     <script src="./lib/particlejs/particle-config.js"></script>
 
     <script>
-        document.getElementById('filter').onkeyup = function () {
+        document.getElementById('filter').onkeyup = function() {
             let dateHolder = document.getElementById('filter');
             let dateValue = document.getElementById('filter').value;
 

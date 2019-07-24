@@ -3,7 +3,7 @@ import { getUser } from "./utils/userData";
 import { HomeController } from "./controllers/HomeController";
 
 let userData = getUser();
-if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="index.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
 
 let homeController = new HomeController();
 

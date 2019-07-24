@@ -17,7 +17,7 @@ System.register(["./controllers/UserController", "./utils/userData", "./controll
         execute: function () {
             userData = userData_1.getUser();
             if (!localStorage.getItem('tkn'))
-                document.getElementById('user-main').innerHTML = `<a href="index.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+                document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
             homeController = new HomeController_1.HomeController();
             update = document.getElementById("user-edit");
             if (update) {
