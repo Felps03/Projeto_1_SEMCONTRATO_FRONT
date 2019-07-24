@@ -1,6 +1,6 @@
 System.register(["./controllers/DailyNoteController", "./models/index", "./utils/userData"], function (exports_1, context_1) {
     "use strict";
-    var DailyNoteController_1, index_1, userData_1, userData, dailyesResult, totalPagesDiv, id_daily, url, url_date, dateField, controller, cadastrar, listDate;
+    var DailyNoteController_1, index_1, userData_1, userData, dailyesResult, totalPagesDiv, id_daily, url, url_date, dateField, controller, cadastrar, cancel, listDate;
     var __moduleName = context_1 && context_1.id;
     function load() {
         if (url.get('date') && url.get('page')) {
@@ -232,6 +232,11 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
             if (cadastrar) {
                 cadastrar.addEventListener('submit', registeredDaily);
             }
+            cancel = document.getElementById("cancel");
+            if (cancel) {
+                const dailyNoteController = new DailyNoteController_1.DailyNoteController();
+                cancel.addEventListener('click', dailyNoteController.cancel.bind(dailyNoteController));
+            }
             load();
             listDate = document.querySelector('#filter');
             if (listDate) {
@@ -239,18 +244,6 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
                     listDate.addEventListener('click', listDateDaily);
                 }
             }
-            $('#cancel').click((e) => {
-                e.preventDefault();
-                var dirtyFormID = 'daily-form';
-                var resetForm = document.getElementById(dirtyFormID);
-                let yesterday = document.querySelector('#yesterday');
-                let today = document.querySelector('#today');
-                let impediment = document.querySelector('#impediment');
-                yesterday.classList.remove('is-valid');
-                today.classList.remove('is-valid');
-                impediment.classList.remove('is-valid');
-                resetForm.reset();
-            });
         }
     };
 });

@@ -17,6 +17,12 @@ if (cadastrar) {
 	cadastrar.addEventListener('submit', registeredDaily);
 }
 
+let cancel = document.getElementById("cancel");
+if (cancel) {
+	const dailyNoteController = new DailyNoteController();
+	cancel.addEventListener('click', dailyNoteController.cancel.bind(dailyNoteController));
+}
+
 load()
 
 let listDate = document.querySelector('#filter');
@@ -278,19 +284,3 @@ function mountTable(dayliesResult: any, daily: DailyNote, owner: string, id_user
 
 	dailyesResult.appendChild(body);
 }
-
-$('#cancel').click((e) => {
-	e.preventDefault();
-
-	var dirtyFormID = 'daily-form';
-	var resetForm = <HTMLFormElement>document.getElementById(dirtyFormID);
-
-	let yesterday = <HTMLInputElement>document.querySelector('#yesterday');
-	let today = <HTMLInputElement>document.querySelector('#today');
-	let impediment = <HTMLInputElement>document.querySelector('#impediment');
-
-	yesterday.classList.remove('is-valid');
-	today.classList.remove('is-valid');
-	impediment.classList.remove('is-valid');
-	resetForm.reset();
-});
