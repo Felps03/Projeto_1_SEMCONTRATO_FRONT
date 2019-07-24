@@ -3,6 +3,7 @@ import { UserService } from "../services/UserService";
 import { AuthenticateService } from '../services/index';
 
 import { validate } from '../helpers/index';
+import { clean } from '../helpers/index'
 
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck'
@@ -191,13 +192,9 @@ export class UserController {
             password.removeAttribute('disabled');
             passwordConfirm.removeAttribute('disabled');
         } else {
-            password.value = '';
-            passwordConfirm.value = '';
 
-            password.classList.remove('is-valid');
-            password.classList.remove('is-invalid');
-            passwordConfirm.classList.remove('is-valid');
-            passwordConfirm.classList.remove('is-invalid');
+            clean(password);
+            clean(passwordConfirm);
 
             password.setAttribute('disabled', 'true');
             passwordConfirm.setAttribute('disabled', 'true');
