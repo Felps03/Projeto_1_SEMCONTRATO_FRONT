@@ -35,19 +35,20 @@ export class ChatBotView extends View<Chat> {
             <ul>
             ${model.History.map((msg: [ChatAgent, string]) => {
 
+            const author = msg[0]
             let processedMsg
             // if the author is the user, escape it
-            if (msg[0] === ChatAgent.User) {
+            if (author === ChatAgent.User) {
                 processedMsg = msg[1].replace('<', '&lt;').replace('>', '&gt;')
             } else {
                 processedMsg = parseView(msg[1])
             }
 
-            processedMsg = processedMsg.replace('\n', '<br>')
+            processedMsg = processedMsg.replace(/\n/g, '<br>')
 
             return `
-                    <li data-author="${msg[0]}" class="shadow-sm ${/^\s*{{button\(\w*\)}}\s*$/.test(msg[1]) ? 'w-100 p-0' : ''}">
-                            ${processedMsg}
+                    <li data-author="${author}" class="shadow-sm ${/^\s*{{button\(.*\)}}\s*$/.test(msg[1]) ? 'w-100 p-0' : ''}">
+                        ${processedMsg}
                     </li>
                 `
         }).join('')} 
@@ -55,12 +56,18 @@ export class ChatBotView extends View<Chat> {
         </div>
 
         <div id="chatbot-input">
-            <div class="p-1">
+            <div class="p-1 h-100">
                 <form action="" id="chatbot-input-form">
                     <div class="form-group m-1">
                         <textarea name="bot-msg" class="form-control form-control-sm input-circle"
                             id="chatbot-input-field" placeholder="Digite sua mensagem aqui"></textarea>
                         <div></div>
+                    </div>
+
+                    <div class="align-items-center d-inline-flex d-row justify-content-end ml-1">
+                        <button id="chatbot-clear" type="submit" class="align-items-center btn btn-danger btn-sm d-flex">
+                            <i class="material-icons">autorenew</i>
+                        </button>
                     </div>
 
                     <div class="align-items-center d-inline-flex d-row float-right justify-content-end mr-1">

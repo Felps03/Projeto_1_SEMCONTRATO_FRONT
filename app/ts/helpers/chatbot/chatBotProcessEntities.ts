@@ -32,7 +32,9 @@ export function date(name: string) {
             finalYearS = yearS
         }
 
-        state.set(name, `${finalYearS}-${monthS}-${dayS}`)
+        state.set(name,
+            `${finalYearS}-${('00' + monthS).slice(-2)}-${(('00' + dayS).slice(-2))}`
+        )
     }
 }
 
