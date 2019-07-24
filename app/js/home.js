@@ -1,17 +1,29 @@
-System.register(["./controllers/AuthenticateController", "./controllers/DailyNoteController"], function (exports_1, context_1) {
+System.register(["./controllers/HomeController", "./controllers/DailyNoteController", "./utils/userData", "./controllers/AuthenticateController", "./controllers/ChatBotController"], function (exports_1, context_1) {
     "use strict";
-    var AuthenticateController_1, DailyNoteController_1, authenticate, addDailyNote;
+    var HomeController_1, DailyNoteController_1, userData_1, AuthenticateController_1, ChatBotController_1, userData, homeController, chatBotController, authenticate, addDailyNote;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
-            function (AuthenticateController_1_1) {
-                AuthenticateController_1 = AuthenticateController_1_1;
+            function (HomeController_1_1) {
+                HomeController_1 = HomeController_1_1;
             },
             function (DailyNoteController_1_1) {
                 DailyNoteController_1 = DailyNoteController_1_1;
+            },
+            function (userData_1_1) {
+                userData_1 = userData_1_1;
+            },
+            function (AuthenticateController_1_1) {
+                AuthenticateController_1 = AuthenticateController_1_1;
+            },
+            function (ChatBotController_1_1) {
+                ChatBotController_1 = ChatBotController_1_1;
             }
         ],
         execute: function () {
+            userData = userData_1.getUser();
+            homeController = new HomeController_1.HomeController();
+            chatBotController = new ChatBotController_1.ChatBotController();
             if (localStorage.getItem('tkn')) {
                 window.location.href = "index.html";
             }

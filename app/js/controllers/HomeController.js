@@ -1,6 +1,6 @@
-System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../views/UserMenuView"], function (exports_1, context_1) {
+System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService"], function (exports_1, context_1) {
     "use strict";
-    var UserService_1, HelpCenterService_1, DailyNoteService_1, UserMenuView_1, HomeController;
+    var UserService_1, HelpCenterService_1, DailyNoteService_1, HomeController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -12,17 +12,11 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
             },
             function (DailyNoteService_1_1) {
                 DailyNoteService_1 = DailyNoteService_1_1;
-            },
-            function (UserMenuView_1_1) {
-                UserMenuView_1 = UserMenuView_1_1;
             }
         ],
         execute: function () {
             HomeController = class HomeController {
-                constructor() {
-                    this.user = new UserMenuView_1.UserMenuView("#user-menu-login-link");
-                    this.user.update('');
-                }
+                constructor() { }
                 getUser() {
                     let data;
                     if (!localStorage.getItem('tkn')) {
@@ -50,17 +44,21 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                     helpCenterService.listLastHelp()
                         .then(result => {
                         return result.json();
-                    }).then(result => {
+                    })
+                        .then(result => {
                         let row = document.querySelector('#last-helps');
                         row.innerHTML = "";
-                        let a = result.docs.length;
-                        for (let i = a - 1; i >= 0; i--) {
+                        let results = result.length;
+                        for (let aux = 0; aux < 3; aux++) {
+                            let date = new Date(result[aux]['date']);
+                            let dateFormatted = `${date.getDate() + 1}/${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}/${date.getFullYear()}`;
                             row.innerHTML += `
                     <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
                         <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
                             <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
                                 <div>
-                                    <h5 class="mt-2 mb-2 ml-4">Usuário</h5>
+                                    <h5 class="mt-2 mb-2 ml-4">${result[aux]['owner']}</h5>
+                                    <p class="mt-2 mb-2 ml-4">${dateFormatted}</p>
                                     <button type="button" name="view"
                                         class="btn btn-outline-info btn-sm input-circle pt-2 ml-4" id="resp-view"
                                         data-toggle="modal" data-target="#respModal">
@@ -72,8 +70,8 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         <div class="col-md-9 col-12 card-body">
                             <div class="card mb-2">
                                 <div class="card-body">
-                                    <h5>${result.docs[i]['title']}</h5>
-                                    <p>${result.docs[i]['desc']}</p>
+                                    <h5>${result[aux]['title']}</h5>
+                                    <p>${result[aux]['desc']}</p>
                                 </div>
                             </div>
                         </div>

@@ -22,7 +22,7 @@ export class DailyNoteController {
 
     private addVals: (() => boolean)[];
     private editVals: (() => boolean)[];
-    private user: UserMenuView;
+    // private user: UserMenuView;
 
 
     constructor() {
@@ -48,8 +48,8 @@ export class DailyNoteController {
             validate(this.editImpediment, vals.impediment)
         ];
 
-        this.user = new UserMenuView("#user-menu-login-link");
-        this.user.update('');
+        // this.user = new UserMenuView("#user-menu-login-link");
+        // this.user.update('');
     }
 
     add(event: Event) {

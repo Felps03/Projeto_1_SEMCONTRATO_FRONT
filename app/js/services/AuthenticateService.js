@@ -12,6 +12,7 @@ System.register(["../config/index"], function (exports_1, context_1) {
             AuthenticateService = class AuthenticateService {
                 authenticate(email, password) {
                     return new Promise((resolve, reject) => {
+                        console.log('chegou');
                         fetch(`${index_1.HOST}users/authenticate`, {
                             method: 'POST',
                             mode: 'cors',
@@ -68,29 +69,6 @@ System.register(["../config/index"], function (exports_1, context_1) {
                     }).catch(err => {
                         console.log(err);
                         return err;
-                    });
-                }
-                logout() {
-                    return fetch(`${index_1.HOST}users/logout`, {
-                        method: 'post',
-                        headers: {
-                            'Accept': 'application/json, text/plain, */*',
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${localStorage.getItem("tkn")}`
-                        },
-                    }).then(res => {
-                        if (res.status == 400) {
-                            alert("Houve um erro ao Deslogar");
-                        }
-                        if (res.status == 200) {
-                            localStorage.removeItem("tkn");
-                            localStorage.removeItem("email");
-                            localStorage.removeItem("id");
-                            window.location.href = 'index.html';
-                        }
-                    }).catch(error => {
-                        console.log("error: ", error);
-                        return error;
                     });
                 }
             };

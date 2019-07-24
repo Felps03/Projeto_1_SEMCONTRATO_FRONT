@@ -12,6 +12,7 @@ export class AuthenticateService {
      */
     authenticate(email: string, password: string) {
         return new Promise((resolve, reject) => {
+            console.log('chegou');
             fetch(`${HOST}users/authenticate`, {
                 //fetch('http://localhost:3000/users/authenticate', {
                 method: 'POST',
@@ -104,27 +105,27 @@ export class AuthenticateService {
         //     });
     }
 
-    logout() {
-        return fetch(`${HOST}users/logout`, {
-            method: 'post',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem("tkn")}`
-            },
-        }).then(res => {
-            if (res.status == 400) {
-                alert("Houve um erro ao Deslogar");
-            }
-            if (res.status == 200) {
-                localStorage.removeItem("tkn");
-                localStorage.removeItem("email");
-                localStorage.removeItem("id");
-                window.location.href = 'index.html';
-            }
-        }).catch(error => {
-            console.log("error: ", error);
-            return error;
-        });
-    }
+    // logout() {
+    //     return fetch(`${HOST}users/logout`, {
+    //         method: 'post',
+    //         headers: {
+    //             'Accept': 'application/json, text/plain, */*',
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${localStorage.getItem("tkn")}`
+    //         },
+    //     }).then(res => {
+    //         if (res.status == 400) {
+    //             alert("Houve um erro ao Deslogar");
+    //         }
+    //         if (res.status == 200) {
+    //             localStorage.removeItem("tkn");
+    //             localStorage.removeItem("email");
+    //             localStorage.removeItem("id");
+    //             window.location.href = 'index.html';
+    //         }
+    //     }).catch(error => {
+    //         console.log("error: ", error);
+    //         return error;
+    //     });
+    // }
 }

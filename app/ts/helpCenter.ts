@@ -4,6 +4,8 @@ import { HomeController } from "./controllers/HomeController";
 import { getUser } from "./utils/userData";
 
 let userData = getUser();
+if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+
 const controller = new HelpCenterController();
 // const homeController = new HomeController();
 

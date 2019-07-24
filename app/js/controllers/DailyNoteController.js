@@ -1,6 +1,6 @@
-System.register(["../models/DailyNote", "../services/DailyNoteService", "../helpers/index", "../validation/dailyNoteValidate", "../utils/listCheck", "../views/UserMenuView"], function (exports_1, context_1) {
+System.register(["../models/DailyNote", "../services/DailyNoteService", "../helpers/index", "../validation/dailyNoteValidate", "../utils/listCheck"], function (exports_1, context_1) {
     "use strict";
-    var DailyNote_1, DailyNoteService_1, index_1, index_2, vals, listCheck_1, UserMenuView_1, DailyNoteController;
+    var DailyNote_1, DailyNoteService_1, index_1, index_2, vals, listCheck_1, DailyNoteController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -19,9 +19,6 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
             },
             function (listCheck_1_1) {
                 listCheck_1 = listCheck_1_1;
-            },
-            function (UserMenuView_1_1) {
-                UserMenuView_1 = UserMenuView_1_1;
             }
         ],
         execute: function () {
@@ -45,8 +42,6 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         index_1.validate(this.editToday, vals.today),
                         index_1.validate(this.editImpediment, vals.impediment)
                     ];
-                    this.user = new UserMenuView_1.UserMenuView("#user-menu-login-link");
-                    this.user.update('');
                 }
                 add(event) {
                     event.preventDefault();
