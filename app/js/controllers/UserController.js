@@ -1,6 +1,6 @@
 System.register(["../models/User", "../services/UserService", "../helpers/index", "../validation/userValidate", "../utils/listCheck", "../views/MessageView"], function (exports_1, context_1) {
     "use strict";
-    var User_1, UserService_1, index_1, vals, listCheck_1, MessageView_1, UserController;
+    var User_1, UserService_1, index_1, index_2, vals, listCheck_1, MessageView_1, UserController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -12,6 +12,7 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
             },
             function (index_1_1) {
                 index_1 = index_1_1;
+                index_2 = index_1_1;
             },
             function (vals_1) {
                 vals = vals_1;
@@ -146,12 +147,8 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
                         passwordConfirm.removeAttribute('disabled');
                     }
                     else {
-                        password.value = '';
-                        passwordConfirm.value = '';
-                        password.classList.remove('is-valid');
-                        password.classList.remove('is-invalid');
-                        passwordConfirm.classList.remove('is-valid');
-                        passwordConfirm.classList.remove('is-invalid');
+                        index_2.clean(password);
+                        index_2.clean(passwordConfirm);
                         password.setAttribute('disabled', 'true');
                         passwordConfirm.setAttribute('disabled', 'true');
                     }
