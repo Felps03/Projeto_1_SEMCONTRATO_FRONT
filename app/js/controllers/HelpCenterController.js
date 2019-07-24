@@ -203,6 +203,7 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         return result.json();
                     })
                         .then((res) => {
+                        console.log(res);
                         const posts = index_1.Posts.from(res.slice(0, -1));
                         this.postsView.update(posts);
                         Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {

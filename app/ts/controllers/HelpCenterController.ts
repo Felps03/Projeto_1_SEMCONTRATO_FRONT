@@ -238,11 +238,12 @@ export class HelpCenterController {
 		let title = this.searchTitle.value;
 		const helpCenterService = new HelpCenterService();
 		helpCenterService
-			.findByJoker(title)
+			.findByJoker(title, 1)
 			.then((result) => {
 				return result.json();
 			})
 			.then((res) => {
+				console.log(res);
 				const posts = Posts.from(res.slice(0, -1));
 				this.postsView.update(posts);
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {

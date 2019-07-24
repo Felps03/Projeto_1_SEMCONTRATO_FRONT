@@ -76,7 +76,8 @@ export class HelpCenterService {
     }
 
     findByJoker(joker: string) {
-        return fetch(`${HOST}helps/post/joker/1`, {
+       
+        return fetch(`${HOST}helps/list/joker/1`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
