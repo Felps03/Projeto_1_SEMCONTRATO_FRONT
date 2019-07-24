@@ -24,7 +24,7 @@ export class Posts {
         const newPosts = new Posts()
 
         arr.forEach((val: any) => {
-            newPosts.add(new Post(val.title, val.desc, val.id_user, val.owner, val._id))
+            newPosts.add(new Post(val.title, val.desc, val.id_user, val.owner,  val.date ,val._id))
         })
 
         return newPosts

@@ -164,8 +164,7 @@ export class HelpCenterAskController {
             .then(result => {
                 return result.json()
             }).then(res => {
-                console.log('CHE', res);
-
+               
                 this.postAsksView.update(
                     PostAsks.from(
                         res.filter((ask: any) => ask['id_helpCenter'] === ID_POST)

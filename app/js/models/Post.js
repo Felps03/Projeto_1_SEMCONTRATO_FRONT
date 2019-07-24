@@ -6,11 +6,12 @@ System.register([], function (exports_1, context_1) {
         setters: [],
         execute: function () {
             Post = class Post {
-                constructor(title, desc, authorId, authorName, id) {
+                constructor(title, desc, authorId, authorName, date, id) {
                     this.title = title;
                     this.desc = desc;
                     this.authorId = authorId;
                     this.authorName = authorName;
+                    this.date = date;
                     this.id = id;
                 }
                 get Title() {
@@ -24,6 +25,11 @@ System.register([], function (exports_1, context_1) {
                 }
                 get AuthorName() {
                     return this.authorName;
+                }
+                get Date() {
+                    let hoje = new Date(this.date);
+                    let options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+                    return hoje.toLocaleDateString('pt-BR', options);
                 }
                 get Id() {
                     return this.id;

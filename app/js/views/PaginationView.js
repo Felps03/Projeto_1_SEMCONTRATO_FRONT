@@ -29,8 +29,6 @@ System.register(["./View"], function (exports_1, context_1) {
                     return ns;
                 }
                 template(model) {
-                    console.log(model);
-                    console.log(this.generatePageNs(model));
                     return `
         <li class="page-item">
             <a class="page-link" href="${this.baseUrl}?page=${model - 1}" aria-label="Anterior">
