@@ -11,7 +11,7 @@ System.register([], function (exports_1, context_1) {
             let finalYearS;
             if (yearLength < currentYearLength) {
                 const year = +yearS;
-                const yearModulo = Math.pow(10, yearLength);
+                const yearModulo = 10 ** yearLength;
                 if (year % yearModulo <= currentYear % yearModulo) {
                     finalYearS =
                         currentYearS.substring(0, currentYearLength - yearLength) +

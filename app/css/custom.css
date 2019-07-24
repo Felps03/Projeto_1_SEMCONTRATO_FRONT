@@ -348,10 +348,19 @@ body {
     background-color: #dba600;
 }
 
-#chatbot-input {
-    height: var(--input-height);
+#chatbot-history ul li button {
+    font-size: .75rem;
 }
 
-.chatbot-options {
+#chatbot-history ul li button:only-child {
+    /* don't know why the offset, it just is */
+    width: calc(100% - .5rem);
+}
+
+#chatbot-history ul li .chatbot-options {
     overflow-x: scroll;
+}
+
+#chatbot-input {
+    height: var(--input-height);
 }
