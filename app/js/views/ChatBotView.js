@@ -37,17 +37,19 @@ System.register(["./View", "../models/Chat", "../helpers/chatbot/chatAnswerParse
         <div id="chatbot-history">
             <ul>
             ${model.History.map((msg) => {
-                        if (msg[0] === Chat_1.ChatAgent.User) {
-                            msg[1] = msg[1].replace('<', '&lt;').replace('>', '&gt;');
+                        const author = msg[0];
+                        let content = msg[1];
+                        if (author === Chat_1.ChatAgent.User) {
+                            content = content.replace('<', '&lt;').replace('>', '&gt;');
                         }
                         else {
-                            msg[1] = chatAnswerParser_1.parseView(msg[1]);
+                            content = chatAnswerParser_1.parseView(content);
                         }
-                        msg[1] = msg[1].replace('\n', '<br>');
+                        content = content.replace(/\n/g, '<br>');
                         return `
-                <li data-author="${msg[0]}" class="shadow-sm">
+                <li data-author="${author}" class="shadow-sm">
                     <span class="chatbot-msg">
-                        ${msg[1]}
+                        ${content}
                     </span>
                 </li>
             `;
