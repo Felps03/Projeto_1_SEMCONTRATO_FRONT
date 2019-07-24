@@ -1,13 +1,18 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "target": "es2018",
         "outDir": "app/js",
-        "noEmitOnError": true, 
+        "noEmitOnError": true,
         "noImplicitAny": true,
         "removeComments": true,
         "module": "system",
-        "strictNullChecks": false,      
-        "experimentalDecorators": true
+        "strictNullChecks": false,
+        "experimentalDecorators": true,
+        "lib": [
+            "dom",
+            "es2018",
+            "esnext.asynciterable"
+        ]
     },
     "include": [
         "app/ts/**/*"
