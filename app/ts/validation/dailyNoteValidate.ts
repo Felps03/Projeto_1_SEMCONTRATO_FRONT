@@ -5,7 +5,7 @@ export function yesterday(first: InputWrapper): string | null {
         return 'Descrição muito pequena.'
     }
     else if (!first.value.toString().match('([A-ZÀ-Úa-zà-ú])')) {
-        return 'Não pode só numeros.'
+        return 'Informação inválida.'
     }
     else {
         return null
@@ -17,7 +17,7 @@ export function today(today: InputWrapper): string | null {
         return 'Descrição muito pequena.'
     }
     else if (!today.value.toString().match('([A-ZÀ-Úa-zà-ú])')) {
-        return 'Não pode só numeros.'
+        return 'Informação inválida.'
     }
     else {
         return null
@@ -29,7 +29,7 @@ export function impediment(third: InputWrapper): string | null {
         return 'Descrição muito pequena.'
     }
     else if (!third.value.toString().match('([A-ZÀ-Úa-zà-ú])')) {
-        return 'Não pode só numeros.'
+        return 'Informação inválida.'
     }
     else {
         return null
