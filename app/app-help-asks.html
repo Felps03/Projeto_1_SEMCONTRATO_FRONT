@@ -50,7 +50,7 @@
 
                         <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
                             <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
-                        <a class="dropdown-item d-flex align-items-center" href="home.html">
+                        <a class="dropdown-item d-flex align-items-center" href="index.html">
                             <i class="material-icons mr-2">home</i>Home</a>
 
                         <div class="dropdown-divider"></div>
@@ -87,11 +87,11 @@
     <script src="./lib/bootstrap/bootstrap.min.js"></script>
     <script src="./lib/particlejs/particle.min.js"></script>
     <script src="./lib/particlejs/particle-config.js"></script>
-    <script src='./js/app-help-asks.js'></script>
 
     <script src="lib/system.js"></script>
     <script>
         System.defaultJSExtensions = true;
+        System.import('js/app-help-asks.js').catch(err => console.error(err));
         System.import('js/logout.js').catch(err => console.error(err));
         System.import('js/chatbot.js').catch(err => console.error(err))
     </script>

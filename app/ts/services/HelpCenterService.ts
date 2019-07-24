@@ -89,6 +89,18 @@ export class HelpCenterService {
         });
     }
 
+    listByID(ID: string) {
+        return fetch(`${HOST}helps/post/${ID}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
+            }
+        })
+    }
+
     // findByDesc(desc: string) {
     //     return fetch(`${HOST}helps/post/desc/1`, {
     //         method: 'POST',
