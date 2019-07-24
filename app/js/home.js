@@ -13,7 +13,7 @@ System.register(["./controllers/AuthenticateController", "./controllers/DailyNot
         ],
         execute: function () {
             if (localStorage.getItem('tkn')) {
-                window.location.href = "home.html";
+                window.location.href = "index.html";
             }
             authenticate = document.querySelector('#login-form');
             if (authenticate) {

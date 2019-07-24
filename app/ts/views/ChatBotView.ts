@@ -34,23 +34,22 @@ export class ChatBotView extends View<Chat> {
         <div id="chatbot-history">
             <ul>
             ${model.History.map((msg: [ChatAgent, string]) => {
-            // if the author is the user, escape it
 
+            let processedMsg
+            // if the author is the user, escape it
             if (msg[0] === ChatAgent.User) {
-                msg[1] = msg[1].replace('<', '&lt;').replace('>', '&gt;')
+                processedMsg = msg[1].replace('<', '&lt;').replace('>', '&gt;')
             } else {
-                msg[1] = parseView(msg[1])
+                processedMsg = parseView(msg[1])
             }
 
-            msg[1] = msg[1].replace('\n', '<br>')
+            processedMsg = processedMsg.replace('\n', '<br>')
 
             return `
-                <li data-author="${msg[0]}" class="shadow-sm">
-                    <span class="chatbot-msg">
-                        ${msg[1]}
-                    </span>
-                </li>
-            `
+                    <li data-author="${msg[0]}" class="shadow-sm ${/^\s*{{button\(\w*\)}}\s*$/.test(msg[1]) ? 'w-100 p-0' : ''}">
+                            ${processedMsg}
+                    </li>
+                `
         }).join('')} 
             </ul>
         </div>

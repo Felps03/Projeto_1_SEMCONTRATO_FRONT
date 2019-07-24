@@ -3,7 +3,7 @@ import { UserController } from "./controllers/UserController";
 import { DailyNoteController } from "./controllers/DailyNoteController";
 
 if (localStorage.getItem('tkn')) {
-    window.location.href = "home.html";
+    window.location.href = "index.html";
 }
 
 let authenticate = document.querySelector('#login-form');
