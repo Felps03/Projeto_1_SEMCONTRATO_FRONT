@@ -34,10 +34,13 @@ export class ChatBotController {
             this.messageInput = <HTMLInputElement>document.getElementById('chatbot-input-field')
         })
 
-        this.chatBotManager = new ChatBotManager()
-        this.chatBotView.update(
-            this.chatBotManager.init()
-        )
+        this.chatBotManager = new ChatBotManager();
+
+        (async () => {
+            for await (const chat of this.chatBotManager.init()) {
+                this.chatBotView.update(chat)
+            }
+        })()
 
     }
 
@@ -57,12 +60,14 @@ export class ChatBotController {
         }
     }
 
-    clear(event: Event) {
+    async clear(event: Event) {
         event.preventDefault()
 
-        this.chatBotView.update(
-            this.chatBotManager.clear()
-        )
+        for await (const chat of this.chatBotManager.clear()) {
+            this.chatBotView.update(
+                chat
+            )
+        }
     }
 
 }

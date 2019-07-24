@@ -34,10 +34,25 @@ System.register(["../models/index", "../views/ChatBotView", "../helpers/chatbot/
                         this.messageInput = document.getElementById('chatbot-input-field');
                     });
                     this.chatBotManager = new ChatBotManager_1.ChatBotManager();
-                    this.chatBotView.update(this.chatBotManager.init());
+                    (async () => {
+                        var e_1, _a;
+                        try {
+                            for (var _b = __asyncValues(this.chatBotManager.init()), _c; _c = await _b.next(), !_c.done;) {
+                                const chat = _c.value;
+                                this.chatBotView.update(chat);
+                            }
+                        }
+                        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                        finally {
+                            try {
+                                if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
+                            }
+                            finally { if (e_1) throw e_1.error; }
+                        }
+                    })();
                 }
                 async message(event, msg) {
-                    var e_1, _a;
+                    var e_2, _a;
                     event.preventDefault();
                     if (!msg) {
                         msg = [index_1.ChatAgent.User, this.messageInput.value];
@@ -49,17 +64,30 @@ System.register(["../models/index", "../views/ChatBotView", "../helpers/chatbot/
                             this.chatBotView.update(chat);
                         }
                     }
-                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                    catch (e_2_1) { e_2 = { error: e_2_1 }; }
                     finally {
                         try {
                             if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
                         }
-                        finally { if (e_1) throw e_1.error; }
+                        finally { if (e_2) throw e_2.error; }
                     }
                 }
-                clear(event) {
+                async clear(event) {
+                    var e_3, _a;
                     event.preventDefault();
-                    this.chatBotView.update(this.chatBotManager.clear());
+                    try {
+                        for (var _b = __asyncValues(this.chatBotManager.clear()), _c; _c = await _b.next(), !_c.done;) {
+                            const chat = _c.value;
+                            this.chatBotView.update(chat);
+                        }
+                    }
+                    catch (e_3_1) { e_3 = { error: e_3_1 }; }
+                    finally {
+                        try {
+                            if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
+                        }
+                        finally { if (e_3) throw e_3.error; }
+                    }
                 }
             };
             exports_1("ChatBotController", ChatBotController);

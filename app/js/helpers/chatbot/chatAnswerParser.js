@@ -4,12 +4,8 @@ System.register(["./chatAnswerTemplates"], function (exports_1, context_1) {
     var __moduleName = context_1 && context_1.id;
     function parseState(state, raw) {
         let response = raw;
-        console.log(response);
         response = response
             .replace(/([^\\])\$(\w+)/, (match, p1, p2) => {
-            console.log(match, p1, p2);
-            console.log(state);
-            console.log(p1 + state.get(p2));
             return p1 + state.get(p2);
         })
             .replace('\\$', '$');
@@ -18,7 +14,6 @@ System.register(["./chatAnswerTemplates"], function (exports_1, context_1) {
     exports_1("parseState", parseState);
     function parseView(raw) {
         let response = raw;
-        console.log('parseView ->', response);
         const matches = raw.match(/{{[^}}]*}}/g);
         if (!matches)
             return response;

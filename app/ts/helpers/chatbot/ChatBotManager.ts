@@ -11,24 +11,25 @@ export class ChatBotManager {
 
     public DELAY_TIME: number
 
-    constructor(DELAY_TIME: number = 300) {
+    constructor(DELAY_TIME: number = 250) {
         this.chat = new Chat()
         this.state = new Map<string, string>()
 
         this.DELAY_TIME = DELAY_TIME
     }
 
-    init() {
+    async *init() {
         this.getFromStorage()
 
         // simpler conditions weren't possible for some reason
         if (this.chat.History.length === 0) {
-            this.message([ChatAgent.Bot, this.toBranch(mainBranch)])
+            console.log('init')
+            yield* this.answer()
+        } else {
+            yield this.chat
         }
 
         this.store()
-
-        return this.chat
     }
 
     message(msg: [ChatAgent, string]): Chat {
@@ -44,64 +45,89 @@ export class ChatBotManager {
         if (dialog[this.context]) {
             let success = false
             const lastMsg = this.chat.LastMsg
-            const normalizedMsg = lastMsg ? normalize(lastMsg[1]) : ''
 
-            for (let branch of dialog[this.context]) {
-                if (branch.call) {
-                    for (let synonym of branch.call) {
-                        const processed = new RegExp(synonym).exec(
-                            normalizedMsg
-                        )
+            // answering to something
+            if (lastMsg) {
+                const normalizedMsg = lastMsg ? normalize(lastMsg[1]) : ''
 
-                        if (processed) {
-                            success = true
-
-                            // default to true
-                            if (branch.artificialDelay === undefined)
-                                branch.artificialDelay = true
-
-                            if (branch.process) {
-                                branch.process(this.state, processed)
-                            }
-
-                            const actualState = this.state
-                            const possiblePre = this.toBranch(branch)
-
-                            let msgs: [ChatAgent, string][] = branch.answer.map(
-                                (msg: string): [ChatAgent, string] => [
-                                    ChatAgent.Bot,
-                                    parseState(actualState, msg)
-                                ]
+                for (let branch of dialog[this.context].children) {
+                    if (branch.call) {
+                        for (let synonym of branch.call) {
+                            const processed = new RegExp(synonym).exec(
+                                normalizedMsg
                             )
 
-                            if (possiblePre) {
-                                msgs.push([
-                                    ChatAgent.Bot,
-                                    parseState(actualState, possiblePre)
-                                ])
-                            }
+                            if (processed) {
+                                success = true
 
-                            for (const msg of msgs) {
-                                yield delay(this.message(msg), branch.artificialDelay ? this.DELAY_TIME : 0)
-                            }
+                                // default to true
+                                if (branch.artificialDelay === undefined)
+                                    branch.artificialDelay = true
 
-                            return
+                                if (branch.process) {
+                                    branch.process(this.state, processed)
+                                }
+
+                                const actualState = this.state
+                                this.toBranch(branch)
+                                const possibleGreet = dialog[this.context].greet
+
+                                let msgs: [ChatAgent, string][] = branch.answer.map(
+                                    (msg: string): [ChatAgent, string] => [
+                                        ChatAgent.Bot,
+                                        parseState(actualState, msg)
+                                    ]
+                                )
+
+                                if (possibleGreet) {
+                                    possibleGreet.forEach(greet => {
+                                        msgs.push([
+                                            ChatAgent.Bot,
+                                            parseState(actualState, greet)
+                                        ])
+                                    })
+                                }
+
+                                for (const msg of msgs) {
+                                    yield delay(this.message(msg), branch.artificialDelay ? this.DELAY_TIME : 0)
+                                }
+
+                                return
+                            }
                         }
                     }
                 }
-            }
 
-            if (!success) {
+                if (!success) {
 
-                this.store()
+                    this.store()
 
-                for (let msg of dialog['understandnt'][0].answer) {
-                    yield delay(this.message(
-                        [
-                            ChatAgent.Bot,
-                            parseState(this.state, msg)
-                        ]
-                    ), this.DELAY_TIME)
+                    for (let msg of dialog['understandnt'].children[0].answer) {
+                        yield delay(this.message(
+                            [
+                                ChatAgent.Bot,
+                                parseState(this.state, msg)
+                            ]
+                        ), this.DELAY_TIME)
+                    }
+                }
+                // if answering to nothing
+            } else {
+                let msgs: [ChatAgent, string][] = []
+                // main greeting
+                msgs.push([ChatAgent.Bot, mainBranch.greet])
+                // greeting of the branch to go to, if exists
+                this.toBranch(mainBranch)
+
+                const possibleGreet = dialog[this.context].greet
+                if (possibleGreet) {
+                    possibleGreet.forEach(greet => {
+                        msgs.push([ChatAgent.Bot, greet])
+                    })
+                }
+
+                for (const msg of msgs) {
+                    yield delay(this.message(msg), this.DELAY_TIME)
                 }
             }
 
@@ -122,16 +148,12 @@ export class ChatBotManager {
         )
     }
 
-    toBranch(branch: DialogBranch): string {
+    toBranch(branch: DialogBranch) {
         this.context = branch.goto
         if (this.context === mainBranch.goto) {
             this.state = new Map<string, string>()
         }
         this.store()
-
-        if (dialog[this.context][0].pre) {
-            return dialog[this.context][0].pre
-        }
     }
 
     getFromStorage() {
@@ -143,12 +165,12 @@ export class ChatBotManager {
         }
     }
 
-    clear() {
+    async *clear() {
         this.toBranch(mainBranch)
         this.chat = new Chat()
         this.store()
         this.init()
-        return this.chat
+        yield* this.answer()
     }
 
     get Chat() {
