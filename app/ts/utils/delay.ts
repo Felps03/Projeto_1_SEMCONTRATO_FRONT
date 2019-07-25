@@ -5,3 +5,14 @@ export function delay(val: any, delay: number): Promise<any> {
         }, delay)
     })
 }
+
+function delayHelp(callback: any, ms: any) {
+    var timer = 0;
+    return function() {
+      var context = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        callback.apply(context, args);
+      }, ms || 0);
+    };
+  }

@@ -77,8 +77,8 @@ System.register(["../config/index"], function (exports_1, context_1) {
                         }
                     });
                 }
-                findByJoker(joker) {
-                    return fetch(`${index_1.HOST}helps/list/joker/1`, {
+                findByJoker(joker, page) {
+                    return fetch(`${index_1.HOST}helps/list/joker/${page}`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',

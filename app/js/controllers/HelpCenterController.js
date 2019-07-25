@@ -193,12 +193,12 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         console.log(error);
                     });
                 }
-                findByTitle(event) {
+                findByJoker(event) {
                     event.preventDefault();
                     let title = this.searchTitle.value;
                     const helpCenterService = new index_2.HelpCenterService();
                     helpCenterService
-                        .findByJoker(title)
+                        .findByJoker(title, 1)
                         .then((result) => {
                         return result.json();
                     })

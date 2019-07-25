@@ -75,9 +75,9 @@ export class HelpCenterService {
         })
     }
 
-    findByJoker(joker: string) {
+    findByJoker(joker: string, page: number) {
        
-        return fetch(`${HOST}helps/list/joker/1`, {
+        return fetch(`${HOST}helps/list/joker/${page}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

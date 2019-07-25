@@ -233,16 +233,16 @@ export class HelpCenterController {
 			});
 	}
 
-	findByTitle(event: Event) {
+	findByJoker(event: Event) {
 		event.preventDefault();
 		let title = this.searchTitle.value;
 		const helpCenterService = new HelpCenterService();
 		helpCenterService
 			.findByJoker(title, 1)
-			.then((result) => {
+			.then((result: any) => {
 				return result.json();
 			})
-			.then((res) => {
+			.then((res: any) => {
 				console.log(res);
 				const posts = Posts.from(res.slice(0, -1));
 				this.postsView.update(posts);
