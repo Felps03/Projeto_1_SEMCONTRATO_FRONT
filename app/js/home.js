@@ -30,7 +30,15 @@ System.register(["./controllers/HomeController", "./controllers/DailyNoteControl
             authenticate = document.querySelector('#login-form');
             if (authenticate) {
                 const authenticateController = new AuthenticateController_1.AuthenticateController();
-                authenticate.addEventListener('submit', authenticateController.authenticate.bind(authenticateController));
+                authenticate.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    console.log('oi');
+                    grecaptcha.ready(function () {
+                        grecaptcha.execute('6LfhNKsUAAAAALAOqOT02K16qCAaFAb7G0Lih859', { action: 'user_login' }).then(function (token) {
+                            console.log(token);
+                        });
+                    });
+                });
                 let recuperarEmail = document.querySelector('#recovery-pass-form');
                 if (recuperarEmail) {
                     recuperarEmail.addEventListener('submit', authenticateController.resetPassword.bind(authenticateController));
