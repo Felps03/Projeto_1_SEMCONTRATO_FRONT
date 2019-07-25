@@ -1,17 +1,21 @@
 import { UserService } from "../services/UserService";
 import { HelpCenterService } from "../services/HelpCenterService";
 import { DailyNoteService } from "../services/DailyNoteService";
-import { DailyNote, HomeDailyNote } from "../models/index";
+import { DailyNote, HomeDailyNote, HomeHelpCenter } from "../models/index";
 import { HomeDailyView } from "../views/HomeDailyView";
 import { DailyNotes } from "../models/DailyNotes";
 import { HomeDailyNotes } from "../models/HomeDailyNotes";
+import { HomeHelpCenterView } from "../views/HomeHelpCenterView";
+import { HomeHelpCenters } from "../models/HomeHelpCenters";
 
 export class HomeController {
 
     private dailyView : HomeDailyView;
+    private helpCenterView : HomeHelpCenterView;
 
     constructor() {
         this.dailyView = new HomeDailyView('#all-dailys');
+        this.helpCenterView = new HomeHelpCenterView('#last-helps');
     }
 
     getUser() {
@@ -45,42 +49,14 @@ export class HomeController {
             .then(result => {
                 return result.json();
             })
-            .then(result => {
-                let row = <HTMLElement>document.querySelector('#last-helps');
-                row.innerHTML = "";
+            .then(results => {
+                let helpCenters = new HomeHelpCenters();
 
-                let results = result.length;
+                results.pop();
+                results.map((result: any) => new HomeHelpCenter(result['owner'], result['date'], result['title'], result['desc']))
+                .forEach((result: any) => helpCenters.add(result))
 
-                for (let aux = 0; aux < 3; aux++) {
-                    let date = new Date(result[aux]['date']);
-                    let dateFormatted = `${date.getDate()+1}/${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}/${date.getFullYear()}`;
-
-                    row.innerHTML += `
-                    <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
-                        <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
-                            <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
-                                <div>
-                                    <h5 class="mt-2 mb-2 ml-4">${result[aux]['owner']}</h5>
-                                    <p class="mt-2 mb-2 ml-4">${dateFormatted}</p>
-                                    <button type="button" name="view"
-                                        class="btn btn-outline-info btn-sm input-circle pt-2 ml-4" id="resp-view"
-                                        data-toggle="modal" data-target="#respModal">
-                                        <i class="small material-icons">description</i>
-                                    </button>
-                                </div>  
-                            </div>
-                        </div>
-                        <div class="col-md-9 col-12 card-body">
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <h5>${result[aux]['title']}</h5>
-                                    <p>${result[aux]['desc']}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
-                }
+                this.helpCenterView.update(helpCenters);
             })
             .catch(error => {
                 console.error(error);

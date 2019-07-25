@@ -1,6 +1,6 @@
-System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../models/index", "../views/HomeDailyView", "../models/HomeDailyNotes"], function (exports_1, context_1) {
+System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../models/index", "../views/HomeDailyView", "../models/HomeDailyNotes", "../views/HomeHelpCenterView", "../models/HomeHelpCenters"], function (exports_1, context_1) {
     "use strict";
-    var UserService_1, HelpCenterService_1, DailyNoteService_1, index_1, HomeDailyView_1, HomeDailyNotes_1, HomeController;
+    var UserService_1, HelpCenterService_1, DailyNoteService_1, index_1, HomeDailyView_1, HomeDailyNotes_1, HomeHelpCenterView_1, HomeHelpCenters_1, HomeController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -21,12 +21,19 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
             },
             function (HomeDailyNotes_1_1) {
                 HomeDailyNotes_1 = HomeDailyNotes_1_1;
+            },
+            function (HomeHelpCenterView_1_1) {
+                HomeHelpCenterView_1 = HomeHelpCenterView_1_1;
+            },
+            function (HomeHelpCenters_1_1) {
+                HomeHelpCenters_1 = HomeHelpCenters_1_1;
             }
         ],
         execute: function () {
             HomeController = class HomeController {
                 constructor() {
                     this.dailyView = new HomeDailyView_1.HomeDailyView('#all-dailys');
+                    this.helpCenterView = new HomeHelpCenterView_1.HomeHelpCenterView('#last-helps');
                 }
                 getUser() {
                     let data;
@@ -55,39 +62,12 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         .then(result => {
                         return result.json();
                     })
-                        .then(result => {
-                        let row = document.querySelector('#last-helps');
-                        row.innerHTML = "";
-                        let results = result.length;
-                        for (let aux = 0; aux < 3; aux++) {
-                            let date = new Date(result[aux]['date']);
-                            let dateFormatted = `${date.getDate() + 1}/${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}/${date.getFullYear()}`;
-                            row.innerHTML += `
-                    <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
-                        <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
-                            <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
-                                <div>
-                                    <h5 class="mt-2 mb-2 ml-4">${result[aux]['owner']}</h5>
-                                    <p class="mt-2 mb-2 ml-4">${dateFormatted}</p>
-                                    <button type="button" name="view"
-                                        class="btn btn-outline-info btn-sm input-circle pt-2 ml-4" id="resp-view"
-                                        data-toggle="modal" data-target="#respModal">
-                                        <i class="small material-icons">description</i>
-                                    </button>
-                                </div>  
-                            </div>
-                        </div>
-                        <div class="col-md-9 col-12 card-body">
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <h5>${result[aux]['title']}</h5>
-                                    <p>${result[aux]['desc']}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
-                        }
+                        .then(results => {
+                        let helpCenters = new HomeHelpCenters_1.HomeHelpCenters();
+                        results.pop();
+                        results.map((result) => new index_1.HomeHelpCenter(result['owner'], result['date'], result['title'], result['desc']))
+                            .forEach((result) => helpCenters.add(result));
+                        this.helpCenterView.update(helpCenters);
                     })
                         .catch(error => {
                         console.error(error);
