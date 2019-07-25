@@ -1,6 +1,6 @@
-System.register(["../models/DailyNote", "../services/DailyNoteService", "../helpers/index", "../validation/dailyNoteValidate", "../utils/listCheck", "../views/UserMenuView"], function (exports_1, context_1) {
+System.register(["../models/DailyNote", "../services/DailyNoteService", "../helpers/index", "../validation/dailyNoteValidate", "../utils/listCheck", "../views/DailyNotesView", "../views/UserMenuView", "../views/PaginationView"], function (exports_1, context_1) {
     "use strict";
-    var DailyNote_1, DailyNoteService_1, index_1, vals, listCheck_1, UserMenuView_1, DailyNoteController;
+    var DailyNote_1, DailyNoteService_1, index_1, vals, listCheck_1, DailyNotesView_1, UserMenuView_1, PaginationView_1, DailyNoteController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -19,13 +19,19 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
             function (listCheck_1_1) {
                 listCheck_1 = listCheck_1_1;
             },
+            function (DailyNotesView_1_1) {
+                DailyNotesView_1 = DailyNotesView_1_1;
+            },
             function (UserMenuView_1_1) {
                 UserMenuView_1 = UserMenuView_1_1;
+            },
+            function (PaginationView_1_1) {
+                PaginationView_1 = PaginationView_1_1;
             }
         ],
         execute: function () {
             DailyNoteController = class DailyNoteController {
-                constructor() {
+                constructor(totalPages = 1) {
                     this.yesterday = document.querySelector('#yesterday');
                     this.today = document.querySelector('#today');
                     this.impediment = document.querySelector('#impediment');
@@ -34,6 +40,10 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     this.editYesterday = document.querySelector('#edit-yesterday');
                     this.editToday = document.querySelector('#edit-today');
                     this.editImpediment = document.querySelector('#edit-impediment');
+                    this.dailyNotesView = new DailyNotesView_1.DailyNotesView('#dayliesResult');
+                    this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-daily-note.html');
+                    this.totalPages = totalPages;
+                    this.paginationView.update(1, this.totalPages);
                     this.addVals = [
                         index_1.validate(this.yesterday, vals.yesterday),
                         index_1.validate(this.today, vals.today),
@@ -57,6 +67,13 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         return dailyNoteService.add(this.yesterday.value, this.today.value, this.impediment.value, new Date());
                     }
                 }
+                set CurrentPage(page) {
+                    this.currentPage = page;
+                    this.paginationView.update(this.currentPage, this.totalPages);
+                }
+                set TotalPages(total) {
+                    this.totalPages = total;
+                }
                 listD(event) {
                     event.preventDefault();
                     let date = document.querySelector('#date_filter');
@@ -76,6 +93,10 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         return res.json();
                     })
                         .then(result => {
+                        console.log(result);
+                        console.log(result[result.length - 1].totalPages);
+                        this.TotalPages = result[result.length - 1].totalPages;
+                        this.paginationView.update(page, this.totalPages, date.value);
                         return result;
                     });
                 }

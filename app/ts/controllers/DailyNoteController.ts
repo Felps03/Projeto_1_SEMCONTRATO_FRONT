@@ -1,10 +1,12 @@
 import { DailyNote } from '../models/DailyNote';
+import { DailyNotes } from '../models/DailyNotes';
 import { DailyNoteService } from '../services/DailyNoteService';
 import { validate } from '../helpers/index'
 import * as vals from '../validation/dailyNoteValidate';
 import { noFalse } from '../utils/listCheck';
 import { DailyNotesView } from '../views/DailyNotesView';
 import { UserMenuView } from '../views/UserMenuView';
+import { PaginationView } from '../views/PaginationView';
 
 export class DailyNoteController {
 
@@ -18,12 +20,18 @@ export class DailyNoteController {
     private editToday: HTMLInputElement;
     private editImpediment: HTMLInputElement;
 
+    private dailyNotesView: DailyNotesView;
+    private paginationView: PaginationView;
+
     private addVals: (() => boolean)[];
     private editVals: (() => boolean)[];
     private user: UserMenuView;
 
+    private currentPage: number;
+	private totalPages: number;
 
-    constructor() {
+
+    constructor(totalPages: number = 1) {
         this.yesterday = <HTMLInputElement>document.querySelector('#yesterday');
         this.today = <HTMLInputElement>document.querySelector('#today');
         this.impediment = <HTMLInputElement>document.querySelector('#impediment');
@@ -34,6 +42,12 @@ export class DailyNoteController {
         this.editYesterday = <HTMLInputElement>document.querySelector('#edit-yesterday');
         this.editToday = <HTMLInputElement>document.querySelector('#edit-today');
         this.editImpediment = <HTMLInputElement>document.querySelector('#edit-impediment');
+        this.dailyNotesView = new DailyNotesView('#dayliesResult');
+        this.paginationView = new PaginationView('#pagination', 'app-daily-note.html');
+
+		this.totalPages = totalPages;
+
+		this.paginationView.update(1, this.totalPages);
         // init validations
         this.addVals = [
             validate(this.yesterday, vals.yesterday),
@@ -97,6 +111,17 @@ export class DailyNoteController {
         }
     }
 
+    // set PaginationView(date:string){
+    //     this.paginationView.BaseUrl = `app-daily-note.html?${date}&`;
+    // }
+    set CurrentPage(page: number) {
+		this.currentPage = page;
+		this.paginationView.update(this.currentPage, this.totalPages);
+	}
+	set TotalPages(total: number) {
+        this.totalPages = total;
+    }
+
     listD(event: Event) {
         event.preventDefault();
 
@@ -128,6 +153,10 @@ export class DailyNoteController {
                 return res.json();
             })
             .then(result => {
+                console.log(result);
+                console.log(result[result.length-1].totalPages);
+                this.TotalPages = result[result.length-1].totalPages;
+                this.paginationView.update(page, this.totalPages, date.value);
                 // console.log(result);
                 return result
             });

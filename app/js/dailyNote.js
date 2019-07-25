@@ -76,52 +76,17 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
         const result = controller.listD(event);
         if (result) {
             result.then((result) => {
-                result.forEach((r) => {
-                    const daily = new index_1.DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
-                    let totalPages;
-                    if (r.hasOwnProperty('totalPages')) {
-                        totalPages = parseInt(r.totalPages);
-                        let header_pagination = '';
-                        let string_li = '';
-                        let footer_pagination = '';
-                        const dateValue = url_date || dateField.value;
-                        if (totalPagesDiv) {
-                            header_pagination = `
-                        <nav aria-label="daily-nav" class="float-right">
-                        <ul class="pagination">
-                        <li class="page-item">
-                        </a>
-                        </li>
-                        `;
-                            let i = 0;
-                            string_li = '';
-                            for (i; i < totalPages; i++) {
-                                string_li += `
-                            <li class="page-item"><a class="page-link" href="app-daily-note.html?page=${i +
-                                    1}&date=${dateValue}">${i + 1}</a></li>
-								`;
-                            }
-                            footer_pagination = `
-							<li class="page-item" >
-                        
-							`;
-                            const nav_pagination = document.createElement('nav');
-                            const fullString = header_pagination + string_li + footer_pagination;
-                            nav_pagination.innerHTML = fullString;
-                            totalPagesDiv.innerHTML = '';
-                            totalPagesDiv.appendChild(nav_pagination);
-                        }
-                        return;
-                    }
-                    const owner = r.owner;
-                    const id_owner = r.id_user;
-                    id_daily = r.id_daily;
+                for (let i = 0; i < result.length - 1; i++) {
+                    const daily = new index_1.DailyNote(result[i].yesterday, result[i].today, result[i].impediment, new Date(result[i].date));
+                    const owner = result[i].owner;
+                    const id_owner = result[i].id_user;
+                    id_daily = result[i].id_daily;
                     if (dailyesResult) {
                         mountTable(dailyesResult, daily, owner, id_owner, id_daily);
                     }
                     id_daily = '';
-                    return;
-                });
+                }
+                return;
             });
         }
     }
