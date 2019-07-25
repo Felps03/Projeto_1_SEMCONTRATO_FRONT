@@ -72,8 +72,6 @@ export class AuthenticateController {
 
             authenticateService.resetPassword(this.emailRec.value.toString())
                 .then(res => {
-                    console.log('status', res.status)
-                    // 200, 201, 202, 203...
                     if (Math.floor(res.status / 100) === 2) {
                         res.json()
                             .then(() => {

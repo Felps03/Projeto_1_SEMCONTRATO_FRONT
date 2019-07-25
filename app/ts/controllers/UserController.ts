@@ -2,8 +2,7 @@ import { User } from '../models/User';
 import { UserService } from "../services/UserService";
 import { AuthenticateService } from '../services/index';
 
-import { validate } from '../helpers/index';
-import { clean } from '../helpers/index'
+import { validate, clean } from '../helpers/index'
 
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck'

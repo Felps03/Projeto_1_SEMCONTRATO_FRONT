@@ -1,9 +1,10 @@
 import { DailyNote } from '../models/DailyNote';
 import { DailyNoteService } from '../services/DailyNoteService';
-import { validate } from '../helpers/index'
-import { clean } from '../helpers/index'
+
+import { validate, clean } from '../helpers/index'
 import * as vals from '../validation/dailyNoteValidate';
 import { noFalse } from '../utils/listCheck';
+
 import { DailyNotesView } from '../views/DailyNotesView';
 import { UserMenuView } from '../views/UserMenuView';
 import { InputWrapper } from '../utils/index';
@@ -122,6 +123,7 @@ export class DailyNoteController {
         month = ("00" + month).slice(-2);
 
         let fullDate = `${year}-${month}-${day}`;
+
         // console.log("a data completa no controller é: ", fullDate)
         // console.log("A page no controller é: ", page)
         return dailyNoteService.listDate(fullDate, page)
