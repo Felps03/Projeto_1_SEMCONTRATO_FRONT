@@ -21,31 +21,7 @@ if (localStorage.getItem('tkn')) {
 let authenticate = document.querySelector('#login-form');
 if (authenticate) {
     const authenticateController = new AuthenticateController();
-    //authenticate.addEventListener('submit', authenticateController.authenticate.bind(authenticateController));
-
-    authenticate.addEventListener('submit', (event: Event) => {
-        event.preventDefault()
-        console.log('oi');
-
-        console.log( grecaptcha.getResponse());
-      /*
-        grecaptcha.ready(function () {
-            grecaptcha.execute( grecaptcha.getResponse(), { action: 'user_login' }).then(function (token: string) {
-               
-            })
-        })
-        */
-    })
-
-    
-//6LfhNKsUAAAAALAOqOT02K16qCAaFAb7G0Lih859
-
-
-
-
-
-
-
+    authenticate.addEventListener('submit', authenticateController.authenticate.bind(authenticateController));
 
     let recuperarEmail = document.querySelector('#recovery-pass-form');
     if (recuperarEmail) {

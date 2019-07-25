@@ -23,7 +23,8 @@ System.register(["../config/index"], function (exports_1, context_1) {
                             "userName": user.UserName,
                             "email": user.Email,
                             "dateOfBirth": user.DateOfBirth,
-                            "password": user.Password
+                            "password": user.Password,
+                            "g-recaptcha-response": grecaptcha.getResponse()
                         })
                     });
                 }

@@ -30,11 +30,7 @@ System.register(["./controllers/HomeController", "./controllers/DailyNoteControl
             authenticate = document.querySelector('#login-form');
             if (authenticate) {
                 const authenticateController = new AuthenticateController_1.AuthenticateController();
-                authenticate.addEventListener('submit', (event) => {
-                    event.preventDefault();
-                    console.log('oi');
-                    console.log(grecaptcha.getResponse());
-                });
+                authenticate.addEventListener('submit', authenticateController.authenticate.bind(authenticateController));
                 let recuperarEmail = document.querySelector('#recovery-pass-form');
                 if (recuperarEmail) {
                     recuperarEmail.addEventListener('submit', authenticateController.resetPassword.bind(authenticateController));
