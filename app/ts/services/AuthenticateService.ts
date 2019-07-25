@@ -3,6 +3,7 @@ import { HOST } from '../config/index';
 //import { async } from 'q';
 import { UserService } from './UserService';
 
+declare const grecaptcha: any
 export class AuthenticateService {
 
     /**
@@ -23,7 +24,8 @@ export class AuthenticateService {
                 },
                 body: JSON.stringify({
                     "email": email,
-                    "password": password
+                    "password": password,
+                    "g-recaptcha-response": grecaptcha.getResponse()
                 })
             }).then(res => {
                 // console.log(res.headers.get("Token"));
@@ -83,9 +85,9 @@ export class AuthenticateService {
                 "emailCode": emailCode,
                 "email": email
             })
-       }).catch(err => {
-           console.log(err);
-           return err;
+        }).catch(err => {
+            console.log(err);
+            return err;
         })
         // Comentado porque não achei onde chama
         // .then(res => {

@@ -2,6 +2,7 @@ import { User } from '../models/index';
 import { HOST } from '../config/index';
 import { dateOfBirth } from '../validation/userValidate';
 
+declare const grecaptcha: any
 export class UserService {
 
     add(user: User) {
@@ -18,7 +19,8 @@ export class UserService {
                 "userName": user.UserName,
                 "email": user.Email,
                 "dateOfBirth": user.DateOfBirth,
-                "password": user.Password
+                "password": user.Password,
+                "g-recaptcha-response": grecaptcha.getResponse()
             })
         })
     }
