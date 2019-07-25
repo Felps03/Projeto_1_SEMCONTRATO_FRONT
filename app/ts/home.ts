@@ -26,11 +26,15 @@ if (authenticate) {
     authenticate.addEventListener('submit', (event: Event) => {
         event.preventDefault()
         console.log('oi');
+
+        console.log( grecaptcha.getResponse());
+      /*
         grecaptcha.ready(function () {
-            grecaptcha.execute('6LfhNKsUAAAAALAOqOT02K16qCAaFAb7G0Lih859', { action: 'user_login' }).then(function (token: string) {
-                console.log(token);
+            grecaptcha.execute( grecaptcha.getResponse(), { action: 'user_login' }).then(function (token: string) {
+               
             })
         })
+        */
     })
 
     

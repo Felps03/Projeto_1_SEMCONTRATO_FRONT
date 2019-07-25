@@ -33,11 +33,7 @@ System.register(["./controllers/HomeController", "./controllers/DailyNoteControl
                 authenticate.addEventListener('submit', (event) => {
                     event.preventDefault();
                     console.log('oi');
-                    grecaptcha.ready(function () {
-                        grecaptcha.execute('6LfhNKsUAAAAALAOqOT02K16qCAaFAb7G0Lih859', { action: 'user_login' }).then(function (token) {
-                            console.log(token);
-                        });
-                    });
+                    console.log(grecaptcha.getResponse());
                 });
                 let recuperarEmail = document.querySelector('#recovery-pass-form');
                 if (recuperarEmail) {
