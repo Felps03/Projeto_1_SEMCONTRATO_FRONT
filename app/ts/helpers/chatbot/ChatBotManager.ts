@@ -2,6 +2,7 @@ import { Chat, ChatAgent } from '../../models/Chat'
 import { dialog, DialogBranch, mainBranch } from './chatBotTree'
 import { normalize, delay } from '../../utils/index'
 import { parseState } from './chatAnswerParser'
+import { promiser } from '../../utils/promiser';
 
 export class ChatBotManager {
     private chat: Chat
@@ -13,7 +14,7 @@ export class ChatBotManager {
 
     constructor(DELAY_TIME: number = 250) {
         this.chat = new Chat()
-        this.state = new Map<string, string>()
+        this.state = new Map<string, any>()
 
         this.DELAY_TIME = DELAY_TIME
     }
@@ -72,12 +73,30 @@ export class ChatBotManager {
                                 this.toBranch(branch)
                                 const possibleGreet = dialog[this.context].greet
 
-                                let msgs: [ChatAgent, string][] = branch.answer.map(
-                                    (msg: string): [ChatAgent, string] => [
-                                        ChatAgent.Bot,
-                                        parseState(actualState, msg)
-                                    ]
+                                // dialog may have a promise response
+                                let promises: Promise<string>[] = []
+
+                                let msgs: [ChatAgent, string][] = branch.answer.reduce(
+                                    (msgs, msg) => {
+                                        if (msg instanceof Function) {
+                                            const msgVal = promiser(msg(actualState))
+                                            promises.push(msgVal)
+
+                                        } else
+                                            msgs.push([ChatAgent.Bot, parseState(actualState, msg)])
+
+                                        return msgs
+
+                                    }, ([] as [ChatAgent, string][])
                                 )
+
+                                await Promise.all(promises).then((ress: string[]) => {
+                                    ress.forEach(res => {
+                                        msgs.push([ChatAgent.Bot, parseState(actualState, res)])
+                                    })
+                                })
+
+                                console.log(msgs)
 
                                 if (possibleGreet) {
                                     possibleGreet.forEach(greet => {
@@ -103,12 +122,14 @@ export class ChatBotManager {
                     this.store()
 
                     for (let msg of dialog['understandnt'].children[0].answer) {
-                        yield delay(this.message(
-                            [
-                                ChatAgent.Bot,
-                                parseState(this.state, msg)
-                            ]
-                        ), this.DELAY_TIME)
+                        if (typeof msg === 'string') {
+                            yield delay(this.message(
+                                [
+                                    ChatAgent.Bot,
+                                    parseState(this.state, msg)
+                                ]
+                            ), this.DELAY_TIME)
+                        }
                     }
                 }
                 // if answering to nothing
@@ -165,7 +186,7 @@ export class ChatBotManager {
         }
     }
 
-    async *clear() {
+    async * clear() {
         this.toBranch(mainBranch)
         this.chat = new Chat()
         this.store()

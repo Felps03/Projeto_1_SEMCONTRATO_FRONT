@@ -13,7 +13,7 @@ export type DialogBranch = {
     process?: Function
 
     // what to say when entering branch
-    answer?: string[]
+    answer?: (string | ((state: Map<string, any>) => (string | Promise<string>)))[]
 
     // future
     artificialDelay?: boolean

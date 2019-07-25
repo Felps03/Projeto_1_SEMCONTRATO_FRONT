@@ -1,6 +1,6 @@
 System.register([], function (exports_1, context_1) {
     "use strict";
-    var button, options, link;
+    var button, options, link, view;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [],
@@ -15,6 +15,7 @@ System.register([], function (exports_1, context_1) {
                 return html;
             });
             exports_1("link", link = (text, href) => `<a href="${href}" target="_blank">${text}</a>`);
+            exports_1("view", view = (view, model) => { });
         }
     };
 });

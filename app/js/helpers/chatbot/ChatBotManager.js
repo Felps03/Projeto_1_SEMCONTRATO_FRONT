@@ -1,4 +1,4 @@
-System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./chatAnswerParser"], function (exports_1, context_1) {
+System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./chatAnswerParser", "../../utils/promiser"], function (exports_1, context_1) {
     "use strict";
     var __asyncValues = (this && this.__asyncValues) || function (o) {
         if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
@@ -24,7 +24,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
         function reject(value) { resume("throw", value); }
         function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
     };
-    var Chat_1, chatBotTree_1, index_1, chatAnswerParser_1, ChatBotManager;
+    var Chat_1, chatBotTree_1, index_1, chatAnswerParser_1, promiser_1, ChatBotManager;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -39,6 +39,9 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
             },
             function (chatAnswerParser_1_1) {
                 chatAnswerParser_1 = chatAnswerParser_1_1;
+            },
+            function (promiser_1_1) {
+                promiser_1 = promiser_1_1;
             }
         ],
         execute: function () {
@@ -87,10 +90,22 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                                                 const actualState = this.state;
                                                 this.toBranch(branch);
                                                 const possibleGreet = chatBotTree_1.dialog[this.context].greet;
-                                                let msgs = branch.answer.map((msg) => [
-                                                    Chat_1.ChatAgent.Bot,
-                                                    chatAnswerParser_1.parseState(actualState, msg)
-                                                ]);
+                                                let promises = [];
+                                                let msgs = branch.answer.reduce((msgs, msg) => {
+                                                    if (msg instanceof Function) {
+                                                        const msgVal = promiser_1.promiser(msg(actualState));
+                                                        promises.push(msgVal);
+                                                    }
+                                                    else
+                                                        msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, msg)]);
+                                                    return msgs;
+                                                }, []);
+                                                yield __await(Promise.all(promises).then((ress) => {
+                                                    ress.forEach(res => {
+                                                        msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, res)]);
+                                                    });
+                                                }));
+                                                console.log(msgs);
                                                 if (possibleGreet) {
                                                     possibleGreet.forEach(greet => {
                                                         msgs.push([
@@ -110,10 +125,12 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                                 if (!success) {
                                     this.store();
                                     for (let msg of chatBotTree_1.dialog['understandnt'].children[0].answer) {
-                                        yield yield __await(index_1.delay(this.message([
-                                            Chat_1.ChatAgent.Bot,
-                                            chatAnswerParser_1.parseState(this.state, msg)
-                                        ]), this.DELAY_TIME));
+                                        if (typeof msg === 'string') {
+                                            yield yield __await(index_1.delay(this.message([
+                                                Chat_1.ChatAgent.Bot,
+                                                chatAnswerParser_1.parseState(this.state, msg)
+                                            ]), this.DELAY_TIME));
+                                        }
                                     }
                                 }
                             }

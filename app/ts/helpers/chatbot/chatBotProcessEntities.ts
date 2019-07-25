@@ -1,5 +1,5 @@
 export function date(name: string) {
-    return (state: Map<string, string>, match: RegExpExecArray) => {
+    return (state: Map<string, any>, match: RegExpExecArray) => {
         const currentYearS = '' + new Date().getFullYear()
         const currentYear = +currentYearS
         const currentYearLength = currentYearS.length
@@ -39,7 +39,7 @@ export function date(name: string) {
 }
 
 export function raw(name: string, idx: number = 1) {
-    return (state: Map<string, string>, match: RegExpExecArray) => {
+    return (state: Map<string, any>, match: RegExpExecArray) => {
         state.set(name, match[idx])
     }
 }

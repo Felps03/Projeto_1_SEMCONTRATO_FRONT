@@ -7,7 +7,7 @@ const TEMPLATES: { [key: string]: Function } = {
 }
 
 // parse e.g. $list_daily_note_date to e.g. 2019-07-19
-export function parseState(state: Map<string, string>, raw: string) {
+export function parseState(state: Map<string, any>, raw: string) {
     let response = raw
     response = response
         .replace(/([^\\])\$(\w+)/, (match: string, p1: string, p2: string) => {

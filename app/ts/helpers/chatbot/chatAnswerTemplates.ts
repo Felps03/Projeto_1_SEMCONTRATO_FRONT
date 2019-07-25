@@ -17,3 +17,5 @@ export const options = (...content: string[]) => {
 
 export const link = (text: string, href: string) =>
     `<a href="${href}" target="_blank">${text}</a>`
+
+export const view = (view: string, model: string) => { }
