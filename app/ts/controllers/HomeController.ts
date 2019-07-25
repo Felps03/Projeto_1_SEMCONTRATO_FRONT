@@ -1,11 +1,18 @@
 import { UserService } from "../services/UserService";
 import { HelpCenterService } from "../services/HelpCenterService";
 import { DailyNoteService } from "../services/DailyNoteService";
-import { DailyNote } from "../models/index";
+import { DailyNote, HomeDailyNote } from "../models/index";
+import { HomeDailyView } from "../views/HomeDailyView";
+import { DailyNotes } from "../models/DailyNotes";
+import { HomeDailyNotes } from "../models/HomeDailyNotes";
 
 export class HomeController {
 
-    constructor() {}
+    private dailyView : HomeDailyView;
+
+    constructor() {
+        this.dailyView = new HomeDailyView('#all-dailys');
+    }
 
     getUser() {
         let data;
@@ -31,7 +38,7 @@ export class HomeController {
 
     listLastHelp(event: Event) {
         event.preventDefault();
-        console.log('oi');
+
         const helpCenterService = new HelpCenterService()
 
         helpCenterService.listLastHelp()
@@ -94,20 +101,14 @@ export class HomeController {
         dailyNoteService.listDate(fullDate, 1)
             .then(result => {
                 return result.json();
-            }).then(result => {
-                let row = <HTMLTableElement>document.querySelector('#all-dailys');
-                row.innerHTML = "";
+            }).then(results => {
+                let dailyNotes = new HomeDailyNotes();
 
-                for (let i = 0; i < result.length - 1; i++) {
-                    row.innerHTML += `
-                    <tr>
-                        <td>${result[i]['owner']}</td>
-                        <td>${result[i]['yesterday']}</td>
-                        <td>${result[i]['today']}</td>
-                        <td>${result[i]['impediment']}</td>
-                    </tr>
-                    `;
-                }
+                results.pop();
+                results.map((result: any) => new HomeDailyNote(result['owner'], result['yesterday'], result['today'], result['impediment']))
+                .forEach((result: any) => dailyNotes.adiciona(result))
+
+                this.dailyView.update(dailyNotes);
             })
             .catch(error => {
                 console.log(error);

@@ -1,6 +1,6 @@
-System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService"], function (exports_1, context_1) {
+System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../models/index", "../views/HomeDailyView", "../models/HomeDailyNotes"], function (exports_1, context_1) {
     "use strict";
-    var UserService_1, HelpCenterService_1, DailyNoteService_1, HomeController;
+    var UserService_1, HelpCenterService_1, DailyNoteService_1, index_1, HomeDailyView_1, HomeDailyNotes_1, HomeController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -12,11 +12,22 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
             },
             function (DailyNoteService_1_1) {
                 DailyNoteService_1 = DailyNoteService_1_1;
+            },
+            function (index_1_1) {
+                index_1 = index_1_1;
+            },
+            function (HomeDailyView_1_1) {
+                HomeDailyView_1 = HomeDailyView_1_1;
+            },
+            function (HomeDailyNotes_1_1) {
+                HomeDailyNotes_1 = HomeDailyNotes_1_1;
             }
         ],
         execute: function () {
             HomeController = class HomeController {
-                constructor() { }
+                constructor() {
+                    this.dailyView = new HomeDailyView_1.HomeDailyView('#all-dailys');
+                }
                 getUser() {
                     let data;
                     if (!localStorage.getItem('tkn')) {
@@ -39,7 +50,6 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                 }
                 listLastHelp(event) {
                     event.preventDefault();
-                    console.log('oi');
                     const helpCenterService = new HelpCenterService_1.HelpCenterService();
                     helpCenterService.listLastHelp()
                         .then(result => {
@@ -94,19 +104,12 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                     dailyNoteService.listDate(fullDate, 1)
                         .then(result => {
                         return result.json();
-                    }).then(result => {
-                        let row = document.querySelector('#all-dailys');
-                        row.innerHTML = "";
-                        for (let i = 0; i < result.length - 1; i++) {
-                            row.innerHTML += `
-                    <tr>
-                        <td>${result[i]['owner']}</td>
-                        <td>${result[i]['yesterday']}</td>
-                        <td>${result[i]['today']}</td>
-                        <td>${result[i]['impediment']}</td>
-                    </tr>
-                    `;
-                        }
+                    }).then(results => {
+                        let dailyNotes = new HomeDailyNotes_1.HomeDailyNotes();
+                        results.pop();
+                        results.map((result) => new index_1.HomeDailyNote(result['owner'], result['yesterday'], result['today'], result['impediment']))
+                            .forEach((result) => dailyNotes.adiciona(result));
+                        this.dailyView.update(dailyNotes);
                     })
                         .catch(error => {
                         console.log(error);

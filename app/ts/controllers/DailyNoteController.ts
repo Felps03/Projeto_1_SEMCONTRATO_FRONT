@@ -5,7 +5,6 @@ import { clean } from '../helpers/index'
 import * as vals from '../validation/dailyNoteValidate';
 import { noFalse } from '../utils/listCheck';
 import { DailyNotesView } from '../views/DailyNotesView';
-import { UserMenuView } from '../views/UserMenuView';
 import { InputWrapper } from '../utils/index';
 
 export class DailyNoteController {
