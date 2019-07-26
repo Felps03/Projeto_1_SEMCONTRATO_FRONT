@@ -31,10 +31,7 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
         ],
         execute: function () {
             HomeController = class HomeController {
-                constructor() {
-                    this.dailyView = new HomeDailyView_1.HomeDailyView('#all-dailys');
-                    this.helpCenterView = new HomeHelpCenterView_1.HomeHelpCenterView('#last-helps');
-                }
+                constructor() { }
                 getUser() {
                     let data;
                     if (!localStorage.getItem('tkn')) {
@@ -64,6 +61,7 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                     })
                         .then(results => {
                         let helpCenters = new HomeHelpCenters_1.HomeHelpCenters();
+                        this.helpCenterView = new HomeHelpCenterView_1.HomeHelpCenterView('#last-helps');
                         results.length = 4;
                         results.pop();
                         results.map((result) => new index_1.HomeHelpCenter(result['owner'], result['date'], result['title'], result['desc']))
@@ -87,6 +85,7 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         return result.json();
                     }).then(results => {
                         let dailyNotes = new HomeDailyNotes_1.HomeDailyNotes();
+                        this.dailyView = new HomeDailyView_1.HomeDailyView('#all-dailys');
                         results.pop();
                         results.map((result) => new index_1.HomeDailyNote(result['owner'], result['yesterday'], result['today'], result['impediment']))
                             .forEach((result) => dailyNotes.add(result));

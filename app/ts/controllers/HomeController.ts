@@ -13,10 +13,7 @@ export class HomeController {
     private dailyView : HomeDailyView;
     private helpCenterView : HomeHelpCenterView;
 
-    constructor() {
-        this.dailyView = new HomeDailyView('#all-dailys');
-        this.helpCenterView = new HomeHelpCenterView('#last-helps');
-    }
+    constructor() {}
 
     getUser() {
         let data;
@@ -51,6 +48,8 @@ export class HomeController {
             })
             .then(results => {
                 let helpCenters = new HomeHelpCenters();
+                this.helpCenterView = new HomeHelpCenterView('#last-helps');
+
                 results.length = 4;
 
                 results.pop();
@@ -80,6 +79,7 @@ export class HomeController {
                 return result.json();
             }).then(results => {
                 let dailyNotes = new HomeDailyNotes();
+                this.dailyView = new HomeDailyView('#all-dailys');
 
                 results.pop();
                 results.map((result: any) => new HomeDailyNote(result['owner'], result['yesterday'], result['today'], result['impediment']))
