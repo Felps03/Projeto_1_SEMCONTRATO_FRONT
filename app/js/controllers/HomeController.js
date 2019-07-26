@@ -64,6 +64,7 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                     })
                         .then(results => {
                         let helpCenters = new HomeHelpCenters_1.HomeHelpCenters();
+                        results.length = 4;
                         results.pop();
                         results.map((result) => new index_1.HomeHelpCenter(result['owner'], result['date'], result['title'], result['desc']))
                             .forEach((result) => helpCenters.add(result));

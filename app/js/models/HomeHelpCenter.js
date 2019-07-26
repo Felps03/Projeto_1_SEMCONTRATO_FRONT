@@ -8,7 +8,7 @@ System.register([], function (exports_1, context_1) {
             HomeHelpCenter = class HomeHelpCenter {
                 constructor(owner, date, title, description) {
                     this.owner = owner;
-                    this.date = date;
+                    this.date = new Date(date);
                     this.title = title;
                     this.description = description;
                 }

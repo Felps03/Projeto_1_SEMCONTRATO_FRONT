@@ -18,7 +18,7 @@ System.register(["./View"], function (exports_1, context_1) {
                         <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
                             <div>
                                 <h5 class="mt-2 mb-2 ml-4">${homeHelpCenter.Owner}</h5>
-                                <p class="mt-2 mb-2 ml-4">${homeHelpCenter.Date}</p>
+                                <p class="mt-2 mb-2 ml-4">${homeHelpCenter.Date.getUTCDate() < 10 ? "0" + homeHelpCenter.Date.getUTCDate() : homeHelpCenter.Date.getUTCDate()}/${homeHelpCenter.Date.getUTCMonth() + 1 < 10 ? "0" + (homeHelpCenter.Date.getUTCMonth() + 1) : homeHelpCenter.Date.getUTCMonth() + 1}/${homeHelpCenter.Date.getUTCFullYear()}</p>
                                 <button type="button" name="view"
                                     class="btn btn-outline-info btn-sm input-circle pt-2 ml-4" id="resp-view"
                                     data-toggle="modal" data-target="#respModal">

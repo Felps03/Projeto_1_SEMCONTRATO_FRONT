@@ -51,6 +51,7 @@ export class HomeController {
             })
             .then(results => {
                 let helpCenters = new HomeHelpCenters();
+                results.length = 4;
 
                 results.pop();
                 results.map((result: any) => new HomeHelpCenter(result['owner'], result['date'], result['title'], result['desc']))

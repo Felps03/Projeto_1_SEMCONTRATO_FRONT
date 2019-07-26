@@ -7,13 +7,13 @@ System.register([], function (exports_1, context_1) {
         execute: function () {
             HomeHelpCenters = class HomeHelpCenters {
                 constructor() {
-                    this._homeDailyNotes = [];
+                    this._homeHelpCenters = [];
                 }
-                adiciona(dailyNote) {
-                    this._homeDailyNotes.push(dailyNote);
+                add(helpCenter) {
+                    this._homeHelpCenters.push(helpCenter);
                 }
-                paraArray() {
-                    return [].concat(this._homeDailyNotes);
+                toArray() {
+                    return [].concat(this._homeHelpCenters);
                 }
             };
             exports_1("HomeHelpCenters", HomeHelpCenters);

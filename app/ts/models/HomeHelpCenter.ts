@@ -8,7 +8,7 @@ export class HomeHelpCenter {
     constructor(owner: string, date: Date, title: string, description: string) {
 
         this.owner = owner;
-        this.date = date;
+        this.date = new Date(date);
         this.title = title;
         this.description = description;
     }
