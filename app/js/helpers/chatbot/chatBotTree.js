@@ -1,17 +1,25 @@
-System.register(["./chatBotProcessEntities"], function (exports_1, context_1) {
+System.register(["./chatBotProcessEntities", "../../services/index", "../../utils/uuidv4"], function (exports_1, context_1) {
     "use strict";
-    var process, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, actualHours, greeting, mainBranch, dialog;
+    var process, index_1, uuidv4_1, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, helpCenterService, dailyNoteService, actualHours, greeting, mainBranch, dialog;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (process_1) {
                 process = process_1;
+            },
+            function (index_1_1) {
+                index_1 = index_1_1;
+            },
+            function (uuidv4_1_1) {
+                uuidv4_1 = uuidv4_1_1;
             }
         ],
         execute: function () {
             BOT_NAME = 'Contratinho';
             NOT_IMPLEMENTED_ANSWER = ['Hm... desculpa, não sei fazer isso ainda 😔'];
             SELF_HTTPS_HOST = 'http://' + window.location.host;
+            helpCenterService = new index_1.HelpCenterService();
+            dailyNoteService = new index_1.DailyNoteService();
             actualHours = new Date().getHours();
             if (actualHours >= 4 && actualHours < 12) {
                 greeting = 'Bom dia';
@@ -94,7 +102,9 @@ System.register(["./chatBotProcessEntities"], function (exports_1, context_1) {
                         {
                             call: ['nao', 'nop'],
                             goto: 'main',
-                            answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html)}}`]
+                            answer: [
+                                `{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html)}}`,
+                            ],
                         }
                     ]
                 },
@@ -103,8 +113,8 @@ System.register(["./chatBotProcessEntities"], function (exports_1, context_1) {
                         {
                             call: [/(\d{1,2})\/(\d{1,2})\/(\d+)/],
                             goto: 'main',
-                            process: process.date('list_daily_note_date'),
-                            answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?date=$list_daily_note_date)}}`]
+                            answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?date=$list_daily_note_date)}}`],
+                            process: process.date('list_daily_note_date')
                         }
                     ]
                 },
@@ -114,8 +124,8 @@ System.register(["./chatBotProcessEntities"], function (exports_1, context_1) {
                             call: [/(\w+)/],
                             normalize: false,
                             goto: 'main',
-                            process: process.raw('list_daily_note_user'),
-                            answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`]
+                            answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`],
+                            process: process.raw('list_daily_note_user')
                         }
                     ]
                 },
@@ -124,7 +134,14 @@ System.register(["./chatBotProcessEntities"], function (exports_1, context_1) {
                         {
                             call: ['listar', 'ver', 'mostrar'],
                             goto: 'main',
-                            answer: [`{{link(Clique aqui para ver os posts! 😃, ${SELF_HTTPS_HOST}/app-help-center.html)}}`]
+                            answer: [
+                                `{{helpView(list-help-id-$help_list_id, $help_list)}}`
+                            ],
+                            process: async (state, match) => {
+                                state.set('help_list_id', uuidv4_1.default());
+                                state.set('help_list', await helpCenterService.list(1)
+                                    .then(res => res.json()));
+                            }
                         },
                         {
                             call: ['adicionar', 'incluir', 'inserir'],

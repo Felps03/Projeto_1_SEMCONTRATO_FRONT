@@ -82,38 +82,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                                             const processed = new RegExp(synonym).exec(normalizedMsg);
                                             if (processed) {
                                                 success = true;
-                                                if (branch.artificialDelay === undefined)
-                                                    branch.artificialDelay = true;
-                                                if (branch.process) {
-                                                    branch.process(this.state, processed);
-                                                }
-                                                const actualState = this.state;
-                                                this.toBranch(branch);
-                                                const possibleGreet = chatBotTree_1.dialog[this.context].greet;
-                                                let promises = [];
-                                                let msgs = branch.answer.reduce((msgs, msg) => {
-                                                    if (msg instanceof Function) {
-                                                        const msgVal = promiser_1.promiser(msg(actualState));
-                                                        promises.push(msgVal);
-                                                    }
-                                                    else
-                                                        msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, msg)]);
-                                                    return msgs;
-                                                }, []);
-                                                yield __await(Promise.all(promises).then((ress) => {
-                                                    ress.forEach(res => {
-                                                        msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, res)]);
-                                                    });
-                                                }));
-                                                console.log(msgs);
-                                                if (possibleGreet) {
-                                                    possibleGreet.forEach(greet => {
-                                                        msgs.push([
-                                                            Chat_1.ChatAgent.Bot,
-                                                            chatAnswerParser_1.parseState(actualState, greet)
-                                                        ]);
-                                                    });
-                                                }
+                                                const msgs = yield __await(this.toBranch(branch, processed));
                                                 for (const msg of msgs) {
                                                     yield yield __await(index_1.delay(this.message(msg), branch.artificialDelay ? this.DELAY_TIME : 0));
                                                 }
@@ -137,13 +106,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                             else {
                                 let msgs = [];
                                 msgs.push([Chat_1.ChatAgent.Bot, chatBotTree_1.mainBranch.greet]);
-                                this.toBranch(chatBotTree_1.mainBranch);
-                                const possibleGreet = chatBotTree_1.dialog[this.context].greet;
-                                if (possibleGreet) {
-                                    possibleGreet.forEach(greet => {
-                                        msgs.push([Chat_1.ChatAgent.Bot, greet]);
-                                    });
-                                }
+                                msgs.push(...yield __await(this.toBranch(chatBotTree_1.dialog[chatBotTree_1.mainBranch.goto], null)));
                                 for (const msg of msgs) {
                                     yield yield __await(index_1.delay(this.message(msg), this.DELAY_TIME));
                                 }
@@ -161,12 +124,65 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                         state: [...this.state]
                     }));
                 }
-                toBranch(branch) {
-                    this.context = branch.goto;
-                    if (this.context === chatBotTree_1.mainBranch.goto) {
-                        this.state = new Map();
+                async toBranch(branch, match) {
+                    if (typeof branch === 'string') {
+                        if (branch === chatBotTree_1.mainBranch.goto) {
+                            this.state = new Map();
+                        }
+                        branch = chatBotTree_1.dialog[branch];
+                        this.store();
                     }
-                    this.store();
+                    if (branch.artificialDelay === undefined)
+                        branch.artificialDelay = true;
+                    if (branch.process) {
+                        await branch.process(this.state, match);
+                    }
+                    const actualState = this.state;
+                    if (branch.goto) {
+                        this.context = branch.goto;
+                        if (this.context === chatBotTree_1.mainBranch.goto) {
+                            this.state = new Map();
+                        }
+                        this.store();
+                    }
+                    const possibleGreet = chatBotTree_1.dialog[this.context].greet;
+                    const possibleProcess = chatBotTree_1.dialog[this.context].process;
+                    const possibleFlow = chatBotTree_1.dialog[this.context].flow;
+                    if (possibleProcess) {
+                        possibleProcess(this.state);
+                    }
+                    let promises = [];
+                    let msgs = [];
+                    if (branch.answer) {
+                        msgs = branch.answer.reduce((msgs, msg) => {
+                            if (msg instanceof Function) {
+                                const msgVal = promiser_1.promiser(msg(actualState));
+                                promises.push(msgVal);
+                            }
+                            else
+                                msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, msg)]);
+                            return msgs;
+                        }, []);
+                    }
+                    await Promise.all(promises).then((ress) => {
+                        ress.forEach(res => {
+                            if (res)
+                                msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, res)]);
+                        });
+                    });
+                    if (possibleGreet) {
+                        possibleGreet.forEach(greet => {
+                            msgs.push([
+                                Chat_1.ChatAgent.Bot,
+                                chatAnswerParser_1.parseState(actualState, greet)
+                            ]);
+                        });
+                    }
+                    if (possibleFlow) {
+                        this.context = possibleFlow;
+                        msgs.push(...await this.toBranch(possibleFlow, null));
+                    }
+                    return msgs;
                 }
                 getFromStorage() {
                     const chatLog = JSON.parse(localStorage.getItem('chatLog'));
@@ -178,7 +194,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                 }
                 clear() {
                     return __asyncGenerator(this, arguments, function* clear_1() {
-                        this.toBranch(chatBotTree_1.mainBranch);
+                        this.toBranch(chatBotTree_1.mainBranch, null);
                         this.chat = new Chat_1.Chat();
                         this.store();
                         this.init();
