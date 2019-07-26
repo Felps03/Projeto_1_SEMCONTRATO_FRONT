@@ -9,7 +9,7 @@ export class DailyNotesView extends View<DailyNotes> {
         return `
         <form class="form" method="post" id="viewdaily-form" autocomplete="off">
             ${model.paraArray().map(dailyNote =>
-            `<div class="row">
+                `<div class="row">
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
                         <label for="name">Nome:</label>
@@ -51,7 +51,7 @@ export class DailyNotesView extends View<DailyNotes> {
                     disabled>${dailyNote.Impediment}</textarea>
                 <div id="thirdvalidator"></div>
             </div>`
-        ).join()};
+            ).join()};
 
             <button type="button"
                 class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle"
