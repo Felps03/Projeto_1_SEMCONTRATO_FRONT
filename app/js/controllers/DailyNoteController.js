@@ -88,6 +88,8 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     day = ("00" + day).slice(-2);
                     month = ("00" + month).slice(-2);
                     let fullDate = `${year}-${month}-${day}`;
+                    console.log(fullDate);
+                    console.log(page);
                     return dailyNoteService.listDate(fullDate, page)
                         .then(res => {
                         return res.json();

@@ -31,10 +31,11 @@ if (listDate) {
 // const dateValue = dateField.value || url_date;
 
 function load() {
-	if (url.get('date') && url.get('page')) {
-		// 	// console.log('oi do load')
-		listDateDaily(event);
-	}
+	// essa porra que tava bugando tudo.
+	// if (url.get('date') && url.get('page')) {
+	// 	// 	// console.log('oi do load')
+	// 	listDateDaily(event);
+	// }
 
 	let year = `${new Date().getFullYear()}`;
 	let month = `${new Date().getMonth() + 1}`;

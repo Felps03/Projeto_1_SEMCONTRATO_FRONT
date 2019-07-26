@@ -3,9 +3,6 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
     var DailyNoteController_1, index_1, userData_1, userData, dailyesResult, totalPagesDiv, id_daily, url, url_date, dateField, controller, cadastrar, listDate;
     var __moduleName = context_1 && context_1.id;
     function load() {
-        if (url.get('date') && url.get('page')) {
-            listDateDaily(event);
-        }
         let year = `${new Date().getFullYear()}`;
         let month = `${new Date().getMonth() + 1}`;
         let day = `${new Date().getDate()}`;

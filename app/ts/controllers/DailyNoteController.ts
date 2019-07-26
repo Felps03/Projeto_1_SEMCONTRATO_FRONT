@@ -145,6 +145,8 @@ export class DailyNoteController {
         month = ("00" + month).slice(-2);
 
         let fullDate = `${year}-${month}-${day}`;
+        console.log(fullDate);
+        console.log(page);
         // console.log("a data completa no controller é: ", fullDate)
         // console.log("A page no controller é: ", page)
         return dailyNoteService.listDate(fullDate, page)
