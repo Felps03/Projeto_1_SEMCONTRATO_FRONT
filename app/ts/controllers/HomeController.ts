@@ -42,9 +42,18 @@ export class HomeController {
                 let row = <HTMLElement>document.querySelector('#last-helps');
                 row.innerHTML = "";
 
-                let results = result.length;
+                console.log(result);
 
-                for (let aux = 0; aux < 3; aux++) {
+                let results = result.length;
+                results = results - 2;
+
+                let fim = results - 3;
+
+                if (fim < 0) {
+                    fim = 0;
+                }
+
+                for (let aux = results; aux > fim; aux--) {
                     let date = new Date(result[aux]['date']).toLocaleDateString('pt-BR');
 
                     row.innerHTML += `

@@ -50,8 +50,14 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         .then(result => {
                         let row = document.querySelector('#last-helps');
                         row.innerHTML = "";
+                        console.log(result);
                         let results = result.length;
-                        for (let aux = 0; aux < 3; aux++) {
+                        results = results - 2;
+                        let fim = results - 3;
+                        if (fim < 0) {
+                            fim = 0;
+                        }
+                        for (let aux = results; aux > fim; aux--) {
                             let date = new Date(result[aux]['date']).toLocaleDateString('pt-BR');
                             row.innerHTML += `
                     <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
