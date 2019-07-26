@@ -1,6 +1,6 @@
-System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService"], function (exports_1, context_1) {
+System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../helpers/validate"], function (exports_1, context_1) {
     "use strict";
-    var UserService_1, HelpCenterService_1, DailyNoteService_1, HomeController;
+    var UserService_1, HelpCenterService_1, DailyNoteService_1, validate_1, HomeController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -12,6 +12,9 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
             },
             function (DailyNoteService_1_1) {
                 DailyNoteService_1 = DailyNoteService_1_1;
+            },
+            function (validate_1_1) {
+                validate_1 = validate_1_1;
             }
         ],
         execute: function () {
@@ -111,6 +114,11 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         .catch(error => {
                         console.log(error);
                     });
+                }
+                cancel(event) {
+                    event.preventDefault();
+                    let emailRec = document.querySelector('#email_rec');
+                    validate_1.clean(emailRec);
                 }
             };
             exports_1("HomeController", HomeController);

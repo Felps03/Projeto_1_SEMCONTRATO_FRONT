@@ -37,7 +37,6 @@ System.register(["../services/index", "../helpers/index", "../validation/userVal
                         let url = new URL(url_string);
                         let URL_KEY = url.searchParams.get("key");
                         const authenticateService = new index_1.AuthenticateService();
-                        console.log('pimba');
                         authenticateService.verifyCode(URL_KEY, this.email.value, this.password.value)
                             .then(res => res.json())
                             .then(res => {

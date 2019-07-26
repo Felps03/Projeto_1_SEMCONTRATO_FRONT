@@ -2,10 +2,11 @@ import { UserService } from "../services/UserService";
 import { HelpCenterService } from "../services/HelpCenterService";
 import { DailyNoteService } from "../services/DailyNoteService";
 import { DailyNote } from "../models/index";
+import { clean } from "../helpers/validate";
 
 export class HomeController {
 
-    constructor() {}
+    constructor() { }
 
     getUser() {
         let data;
@@ -46,7 +47,7 @@ export class HomeController {
 
                 for (let aux = 0; aux < 3; aux++) {
                     let date = new Date(result[aux]['date']);
-                    let dateFormatted = `${date.getDate()+1}/${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}/${date.getFullYear()}`;
+                    let dateFormatted = `${date.getDate() + 1}/${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}/${date.getFullYear()}`;
 
                     row.innerHTML += `
                     <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
@@ -112,5 +113,10 @@ export class HomeController {
             .catch(error => {
                 console.log(error);
             })
+    }
+
+    cancel(event: Event) {
+        event.preventDefault();
+        clean(<HTMLInputElement>document.querySelector('#email_rec'));
     }
 }
