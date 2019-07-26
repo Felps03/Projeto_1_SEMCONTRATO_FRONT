@@ -1,19 +1,12 @@
-System.register(["./controllers/DailyNoteController", "./models/index", "./utils/userData"], function (exports_1, context_1) {
+System.register(["./controllers/DailyNoteController", "./models/index", "./utils/userData", "./helpers/dateHelper"], function (exports_1, context_1) {
     "use strict";
-    var DailyNoteController_1, index_1, userData_1, userData, dailyesResult, totalPagesDiv, id_daily, url, url_date, dateField, controller, cadastrar, cancel, listDate;
+    var DailyNoteController_1, index_1, userData_1, dateHelper_1, userData, dailyesResult, totalPagesDiv, id_daily, url, url_date, dateField, controller, cadastrar, cancel, listDate;
     var __moduleName = context_1 && context_1.id;
     function load() {
         if (url.get('date') && url.get('page')) {
             listDateDaily(event);
         }
-        let year = `${new Date().getFullYear()}`;
-        let month = `${new Date().getMonth() + 1}`;
-        let day = `${new Date().getDate()}`;
-        if (month.length < 2)
-            month = '0' + month;
-        if (day.length < 2)
-            day = '0' + day;
-        let today = `${year}-${month}-${day}`;
+        let today = dateHelper_1.dateFormatYYYYMMDD(new Date());
         dateField.value = url_date || today;
         if (url.get('user')) {
             listUserDaily(event);
@@ -218,6 +211,9 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
             },
             function (userData_1_1) {
                 userData_1 = userData_1_1;
+            },
+            function (dateHelper_1_1) {
+                dateHelper_1 = dateHelper_1_1;
             }
         ],
         execute: function () {

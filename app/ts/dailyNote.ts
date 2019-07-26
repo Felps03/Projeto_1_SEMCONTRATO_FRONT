@@ -1,6 +1,7 @@
 import { DailyNoteController } from './controllers/DailyNoteController';
 import { DailyNote } from './models/index';
 import { getUser } from './utils/userData';
+import { dateFormatYYYYMMDD } from './helpers/dateHelper';
 
 let userData = getUser();
 if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
@@ -44,14 +45,16 @@ function load() {
 		listDateDaily(event);
 	}
 
-	let year = `${new Date().getFullYear()}`;
-	let month = `${new Date().getMonth() + 1}`;
-	let day = `${new Date().getDate()}`;
+	// let year = `${new Date().getFullYear()}`;
+	// let month = `${new Date().getMonth() + 1}`;
+	// let day = `${new Date().getDate()}`;
 
-	if (month.length < 2) month = '0' + month;
-	if (day.length < 2) day = '0' + day;
+	// if (month.length < 2) month = '0' + month;
+	// if (day.length < 2) day = '0' + day;
 
-	let today = `${year}-${month}-${day}`;
+	// let today = `${year}-${month}-${day}`;
+
+	let today = dateFormatYYYYMMDD(new Date());
 
 	dateField.value = url_date || today;
 
