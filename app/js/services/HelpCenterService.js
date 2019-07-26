@@ -44,8 +44,15 @@ System.register(["../config/index"], function (exports_1, context_1) {
                     });
                 }
                 ;
-                list(page) {
-                    return fetch(`${index_1.HOST}helps/list/post/${page}`, {
+                list(page, ID) {
+                    let url;
+                    if (!ID) {
+                        url = `${index_1.HOST}helps/list/post/${page}`;
+                    }
+                    else {
+                        url = `${index_1.HOST}helps/answer/${ID}/${page}`;
+                    }
+                    return fetch(url, {
                         method: 'GET',
                         headers: {
                             'Accept': 'application/json',
@@ -89,6 +96,17 @@ System.register(["../config/index"], function (exports_1, context_1) {
                         body: JSON.stringify({
                             "joker": joker
                         })
+                    });
+                }
+                listByID(ID) {
+                    return fetch(`${index_1.HOST}helps/post/${ID}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
+                            'id_user': localStorage.getItem('id')
+                        }
                     });
                 }
             };

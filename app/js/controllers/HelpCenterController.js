@@ -140,7 +140,7 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     event.preventDefault();
                     const helpCenterService = new index_2.HelpCenterService();
                     helpCenterService
-                        .list(this.currentPage)
+                        .list(this.currentPage, null)
                         .then((result) => {
                         return result.json();
                     })

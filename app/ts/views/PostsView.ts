@@ -15,7 +15,10 @@ export class PostsView extends View<Posts> {
                             <h5 class="mt-2 mb-2">${post.AuthorName ? post.AuthorName : ""}</h5>
                         </div>
                         <a href="app-help-asks.html?id=${post.Id}">
-                        <i class="material-icons"> forum </i></a>
+                            <button class="btn btn-default btn-sm btn-info">
+                                <i class="material-icons"> forum </i>
+                            </button>
+                        </a>
 
                     </div>
                 </div>
