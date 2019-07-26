@@ -12,7 +12,7 @@ System.register(["./View"], function (exports_1, context_1) {
             HomeDailyView = class HomeDailyView extends View_1.View {
                 template(model) {
                     return `
-            ${model.paraArray().map(homeDailyNote => `
+            ${model.toArray().map(homeDailyNote => `
                 <tr>
                     <td>${homeDailyNote.Author}</td>
                     <td>${homeDailyNote.Yesterday}</td>

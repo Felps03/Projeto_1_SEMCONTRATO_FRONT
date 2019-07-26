@@ -6,7 +6,7 @@ export class HomeDailyView extends View<HomeDailyNotes> {
 
     template(model: HomeDailyNotes): string {
         return `
-            ${model.paraArray().map(homeDailyNote =>`
+            ${model.toArray().map(homeDailyNote =>`
                 <tr>
                     <td>${homeDailyNote.Author}</td>
                     <td>${homeDailyNote.Yesterday}</td>

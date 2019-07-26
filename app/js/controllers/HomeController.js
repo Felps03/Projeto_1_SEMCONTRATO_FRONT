@@ -89,7 +89,7 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         let dailyNotes = new HomeDailyNotes_1.HomeDailyNotes();
                         results.pop();
                         results.map((result) => new index_1.HomeDailyNote(result['owner'], result['yesterday'], result['today'], result['impediment']))
-                            .forEach((result) => dailyNotes.adiciona(result));
+                            .forEach((result) => dailyNotes.add(result));
                         this.dailyView.update(dailyNotes);
                     })
                         .catch(error => {

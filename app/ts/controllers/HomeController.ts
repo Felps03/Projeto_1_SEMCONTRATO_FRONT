@@ -83,7 +83,7 @@ export class HomeController {
 
                 results.pop();
                 results.map((result: any) => new HomeDailyNote(result['owner'], result['yesterday'], result['today'], result['impediment']))
-                .forEach((result: any) => dailyNotes.adiciona(result))
+                .forEach((result: any) => dailyNotes.add(result))
 
                 this.dailyView.update(dailyNotes);
             })

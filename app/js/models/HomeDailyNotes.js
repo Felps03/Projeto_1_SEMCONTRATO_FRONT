@@ -9,10 +9,10 @@ System.register([], function (exports_1, context_1) {
                 constructor() {
                     this._homeDailyNotes = [];
                 }
-                adiciona(dailyNote) {
+                add(dailyNote) {
                     this._homeDailyNotes.push(dailyNote);
                 }
-                paraArray() {
+                toArray() {
                     return [].concat(this._homeDailyNotes);
                 }
             };
