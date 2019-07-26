@@ -14,48 +14,37 @@ export class DailyNoteController {
     private impediment: HTMLInputElement;
     private date: HTMLInputElement;
     private listDate: HTMLInputElement;
-
-    private editYesterday: HTMLInputElement;
-    private editToday: HTMLInputElement;
-    private editImpediment: HTMLInputElement;
-
     private addVals: (() => boolean)[];
-    private editVals: (() => boolean)[];
-    // private user: UserMenuView;
-
+    private dayliesResult: HTMLInputElement;
+    private dateField: HTMLInputElement;
+    private totalPagesDiv: HTMLInputElement;
+    private url = new URLSearchParams(location.search);
+    private url_date = this.url.get('date');
+    private url_page = this.url.get('page');
+    private url_user = this.url.get('user');
+    private id_daily: string;
 
     constructor() {
+        this.dayliesResult = <HTMLInputElement>document.getElementById("dayliesResult");
+        this.dateField = <HTMLInputElement>document.querySelector('#date_filter');
+        this.totalPagesDiv = document.querySelector('#pages');
         this.yesterday = <HTMLInputElement>document.querySelector('#yesterday');
         this.today = <HTMLInputElement>document.querySelector('#today');
         this.impediment = <HTMLInputElement>document.querySelector('#impediment');
         this.date = <HTMLInputElement>document.querySelector('#date');
-
         this.listDate = <HTMLInputElement>document.querySelector('#filter');
 
-        this.editYesterday = <HTMLInputElement>document.querySelector('#edit-yesterday');
-        this.editToday = <HTMLInputElement>document.querySelector('#edit-today');
-        this.editImpediment = <HTMLInputElement>document.querySelector('#edit-impediment');
-        // init validations
         this.addVals = [
             validate(this.yesterday, vals.yesterday),
             validate(this.today, vals.today),
             validate(this.impediment, vals.impediment)
         ];
-        this.editVals = [
-            validate(this.editYesterday, vals.yesterday),
-            validate(this.editToday, vals.today),
-            validate(this.editImpediment, vals.impediment)
-        ];
-
-        // this.user = new UserMenuView("#user-menu-login-link");
-        // this.user.update('');
     }
 
     add(event: Event) {
         event.preventDefault();
 
         if (noFalse(this.addVals)) {
-
             let dailyNote = new DailyNote(
                 this.yesterday.value.toString(),
                 this.today.value.toString(),
@@ -63,88 +52,49 @@ export class DailyNoteController {
                 new Date()
             );
 
-
             let dailyNoteService = new DailyNoteService();
-
-            let message = document.querySelector("#fail");
-            let messageGood = document.querySelector("#success");
 
             return dailyNoteService.add(
                 this.yesterday.value,
                 this.today.value,
                 this.impediment.value,
-                new Date())
-            // .then(res => {
-            //     if (res.status == 200) {
-            //         messageGood.textContent = 'Daily cadastrada com sucesso';
-            //         document.getElementById('dailyModal').click();
-            //         document.getElementById('add_daily').setAttribute('disabled', 'disabled');
-            //     }
-
-            //     else {
-            //         let erro = res;
-            //         console.log(res)
-
-            //         //message.textContent = erro.erro;
-            //         document.getElementById("status_daily").style.display = "block";
-            //         document.getElementById('dailyModal').click();
-            //         document.getElementById('add_daily').setAttribute('disabled', 'disabled');
-            //     }
-
-
-
-            //     return res.json()
-            // })
+                new Date()
+            );
         }
     }
 
     listD(event: Event) {
         event.preventDefault();
 
-        let date = <HTMLInputElement>document.querySelector('#date_filter');
-        // console.log(date)
-        let urlDate = new URLSearchParams(location.search).get('date');
-        // console.log(urlDate)
-        // let value = date.value || urlDate;
-        let value = urlDate || date.value;
-        // console.log("a data no controller é: ", value);
-        const url_page = new URLSearchParams(location.search).get('page');
-        const page = parseInt(url_page) || 1;
+        let value = this.url_date || this.dateField.value;
+        const page = parseInt(this.url_page) || 1;
 
         let dailyNoteService = new DailyNoteService();
 
-        let year = date.value.slice(0, 4);
-        let month = date.value.slice(6, 7);
-        let day = date.value.slice(8, 10);
+        let year = this.dateField.value.slice(0, 4);
+        let month = this.dateField.value.slice(6, 7);
+        let day = this.dateField.value.slice(8, 10);
 
         day = ("00" + day).slice(-2);
         month = ("00" + month).slice(-2);
 
         let fullDate = `${year}-${month}-${day}`;
-        // console.log("a data completa no controller é: ", fullDate)
-        // console.log("A page no controller é: ", page)
         return dailyNoteService.listDate(fullDate, page)
             .then(res => {
-                // console.log(res)
                 return res.json();
             })
             .then(result => {
-                // console.log(result);
                 return result
             });
     };
 
     listU(event: Event) {
         event.preventDefault()
+        
+        const page =+ this.url_page || 1;
+        const dailyNoteService = new DailyNoteService();
 
-        let urlUser = new URLSearchParams(location.search).get('user')
-        const url_page = new URLSearchParams(location.search).get('page')
-        const page = +url_page || 1
-
-        const dailyNoteService = new DailyNoteService()
-        console.log(urlUser, page)
-        return dailyNoteService.listUser(urlUser, page).then(res => {
-            // console.log(res)
+        return dailyNoteService.listUser(this.url_user, page).then(res => {
             return res.json()
         })
     }
@@ -163,6 +113,244 @@ export class DailyNoteController {
         clean(<HTMLInputElement>document.querySelector('#yesterday'));
         clean(<HTMLInputElement>document.querySelector('#today'));
         clean(<HTMLInputElement>document.querySelector('#impediment'));
+    }
 
+    login(event: Event) {
+        if (!localStorage.getItem('id') || localStorage.getItem('id') === 'undefined' || localStorage.getItem('id') === null) document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+    }
+
+    showAllDailys() {
+        if (this.url.get('date') && this.url.get('page')) {
+            this.listDateDaily(event);
+        }
+
+        let year = `${new Date().getFullYear()}`;
+        let month = `${new Date().getMonth() + 1}`;
+        let day = `${new Date().getDate()}`;
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        let today = `${year}-${month}-${day}`;
+
+        this.dateField.value = this.url_date || today;
+
+        if (this.url.get('user')) {
+            this.listUserDaily(event)
+        } else {
+            this.listDateDaily(event)
+        }
+        this.dailyButton(event);
+        this.login(event);
+    }
+
+    listDateDaily(event: Event) {
+        this.dayliesResult.innerHTML = '';
+        const result = this.listD(event);
+
+        if (result) {
+            result.then((result) => {
+                result.forEach((r: any) => {
+                    const daily = new DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
+
+                    let totalPages: number;
+                    if (r.hasOwnProperty('totalPages')) {
+                        totalPages = parseInt(r.totalPages);
+
+                        let header_pagination: string = '';
+                        let string_li: string = '';
+                        let footer_pagination: string = '';
+                        const dateValue = this.url_date || this.dateField.value;
+
+                        if (this.totalPagesDiv) {
+                            header_pagination = `
+                            <nav aria-label="daily-nav" class="float-right">
+                            <ul class="pagination">
+                            <li class="page-item">
+                            </a>
+                            </li>
+                            `;
+
+                            let i = 0;
+                            string_li = '';
+                            for (i; i < totalPages; i++) {
+                                string_li += `
+                                <li class="page-item"><a class="page-link" href="app-daily-note.html?page=${i +
+                                    1}&date=${dateValue}">${i + 1}</a></li>
+                                    `;
+                            }
+
+                            footer_pagination = `
+                                <li class="page-item" >
+                            
+                                `;
+                            
+                            const nav_pagination = document.createElement('nav');
+                            const fullString: string = header_pagination + string_li + footer_pagination;
+                            nav_pagination.innerHTML = fullString;
+                            this.totalPagesDiv.innerHTML = '';
+                            this.totalPagesDiv.appendChild(nav_pagination)
+                            
+                        }
+                        return;
+                    }
+                    const owner: string = r.owner;
+                    const id_owner: string = r.id_user;
+                    this.id_daily = r.id_daily;
+                    if (this.dayliesResult) {
+                        this.mountTable(this.dayliesResult, daily, owner, id_owner, this.id_daily);
+                    }
+                    this.id_daily = '';
+                    return;
+                });
+            });
+        }
+    }
+
+    dailyButton(event: Event) {
+        this.registered(event)
+            .then((res) => {
+                if (res.status == 400) {
+                    document.getElementById('dailyModal').click();
+                    document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+                    return;
+                }
+            });
+    }
+
+    registeredDaily(event: Event) {
+        this.add(event)
+            .then((res) => {
+                if (res.status == 200) {
+                    this.listDateDaily(event);
+                    document.getElementById('dailyModal').click();
+                    document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+                    document.getElementById('status_daily').innerHTML = `
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<strong>Daily cadastrada com sucesso!</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+			`;
+                    return;
+                } else if (res.status == 400) {
+                    document.getElementById('dailyModal').click();
+                    document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+                    document.getElementById('status_daily').innerHTML = `
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			<strong>Você já cadastrou sua daily!</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+			`;
+                    return;
+                }
+            });
+    }
+
+    listUserDaily(event: Event) {
+        this.dayliesResult.innerHTML = ''
+        const result = this.listU(event)
+
+        if (result) {
+            result.then(result => {
+                result.forEach((r: any) => {
+                    const daily = new DailyNote(
+                        r.yesterday,
+                        r.today,
+                        r.impediment,
+                        new Date(r.date)
+                    )
+
+                    let totalPages: number
+                    if (r.hasOwnProperty('totalPages')) {
+                        totalPages = parseInt(r.totalPages)
+                        
+                        let header_pagination: string = ''
+                        let string_li: string = ''
+                        let footer_pagination: string = ''
+                        const dateValue = this.url_date || this.dateField.value
+                        
+                        if (this.totalPagesDiv) {
+                            header_pagination = `
+                        <nav aria-label="daily-nav" class="float-right">
+                        <ul class="pagination">
+                        <li class="page-item">
+                        </a>
+                        </li>
+                        `
+                           
+                            let i = 0
+                            string_li = ''
+                            for (i; i < totalPages; i++) {
+                                string_li += `
+                            <li class="page-item"><a class="page-link" href="app-daily-note.html?page=${i +
+                                    1}&date=${dateValue}">${i + 1}</a></li>
+								`
+                            }
+                            
+                            footer_pagination = `
+							<li class="page-item" >
+                        
+							`
+                            
+                            const nav_pagination = document.createElement('nav')
+                            const fullString: string =
+                                header_pagination + string_li + footer_pagination
+                            nav_pagination.innerHTML = fullString
+                            this.totalPagesDiv.innerHTML = ''
+                            this.totalPagesDiv.appendChild(nav_pagination)
+                            
+                        }
+                        return
+                    }
+                    const owner: string = r.owner
+                    const id_owner: string = r.id_user
+                    this.id_daily = r.id_daily
+                    if (this.dayliesResult) {
+                        this.mountTable(this.dayliesResult, daily, owner, id_owner, this.id_daily)
+                    }
+                    this.id_daily = ''
+                    return
+                })
+            })
+        }
+    }
+
+    mountTable(dayliesResult: any, daily: DailyNote, owner: string, id_user: string, id_daily: string) {
+        const body = document.createElement('tr');
+
+        if (localStorage.getItem('isAdmin') === 'true' || id_user === localStorage.getItem('id')) {
+            console.log("daily");
+            console.log(id_daily);
+            console.log(id_user);
+
+            body.innerHTML = `<tr>
+                <td>${owner}</td>
+                <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() + 1}/${daily.Date.getUTCFullYear()} </td>
+                <td>${daily.Yesterday}</td>
+                <td>${daily.Today}</td>
+                <td>${daily.Impediment}</td>
+                <td>
+                    <a href="daily-edit.html?id=${id_daily}&owner=${id_user}"
+                        class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="edit-daily">
+                        <i class="small material-icons" id="teste">edit</i>
+                    </a>
+                </td>
+                </tr>`;
+        } else {
+            body.innerHTML = `<tr>
+                <td>${owner}</td>
+                <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() + 1}/${daily.Date.getUTCFullYear()} </td>
+                <td>${daily.Yesterday}</td>
+                <td>${daily.Today}</td>
+                <td>${daily.Impediment}</td>
+                <td>         </td>
+                </tr>`;
+        }
+
+        this.dayliesResult.appendChild(body);
     }
 }

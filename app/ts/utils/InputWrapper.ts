@@ -2,7 +2,7 @@ export class InputWrapper {
     public readonly msgDiv: HTMLElement
 
     constructor(public readonly el: HTMLInputElement) {
-        this.msgDiv = <HTMLElement>el.nextElementSibling
+        this.msgDiv = <HTMLElement>el.nextElementSibling;
     }
 
     public setValid(valid: boolean, msg?: string): void {

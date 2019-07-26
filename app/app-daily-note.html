@@ -16,8 +16,6 @@
 
 <body>
     <div id="chatbot-view"></div>
-
-    <!-- particles.js -->
     <div id="particles-js"></div>
 
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
@@ -34,7 +32,6 @@
             </div>
 
             <!-- User menu -->
-            <!-- <div id="user-menu-login-link"></div> -->
             <div id="user-main">
                 <div class="dropdown mr-n4 txt-user" style="float:right;">
                     <div class="d-flex align-items-center btn" data-toggle="dropdown">
@@ -80,15 +77,11 @@
                     <div class="col-12 col-sm-4 mt-3">
                         <div class="form-group">
                             <label for="filter">Visualizar por data:</label>
-                            <!-- <input type="date" name="filter"
-                                class="form-control form-control-sm ext-placeholder input-circle" id="date_filter"> -->
-
                             <input type="date" name="filter" class="form-control form-control-sm ext-placeholder input-circle" id="date_filter">
                             <div id="filtervalidator"></div>
 
                             <button type="button" name="new_daily" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle mt-add-daily" id="filter">Buscar
                             </button>
-
                         </div>
 
                     </div>
@@ -100,24 +93,9 @@
                 </div>
 
                 <div id="status_daily"></div>
-                <!-- <div id="status_daily" class="alert alert-danger alert-dismissible fade show" style="display: none;"
-                    role="alert">
-                    <strong id='fail'></strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div id="status_daily" class="alert alert-success alert-dismissible fade show" style="display: none;"
-                    role="alert">
-                    <strong id='success'></strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div> -->
 
                 <table class="table table-hover mt-4">
-                    <!-- cabeçalho -->
+
                     <thead class="bg-light">
                         <tr>
                             <th scope="col">Autor</th>
@@ -128,12 +106,11 @@
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="dayliesResult">
+                    <tbody id="dayliesResult"></tbody>
 
-                    </tbody>
                 </table>
-                <div id="pages">
-                </div>
+
+                <div id="pages"></div>
             </div>
         </section>
 
@@ -177,134 +154,6 @@
 
                         <button type="submit" name="send" class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle" id="recovery-pass">Adicionar</button>
                         <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle" data-dismiss="modal" id="cancel">Cancelar</button>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- View Daily modal -->
-    <div class="modal fade" id="viewdailyModal" tabindex="-1" role="dialog" aria-labelledby="viewdailyTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title vt-line mt-2" id="viewdailyTitle">
-                        <h3><strong>Daily</strong></h3>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <form class="form" method="post" id="viewdaily-form" autocomplete="off">
-
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label for="name">Nome:</label>
-                                    <input type="text" name="name" class="form-control form-control-sm input-circle" id="name" disabled>
-                                    <div id="namevalidator"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label for="date">Data:</label>
-                                    <input type="date" name="filter" class="form-control form-control-sm ext-placeholder input-circle" id="filter" disabled>
-                                    <div id="datevalidator"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="first"><strong>1. </strong>O que fez ontem?</label>
-                            <textarea name="first" class="form-control form-control-sm input-circle" id="first" disabled></textarea>
-                            <div id="firstvalidator"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="second"><strong>2. </strong>O que vai fazer hoje?</label>
-                            <textarea name="second" class="form-control form-control-sm input-circle" id="second" disabled></textarea>
-                            <div id="secondvalidator"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="third"><strong>3. </strong>Tem impedimentos? Se sim,
-                                qual(is)?</label>
-                            <textarea name="third" class="form-control form-control-sm input-circle" id="third" disabled></textarea>
-                            <div id="thirdvalidator"></div>
-                        </div>
-
-                        <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle" data-dismiss="modal">Voltar</button>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Update Daily modal -->
-    <div class="modal fade" id="editdailyModal" tabindex="-1" role="dialog" aria-labelledby="editdailyTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title vt-line mt-2" id="editdailyTitle">
-                        <h3><strong>Editar Daily</strong></h3>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <form class="form" method="POST" id="editdaily-form" autocomplete="off">
-
-                        <!-- 
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label for="name">Nome:</label>
-                                    <input type="text" name="name" class="form-control form-control-sm input-circle"
-                                        id="name" disabled>
-                                    <div id="namevalidator"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label for="date">Data:</label>
-                                    <input type="date" name="filter"
-                                        class="form-control form-control-sm ext-placeholder input-circle" id="filter"
-                                        disabled>
-                                    <div id="datevalidator"></div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <div class="form-group">
-                            <label for="first"><strong>1. </strong>O que eu fiz ontem?</label>
-                            <textarea name="first" class="form-control form-control-sm input-circle" id="edit-yesterday"></textarea>
-                            <div id="firstvalidator"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="second"><strong>2. </strong>O que eu vou fazer hoje?</label>
-                            <textarea name="second" class="form-control form-control-sm input-circle" id="edit-today"></textarea>
-                            <div id="secondvalidator"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="third"><strong>3. </strong>Eu tenho impedimentos? Se sim,
-                                qual(is)?</label>
-                            <textarea name="third" class="form-control form-control-sm input-circle" id="edit-impediment"></textarea>
-                            <div id="thirdvalidator"></div>
-                        </div>
-
-                        <button type="submit" name="send" class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle" id="update_daily">Editar</button>
-                        <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-2 pl-2 input-circle" data-dismiss="modal">Cancelar</button>
                     </form>
 
                 </div>
