@@ -78,11 +78,6 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         return res.json();
                     });
                 }
-                registered(event) {
-                    event.preventDefault();
-                    let service = new DailyNoteService_1.DailyNoteService();
-                    return service.registeredDaily(localStorage.getItem('id'));
-                }
                 cancel(event) {
                     event.preventDefault();
                     index_2.clean(document.querySelector('#yesterday'));
@@ -94,24 +89,15 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         document.getElementById('add_daily').setAttribute('disabled', 'disabled');
                 }
                 showAllDailys() {
-                    if (this.url.get('date') && this.url.get('page')) {
+                    if (this.url.get('date') && this.url.get('page'))
                         this.listDateDaily(event);
-                    }
-                    let year = `${new Date().getFullYear()}`;
-                    let month = `${new Date().getMonth() + 1}`;
-                    let day = `${new Date().getDate()}`;
-                    if (month.length < 2)
-                        month = '0' + month;
-                    if (day.length < 2)
-                        day = '0' + day;
-                    let today = `${year}-${month}-${day}`;
+                    let date = new Date();
+                    let today = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1) < 10 ? '0' + (date.getUTCMonth() + 1) : (date.getUTCMonth() + 1)}-${date.getUTCDate()}`;
                     this.dateField.value = this.url_date || today;
-                    if (this.url.get('user')) {
+                    if (this.url.get('user'))
                         this.listUserDaily(event);
-                    }
-                    else {
+                    else
                         this.listDateDaily(event);
-                    }
                     this.dailyButton(event);
                     this.login(event);
                 }
@@ -130,25 +116,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                                     let footer_pagination = '';
                                     const dateValue = this.url_date || this.dateField.value;
                                     if (this.totalPagesDiv) {
-                                        header_pagination = `
-                            <nav aria-label="daily-nav" class="float-right">
-                            <ul class="pagination">
-                            <li class="page-item">
-                            </a>
-                            </li>
-                            `;
-                                        let i = 0;
-                                        string_li = '';
-                                        for (i; i < totalPages; i++) {
-                                            string_li += `
-                                <li class="page-item"><a class="page-link" href="app-daily-note.html?page=${i +
-                                                1}&date=${dateValue}">${i + 1}</a></li>
-                                    `;
-                                        }
-                                        footer_pagination = `
-                                <li class="page-item" >
-                            
-                                `;
+                                        console.log('total paginas', this.totalPagesDiv);
                                         const nav_pagination = document.createElement('nav');
                                         const fullString = header_pagination + string_li + footer_pagination;
                                         nav_pagination.innerHTML = fullString;
@@ -169,11 +137,15 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         });
                     }
                 }
+                registered(event) {
+                    event.preventDefault();
+                    let service = new DailyNoteService_1.DailyNoteService();
+                    return service.registeredDaily(localStorage.getItem('id'));
+                }
                 dailyButton(event) {
                     this.registered(event)
                         .then((res) => {
                         if (res.status == 400) {
-                            document.getElementById('dailyModal').click();
                             document.getElementById('add_daily').setAttribute('disabled', 'disabled');
                             return;
                         }
@@ -268,9 +240,6 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                 mountTable(dayliesResult, daily, owner, id_user, id_daily) {
                     const body = document.createElement('tr');
                     if (localStorage.getItem('isAdmin') === 'true' || id_user === localStorage.getItem('id')) {
-                        console.log("daily");
-                        console.log(id_daily);
-                        console.log(id_user);
                         body.innerHTML = `<tr>
                 <td>${owner}</td>
                 <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() + 1}/${daily.Date.getUTCFullYear()} </td>

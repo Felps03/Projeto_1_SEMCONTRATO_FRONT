@@ -6,6 +6,7 @@ import * as vals from '../validation/dailyNoteValidate';
 import { noFalse } from '../utils/listCheck';
 import { DailyNotesView } from '../views/DailyNotesView';
 import { InputWrapper } from '../utils/index';
+import { headerPaginationView } from '../views/headerPaginationView';
 
 export class DailyNoteController {
 
@@ -23,6 +24,8 @@ export class DailyNoteController {
     private url_page = this.url.get('page');
     private url_user = this.url.get('user');
     private id_daily: string;
+
+    private headerPagination: headerPaginationView;
 
     constructor() {
         this.dayliesResult = <HTMLInputElement>document.getElementById("dayliesResult");
@@ -99,14 +102,6 @@ export class DailyNoteController {
         })
     }
 
-    registered(event: Event) {
-        event.preventDefault();
-
-        let service = new DailyNoteService();
-
-        return service.registeredDaily(localStorage.getItem('id'))
-    }
-
     cancel(event: Event) {
         event.preventDefault();
 
@@ -120,26 +115,15 @@ export class DailyNoteController {
     }
 
     showAllDailys() {
-        if (this.url.get('date') && this.url.get('page')) {
-            this.listDateDaily(event);
-        }
-
-        let year = `${new Date().getFullYear()}`;
-        let month = `${new Date().getMonth() + 1}`;
-        let day = `${new Date().getDate()}`;
-
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-
-        let today = `${year}-${month}-${day}`;
+        if (this.url.get('date') && this.url.get('page')) this.listDateDaily(event);
+        let date = new Date();
+        let today = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1) < 10 ? '0' + (date.getUTCMonth() + 1) : (date.getUTCMonth() + 1)}-${date.getUTCDate()}`;
 
         this.dateField.value = this.url_date || today;
 
-        if (this.url.get('user')) {
-            this.listUserDaily(event)
-        } else {
-            this.listDateDaily(event)
-        }
+        if (this.url.get('user')) this.listUserDaily(event);
+        else this.listDateDaily(event);
+        
         this.dailyButton(event);
         this.login(event);
     }
@@ -160,30 +144,33 @@ export class DailyNoteController {
                         let header_pagination: string = '';
                         let string_li: string = '';
                         let footer_pagination: string = '';
+
                         const dateValue = this.url_date || this.dateField.value;
 
                         if (this.totalPagesDiv) {
-                            header_pagination = `
-                            <nav aria-label="daily-nav" class="float-right">
-                            <ul class="pagination">
-                            <li class="page-item">
-                            </a>
-                            </li>
-                            `;
+                            console.log('total paginas', this.totalPagesDiv);
 
-                            let i = 0;
-                            string_li = '';
-                            for (i; i < totalPages; i++) {
-                                string_li += `
-                                <li class="page-item"><a class="page-link" href="app-daily-note.html?page=${i +
-                                    1}&date=${dateValue}">${i + 1}</a></li>
-                                    `;
-                            }
+                            // header_pagination = `
+                            // <nav aria-label="daily-nav" class="float-right">
+                            // <ul class="pagination">
+                            // <li class="page-item">
+                            // </a>
+                            // </li>
+                            // `;
 
-                            footer_pagination = `
-                                <li class="page-item" >
+                            // let i = 0;
+                            // string_li = '';
+                            // for (i; i < totalPages; i++) {
+                            //     string_li += `
+                            //     <li class="page-item"><a class="page-link" href="app-daily-note.html?page=${i +
+                            //         1}&date=${dateValue}">${i + 1}</a></li>
+                            //         `;
+                            // }
+
+                            // footer_pagination = `
+                            //     <li class="page-item" >
                             
-                                `;
+                            //     `;
                             
                             const nav_pagination = document.createElement('nav');
                             const fullString: string = header_pagination + string_li + footer_pagination;
@@ -207,15 +194,24 @@ export class DailyNoteController {
         }
     }
 
+    registered(event: Event) {
+        event.preventDefault();
+        let service = new DailyNoteService();
+
+        return service.registeredDaily(localStorage.getItem('id'));
+    }
+
     dailyButton(event: Event) {
         this.registered(event)
             .then((res) => {
                 if (res.status == 400) {
-                    document.getElementById('dailyModal').click();
+                    // document.getElementById('dailyModal').click();
                     document.getElementById('add_daily').setAttribute('disabled', 'disabled');
                     return;
                 }
-            });
+                
+            }
+        );
     }
 
     registeredDaily(event: Event) {
@@ -323,10 +319,6 @@ export class DailyNoteController {
         const body = document.createElement('tr');
 
         if (localStorage.getItem('isAdmin') === 'true' || id_user === localStorage.getItem('id')) {
-            console.log("daily");
-            console.log(id_daily);
-            console.log(id_user);
-
             body.innerHTML = `<tr>
                 <td>${owner}</td>
                 <td>${daily.Date.getUTCDate()}/${daily.Date.getUTCMonth() + 1}/${daily.Date.getUTCFullYear()} </td>
