@@ -82,8 +82,8 @@ System.register(["./chatBotProcessEntities", "../../services/index", "../../mode
                         },
                         {
                             call: ['adicionar', 'incluir', 'inserir'],
-                            goto: 'main',
-                            answer: NOT_IMPLEMENTED_ANSWER
+                            goto: 'add_daily_yesterday',
+                            answer: ['O que você fez ontem? 😃']
                         }
                     ]
                 },
@@ -124,6 +124,42 @@ System.register(["./chatBotProcessEntities", "../../services/index", "../../mode
                             goto: 'main',
                             process: process.raw('list_daily_note_user'),
                             answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`]
+                        }
+                    ]
+                },
+                add_daily_yesterday: {
+                    children: [
+                        {
+                            call: [/^.*$/],
+                            normalize: false,
+                            goto: 'add_daily_today',
+                            process: process.raw('add_daily_yesterday', 0),
+                            answer: ['O que fará hoje? 🙂']
+                        }
+                    ]
+                },
+                add_daily_today: {
+                    children: [
+                        {
+                            call: [/^.*$/],
+                            normalize: false,
+                            goto: 'add_daily_impediment',
+                            process: process.raw('add_daily_today', 0),
+                            answer: ['Algum impedimento? 🙂']
+                        }
+                    ]
+                },
+                add_daily_impediment: {
+                    children: [
+                        {
+                            call: [/^.*$/],
+                            normalize: false,
+                            goto: 'main',
+                            process: (state, match) => {
+                                const impediment = match[0];
+                                dailyNoteService.add(state.get('add_daily_yesterday'), state.get('add_daily_today'), impediment, null);
+                            },
+                            answer: ['Daily registrada com sucesso!']
                         }
                     ]
                 },

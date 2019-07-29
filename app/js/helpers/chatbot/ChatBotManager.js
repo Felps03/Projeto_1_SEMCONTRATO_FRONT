@@ -76,7 +76,9 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                                 for (let branch of chatBotTree_1.dialog[this.context].children) {
                                     if (branch.call) {
                                         for (let synonym of branch.call) {
-                                            const processed = new RegExp(synonym).exec(normalizedMsg);
+                                            if (branch.normalize === undefined)
+                                                branch.normalize = true;
+                                            const processed = new RegExp(synonym).exec(branch.normalize ? normalizedMsg : lastMsg[1]);
                                             if (processed) {
                                                 success = true;
                                                 if (branch.artificialDelay === undefined)
