@@ -1,6 +1,6 @@
-System.register(["./controllers/UserController", "./utils/userData", "./controllers/HomeController"], function (exports_1, context_1) {
+System.register(["./controllers/UserController", "./utils/userData", "./controllers/HomeController", "./services/ConfigurationService"], function (exports_1, context_1) {
     "use strict";
-    var UserController_1, userData_1, HomeController_1, userData, homeController, update, passwordChange, userController;
+    var UserController_1, userData_1, HomeController_1, ConfigurationService_1, userData, homeController, update, passwordChange, userController, configurationService;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -12,6 +12,9 @@ System.register(["./controllers/UserController", "./utils/userData", "./controll
             },
             function (HomeController_1_1) {
                 HomeController_1 = HomeController_1_1;
+            },
+            function (ConfigurationService_1_1) {
+                ConfigurationService_1 = ConfigurationService_1_1;
             }
         ],
         execute: function () {
@@ -30,6 +33,23 @@ System.register(["./controllers/UserController", "./utils/userData", "./controll
                 passwordChange.addEventListener('change', userController.disablePasswordInput.bind(userController));
             }
             userController = new UserController_1.UserController().getUserData();
+            if (localStorage.getItem('isAdmin')) {
+                $("#recaptcha").show();
+            }
+            else {
+                $("#recaptcha").hide();
+            }
+            configurationService = new ConfigurationService_1.ConfigurationService();
+            configurationService.listAll()
+                .then(res => res.json())
+                .then(res => {
+                if (res.recaptcha) {
+                    $('#recaptchaChange').prop("checked", true);
+                }
+            })
+                .catch(err => {
+                console.log(err);
+            });
         }
     };
 });

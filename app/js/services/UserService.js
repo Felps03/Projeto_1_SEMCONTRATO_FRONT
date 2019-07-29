@@ -38,7 +38,7 @@ System.register(["../config/index"], function (exports_1, context_1) {
                         }
                     });
                 }
-                update(user, ID) {
+                update(user, ID, recaptchaON) {
                     let dateOfBirth = user.DateOfBirth.replace(/,/g, '-');
                     if (user.Password == '') {
                         return fetch(`${index_1.HOST}users/user/${ID}`, {
@@ -53,7 +53,8 @@ System.register(["../config/index"], function (exports_1, context_1) {
                                 "lastName": user.LastName,
                                 "userName": user.UserName,
                                 "email": user.Email,
-                                "dateOfBirth": dateOfBirth
+                                "dateOfBirth": dateOfBirth,
+                                "recaptcha": recaptchaON
                             })
                         });
                     }

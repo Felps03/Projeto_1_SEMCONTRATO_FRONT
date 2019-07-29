@@ -49,7 +49,7 @@ export class UserService {
      * 
      * @param id para alterar dados do usuário dessa id
      */
-    update(user: User, ID: string) {
+    update(user: User, ID: string, recaptchaON: boolean) {
         let dateOfBirth = user.DateOfBirth.replace(/,/g, '-');
 
         if (user.Password == '') {
@@ -65,7 +65,8 @@ export class UserService {
                     "lastName": user.LastName,
                     "userName": user.UserName,
                     "email": user.Email,
-                    "dateOfBirth": dateOfBirth
+                    "dateOfBirth": dateOfBirth,
+                    "recaptcha": recaptchaON
                 })
             })
         } else {

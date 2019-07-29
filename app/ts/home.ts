@@ -6,6 +6,8 @@ import { getUser } from "./utils/userData";
 import { AuthenticateController } from "./controllers/AuthenticateController";
 import { ChatBotController } from "./controllers/ChatBotController";
 
+import { ConfigurationService } from "./services/ConfigurationService";
+
 declare const grecaptcha: any;
 
 
@@ -34,3 +36,16 @@ if (addDailyNote) {
     const dailyNoteController = new DailyNoteController();
     addDailyNote.addEventListener('submit', dailyNoteController.add.bind(dailyNoteController));
 }
+
+let configurationService = new ConfigurationService();
+configurationService.listAll()
+    .then(res => res.json())
+    .then(res => {
+        if(res.recaptcha) $("#recaptcha").show()
+        else $("#recaptcha").hide()
+    })
+    .catch(err => {
+        console.log(err);
+    })
+
+
