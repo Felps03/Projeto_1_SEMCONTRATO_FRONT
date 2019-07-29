@@ -1,4 +1,6 @@
 import * as process from './chatBotProcessEntities'
+import { HelpCenterService, DailyNoteService } from '../../services/index';
+import { Post } from '../../models/Post';
 
 export type DialogBranch = {
     // go into branch if one call matches
@@ -31,6 +33,10 @@ export type Dialog = {
 const BOT_NAME = 'Contratinho'
 const NOT_IMPLEMENTED_ANSWER = ['Hm... desculpa, não sei fazer isso ainda 😔']
 const SELF_HTTPS_HOST = 'http://' + window.location.host
+
+// initialiazing stuff
+const helpCenterService = new HelpCenterService()
+const dailyNoteService = new DailyNoteService()
 
 const actualHours = new Date().getHours()
 let greeting
@@ -157,8 +163,38 @@ export const dialog: { [node: string]: Dialog } = {
             },
             {
                 call: ['adicionar', 'incluir', 'inserir'],
+                goto: 'add_help_title',
+                answer: ['Qual o seu problema? 😋 (título)']
+            }
+        ]
+    },
+
+    add_help_title: {
+        children: [
+            {
+                call: [/^.*$/],
+                normalize: false,
+                goto: 'add_help_desc',
+                process: process.raw('add_help_title', 0),
+                answer: ['O que tem a dizer sobre o problema? 🙂']
+            }
+        ]
+    },
+
+    add_help_desc: {
+        children: [
+            {
+                call: [/^.*$/],
+                normalize: false,
                 goto: 'main',
-                answer: NOT_IMPLEMENTED_ANSWER
+                process: (state: Map<string, any>, match: RegExpExecArray) => {
+                    const desc = match[0]
+
+                    const postToAdd = new Post(<string>state.get('add_help_title'), desc)
+
+                    helpCenterService.add(postToAdd)
+                },
+                answer: ['Adicionado com sucesso!']
             }
         ]
     },
