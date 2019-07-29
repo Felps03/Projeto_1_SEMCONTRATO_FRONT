@@ -5,6 +5,7 @@ import { DailyNoteController } from "./controllers/DailyNoteController";
 import { getUser } from "./utils/userData";
 import { AuthenticateController } from "./controllers/AuthenticateController";
 import { ChatBotController } from "./controllers/ChatBotController";
+import { PasswordRecoveryController } from "./controllers/PasswordRecoveryController";
 
 let userData = getUser();
 
@@ -31,3 +32,10 @@ if (addDailyNote) {
     const dailyNoteController = new DailyNoteController();
     addDailyNote.addEventListener('submit', dailyNoteController.add.bind(dailyNoteController));
 }
+
+let recoveryPasswordCancel = document.querySelector('#recoveryPasswordCancel');
+if (recoveryPasswordCancel) {
+    let homeController = new HomeController();
+    recoveryPasswordCancel.addEventListener('click', homeController.cancel.bind(homeController));
+}
+
