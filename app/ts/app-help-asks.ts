@@ -9,6 +9,10 @@ let askResult = document.getElementById("ask_result");
 
 askResult.addEventListener('click', controller.list.bind(controller));
 
+if (url.get('page')) {
+    controller.CurrentPage = +url.get('page');
+}
+
 $(document).ready(function () {
     document.getElementById('ask_result').click();
 });

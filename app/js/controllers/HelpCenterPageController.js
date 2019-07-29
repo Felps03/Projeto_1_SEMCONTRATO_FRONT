@@ -1,6 +1,6 @@
-System.register(["../models/index", "../services/index"], function (exports_1, context_1) {
+System.register(["../models/index", "../services/index", "../views/QuestionView", "../views/AnswersView", "../views/PaginationView"], function (exports_1, context_1) {
     "use strict";
-    var index_1, index_2, HelpCenterPageController;
+    var index_1, index_2, QuestionView_1, AnswersView_1, PaginationView_1, HelpCenterPageController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -9,30 +9,49 @@ System.register(["../models/index", "../services/index"], function (exports_1, c
             },
             function (index_2_1) {
                 index_2 = index_2_1;
+            },
+            function (QuestionView_1_1) {
+                QuestionView_1 = QuestionView_1_1;
+            },
+            function (AnswersView_1_1) {
+                AnswersView_1 = AnswersView_1_1;
+            },
+            function (PaginationView_1_1) {
+                PaginationView_1 = PaginationView_1_1;
             }
         ],
         execute: function () {
             HelpCenterPageController = class HelpCenterPageController {
                 constructor(currentPage = 1) {
+                    this.url = new URLSearchParams(location.search);
+                    this.url_ask_id = this.url.get('id');
                     this.currentPage = currentPage;
+                    this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-asks.html');
+                    this.paginationView.update(currentPage);
+                }
+                set CurrentPage(page) {
+                    this.currentPage = page;
+                    this.paginationView.update(this.currentPage);
                 }
                 list(event) {
                     event.preventDefault();
                     const helpCenterService = new index_2.HelpCenterService();
                     helpCenterService
-                        .list(this.currentPage, null)
+                        .list(this.currentPage, this.url_ask_id)
                         .then((result) => {
                         return result.json();
                     })
                         .then((res) => {
-                        const posts = index_1.Posts.from(res.slice(0, -1));
-                        Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
-                            const i = el.getAttribute('data-i');
-                            if (i) {
-                                el.addEventListener('click', () => {
-                                });
-                            }
-                        });
+                        console.log(res.question);
+                        this.questionView = new QuestionView_1.QuestionView('#ask_result');
+                        let question = new index_1.Post(res.question.ask, res.question.text, res.question.id_user, res.question.owner, res.question.id_helpCenter);
+                        this.questionView.update(question);
+                        let postAsks = new index_1.PostAsks();
+                        this.answersView = new AnswersView_1.AnswersView('#aswers_result');
+                        if (res.answerData || res.answerData != undefined)
+                            res.answerData.map((res) => new index_1.PostAsk(res.id_helpCenter, res.text, res.id_user, res.owner, res.id_answer))
+                                .forEach((res) => postAsks.add(res));
+                        this.answersView.update(postAsks);
                     })
                         .catch((error) => {
                         console.error(error);

@@ -45,7 +45,6 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                 }
                 listLastHelp(event) {
                     event.preventDefault();
-                    console.log('oi');
                     const helpCenterService = new HelpCenterService_1.HelpCenterService();
                     helpCenterService.listLastHelp()
                         .then(result => {

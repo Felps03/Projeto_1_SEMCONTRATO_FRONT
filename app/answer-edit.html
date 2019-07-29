@@ -11,7 +11,7 @@
     <link href="./lib/materialize/fonts/fonts.css" rel="stylesheet">
     <link href="./lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
-    <title>Help Center - Respostas</title>
+    <title>Editar Resposta</title>
 </head>
 
 <body>
@@ -33,38 +33,9 @@
             </div>
 
             <!-- User menu -->
-            <!-- <div id="user-menu-login-link"></div> -->
-            <div id="user-main">
-                <div class="dropdown mr-n4 txt-user" style="float:right;">
-                    <div class="d-flex align-items-center btn" data-toggle="dropdown">
-                        <span id="nameSpan"></span>
-                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png"
-                            class="rounded-circle" width="60px">
-                        <i class="material-icons ml-n2">arrow_drop_down</i>
-                    </div>
-                    <div class="dropdown-menu dropdown-menu-right align-user">
-                        <div class="dropdown-item">
-                            Usuário: <span id="userNameSpan"></span>
-                        </div>
-                        <div class="dropdown-divider"></div>
-
-                        <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
-                            <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
-                        <a class="dropdown-item d-flex align-items-center" href="index.html">
-                            <i class="material-icons mr-2">home</i>Home</a>
-
-                        <div class="dropdown-divider"></div>
-
-                        <a class="dropdown-item d-flex align-items-center" id="logout">
-                            <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
-                    </div>
-                </div>
-            </div>
-            <!-- end User menu -->
+            <div id="user-menu-login-link"></div>
         </div>
     </nav>
-
-
 
     <div class="container page-position col-12 col-sm-7" id="">
 
@@ -73,20 +44,35 @@
             <div class="pt-1 pl-4 pr-4 pb-4">
 
                 <div class="vt-line mt-4 mb-4">
-                    <h3 id="help_ask"><strong>Pergunta e Respostas</strong></h3>
+                    <h3><strong>Editar Resposta</strong></h3>
                 </div>
                 <hr class="register-line">
 
 
-                <div id="ask_result"></div>
-                <div id="aswers_result"></div>
+                <div id="editResult"></div>
+                <form class="form" method="POST" id="editdaily-form" autocomplete="off">
+                    <div class="form-group">
+                        <label for="first">Título</label>
+                        <textarea name="first" class="form-control form-control-sm input-circle"
+                            id="edit-yesterday"></textarea>
+                        <div id="firstvalidator"></div>
+                    </div>
 
-                <textarea id="answer"></textarea>
-                <button id="send_answer" class="btn btn-default btn-sm btn-success">Responder</button>
-                <nav class="float-right mt-1">
-                    <ul id="pagination" class="pagination">
-                    </ul>
-                </nav>
+                    <div class="form-group">
+                        <label for="second">Descrição</label>
+                        <textarea name="second" class="form-control form-control-sm input-circle"
+                            id="edit-today"></textarea>
+                        <div id="secondvalidator"></div>
+                    </div>
+
+                    <input type="hidden" id="idHelpCenterAnswer">
+                    <button type="submit" name="send"
+                        class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle"
+                        id="update_daily">Editar</button>
+                    <!-- <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-2 pl-2 input-circle"
+                        data-dismiss="modal">Cancelar</button> -->
+                </form>
+
         </section>
     </div>
 
@@ -99,7 +85,7 @@
     <script src="lib/system.js"></script>
     <script>
         System.defaultJSExtensions = true;
-        System.import('js/app-help-asks.js').catch(err => console.error(err));
+        System.import('js/daily-edit.js').catch(err => console.error(err));
         System.import('js/logout.js').catch(err => console.error(err));
         System.import('js/chatbot.js').catch(err => console.error(err))
     </script>
