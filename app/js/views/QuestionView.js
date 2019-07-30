@@ -28,10 +28,10 @@ System.register(["./View"], function (exports_1, context_1) {
 
                     <h5>${model.Title}</h5>
                     <p>${model.Desc}</p>
+                    <p id="idQuest" style = {display="none"} >${model.Id}</p>
                 </div>
             </div>
-            ${model.Id === localStorage.getItem('id') ? `<button id="delete-answer">Excluir</button> <button id="edit-answer">Editar</button>` : ''}
-
+            ${model.AuthorId === localStorage.getItem('id') ? `<button id="delete-question">Excluir</button> <button id="edit-question">Editar</button>` : ''}
         </div>
     </div>
 

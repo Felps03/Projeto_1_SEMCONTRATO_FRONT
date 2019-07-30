@@ -4,6 +4,7 @@ import { Post } from '../models/index';
 export class QuestionView extends View<Post> {
 
     template(model: Post): string {
+
         return `
         
         <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
@@ -21,10 +22,10 @@ export class QuestionView extends View<Post> {
 
                     <h5>${model.Title}</h5>
                     <p>${model.Desc}</p>
+                    <p id="idQuest" style = {display="none"} >${model.Id}</p>
                 </div>
             </div>
-            ${model.Id === localStorage.getItem('id') ? `<button id="delete-answer">Excluir</button> <button id="edit-answer">Editar</button>` : ''}
-
+            ${model.AuthorId === localStorage.getItem('id') ? `<button id="delete-question">Excluir</button> <button id="edit-question">Editar</button>` : ''}
         </div>
     </div>
 

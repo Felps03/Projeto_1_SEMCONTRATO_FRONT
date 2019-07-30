@@ -28,11 +28,12 @@ export class Post {
 
     get Date() {
         let hoje = new Date(this.date);
-        let options = { year: 'numeric', month: '2-digit', day: '2-digit' };       
-        return  hoje.toLocaleDateString('pt-BR', options)
+        let options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        return hoje.toLocaleDateString('pt-BR', options)
     }
 
     get Id() {
+        console.log('teste', this.id)
         return this.id
     }
 }

@@ -32,6 +32,7 @@ System.register([], function (exports_1, context_1) {
                     return hoje.toLocaleDateString('pt-BR', options);
                 }
                 get Id() {
+                    console.log('teste', this.id);
                     return this.id;
                 }
             };

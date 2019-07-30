@@ -36,9 +36,10 @@ System.register(["./View"], function (exports_1, context_1) {
 
                             <h5>${post.Title}</h5>
                             <p>${post.Desc}</p>
+                            
                         </div>
                     </div>
-
+                    ${post.AuthorId === localStorage.getItem('id') ? `<button id="delete-answer">Excluir</button> <button id="edit-answer">Editar</button>` : ''}
                 </div>
             </div>
             `).join('')}

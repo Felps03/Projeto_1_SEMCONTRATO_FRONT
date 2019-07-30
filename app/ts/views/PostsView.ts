@@ -29,9 +29,10 @@ export class PostsView extends View<Posts> {
 
                             <h5>${post.Title}</h5>
                             <p>${post.Desc}</p>
+                            
                         </div>
                     </div>
-
+                    ${post.AuthorId === localStorage.getItem('id') ? `<button id="delete-answer">Excluir</button> <button id="edit-answer">Editar</button>` : ''}
                 </div>
             </div>
             `).join('')}

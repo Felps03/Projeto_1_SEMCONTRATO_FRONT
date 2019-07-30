@@ -33,4 +33,6 @@ export class AnswersView extends View<PostAsks> {
             </div>
             `;
     }
+
+
 }

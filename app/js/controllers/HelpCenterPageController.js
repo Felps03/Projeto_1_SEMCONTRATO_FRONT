@@ -28,6 +28,8 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                     this.currentPage = currentPage;
                     this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-asks.html');
                     this.paginationView.update(currentPage);
+                    this.answersView = new AnswersView_1.AnswersView('#post-ask-list');
+                    this.addComment = document.querySelector('#answer');
                 }
                 set CurrentPage(page) {
                     this.currentPage = page;
@@ -35,6 +37,74 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                 }
                 set TotalPages(total) {
                     this.totalPages = total;
+                }
+                delete(event) {
+                    event.preventDefault();
+                    const postIdField = document.getElementById('post-meta');
+                    if (!postIdField) {
+                        return;
+                    }
+                    const ID_POST = this.url_ask_id;
+                    if (!ID_POST) {
+                        return;
+                    }
+                    const helpCenterService = new index_2.HelpCenterService();
+                    helpCenterService
+                        .remove(ID_POST)
+                        .then((result) => {
+                        if (Math.floor(result.status / 100) === 2) {
+                            result.json().then((res) => {
+                                this.list(event);
+                                document.getElementById('confirm-del-modal-close').click();
+                                document.getElementById('view-modal-close').click();
+                                this.messageView.update('Deletado com sucesso.');
+                            });
+                        }
+                        else {
+                            result.json().then((res) => {
+                                this.list(event);
+                                this.messageView.update(res.erro);
+                            });
+                        }
+                    })
+                        .catch((error) => {
+                        console.log(error);
+                    });
+                }
+                add(event) {
+                    event.preventDefault();
+                    const postAsk = new index_1.PostAsk(this.url_ask_id, this.addComment.value, localStorage.getItem('id') || '');
+                    const helpCenterService = new index_2.HelpCenterAskService();
+                    helpCenterService.add(postAsk)
+                        .then(result => {
+                        return result.json();
+                    }).then(res => {
+                        this.list(event);
+                    })
+                        .catch(error => {
+                        console.error(error);
+                    });
+                }
+                listByPost(event) {
+                    event.preventDefault();
+                    const postIdField = document.getElementById('post-meta');
+                    if (!(postIdField)) {
+                        return;
+                    }
+                    const ID_POST = postIdField.getAttribute('data-id');
+                    if (!ID_POST) {
+                        return;
+                    }
+                    const helpCenterService = new index_2.HelpCenterAskService();
+                    helpCenterService.list(1)
+                        .then(result => {
+                        return result.json();
+                    }).then(res => {
+                        this.answersView.update(index_1.PostAsks.from(res.filter((ask) => ask['id_helpCenter'] === ID_POST)));
+                    })
+                        .catch(error => {
+                        console.error(error);
+                    });
                 }
                 list(event) {
                     event.preventDefault();
@@ -45,14 +115,12 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                         return result.json();
                     })
                         .then((res) => {
-                        console.log(res);
                         this.TotalPages = res.pagination.totalPages;
                         this.paginationView.update(this.currentPage, this.totalPages);
                         this.questionView = new QuestionView_1.QuestionView('#ask_result');
                         let question = new index_1.Post(res.question.ask, res.question.text, res.question.id_user, res.question.owner, res.question.id_helpCenter);
                         this.questionView.update(question);
                         this.currentPage = res.pagination.page;
-                        console.log(res.pagination.page);
                         let postAsks = new index_1.PostAsks();
                         this.answersView = new AnswersView_1.AnswersView('#aswers_result');
                         if (res.answerData || res.answerData != undefined)
