@@ -15,8 +15,7 @@ System.register(["../config/index"], function (exports_1, context_1) {
                         method: 'GET',
                         headers: {
                             'Accept': 'application/json',
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                            'Content-Type': 'application/json'
                         }
                     });
                 }

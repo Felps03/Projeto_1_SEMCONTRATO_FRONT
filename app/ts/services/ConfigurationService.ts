@@ -6,8 +6,8 @@ export class ConfigurationService {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                'Content-Type': 'application/json'
+                // 'Authorization': `Bearer ${localStorage.getItem('tkn')}`
             }
         })
     }

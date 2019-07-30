@@ -32,6 +32,7 @@ System.register(["./controllers/UserController", "./utils/userData", "./services
             configurationService.listAll()
                 .then(res => res.json())
                 .then(res => {
+                console.log(res);
                 if (res.recaptcha)
                     $("#recaptcha").show();
                 else

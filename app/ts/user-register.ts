@@ -19,12 +19,11 @@ if (cadastrar) {
     cadastrar.addEventListener('submit', userController.add.bind(userController));
 }
 
-
-
 let configurationService = new ConfigurationService();
 configurationService.listAll()
     .then(res => res.json())
     .then(res => {
+        console.log(res);
         if(res.recaptcha) $("#recaptcha").show()
         else $("#recaptcha").hide()
     })

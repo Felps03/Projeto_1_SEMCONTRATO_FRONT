@@ -11,7 +11,7 @@
     <link href="./lib/materialize/fonts/fonts.css" rel="stylesheet">
     <link href="./lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
-    <title>Área de Cadastro do Usuário</title>
+    <title>Área de Cadastro</title>
 
     <!-- intentional -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -68,7 +68,6 @@
     </nav>
 
     <div class="container page-position col-12 col-sm-7" id="register">
-        <div id="message-view" class="mt-3"></div>
         <section class="section-register custom-bx">
             <form class="form pt-1 pl-4 pr-4 pb-4" method="post" id="user-register" autocomplete="off" enctype="multipart/form-data">
 
@@ -79,7 +78,9 @@
                 </div>
                 <hr class="register-line">
 
-                <div class="vt-line mb-3 mt-5">
+                <div id="message-view"></div>
+
+                <div class="vt-line mb-3 mt-3">
                     <h5>
                         <strong>Dados pessoais</strong>
                     </h5>

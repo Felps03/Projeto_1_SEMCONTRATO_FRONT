@@ -13,7 +13,6 @@ export class AuthenticateService {
      */
     authenticate(email: string, password: string) {
         return new Promise((resolve, reject) => {
-            console.log('chegou');
             fetch(`${HOST}users/authenticate`, {
                 //fetch('http://localhost:3000/users/authenticate', {
                 method: 'POST',
