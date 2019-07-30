@@ -1,6 +1,7 @@
 import { DailyNoteController } from './controllers/DailyNoteController';
 import { DailyNote } from './models/index';
 import { getUser } from './utils/userData';
+import { dateFormatYYYYMMDD } from './helpers/dateHelper';
 
 let userData = getUser();
 let dayliesResult = document.getElementById("dayliesResult");

@@ -24,7 +24,9 @@
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container">
             <div class="row navbar-header align-baseline ml-n3">
-                <a href="index.html"><img src="./img/logo_compasso.png"></a>
+                <a href="index.html">
+                    <img src="./img/logo_compasso.png">
+                </a>
                 <div class="vt-apps-line ml-2"></div>
                 <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
                     <h5>
@@ -44,12 +46,14 @@
                 <div class="dropdown mr-n4 txt-user" style="float:right;">
                     <div class="d-flex align-items-center btn" data-toggle="dropdown">
                         <span id="nameSpan"></span>
-                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle" width="60px">
+                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle"
+                            width="60px">
                         <i class="material-icons ml-n2">arrow_drop_down</i>
                     </div>
                     <div class="dropdown-menu dropdown-menu-right align-user">
                         <div class="dropdown-item">
-                            Usuário: <span id="userNameSpan"></span>
+                            Usuário:
+                            <span id="userNameSpan"></span>
                         </div>
                         <div class="dropdown-divider"></div>
 
@@ -61,7 +65,9 @@
                         <div class="dropdown-divider"></div>
 
                         <a class="dropdown-item d-flex align-items-center" id="logout">
-                            <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
+                            <i class="material-icons mr-2">power_settings_new</i>
+                            <strong>Sair</strong>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -99,7 +105,8 @@
                             <strong>Help Center</strong>
                         </h5>
                     </div>
-                    <p class="card-text text-justify">Envie perguntas sobre os erros durante o uso de ferramentas e receba soluções através de respostas de outros usuários.</p>
+                    <p class="card-text text-justify">Envie perguntas sobre os erros durante o uso de ferramentas e receba soluções através de respostas de
+                        outros usuários.</p>
                     <a href="app-help-center.html">
                         <button name="daily" class="btn btn-outline-success btn-sm pr-3 pl-3 float-right input-circle">Acessar</button>
                     </a>
@@ -111,7 +118,7 @@
         <div class="row mt-5 mb-5 justify-content-between">
 
             <!-- DailyNote -->
-            <div class="col-12 col-sm-7 section-lastdaily">
+            <div id="dailyTable" class="dailyTable col-12 col-sm-7 section-lastdaily">
                 <div class="col-12">
                     <div class="vt-line mt-4 mb-4">
                         <h3>
@@ -119,19 +126,21 @@
                         </h3>
                     </div>
 
-                    <hr class="lastdaily-line">
+                    <!-- <hr class="lastdaily-line"> -->
 
-                    <table class="table table-hover mt-4">
-                        <thead class="bg-light">
-                            <tr>
-                                <th scope="col">Autor</th>
-                                <th scope="col">Ontem</th>
-                                <th scope="col">Hoje</th>
-                                <th scope="col">Impedimentos</th>
-                            </tr>
-                        </thead>
-                        <tbody id="all-dailys"></tbody>
-                    </table>
+                    <div id="table-container" class="mt-4 mb-4">
+                        <table class="table table-hover mt-4">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th style="width:15%;" scope="col">Autor</th>
+                                    <th style="width:29%;" scope="col">Ontem</th>
+                                    <th style="width:28%;" scope="col">Hoje</th>
+                                    <th style="width:28%;" scope="col">Impedimentos</th>
+                                </tr>
+                            </thead>
+                            <tbody id="all-dailys"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 

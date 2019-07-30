@@ -7,6 +7,7 @@ import { DailyNotes } from "../models/DailyNotes";
 import { HomeDailyNotes } from "../models/HomeDailyNotes";
 import { HomeHelpCenterView } from "../views/HomeHelpCenterView";
 import { HomeHelpCenters } from "../models/HomeHelpCenters";
+import { dateFormatYYYYMMDD } from "../helpers/dateHelper";
 
 export class HomeController {
 
@@ -39,7 +40,6 @@ export class HomeController {
 
     listLastHelp(event: Event) {
         event.preventDefault();
-
         const helpCenterService = new HelpCenterService()
 
         helpCenterService.listLastHelp()
@@ -50,9 +50,11 @@ export class HomeController {
                 let helpCenters = new HomeHelpCenters();
                 this.helpCenterView = new HomeHelpCenterView('#last-helps');
 
-                results.length = 4;
+                
 
                 results.pop();
+                results.reverse();
+                results.length = 3;
                 results.map((result: any) => new HomeHelpCenter(result['owner'], result['date'], result['title'], result['desc']))
                 .forEach((result: any) => helpCenters.add(result))
 
@@ -65,23 +67,22 @@ export class HomeController {
 
     listDailyDate(event: Event) {
         event.preventDefault();
-        let date = new Date().toLocaleDateString('pt-BR').slice(0, 10);
+
         const dailyNoteService = new DailyNoteService();
 
-        let year = date.slice(6, 10);
-        let month = date.slice(3, 5);
-        let day = date.slice(0, 2);
+        let data = dateFormatYYYYMMDD(new Date());
 
-        let fullDate = `${year}-${month}-${day}`;
-
-        dailyNoteService.listDate(fullDate, 1)
+        dailyNoteService.listDate(data, 1)
             .then(result => {
                 return result.json();
             }).then(results => {
                 let dailyNotes = new HomeDailyNotes();
                 this.dailyView = new HomeDailyView('#all-dailys');
 
+                
+
                 results.pop();
+                results.reverse();
                 results.map((result: any) => new HomeDailyNote(result['owner'], result['yesterday'], result['today'], result['impediment']))
                 .forEach((result: any) => dailyNotes.add(result))
 

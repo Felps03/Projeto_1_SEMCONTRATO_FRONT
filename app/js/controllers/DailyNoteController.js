@@ -1,6 +1,6 @@
 System.register(["../models/DailyNote", "../services/DailyNoteService", "../helpers/index", "../validation/dailyNoteValidate", "../utils/listCheck", "../views/RegisteredDailyView", "../models/RegisteredDaylies", "../models/RegisteredDaily", "../views/DailyStatusView"], function (exports_1, context_1) {
     "use strict";
-    var DailyNote_1, DailyNoteService_1, index_1, index_2, vals, listCheck_1, RegisteredDailyView_1, RegisteredDaylies_1, RegisteredDaily_1, DailyStatusView_1, DailyNoteController;
+    var DailyNote_1, DailyNoteService_1, index_1, vals, listCheck_1, RegisteredDailyView_1, RegisteredDaylies_1, RegisteredDaily_1, DailyStatusView_1, DailyNoteController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -12,7 +12,6 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
             },
             function (index_1_1) {
                 index_1 = index_1_1;
-                index_2 = index_1_1;
             },
             function (vals_1) {
                 vals = vals_1;
@@ -94,9 +93,9 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                 }
                 cancel(event) {
                     event.preventDefault();
-                    index_2.clean(document.querySelector('#yesterday'));
-                    index_2.clean(document.querySelector('#today'));
-                    index_2.clean(document.querySelector('#impediment'));
+                    index_1.clean(document.querySelector('#yesterday'));
+                    index_1.clean(document.querySelector('#today'));
+                    index_1.clean(document.querySelector('#impediment'));
                 }
                 login(event) {
                     if (!localStorage.getItem('id') || localStorage.getItem('id') === 'undefined' || localStorage.getItem('id') === null)

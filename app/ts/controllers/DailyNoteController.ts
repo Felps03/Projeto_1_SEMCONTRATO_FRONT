@@ -1,9 +1,10 @@
 import { DailyNote } from '../models/DailyNote';
 import { DailyNoteService } from '../services/DailyNoteService';
-import { validate } from '../helpers/index'
-import { clean } from '../helpers/index'
+
+import { validate, clean } from '../helpers/index'
 import * as vals from '../validation/dailyNoteValidate';
 import { noFalse } from '../utils/listCheck';
+
 import { DailyNotesView } from '../views/DailyNotesView';
 import { InputWrapper } from '../utils/index';
 import { DailyNotes } from '../models/DailyNotes';

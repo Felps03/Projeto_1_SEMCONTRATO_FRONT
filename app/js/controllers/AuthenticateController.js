@@ -61,7 +61,6 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                         const authenticateService = new index_1.AuthenticateService();
                         authenticateService.resetPassword(this.emailRec.value.toString())
                             .then(res => {
-                            console.log('status', res.status);
                             if (Math.floor(res.status / 100) === 2) {
                                 res.json()
                                     .then(() => {

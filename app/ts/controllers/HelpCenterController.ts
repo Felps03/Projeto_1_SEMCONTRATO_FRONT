@@ -231,12 +231,12 @@ export class HelpCenterController {
 			});
 	}
 
-	findByTitle(event: Event) {
+	findByJoker(event: Event) {
 		event.preventDefault();
 		let title = this.searchTitle.value;
 		const helpCenterService = new HelpCenterService();
 		helpCenterService
-			.findByJoker(title)
+			.findByJoker(title, 1)
 			.then((result) => {
 				return result.json();
 			})
