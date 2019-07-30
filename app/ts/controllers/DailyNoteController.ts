@@ -77,9 +77,11 @@ export class DailyNoteController {
         let value = this.url_date || this.dateField.value;
         const page = parseInt(this.url_page) || 1;
 
+
         let dailyNoteService = new DailyNoteService();
 
-        let date = new Date();
+        // let date = new Date();
+        let date = new Date(value);
         let fullDate = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1) < 10 ? '0' + (date.getUTCMonth() + 1) : (date.getUTCMonth() + 1)}-${date.getUTCDate()}`;
 
         return dailyNoteService.listDate(fullDate, page)
@@ -218,9 +220,9 @@ export class DailyNoteController {
                 this.listDateDaily(event);
                 document.getElementById('dailyModal').click();
                 document.getElementById('add_daily').setAttribute('disabled', 'disabled');
-             
+
                 this.dailyStatusView = new DailyStatusView('#status_daily');
-                this.dailyStatusView.update(res.status == 200 ? 'Daily cadastrada com sucesso!' : res.status == 400 ? 'Você já cadastrou sua daily!': '');
+                this.dailyStatusView.update(res.status == 200 ? 'Daily cadastrada com sucesso!' : res.status == 400 ? 'Você já cadastrou sua daily!' : '');
             });
     }
 

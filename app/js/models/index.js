@@ -1,4 +1,4 @@
-System.register(["./Authenticate", "./User", "./DailyNote", "./Post", "./Posts", "./PostAsk", "./PostAsks", "./Chat", "./HomeDailyNote", "./HomeHelpCenter", "./RegisteredDaily", "./DailyStatus"], function (exports_1, context_1) {
+System.register(["./Authenticate", "./User", "./DailyNote", "./Post", "./Posts", "./PostAsk", "./PostAsks", "./Chat", "./HomeDailyNote", "./HomeHelpCenter", "./RegisteredDaily"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function exportStar_1(m) {
@@ -42,9 +42,6 @@ System.register(["./Authenticate", "./User", "./DailyNote", "./Post", "./Posts",
             },
             function (RegisteredDaily_1_1) {
                 exportStar_1(RegisteredDaily_1_1);
-            },
-            function (DailyStatus_1_1) {
-                exportStar_1(DailyStatus_1_1);
             }
         ],
         execute: function () {

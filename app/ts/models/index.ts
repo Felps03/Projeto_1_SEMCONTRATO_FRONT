@@ -9,4 +9,3 @@ export * from './Chat';
 export * from './HomeDailyNote';
 export * from './HomeHelpCenter';
 export * from './RegisteredDaily';
-export * from './DailyStatus';
