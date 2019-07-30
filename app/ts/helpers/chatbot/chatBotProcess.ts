@@ -55,6 +55,7 @@ export function entRaw(name: string, idx: number = 1) {
 export function checkLoggedIn(goto: string) {
     return (state: Map<string, any>, match: RegExpExecArray) => {
         if (!localStorage.getItem('tkn')) {
+            console.log('ntalogado')
             state.set('_GOTO', goto)
             state.set('_ANSWER', [
                 'Algo de errado não está certo 🤔',
