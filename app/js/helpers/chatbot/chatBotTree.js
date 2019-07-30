@@ -1,6 +1,6 @@
-System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4", "../../models/Post", "../../utils/index", "../../validation/helpCenterValidate"], function (exports_1, context_1) {
+System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4", "../../models/Post", "../../utils/index", "../../validation/helpCenterValidate", "../../validation/dailyNoteValidate"], function (exports_1, context_1) {
     "use strict";
-    var process, index_1, uuidv4_1, Post_1, index_2, valHelp, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, helpCenterService, dailyNoteService, actualHours, greeting, mainBranch, dialog;
+    var process, index_1, uuidv4_1, Post_1, index_2, valHelp, valDaily, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, helpCenterService, dailyNoteService, actualHours, greeting, mainBranch, dialog;
     var __moduleName = context_1 && context_1.id;
     function pseudoInput(val) {
         const input = document.createElement('input');
@@ -26,6 +26,9 @@ System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4
             },
             function (valHelp_1) {
                 valHelp = valHelp_1;
+            },
+            function (valDaily_1) {
+                valDaily = valDaily_1;
             }
         ],
         execute: function () {
@@ -78,7 +81,8 @@ System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4
                         {
                             call: ['login'],
                             goto: 'main',
-                            answer: NOT_IMPLEMENTED_ANSWER
+                            answer: NOT_IMPLEMENTED_ANSWER,
+                            process: process.checkNotLoggedIn('main')
                         }
                     ]
                 },
@@ -96,14 +100,17 @@ System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4
                         },
                         {
                             call: ['adicionar', 'incluir', 'inserir'],
-<<<<<<< HEAD
-                            goto: 'main',
-                            process: process.checkLoggedIn('cr_daily'),
-                            answer: NOT_IMPLEMENTED_ANSWER
-=======
                             goto: 'add_daily_yesterday',
-                            answer: ['O que você fez ontem? 😃']
->>>>>>> chatbot_add_daily
+                            answer: ['O que você fez ontem? 😃'],
+                            process: async (state, match) => {
+                                process.checkLoggedIn('cr_daily')(state, match);
+                                const resp = await dailyNoteService.registeredDaily(localStorage.getItem('id'));
+                                if (resp.status === 400) {
+                                    const respObj = await resp.json();
+                                    state.set('_GOTO', 'cr_daily');
+                                    state.set('_ANSWER', ['Algo de errado não está certo 🤔', respObj.erro || '']);
+                                }
+                            }
                         }
                     ]
                 },
@@ -155,7 +162,16 @@ System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4
                             call: [/^.*$/],
                             normalize: false,
                             goto: 'add_daily_today',
-                            process: process.raw('add_daily_yesterday', 0),
+                            process: (state, match) => {
+                                const yesterday = match[0];
+                                const val = valDaily.yesterday(pseudoInput(yesterday));
+                                if (val) {
+                                    state.set('_GOTO', 'add_daily_yesterday');
+                                    state.set('_ANSWER', ['Algo de errado não está certo 🤔', val]);
+                                    return;
+                                }
+                                state.set('add_daily_yesterday', yesterday);
+                            },
                             answer: ['O que fará hoje? 🙂']
                         }
                     ]
@@ -166,7 +182,16 @@ System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4
                             call: [/^.*$/],
                             normalize: false,
                             goto: 'add_daily_impediment',
-                            process: process.raw('add_daily_today', 0),
+                            process: (state, match) => {
+                                const today = match[0];
+                                const val = valDaily.today(pseudoInput(today));
+                                if (val) {
+                                    state.set('_GOTO', 'add_daily_today');
+                                    state.set('_ANSWER', ['Algo de errado não está certo 🤔', val]);
+                                    return;
+                                }
+                                state.set('add_daily_today', today);
+                            },
                             answer: ['Algum impedimento? 🙂']
                         }
                     ]
@@ -177,9 +202,19 @@ System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4
                             call: [/^.*$/],
                             normalize: false,
                             goto: 'main',
-                            process: (state, match) => {
+                            process: async (state, match) => {
                                 const impediment = match[0];
-                                dailyNoteService.add(state.get('add_daily_yesterday'), state.get('add_daily_today'), impediment, null);
+                                const val = valDaily.impediment(pseudoInput(impediment));
+                                if (val) {
+                                    state.set('_GOTO', 'add_daily_impediment');
+                                    state.set('_ANSWER', ['Algo de errado não está certo 🤔', val]);
+                                    return;
+                                }
+                                const resp = await dailyNoteService.add(state.get('add_daily_yesterday'), state.get('add_daily_today'), impediment, null);
+                                const possibleErrObj = await resp.json();
+                                const possibleErrMsg = possibleErrObj.erro;
+                                if (possibleErrMsg)
+                                    state.set('_ANSWER', ['Algo de errado não deu certo 🤔', possibleErrMsg]);
                             },
                             answer: ['Daily registrada com sucesso!']
                         }
@@ -233,7 +268,7 @@ System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4
                             call: [/^.*$/],
                             normalize: false,
                             goto: 'main',
-                            process: (state, match) => {
+                            process: async (state, match) => {
                                 const desc = match[0];
                                 const val = valHelp.desc(pseudoInput(desc));
                                 if (val) {
@@ -242,7 +277,11 @@ System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4
                                     return;
                                 }
                                 const postToAdd = new Post_1.Post(state.get('add_help_title'), desc);
-                                helpCenterService.add(postToAdd);
+                                const resp = await helpCenterService.add(postToAdd);
+                                const possibleErrObj = await resp.json();
+                                const possibleErrMsg = possibleErrObj.erro;
+                                if (possibleErrMsg)
+                                    state.set('_ANSWER', ['Algo de errado não deu certo 🤔', possibleErrMsg]);
                             },
                             answer: ['Adicionado com sucesso!']
                         }

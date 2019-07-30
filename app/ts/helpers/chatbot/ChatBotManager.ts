@@ -172,7 +172,7 @@ export class ChatBotManager {
         let promises: Promise<string>[] = []
         let msgs: [ChatAgent, string][] = []
 
-        const answersOverride = this.state.get('_ANSWER')
+        const answersOverride = actualState.get('_ANSWER')
         if (answersOverride && Array.isArray(answersOverride)) {
             answersOverride.forEach(answer => {
                 msgs.push([ChatAgent.Bot, parseState(actualState, answer)])

@@ -6,6 +6,7 @@ import uuidv4 from '../../utils/uuidv4'
 import { Post } from '../../models/Post';
 import { InputWrapper } from '../../utils/index';
 import * as valHelp from '../../validation/helpCenterValidate'
+import * as valDaily from '../../validation/dailyNoteValidate'
 import { DailyNote } from '../../models/index';
 
 export type DialogBranch = {
@@ -108,7 +109,8 @@ export const dialog: { [node: string]: Dialog } = {
             {
                 call: ['login'],
                 goto: 'main',
-                answer: NOT_IMPLEMENTED_ANSWER
+                answer: NOT_IMPLEMENTED_ANSWER,
+                process: process.checkNotLoggedIn('main')
             }
         ]
     },
@@ -127,9 +129,18 @@ export const dialog: { [node: string]: Dialog } = {
             },
             {
                 call: ['adicionar', 'incluir', 'inserir'],
-                process: process.checkLoggedIn('cr_daily'),
                 goto: 'add_daily_yesterday',
-                answer: ['O que você fez ontem? 😃']
+                answer: ['O que você fez ontem? 😃'],
+                process: async (state: Map<string, any>, match: RegExpExecArray) => {
+                    process.checkLoggedIn('cr_daily')(state, match)
+
+                    const resp = await dailyNoteService.registeredDaily(localStorage.getItem('id'))
+                    if (resp.status === 400) {
+                        const respObj = await resp.json()
+                        state.set('_GOTO', 'cr_daily')
+                        state.set('_ANSWER', ['Algo de errado não está certo 🤔', respObj.erro || ''])
+                    }
+                }
             }
         ]
     },
@@ -185,7 +196,20 @@ export const dialog: { [node: string]: Dialog } = {
                 call: [/^.*$/],
                 normalize: false,
                 goto: 'add_daily_today',
-                process: process.entRaw('add_daily_yesterday', 0),
+                process: (state: Map<string, any>, match: RegExpExecArray) => {
+                    // PROCESSING TITLE
+                    const yesterday = match[0]
+
+                    const val = valDaily.yesterday(pseudoInput(yesterday))
+                    // means gone wrong
+                    if (val) {
+                        state.set('_GOTO', 'add_daily_yesterday')
+                        state.set('_ANSWER', ['Algo de errado não está certo 🤔', val])
+                        return
+                    }
+
+                    state.set('add_daily_yesterday', yesterday)
+                },
                 answer: ['O que fará hoje? 🙂']
             }
         ]
@@ -197,7 +221,20 @@ export const dialog: { [node: string]: Dialog } = {
                 call: [/^.*$/],
                 normalize: false,
                 goto: 'add_daily_impediment',
-                process: process.entRaw('add_daily_today', 0),
+                process: (state: Map<string, any>, match: RegExpExecArray) => {
+                    // PROCESSING TITLE
+                    const today = match[0]
+
+                    const val = valDaily.today(pseudoInput(today))
+                    // means gone wrong
+                    if (val) {
+                        state.set('_GOTO', 'add_daily_today')
+                        state.set('_ANSWER', ['Algo de errado não está certo 🤔', val])
+                        return
+                    }
+
+                    state.set('add_daily_today', today)
+                },
                 answer: ['Algum impedimento? 🙂']
             }
         ]
@@ -209,7 +246,7 @@ export const dialog: { [node: string]: Dialog } = {
                 call: [/^.*$/],
                 normalize: false,
                 goto: 'main',
-                process: (state: Map<string, any>, match: RegExpExecArray) => {
+                process: async (state: Map<string, any>, match: RegExpExecArray) => {
                     const impediment = match[0]
 
                     // const dailyToAdd = new DailyNote(
@@ -219,13 +256,27 @@ export const dialog: { [node: string]: Dialog } = {
                     //     new Date()
                     // )
 
+                    const val = valDaily.impediment(pseudoInput(impediment))
+                    // means gone wrong
+                    if (val) {
+                        state.set('_GOTO', 'add_daily_impediment')
+                        state.set('_ANSWER', ['Algo de errado não está certo 🤔', val])
+                        return
+                    }
+
                     // dailyNoteService.add(dailyToAdd)
-                    dailyNoteService.add(
+                    const resp = await dailyNoteService.add(
                         <string>state.get('add_daily_yesterday'),
                         <string>state.get('add_daily_today'),
                         impediment,
                         null // inst used anyway
                     )
+
+                    const possibleErrObj = await resp.json()
+                    const possibleErrMsg = possibleErrObj.erro
+                    if (possibleErrMsg)
+                        state.set('_ANSWER', ['Algo de errado não deu certo 🤔', possibleErrMsg])
+
                 },
                 answer: ['Daily registrada com sucesso!']
             }
@@ -288,7 +339,7 @@ export const dialog: { [node: string]: Dialog } = {
                 call: [/^.*$/],
                 normalize: false,
                 goto: 'main',
-                process: (state: Map<string, any>, match: RegExpExecArray) => {
+                process: async (state: Map<string, any>, match: RegExpExecArray) => {
                     // PROCESSING DESC
                     const desc = match[0]
 
@@ -302,7 +353,12 @@ export const dialog: { [node: string]: Dialog } = {
 
                     const postToAdd = new Post(<string>state.get('add_help_title'), desc)
 
-                    helpCenterService.add(postToAdd)
+                    const resp = await helpCenterService.add(postToAdd)
+
+                    const possibleErrObj = await resp.json()
+                    const possibleErrMsg = possibleErrObj.erro
+                    if (possibleErrMsg)
+                        state.set('_ANSWER', ['Algo de errado não deu certo 🤔', possibleErrMsg])
                 },
                 answer: ['Adicionado com sucesso!']
             }

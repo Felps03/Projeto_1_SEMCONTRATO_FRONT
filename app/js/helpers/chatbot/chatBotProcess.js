@@ -1,6 +1,14 @@
 System.register([], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
+    function compose(...fns) {
+        return (state, match) => {
+            for (const fn of fns) {
+                fn(state, match);
+            }
+        };
+    }
+    exports_1("compose", compose);
     function entDate(name) {
         return (state, match) => {
             const currentYearS = '' + new Date().getFullYear();
@@ -47,6 +55,18 @@ System.register([], function (exports_1, context_1) {
         };
     }
     exports_1("checkLoggedIn", checkLoggedIn);
+    function checkNotLoggedIn(goto) {
+        return (state, match) => {
+            if (localStorage.getItem('tkn')) {
+                state.set('_GOTO', goto);
+                state.set('_ANSWER', [
+                    'Algo de errado não está certo 🤔',
+                    'Você não pode estar logado para realizar essa ação.'
+                ]);
+            }
+        };
+    }
+    exports_1("checkNotLoggedIn", checkNotLoggedIn);
     return {
         setters: [],
         execute: function () {

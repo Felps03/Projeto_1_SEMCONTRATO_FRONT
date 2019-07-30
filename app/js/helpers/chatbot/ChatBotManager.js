@@ -81,11 +81,8 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                                         branch.normalize = true;
                                     if (branch.call) {
                                         for (let synonym of branch.call) {
-<<<<<<< HEAD
-=======
                                             if (branch.normalize === undefined)
                                                 branch.normalize = true;
->>>>>>> chatbot_add_daily
                                             const processed = new RegExp(synonym).exec(branch.normalize ? normalizedMsg : lastMsg[1]);
                                             if (processed) {
                                                 success = true;
@@ -161,7 +158,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                     }
                     let promises = [];
                     let msgs = [];
-                    const answersOverride = this.state.get('_ANSWER');
+                    const answersOverride = actualState.get('_ANSWER');
                     if (answersOverride && Array.isArray(answersOverride)) {
                         answersOverride.forEach(answer => {
                             msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, answer)]);

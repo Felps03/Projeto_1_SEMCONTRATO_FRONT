@@ -1,3 +1,11 @@
+export function compose(...fns: Function[]) {
+    return (state: Map<string, any>, match: RegExpExecArray) => {
+        for (const fn of fns) {
+            fn(state, match)
+        }
+    }
+}
+
 export function entDate(name: string) {
     return (state: Map<string, any>, match: RegExpExecArray) => {
         const currentYearS = '' + new Date().getFullYear()
@@ -51,6 +59,18 @@ export function checkLoggedIn(goto: string) {
             state.set('_ANSWER', [
                 'Algo de errado não está certo 🤔',
                 'Você deve estar logado para realizar essa ação.'
+            ])
+        }
+    }
+}
+
+export function checkNotLoggedIn(goto: string) {
+    return (state: Map<string, any>, match: RegExpExecArray) => {
+        if (localStorage.getItem('tkn')) {
+            state.set('_GOTO', goto)
+            state.set('_ANSWER', [
+                'Algo de errado não está certo 🤔',
+                'Você não pode estar logado para realizar essa ação.'
             ])
         }
     }
