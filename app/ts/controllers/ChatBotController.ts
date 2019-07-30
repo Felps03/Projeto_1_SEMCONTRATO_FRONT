@@ -16,7 +16,7 @@ export class ChatBotController {
 
         this.chatBotView.didMount((model: Chat) => {
 
-            // document.getElementById('refresh-chat').addEventListener('click', this.clear.bind(this))
+            document.getElementById('chatbot-clear').addEventListener('click', this.clear.bind(this))
 
             Array.from(
                 document.getElementById('chatbot-history').getElementsByTagName('button')).forEach(button => {
@@ -34,10 +34,13 @@ export class ChatBotController {
             this.messageInput = <HTMLInputElement>document.getElementById('chatbot-input-field')
         })
 
-        this.chatBotManager = new ChatBotManager()
-        this.chatBotView.update(
-            this.chatBotManager.init()
-        )
+        this.chatBotManager = new ChatBotManager();
+
+        (async () => {
+            for await (const chat of this.chatBotManager.init()) {
+                this.chatBotView.update(chat)
+            }
+        })()
 
     }
 
@@ -49,16 +52,22 @@ export class ChatBotController {
         }
 
         this.chatBotView.update(
-            this.chatBotManager.message([msg])
+            this.chatBotManager.message(msg)
         )
 
-        this.chatBotView.update(await this.chatBotManager.answer())
+        for await (const chat of this.chatBotManager.answer()) {
+            this.chatBotView.update(chat)
+        }
     }
 
-    clear(event: Event) {
-        this.chatBotView.update(
-            this.chatBotManager.clear()
-        )
+    async clear(event: Event) {
+        event.preventDefault()
+
+        for await (const chat of this.chatBotManager.clear()) {
+            this.chatBotView.update(
+                chat
+            )
+        }
     }
 
 }

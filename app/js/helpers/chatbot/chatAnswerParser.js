@@ -6,9 +6,6 @@ System.register(["./chatAnswerTemplates"], function (exports_1, context_1) {
         let response = raw;
         response = response
             .replace(/([^\\])\$(\w+)/, (match, p1, p2) => {
-            console.log(match, p1, p2);
-            console.log(state);
-            console.log(p1 + state.get(p2));
             return p1 + state.get(p2);
         })
             .replace('\\$', '$');

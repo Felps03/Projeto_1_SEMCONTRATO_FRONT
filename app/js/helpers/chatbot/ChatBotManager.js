@@ -1,6 +1,6 @@
-System.register(["../../models/Chat", "./chatBotTree", "../../utils/normalizeTxt", "./chatAnswerParser"], function (exports_1, context_1) {
+System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./chatAnswerParser"], function (exports_1, context_1) {
     "use strict";
-    var Chat_1, chatBotTree_1, normalizeTxt_1, chatAnswerParser_1, ChatBotManager;
+    var Chat_1, chatBotTree_1, index_1, chatAnswerParser_1, ChatBotManager;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -10,8 +10,8 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/normalizeTxt
             function (chatBotTree_1_1) {
                 chatBotTree_1 = chatBotTree_1_1;
             },
-            function (normalizeTxt_1_1) {
-                normalizeTxt_1 = normalizeTxt_1_1;
+            function (index_1_1) {
+                index_1 = index_1_1;
             },
             function (chatAnswerParser_1_1) {
                 chatAnswerParser_1 = chatAnswerParser_1_1;
@@ -19,82 +19,101 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/normalizeTxt
         ],
         execute: function () {
             ChatBotManager = class ChatBotManager {
-                constructor() {
+                constructor(DELAY_TIME = 250) {
                     this.chat = new Chat_1.Chat();
                     this.state = new Map();
+                    this.DELAY_TIME = DELAY_TIME;
                 }
-                init() {
+                async *init() {
                     this.getFromStorage();
                     if (this.chat.History.length === 0) {
-                        this.message([[Chat_1.ChatAgent.Bot, this.toBranch(chatBotTree_1.mainBranch)]]);
+                        console.log('init');
+                        yield* this.answer();
+                    }
+                    else {
+                        yield this.chat;
                     }
                     this.store();
-                    return this.chat;
                 }
-                message(msgs) {
-                    msgs.forEach((msg) => {
-                        this.chat.add(msg);
-                    });
+                message(msg) {
+                    this.chat.add(msg);
                     this.store();
                     return this.chat;
                 }
-                answer() {
-                    return new Promise((resolve, reject) => {
-                        if (chatBotTree_1.dialog[this.context]) {
-                            let success = false;
-                            const lastMsg = this.chat.LastMsg;
-                            const normalizedMsg = lastMsg ? normalizeTxt_1.normalize(lastMsg[1]) : '';
-                            for (let branch of chatBotTree_1.dialog[this.context]) {
+                async *answer() {
+                    if (chatBotTree_1.dialog[this.context]) {
+                        let success = false;
+                        const lastMsg = this.chat.LastMsg;
+                        if (lastMsg) {
+                            const normalizedMsg = lastMsg ? index_1.normalize(lastMsg[1]) : '';
+                            for (let branch of chatBotTree_1.dialog[this.context].children) {
                                 if (branch.call) {
                                     for (let synonym of branch.call) {
                                         const processed = new RegExp(synonym).exec(normalizedMsg);
                                         if (processed) {
                                             success = true;
+                                            if (branch.artificialDelay === undefined)
+                                                branch.artificialDelay = true;
                                             if (branch.process) {
                                                 branch.process(this.state, processed);
                                             }
                                             const actualState = this.state;
-                                            const possiblePre = this.toBranch(branch);
-                                            setTimeout(() => {
-                                                let msgs = [];
-                                                msgs.push([
-                                                    Chat_1.ChatAgent.Bot,
-                                                    chatAnswerParser_1.parseState(actualState, branch.answer)
-                                                ]);
-                                                if (possiblePre) {
+                                            this.toBranch(branch);
+                                            const possibleGreet = chatBotTree_1.dialog[this.context].greet;
+                                            let msgs = branch.answer.map((msg) => [
+                                                Chat_1.ChatAgent.Bot,
+                                                chatAnswerParser_1.parseState(actualState, msg)
+                                            ]);
+                                            if (possibleGreet) {
+                                                possibleGreet.forEach(greet => {
                                                     msgs.push([
                                                         Chat_1.ChatAgent.Bot,
-                                                        chatAnswerParser_1.parseState(actualState, possiblePre)
+                                                        chatAnswerParser_1.parseState(actualState, greet)
                                                     ]);
-                                                }
-                                                resolve(this.message(msgs));
-                                            }, 500);
-                                            break;
+                                                });
+                                            }
+                                            for (const msg of msgs) {
+                                                yield index_1.delay(this.message(msg), branch.artificialDelay ? this.DELAY_TIME : 0);
+                                            }
+                                            return;
                                         }
                                     }
                                 }
                             }
                             if (!success) {
-                                setTimeout(() => {
-                                    this.store();
-                                    resolve(this.message([
-                                        [
-                                            Chat_1.ChatAgent.Bot,
-                                            chatBotTree_1.dialog['understandnt'][0].answer
-                                        ]
-                                    ]));
-                                }, 500);
+                                this.store();
+                                for (let msg of chatBotTree_1.dialog['understandnt'].children[0].answer) {
+                                    yield index_1.delay(this.message([
+                                        Chat_1.ChatAgent.Bot,
+                                        chatAnswerParser_1.parseState(this.state, msg)
+                                    ]), this.DELAY_TIME);
+                                }
                             }
                         }
                         else {
-                            this.context = Object.getOwnPropertyNames(chatBotTree_1.dialog)[0];
+                            let msgs = [];
+                            msgs.push([Chat_1.ChatAgent.Bot, chatBotTree_1.mainBranch.greet]);
+                            this.toBranch(chatBotTree_1.mainBranch);
+                            const possibleGreet = chatBotTree_1.dialog[this.context].greet;
+                            if (possibleGreet) {
+                                possibleGreet.forEach(greet => {
+                                    msgs.push([Chat_1.ChatAgent.Bot, greet]);
+                                });
+                            }
+                            for (const msg of msgs) {
+                                yield index_1.delay(this.message(msg), this.DELAY_TIME);
+                            }
                         }
-                    });
+                    }
+                    else {
+                        this.context = Object.getOwnPropertyNames(chatBotTree_1.dialog)[0];
+                    }
                 }
                 store() {
                     localStorage.setItem('chatLog', JSON.stringify({
                         chat: this.chat,
-                        context: this.context
+                        context: this.context,
+                        state: [...this.state]
                     }));
                 }
                 toBranch(branch) {
@@ -103,23 +122,21 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/normalizeTxt
                         this.state = new Map();
                     }
                     this.store();
-                    if (chatBotTree_1.dialog[this.context][0].pre) {
-                        return chatBotTree_1.dialog[this.context][0].pre;
-                    }
                 }
                 getFromStorage() {
                     const chatLog = JSON.parse(localStorage.getItem('chatLog'));
                     if (chatLog) {
                         this.chat = Chat_1.Chat.parse(chatLog.chat);
                         this.context = chatLog.context;
+                        this.state = new Map(chatLog.state);
                     }
                 }
-                clear() {
+                async *clear() {
                     this.toBranch(chatBotTree_1.mainBranch);
                     this.chat = new Chat_1.Chat();
                     this.store();
                     this.init();
-                    return this.chat;
+                    yield* this.answer();
                 }
                 get Chat() {
                     return this.chat;

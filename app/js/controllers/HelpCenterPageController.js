@@ -33,6 +33,9 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                     this.currentPage = page;
                     this.paginationView.update(this.currentPage);
                 }
+                set TotalPages(total) {
+                    this.totalPages = total;
+                }
                 list(event) {
                     event.preventDefault();
                     const helpCenterService = new index_2.HelpCenterService();
@@ -42,10 +45,14 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                         return result.json();
                     })
                         .then((res) => {
-                        console.log(res.question);
+                        console.log(res);
+                        this.TotalPages = res.pagination.totalPages;
+                        this.paginationView.update(this.currentPage, this.totalPages);
                         this.questionView = new QuestionView_1.QuestionView('#ask_result');
                         let question = new index_1.Post(res.question.ask, res.question.text, res.question.id_user, res.question.owner, res.question.id_helpCenter);
                         this.questionView.update(question);
+                        this.currentPage = res.pagination.page;
+                        console.log(res.pagination.page);
                         let postAsks = new index_1.PostAsks();
                         this.answersView = new AnswersView_1.AnswersView('#aswers_result');
                         if (res.answerData || res.answerData != undefined)

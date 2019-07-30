@@ -1,19 +1,9 @@
-System.register(["./controllers/DailyNoteController", "./models/index", "./utils/userData"], function (exports_1, context_1) {
+System.register(["./controllers/DailyNoteController", "./models/index", "./utils/userData", "./helpers/dateHelper"], function (exports_1, context_1) {
     "use strict";
-    var DailyNoteController_1, index_1, userData_1, userData, dailyesResult, totalPagesDiv, id_daily, url, url_date, dateField, controller, cadastrar, listDate;
+    var DailyNoteController_1, index_1, userData_1, dateHelper_1, userData, dailyesResult, totalPagesDiv, id_daily, url, url_date, dateField, controller, cadastrar, cancel, listDate;
     var __moduleName = context_1 && context_1.id;
     function load() {
-        if (url.get('date') && url.get('page')) {
-            listDateDaily(event);
-        }
-        let year = `${new Date().getFullYear()}`;
-        let month = `${new Date().getMonth() + 1}`;
-        let day = `${new Date().getDate()}`;
-        if (month.length < 2)
-            month = '0' + month;
-        if (day.length < 2)
-            day = '0' + day;
-        let today = `${year}-${month}-${day}`;
+        let today = dateHelper_1.dateFormatYYYYMMDD(new Date());
         dateField.value = url_date || today;
         if (url.get('user')) {
             listUserDaily(event);
@@ -76,52 +66,17 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
         const result = controller.listD(event);
         if (result) {
             result.then((result) => {
-                result.forEach((r) => {
-                    const daily = new index_1.DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
-                    let totalPages;
-                    if (r.hasOwnProperty('totalPages')) {
-                        totalPages = parseInt(r.totalPages);
-                        let header_pagination = '';
-                        let string_li = '';
-                        let footer_pagination = '';
-                        const dateValue = url_date || dateField.value;
-                        if (totalPagesDiv) {
-                            header_pagination = `
-                        <nav aria-label="daily-nav" class="float-right">
-                        <ul class="pagination">
-                        <li class="page-item">
-                        </a>
-                        </li>
-                        `;
-                            let i = 0;
-                            string_li = '';
-                            for (i; i < totalPages; i++) {
-                                string_li += `
-                            <li class="page-item"><a class="page-link" href="app-daily-note.html?page=${i +
-                                    1}&date=${dateValue}">${i + 1}</a></li>
-								`;
-                            }
-                            footer_pagination = `
-							<li class="page-item" >
-                        
-							`;
-                            const nav_pagination = document.createElement('nav');
-                            const fullString = header_pagination + string_li + footer_pagination;
-                            nav_pagination.innerHTML = fullString;
-                            totalPagesDiv.innerHTML = '';
-                            totalPagesDiv.appendChild(nav_pagination);
-                        }
-                        return;
-                    }
-                    const owner = r.owner;
-                    const id_owner = r.id_user;
-                    id_daily = r.id_daily;
+                for (let i = 0; i < result.length - 1; i++) {
+                    const daily = new index_1.DailyNote(result[i].yesterday, result[i].today, result[i].impediment, new Date(result[i].date));
+                    const owner = result[i].owner;
+                    const id_owner = result[i].id_user;
+                    id_daily = result[i].id_daily;
                     if (dailyesResult) {
                         mountTable(dailyesResult, daily, owner, id_owner, id_daily);
                     }
                     id_daily = '';
-                    return;
-                });
+                }
+                return;
             });
         }
     }
@@ -218,10 +173,15 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
             },
             function (userData_1_1) {
                 userData_1 = userData_1_1;
+            },
+            function (dateHelper_1_1) {
+                dateHelper_1 = dateHelper_1_1;
             }
         ],
         execute: function () {
             userData = userData_1.getUser();
+            if (!localStorage.getItem('tkn'))
+                document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
             dailyesResult = document.querySelector('#dayliesResult');
             totalPagesDiv = document.querySelector('#pages');
             url = new URLSearchParams(location.search);
@@ -232,6 +192,11 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
             if (cadastrar) {
                 cadastrar.addEventListener('submit', registeredDaily);
             }
+            cancel = document.getElementById("cancel");
+            if (cancel) {
+                const dailyNoteController = new DailyNoteController_1.DailyNoteController();
+                cancel.addEventListener('click', dailyNoteController.cancel.bind(dailyNoteController));
+            }
             load();
             listDate = document.querySelector('#filter');
             if (listDate) {
@@ -239,18 +204,6 @@ System.register(["./controllers/DailyNoteController", "./models/index", "./utils
                     listDate.addEventListener('click', listDateDaily);
                 }
             }
-            $('#cancel').click((e) => {
-                e.preventDefault();
-                var dirtyFormID = 'daily-form';
-                var resetForm = document.getElementById(dirtyFormID);
-                let yesterday = document.querySelector('#yesterday');
-                let today = document.querySelector('#today');
-                let impediment = document.querySelector('#impediment');
-                yesterday.classList.remove('is-valid');
-                today.classList.remove('is-valid');
-                impediment.classList.remove('is-valid');
-                resetForm.reset();
-            });
         }
     };
 });

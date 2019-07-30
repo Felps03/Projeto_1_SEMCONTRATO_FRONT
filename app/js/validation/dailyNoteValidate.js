@@ -5,8 +5,8 @@ System.register([], function (exports_1, context_1) {
         if (!(first.value.trim().length > 3)) {
             return 'Descrição muito pequena.';
         }
-        else if (!first.value.match('([a-z])')) {
-            return 'Não pode só numeros.';
+        else if (!first.value.toString().match('([A-ZÀ-Úa-zà-ú])')) {
+            return 'Informação inválida.';
         }
         else {
             return null;
@@ -17,8 +17,8 @@ System.register([], function (exports_1, context_1) {
         if (!(today.value.trim().length > 3)) {
             return 'Descrição muito pequena.';
         }
-        else if (!today.value.match('([a-z])')) {
-            return 'Não pode só numeros.';
+        else if (!today.value.toString().match('([A-ZÀ-Úa-zà-ú])')) {
+            return 'Informação inválida.';
         }
         else {
             return null;
@@ -29,8 +29,8 @@ System.register([], function (exports_1, context_1) {
         if (!(third.value.trim().length > 3)) {
             return 'Descrição muito pequena.';
         }
-        else if (!third.value.match('([a-z])')) {
-            return 'Não pode só numeros.';
+        else if (!third.value.toString().match('([A-ZÀ-Úa-zà-ú])')) {
+            return 'Informação inválida.';
         }
         else {
             return null;

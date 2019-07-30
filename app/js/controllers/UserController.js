@@ -34,6 +34,7 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
                     this.dateOfBirth = document.querySelector('#dateOfBirth');
                     this.passwordConfirm = document.querySelector('#passwordConfirm');
                     this.id = document.querySelector('#id');
+                    this.recaptchaChange = document.querySelector('#recaptchaChange');
                     this.messageView = new MessageView_1.MessageView('#message-view');
                     this.addVals = [
                         index_1.validate(this.name, vals.name),
@@ -68,11 +69,17 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
                         }).then((res) => {
                             localStorage.setItem('email', res.email);
                             localStorage.setItem('id', res._id);
-                            window.location.href = "home.html";
+                            window.location.href = "index.html";
                         })
                             .catch((res) => res.json())
                             .then((res) => {
-                            console.log(res);
+                            document.getElementById('message-view').innerHTML = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    `;
                             if (res.erro)
                                 this.messageView.update(res.erro);
                         });
@@ -105,10 +112,13 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
                     let id = document.querySelector('#id');
                     if (listCheck_1.noFalse(this.addVals)) {
                         let dataOfBirth = this.dateOfBirth.value.replace(/-/g, ',');
+                        let recaptchaON = false;
                         const user = new User_1.User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), dataOfBirth, this.password.value.toString());
+                        if ($('#recaptchaChange').prop("checked"))
+                            recaptchaON = true;
                         const userService = new UserService_1.UserService();
                         let msg = document.getElementById('retrieve-msg');
-                        userService.update(user, id.value)
+                        userService.update(user, id.value, recaptchaON)
                             .then(result => {
                             if (result.status == 201) {
                                 document.querySelector('#nameSpan').textContent = this.name.value;
@@ -133,6 +143,10 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
                         `;
                             }
                             return result.json();
+                        }).then(() => {
+                            setTimeout(() => {
+                                msg.innerHTML = "";
+                            }, 3000);
                         });
                     }
                 }
@@ -146,12 +160,8 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
                         passwordConfirm.removeAttribute('disabled');
                     }
                     else {
-                        password.value = '';
-                        passwordConfirm.value = '';
-                        password.classList.remove('is-valid');
-                        password.classList.remove('is-invalid');
-                        passwordConfirm.classList.remove('is-valid');
-                        passwordConfirm.classList.remove('is-invalid');
+                        index_1.clean(password);
+                        index_1.clean(passwordConfirm);
                         password.setAttribute('disabled', 'true');
                         passwordConfirm.setAttribute('disabled', 'true');
                     }

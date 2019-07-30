@@ -18,6 +18,8 @@ System.register(["./controllers/HomeController", "./utils/userData", "./controll
             userData = userData_1.getUser();
             homeController = new HomeController_1.HomeController();
             chatBotController = new ChatBotController_1.ChatBotController();
+            if (!localStorage.getItem('tkn'))
+                document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
             mostraDaily = document.getElementById("mostra-daily");
             mostraHelp = document.getElementById("mostra-help");
             mostraDaily.addEventListener('click', homeController.listDailyDate.bind(homeController));

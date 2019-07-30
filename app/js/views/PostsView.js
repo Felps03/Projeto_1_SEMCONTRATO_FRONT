@@ -20,6 +20,7 @@ System.register(["./View"], function (exports_1, context_1) {
                         <div>
                             <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
                             <h5 class="mt-2 mb-2">${post.AuthorName ? post.AuthorName : ""}</h5>
+                            <p class="mt-2 mb-2">${post.Date}</p>
                         </div>
                         <a href="app-help-asks.html?id=${post.Id}">
                             <button class="btn btn-default btn-sm btn-info">

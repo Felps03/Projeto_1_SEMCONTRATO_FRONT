@@ -2,16 +2,12 @@ import { UserService } from "../services/UserService";
 import { HelpCenterService } from "../services/HelpCenterService";
 import { DailyNoteService } from "../services/DailyNoteService";
 import { DailyNote } from "../models/index";
-import { UserMenuView } from "../views/UserMenuView";
+import { dateFormatYYYYMMDD } from "../helpers/dateHelper";
+import { clean } from "../helpers/validate";
 
 export class HomeController {
 
-    private user: UserMenuView;
-
-    constructor() {
-        this.user = new UserMenuView("#user-menu-login-link");
-        this.user.update('');
-    }
+    constructor() { }
 
     getUser() {
         let data;
@@ -31,31 +27,35 @@ export class HomeController {
                         userName: result['userName']
                     }
                     return data
-                });
+                })
         }
     }
 
     listLastHelp(event: Event) {
         event.preventDefault();
-        //console.log('oi');
         const helpCenterService = new HelpCenterService()
 
         helpCenterService.listLastHelp()
             .then(result => {
                 return result.json();
-            }).then(result => {
+            })
+            .then(result => {
                 let row = <HTMLElement>document.querySelector('#last-helps');
                 row.innerHTML = "";
 
-                let a = result.docs.length
+                let results = result.length;
 
-                for (let i = a - 1; i >= 0; i--) {
+                for (let aux = 0; aux < 3; aux++) {
+                    let date = new Date(result[aux]['date']);
+                    let dateFormatted = `${date.getDate() + 1}/${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}/${date.getFullYear()}`;
+
                     row.innerHTML += `
                     <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
                         <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
                             <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
                                 <div>
-                                    <h5 class="mt-2 mb-2 ml-4">Usuário</h5>
+                                    <h5 class="mt-2 mb-2 ml-4">${result[aux]['owner']}</h5>
+                                    <p class="mt-2 mb-2 ml-4">${dateFormatted}</p>
                                     <button type="button" name="view"
                                         class="btn btn-outline-info btn-sm input-circle pt-2 ml-4" id="resp-view"
                                         data-toggle="modal" data-target="#respModal">
@@ -67,8 +67,8 @@ export class HomeController {
                         <div class="col-md-9 col-12 card-body">
                             <div class="card mb-2">
                                 <div class="card-body">
-                                    <h5>${result.docs[i]['title']}</h5>
-                                    <p>${result.docs[i]['desc']}</p>
+                                    <h5>${result[aux]['title']}</h5>
+                                    <p>${result[aux]['desc']}</p>
                                 </div>
                             </div>
                         </div>
@@ -83,16 +83,12 @@ export class HomeController {
 
     listDailyDate(event: Event) {
         event.preventDefault();
-        let date = new Date().toLocaleDateString('pt-BR').slice(0, 10);
+
         const dailyNoteService = new DailyNoteService();
 
-        let year = date.slice(6, 10);
-        let month = date.slice(3, 5);
-        let day = date.slice(0, 2);
+        let data = dateFormatYYYYMMDD(new Date());
 
-        let fullDate = `${year}-${month}-${day}`;
-
-        dailyNoteService.listDate(fullDate, 1)
+        dailyNoteService.listDate(data, 1)
             .then(result => {
                 return result.json();
             }).then(result => {
@@ -113,5 +109,10 @@ export class HomeController {
             .catch(error => {
                 console.log(error);
             })
+    }
+
+    cancel(event: Event) {
+        event.preventDefault();
+        clean(<HTMLInputElement>document.querySelector('#email_rec'));
     }
 }

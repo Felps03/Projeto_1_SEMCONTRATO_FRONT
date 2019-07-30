@@ -132,7 +132,6 @@ System.register(["../services/index", "../models/PostAsk", "../views/PostAsksVie
                         .then(result => {
                         return result.json();
                     }).then(res => {
-                        console.log('CHE', res);
                         this.postAsksView.update(index_2.PostAsks.from(res.filter((ask) => ask['id_helpCenter'] === ID_POST)));
                     })
                         .catch(error => {

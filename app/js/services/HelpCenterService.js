@@ -63,7 +63,7 @@ System.register(["../config/index"], function (exports_1, context_1) {
                     });
                 }
                 listLastHelp() {
-                    return fetch(`${index_1.HOST}helps/last/`, {
+                    return fetch(`${index_1.HOST}helps/list/post/1`, {
                         method: 'GET',
                         headers: {
                             'Accept': 'application/json',
@@ -84,8 +84,8 @@ System.register(["../config/index"], function (exports_1, context_1) {
                         }
                     });
                 }
-                findByJoker(joker) {
-                    return fetch(`${index_1.HOST}helps/post/joker/1`, {
+                findByJoker(joker, page) {
+                    return fetch(`${index_1.HOST}helps/list/joker/${page}`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',

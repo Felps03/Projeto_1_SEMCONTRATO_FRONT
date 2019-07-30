@@ -10,6 +10,8 @@ let userData = getUser();
 let homeController = new HomeController();
 let chatBotController = new ChatBotController();
 
+if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+
 let mostraDaily = document.getElementById("mostra-daily");
 let mostraHelp = document.getElementById("mostra-help");
 

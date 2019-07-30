@@ -2,7 +2,7 @@ import { User } from '../models/User';
 import { UserService } from "../services/UserService";
 import { AuthenticateService } from '../services/index';
 
-import { validate } from '../helpers/index';
+import { validate, clean } from '../helpers/index'
 
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck'
@@ -22,6 +22,8 @@ export class UserController {
     private passwordConfirm: HTMLInputElement;
     private id: HTMLInputElement;
 
+    private recaptchaChange: HTMLInputElement;
+
     private addVals: (() => boolean)[];
 
     constructor() {
@@ -34,6 +36,9 @@ export class UserController {
         this.dateOfBirth = <HTMLInputElement>document.querySelector('#dateOfBirth');
         this.passwordConfirm = <HTMLInputElement>document.querySelector('#passwordConfirm');
         this.id = <HTMLInputElement>document.querySelector('#id');
+
+
+        this.recaptchaChange = <HTMLInputElement>document.querySelector('#recaptchaChange');
 
         this.messageView = new MessageView('#message-view')
 
@@ -84,11 +89,17 @@ export class UserController {
             }).then((res: any) => {
                 localStorage.setItem('email', res.email)
                 localStorage.setItem('id', res._id)
-                window.location.href = "home.html";
+                window.location.href = "index.html";
             })
                 .catch((res: any) => res.json())
                 .then((res: any) => {
-                    console.log(res)
+                    document.getElementById('message-view').innerHTML = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    `;
                     if (res.erro)
                         this.messageView.update(res.erro)
                 })
@@ -132,6 +143,7 @@ export class UserController {
 
         if (noFalse(this.addVals)) {
             let dataOfBirth = this.dateOfBirth.value.replace(/-/g, ',');
+            let recaptchaON = false;
 
             const user = new User(
                 this.name.value.toString(),
@@ -142,11 +154,13 @@ export class UserController {
                 this.password.value.toString()
             );
 
+            if ($('#recaptchaChange').prop( "checked")) recaptchaON = true;     
+
             const userService = new UserService();
 
             let msg = document.getElementById('retrieve-msg')
 
-            userService.update(user, id.value)
+            userService.update(user, id.value, recaptchaON)
                 .then(result => {
                     if (result.status == 201) {
 
@@ -172,7 +186,11 @@ export class UserController {
                         `;
                     }
                     return result.json();
-                })
+                }).then(() => {
+                    setTimeout(() => {
+                        msg.innerHTML = "";
+                    }, 3000);
+                });
         }
     }
 
@@ -187,13 +205,9 @@ export class UserController {
             password.removeAttribute('disabled');
             passwordConfirm.removeAttribute('disabled');
         } else {
-            password.value = '';
-            passwordConfirm.value = '';
 
-            password.classList.remove('is-valid');
-            password.classList.remove('is-invalid');
-            passwordConfirm.classList.remove('is-valid');
-            passwordConfirm.classList.remove('is-invalid');
+            clean(password);
+            clean(passwordConfirm);
 
             password.setAttribute('disabled', 'true');
             passwordConfirm.setAttribute('disabled', 'true');

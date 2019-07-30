@@ -6,8 +6,8 @@ export class PostAsk {
         private desc: string,
         private id_user: string,
         private authorName?: string,
-        private id?: string
-        // private date: Date
+        private id?: string,
+        private date?: Date
     ) { }
 
     get helpCenter() {
@@ -28,6 +28,12 @@ export class PostAsk {
 
     get AuthorName() {
         return this.authorName
+    }
+
+    get Date() {
+        let hoje = new Date(this.date);
+        let options = { year: 'numeric', month: '2-digit', day: '2-digit' };       
+        return  hoje.toLocaleDateString('pt-BR', options)
     }
 
 }

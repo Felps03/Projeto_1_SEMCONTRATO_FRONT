@@ -17,6 +17,12 @@ System.register(["../utils/InputWrapper"], function (exports_1, context_1) {
         return handle;
     }
     exports_1("validate", validate);
+    function clean(inputEl) {
+        inputEl.value = '';
+        inputEl.classList.remove('is-valid');
+        inputEl.classList.remove('is-invalid');
+    }
+    exports_1("clean", clean);
     return {
         setters: [
             function (InputWrapper_1_1) {
