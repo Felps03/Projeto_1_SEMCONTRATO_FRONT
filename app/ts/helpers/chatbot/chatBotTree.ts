@@ -3,6 +3,7 @@ import { DailyNoteService, HelpCenterService } from "../../services/index";
 import { DailyNotesView } from '../../views/DailyNotesView';
 import { PostsView } from '../../views/PostsView';
 import uuidv4 from '../../utils/uuidv4'
+import { Post } from '../../models/Post';
 
 export type DialogBranch = {
     // go into branch if one call matches
@@ -185,8 +186,38 @@ export const dialog: { [node: string]: Dialog } = {
             },
             {
                 call: ['adicionar', 'incluir', 'inserir'],
+                goto: 'add_help_title',
+                answer: ['Qual o seu problema? 😋 (título)']
+            }
+        ]
+    },
+
+    add_help_title: {
+        children: [
+            {
+                call: [/^.*$/],
+                normalize: false,
+                goto: 'add_help_desc',
+                process: process.raw('add_help_title', 0),
+                answer: ['O que tem a dizer sobre o problema? 🙂']
+            }
+        ]
+    },
+
+    add_help_desc: {
+        children: [
+            {
+                call: [/^.*$/],
+                normalize: false,
                 goto: 'main',
-                answer: NOT_IMPLEMENTED_ANSWER
+                process: (state: Map<string, any>, match: RegExpExecArray) => {
+                    const desc = match[0]
+
+                    const postToAdd = new Post(<string>state.get('add_help_title'), desc)
+
+                    helpCenterService.add(postToAdd)
+                },
+                answer: ['Adicionado com sucesso!']
             }
         ]
     },
