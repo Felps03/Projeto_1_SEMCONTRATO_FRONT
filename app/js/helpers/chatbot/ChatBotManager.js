@@ -127,6 +127,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                     }));
                 }
                 async toBranch(branch, match) {
+                    console.log('>>', this.context);
                     if (typeof branch === 'string') {
                         if (branch === chatBotTree_1.mainBranch.goto) {
                             this.state = new Map();
@@ -142,8 +143,8 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                     const gotoOverride = this.state.get('_GOTO');
                     if (gotoOverride) {
                         this.context = gotoOverride;
+                        this.state.delete('_GOTO');
                         this.store();
-                        return await this.toBranch(gotoOverride, null);
                     }
                     else if (branch.goto) {
                         this.context = branch.goto;
@@ -155,23 +156,32 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                     }
                     let promises = [];
                     let msgs = [];
-                    if (branch.answer) {
-                        msgs = branch.answer.reduce((msgs, msg) => {
-                            if (msg instanceof Function) {
-                                const msgVal = promiser_1.promiser(msg(actualState));
-                                promises.push(msgVal);
-                            }
-                            else
-                                msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, msg)]);
-                            return msgs;
-                        }, []);
-                    }
-                    await Promise.all(promises).then((ress) => {
-                        ress.forEach(res => {
-                            if (res)
-                                msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, res)]);
+                    const answersOverride = this.state.get('_ANSWER');
+                    if (answersOverride && Array.isArray(answersOverride)) {
+                        answersOverride.forEach(answer => {
+                            msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, answer)]);
                         });
-                    });
+                        this.state.delete('_ANSWER');
+                    }
+                    else {
+                        if (branch.answer) {
+                            msgs = branch.answer.reduce((msgs, msg) => {
+                                if (msg instanceof Function) {
+                                    const msgVal = promiser_1.promiser(msg(actualState));
+                                    promises.push(msgVal);
+                                }
+                                else
+                                    msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, msg)]);
+                                return msgs;
+                            }, []);
+                        }
+                        await Promise.all(promises).then((ress) => {
+                            ress.forEach(res => {
+                                if (res)
+                                    msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, res)]);
+                            });
+                        });
+                    }
                     const possibleGreet = chatBotTree_1.dialog[this.context].greet;
                     const possibleProcess = chatBotTree_1.dialog[this.context].process;
                     const possibleFlow = chatBotTree_1.dialog[this.context].flow;

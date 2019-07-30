@@ -1,9 +1,11 @@
-import * as process from './chatBotProcessEntities'
+import * as process from './chatBotProcess'
 import { DailyNoteService, HelpCenterService } from "../../services/index";
 import { DailyNotesView } from '../../views/DailyNotesView';
 import { PostsView } from '../../views/PostsView';
 import uuidv4 from '../../utils/uuidv4'
 import { Post } from '../../models/Post';
+import { InputWrapper } from '../../utils/index';
+import * as valHelp from '../../validation/helpCenterValidate'
 
 export type DialogBranch = {
     // go into branch if one call matches
@@ -58,6 +60,13 @@ if (actualHours >= 4 && actualHours < 12) {
     greeting = 'Boa tarde'
 } else {
     greeting = 'Boa noite'
+}
+
+// TEMPORARY util
+function pseudoInput(val: string) {
+    const input = document.createElement('input')
+    input.value = val
+    return new InputWrapper(input)
 }
 
 // starting dialog
@@ -118,6 +127,7 @@ export const dialog: { [node: string]: Dialog } = {
             {
                 call: ['adicionar', 'incluir', 'inserir'],
                 goto: 'main',
+                process: process.checkLoggedIn('cr_daily'),
                 answer: NOT_IMPLEMENTED_ANSWER
             }
         ]
@@ -151,7 +161,7 @@ export const dialog: { [node: string]: Dialog } = {
                 call: [/(\d{1,2})\/(\d{1,2})\/(\d+)/],
                 goto: 'main',
                 answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?date=$list_daily_note_date)}}`],
-                process: process.date('list_daily_note_date')
+                process: process.entDate('list_daily_note_date')
             }
         ]
     },
@@ -163,7 +173,7 @@ export const dialog: { [node: string]: Dialog } = {
                 normalize: false,
                 goto: 'main',
                 answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`],
-                process: process.raw('list_daily_note_user')
+                process: process.entRaw('list_daily_note_user')
             }
         ]
     },
@@ -187,6 +197,7 @@ export const dialog: { [node: string]: Dialog } = {
             {
                 call: ['adicionar', 'incluir', 'inserir'],
                 goto: 'add_help_title',
+                process: process.checkLoggedIn('cr_help'),
                 answer: ['Qual o seu problema? 😋 (título)']
             }
         ]
@@ -198,7 +209,20 @@ export const dialog: { [node: string]: Dialog } = {
                 call: [/^.*$/],
                 normalize: false,
                 goto: 'add_help_desc',
-                process: process.raw('add_help_title', 0),
+                process: (state: Map<string, any>, match: RegExpExecArray) => {
+                    // PROCESSING TITLE
+                    const title = match[0]
+
+                    const val = valHelp.title(pseudoInput(title))
+                    // means gone wrong
+                    if (val) {
+                        state.set('_GOTO', 'add_help_title')
+                        state.set('_ANSWER', ['Algo de errado não está certo 🤔', val])
+                        return
+                    }
+
+                    state.set('add_help_title', title)
+                },
                 answer: ['O que tem a dizer sobre o problema? 🙂']
             }
         ]
@@ -211,7 +235,16 @@ export const dialog: { [node: string]: Dialog } = {
                 normalize: false,
                 goto: 'main',
                 process: (state: Map<string, any>, match: RegExpExecArray) => {
+                    // PROCESSING DESC
                     const desc = match[0]
+
+                    const val = valHelp.desc(pseudoInput(desc))
+                    // means gone wrong
+                    if (val) {
+                        state.set('_GOTO', 'add_help_desc')
+                        state.set('_ANSWER', ['Algo de errado não está certo 🤔', val])
+                        return
+                    }
 
                     const postToAdd = new Post(<string>state.get('add_help_title'), desc)
 

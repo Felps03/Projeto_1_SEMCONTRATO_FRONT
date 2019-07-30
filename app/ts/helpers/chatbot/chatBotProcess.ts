@@ -1,4 +1,4 @@
-export function date(name: string) {
+export function entDate(name: string) {
     return (state: Map<string, any>, match: RegExpExecArray) => {
         const currentYearS = '' + new Date().getFullYear()
         const currentYear = +currentYearS
@@ -38,8 +38,20 @@ export function date(name: string) {
     }
 }
 
-export function raw(name: string, idx: number = 1) {
+export function entRaw(name: string, idx: number = 1) {
     return (state: Map<string, any>, match: RegExpExecArray) => {
         state.set(name, match[idx])
+    }
+}
+
+export function checkLoggedIn(goto: string) {
+    return (state: Map<string, any>, match: RegExpExecArray) => {
+        if (!localStorage.getItem('tkn')) {
+            state.set('_GOTO', goto)
+            state.set('_ANSWER', [
+                'Algo de errado não está certo 🤔',
+                'Você deve estar logado para realizar essa ação.'
+            ])
+        }
     }
 }

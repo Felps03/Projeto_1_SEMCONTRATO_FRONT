@@ -131,6 +131,7 @@ export class ChatBotManager {
 
     // here be dragons
     async toBranch(branch: DialogBranch | string, match: RegExpExecArray): Promise<[ChatAgent, string][]> {
+        console.log('>>', this.context)
         if (typeof branch === 'string') {
             if (branch === mainBranch.goto) {
                 this.state = new Map<string, any>()
@@ -151,8 +152,7 @@ export class ChatBotManager {
             this.context = gotoOverride
             this.state.delete('_GOTO')
             this.store()
-            return await this.toBranch(gotoOverride, null)
-
+            //return await this.toBranch(gotoOverride, null)
         } else if (branch.goto) {
             this.context = branch.goto
             this.store()
@@ -173,6 +173,7 @@ export class ChatBotManager {
             answersOverride.forEach(answer => {
                 msgs.push([ChatAgent.Bot, parseState(actualState, answer)])
             })
+            this.state.delete('_ANSWER')
 
         } else {
 
