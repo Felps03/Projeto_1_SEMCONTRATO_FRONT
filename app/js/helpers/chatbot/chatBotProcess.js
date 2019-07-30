@@ -46,6 +46,7 @@ System.register([], function (exports_1, context_1) {
     function checkLoggedIn(goto) {
         return (state, match) => {
             if (!localStorage.getItem('tkn')) {
+                console.log('ntalogado');
                 state.set('_GOTO', goto);
                 state.set('_ANSWER', [
                     'Algo de errado não está certo 🤔',
