@@ -1,5 +1,6 @@
-System.register([], function (exports_1, context_1) {
+System.register(["../../services/index"], function (exports_1, context_1) {
     "use strict";
+    var index_1;
     var __moduleName = context_1 && context_1.id;
     function compose(...fns) {
         return (state, match) => {
@@ -44,7 +45,8 @@ System.register([], function (exports_1, context_1) {
     }
     exports_1("entRaw", entRaw);
     function checkLoggedIn(goto) {
-        return (state, match) => {
+        const userService = new index_1.UserService();
+        return async (state, match) => {
             if (!localStorage.getItem('tkn')) {
                 console.log('ntalogado');
                 state.set('_GOTO', goto);
@@ -52,6 +54,18 @@ System.register([], function (exports_1, context_1) {
                     'Algo de errado não está certo 🤔',
                     'Você deve estar logado para realizar essa ação.'
                 ]);
+            }
+            else {
+                const userData = await (await userService.getData()).text();
+                console.log(JSON.stringify(userData));
+                if (!userData.trim()) {
+                    console.log(111111);
+                    state.set('_GOTO', goto);
+                    state.set('_ANSWER', [
+                        'Algo de errado não está certo 🤔',
+                        'O seu login é inválido. Tenter relogar para resolver.'
+                    ]);
+                }
             }
         };
     }
@@ -69,7 +83,11 @@ System.register([], function (exports_1, context_1) {
     }
     exports_1("checkNotLoggedIn", checkNotLoggedIn);
     return {
-        setters: [],
+        setters: [
+            function (index_1_1) {
+                index_1 = index_1_1;
+            }
+        ],
         execute: function () {
         }
     };

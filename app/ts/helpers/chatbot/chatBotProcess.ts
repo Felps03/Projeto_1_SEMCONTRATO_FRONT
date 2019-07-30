@@ -1,3 +1,5 @@
+import { UserService } from "../../services/index";
+
 export function compose(...fns: Function[]) {
     return (state: Map<string, any>, match: RegExpExecArray) => {
         for (const fn of fns) {
@@ -53,7 +55,8 @@ export function entRaw(name: string, idx: number = 1) {
 }
 
 export function checkLoggedIn(goto: string) {
-    return (state: Map<string, any>, match: RegExpExecArray) => {
+    const userService = new UserService()
+    return async (state: Map<string, any>, match: RegExpExecArray) => {
         if (!localStorage.getItem('tkn')) {
             console.log('ntalogado')
             state.set('_GOTO', goto)
@@ -61,6 +64,18 @@ export function checkLoggedIn(goto: string) {
                 'Algo de errado não está certo 🤔',
                 'Você deve estar logado para realizar essa ação.'
             ])
+        } else {
+            const userData = await (await userService.getData()).text()
+            console.log(JSON.stringify(userData))
+
+            if (!userData.trim()) {
+                console.log(111111)
+                state.set('_GOTO', goto)
+                state.set('_ANSWER', [
+                    'Algo de errado não está certo 🤔',
+                    'O seu login é inválido. Tenter relogar para resolver.'
+                ])
+            }
         }
     }
 }

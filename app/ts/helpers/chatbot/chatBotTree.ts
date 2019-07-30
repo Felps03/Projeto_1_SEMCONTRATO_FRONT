@@ -132,7 +132,7 @@ export const dialog: { [node: string]: Dialog } = {
                 goto: 'add_daily_yesterday',
                 answer: ['O que você fez ontem? 😃'],
                 process: async (state: Map<string, any>, match: RegExpExecArray) => {
-                    process.checkLoggedIn('cr_daily')(state, match)
+                    await process.checkLoggedIn('cr_daily')(state, match)
 
                     const resp = await dailyNoteService.registeredDaily(localStorage.getItem('id'))
                     if (resp.status === 400) {
