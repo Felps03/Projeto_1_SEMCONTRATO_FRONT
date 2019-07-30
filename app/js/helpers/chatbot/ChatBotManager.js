@@ -77,9 +77,11 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                             if (lastMsg) {
                                 const normalizedMsg = lastMsg ? index_1.normalize(lastMsg[1]) : '';
                                 for (let branch of chatBotTree_1.dialog[this.context].children) {
+                                    if (branch.normalize === undefined)
+                                        branch.normalize = true;
                                     if (branch.call) {
                                         for (let synonym of branch.call) {
-                                            const processed = new RegExp(synonym).exec(normalizedMsg);
+                                            const processed = new RegExp(synonym).exec(branch.normalize ? normalizedMsg : lastMsg[1]);
                                             if (processed) {
                                                 success = true;
                                                 const msgs = yield __await(this.toBranch(branch, processed));
@@ -137,19 +139,19 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                     if (branch.process) {
                         await branch.process(this.state, match);
                     }
-                    const actualState = this.state;
-                    if (branch.goto) {
+                    const gotoOverride = this.state.get('_GOTO');
+                    if (gotoOverride) {
+                        this.context = gotoOverride;
+                        this.store();
+                        return await this.toBranch(gotoOverride, null);
+                    }
+                    else if (branch.goto) {
                         this.context = branch.goto;
-                        if (this.context === chatBotTree_1.mainBranch.goto) {
-                            this.state = new Map();
-                        }
                         this.store();
                     }
-                    const possibleGreet = chatBotTree_1.dialog[this.context].greet;
-                    const possibleProcess = chatBotTree_1.dialog[this.context].process;
-                    const possibleFlow = chatBotTree_1.dialog[this.context].flow;
-                    if (possibleProcess) {
-                        possibleProcess(this.state);
+                    const actualState = this.state;
+                    if (this.context === chatBotTree_1.mainBranch.goto) {
+                        this.state = new Map();
                     }
                     let promises = [];
                     let msgs = [];
@@ -170,6 +172,12 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                                 msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, res)]);
                         });
                     });
+                    const possibleGreet = chatBotTree_1.dialog[this.context].greet;
+                    const possibleProcess = chatBotTree_1.dialog[this.context].process;
+                    const possibleFlow = chatBotTree_1.dialog[this.context].flow;
+                    if (possibleProcess) {
+                        possibleProcess(this.state);
+                    }
                     if (possibleGreet) {
                         possibleGreet.forEach(greet => {
                             msgs.push([

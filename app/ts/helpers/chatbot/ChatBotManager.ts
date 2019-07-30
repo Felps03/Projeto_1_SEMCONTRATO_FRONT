@@ -52,10 +52,14 @@ export class ChatBotManager {
                 const normalizedMsg = lastMsg ? normalize(lastMsg[1]) : ''
 
                 for (let branch of dialog[this.context].children) {
+
+                    if (branch.normalize === undefined)
+                        branch.normalize = true
+
                     if (branch.call) {
                         for (let synonym of branch.call) {
                             const processed = new RegExp(synonym).exec(
-                                normalizedMsg
+                                branch.normalize ? normalizedMsg : lastMsg[1]
                             )
 
                             if (processed) {
@@ -142,14 +146,56 @@ export class ChatBotManager {
             await branch.process(this.state, match)
         }
 
+        const gotoOverride = this.state.get('_GOTO')
+        if (gotoOverride) {
+            this.context = gotoOverride
+            this.state.delete('_GOTO')
+            this.store()
+            return await this.toBranch(gotoOverride, null)
+
+        } else if (branch.goto) {
+            this.context = branch.goto
+            this.store()
+        }
+
         const actualState = this.state
 
-        if (branch.goto) {
-            this.context = branch.goto
-            if (this.context === mainBranch.goto) {
-                this.state = new Map<string, any>()
+        if (this.context === mainBranch.goto) {
+            this.state = new Map<string, any>()
+        }
+
+        // dialog may have a promise response
+        let promises: Promise<string>[] = []
+        let msgs: [ChatAgent, string][] = []
+
+        const answersOverride = this.state.get('_ANSWER')
+        if (answersOverride && Array.isArray(answersOverride)) {
+            answersOverride.forEach(answer => {
+                msgs.push([ChatAgent.Bot, parseState(actualState, answer)])
+            })
+
+        } else {
+
+            if (branch.answer) {
+                msgs = branch.answer.reduce((msgs, msg) => {
+                    if (msg instanceof Function) {
+                        const msgVal = promiser(msg(actualState))
+                        promises.push(msgVal)
+
+                    } else
+                        msgs.push([ChatAgent.Bot, parseState(actualState, msg)])
+
+                    return msgs
+
+                }, ([] as [ChatAgent, string][]))
             }
-            this.store()
+
+            await Promise.all(promises).then((ress: string[]) => {
+                ress.forEach(res => {
+                    if (res)
+                        msgs.push([ChatAgent.Bot, parseState(actualState, res)])
+                })
+            })
         }
 
         const possibleGreet = dialog[this.context].greet
@@ -159,31 +205,6 @@ export class ChatBotManager {
         if (possibleProcess) {
             possibleProcess(this.state)
         }
-
-        // dialog may have a promise response
-        let promises: Promise<string>[] = []
-        let msgs: [ChatAgent, string][] = []
-
-        if (branch.answer) {
-            msgs = branch.answer.reduce((msgs, msg) => {
-                if (msg instanceof Function) {
-                    const msgVal = promiser(msg(actualState))
-                    promises.push(msgVal)
-
-                } else
-                    msgs.push([ChatAgent.Bot, parseState(actualState, msg)])
-
-                return msgs
-
-            }, ([] as [ChatAgent, string][]))
-        }
-
-        await Promise.all(promises).then((ress: string[]) => {
-            ress.forEach(res => {
-                if (res)
-                    msgs.push([ChatAgent.Bot, parseState(actualState, res)])
-            })
-        })
 
         if (possibleGreet) {
             possibleGreet.forEach(greet => {
