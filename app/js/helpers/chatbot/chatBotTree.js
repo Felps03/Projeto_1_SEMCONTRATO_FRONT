@@ -1,7 +1,12 @@
-System.register(["./chatBotProcessEntities", "../../services/index", "../../models/Post"], function (exports_1, context_1) {
+System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4", "../../models/Post", "../../utils/index", "../../validation/helpCenterValidate", "../../validation/dailyNoteValidate"], function (exports_1, context_1) {
     "use strict";
-    var process, index_1, Post_1, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, helpCenterService, dailyNoteService, actualHours, greeting, mainBranch, dialog;
+    var process, index_1, uuidv4_1, Post_1, index_2, valHelp, valDaily, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, helpCenterService, dailyNoteService, actualHours, greeting, mainBranch, dialog;
     var __moduleName = context_1 && context_1.id;
+    function pseudoInput(val) {
+        const input = document.createElement('input');
+        input.value = val;
+        return new index_2.InputWrapper(input);
+    }
     return {
         setters: [
             function (process_1) {
@@ -10,8 +15,20 @@ System.register(["./chatBotProcessEntities", "../../services/index", "../../mode
             function (index_1_1) {
                 index_1 = index_1_1;
             },
+            function (uuidv4_1_1) {
+                uuidv4_1 = uuidv4_1_1;
+            },
             function (Post_1_1) {
                 Post_1 = Post_1_1;
+            },
+            function (index_2_1) {
+                index_2 = index_2_1;
+            },
+            function (valHelp_1) {
+                valHelp = valHelp_1;
+            },
+            function (valDaily_1) {
+                valDaily = valDaily_1;
             }
         ],
         execute: function () {
@@ -64,7 +81,8 @@ System.register(["./chatBotProcessEntities", "../../services/index", "../../mode
                         {
                             call: ['login'],
                             goto: 'main',
-                            answer: NOT_IMPLEMENTED_ANSWER
+                            answer: NOT_IMPLEMENTED_ANSWER,
+                            process: process.checkNotLoggedIn('main')
                         }
                     ]
                 },
@@ -82,8 +100,17 @@ System.register(["./chatBotProcessEntities", "../../services/index", "../../mode
                         },
                         {
                             call: ['adicionar', 'incluir', 'inserir'],
-                            goto: 'main',
-                            answer: NOT_IMPLEMENTED_ANSWER
+                            goto: 'add_daily_yesterday',
+                            answer: ['O que você fez ontem? 😃'],
+                            process: async (state, match) => {
+                                process.checkLoggedIn('cr_daily')(state, match);
+                                const resp = await dailyNoteService.registeredDaily(localStorage.getItem('id'));
+                                if (resp.status === 400) {
+                                    const respObj = await resp.json();
+                                    state.set('_GOTO', 'cr_daily');
+                                    state.set('_ANSWER', ['Algo de errado não está certo 🤔', respObj.erro || '']);
+                                }
+                            }
                         }
                     ]
                 },
@@ -102,7 +129,9 @@ System.register(["./chatBotProcessEntities", "../../services/index", "../../mode
                         {
                             call: ['nao', 'nop'],
                             goto: 'main',
-                            answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html)}}`]
+                            answer: [
+                                `{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html)}}`,
+                            ],
                         }
                     ]
                 },
@@ -111,8 +140,8 @@ System.register(["./chatBotProcessEntities", "../../services/index", "../../mode
                         {
                             call: [/(\d{1,2})\/(\d{1,2})\/(\d+)/],
                             goto: 'main',
-                            process: process.date('list_daily_note_date'),
-                            answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?date=$list_daily_note_date)}}`]
+                            answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?date=$list_daily_note_date)}}`],
+                            process: process.entDate('list_daily_note_date')
                         }
                     ]
                 },
@@ -122,8 +151,72 @@ System.register(["./chatBotProcessEntities", "../../services/index", "../../mode
                             call: [/(\w+)/],
                             normalize: false,
                             goto: 'main',
-                            process: process.raw('list_daily_note_user'),
-                            answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`]
+                            answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`],
+                            process: process.entRaw('list_daily_note_user')
+                        }
+                    ]
+                },
+                add_daily_yesterday: {
+                    children: [
+                        {
+                            call: [/^.*$/],
+                            normalize: false,
+                            goto: 'add_daily_today',
+                            process: (state, match) => {
+                                const yesterday = match[0];
+                                const val = valDaily.yesterday(pseudoInput(yesterday));
+                                if (val) {
+                                    state.set('_GOTO', 'add_daily_yesterday');
+                                    state.set('_ANSWER', ['Algo de errado não está certo 🤔', val]);
+                                    return;
+                                }
+                                state.set('add_daily_yesterday', yesterday);
+                            },
+                            answer: ['O que fará hoje? 🙂']
+                        }
+                    ]
+                },
+                add_daily_today: {
+                    children: [
+                        {
+                            call: [/^.*$/],
+                            normalize: false,
+                            goto: 'add_daily_impediment',
+                            process: (state, match) => {
+                                const today = match[0];
+                                const val = valDaily.today(pseudoInput(today));
+                                if (val) {
+                                    state.set('_GOTO', 'add_daily_today');
+                                    state.set('_ANSWER', ['Algo de errado não está certo 🤔', val]);
+                                    return;
+                                }
+                                state.set('add_daily_today', today);
+                            },
+                            answer: ['Algum impedimento? 🙂']
+                        }
+                    ]
+                },
+                add_daily_impediment: {
+                    children: [
+                        {
+                            call: [/^.*$/],
+                            normalize: false,
+                            goto: 'main',
+                            process: async (state, match) => {
+                                const impediment = match[0];
+                                const val = valDaily.impediment(pseudoInput(impediment));
+                                if (val) {
+                                    state.set('_GOTO', 'add_daily_impediment');
+                                    state.set('_ANSWER', ['Algo de errado não está certo 🤔', val]);
+                                    return;
+                                }
+                                const resp = await dailyNoteService.add(state.get('add_daily_yesterday'), state.get('add_daily_today'), impediment, null);
+                                const possibleErrObj = await resp.json();
+                                const possibleErrMsg = possibleErrObj.erro;
+                                if (possibleErrMsg)
+                                    state.set('_ANSWER', ['Algo de errado não deu certo 🤔', possibleErrMsg]);
+                            },
+                            answer: ['Daily registrada com sucesso!']
                         }
                     ]
                 },
@@ -132,11 +225,19 @@ System.register(["./chatBotProcessEntities", "../../services/index", "../../mode
                         {
                             call: ['listar', 'ver', 'mostrar'],
                             goto: 'main',
-                            answer: [`{{link(Clique aqui para ver os posts! 😃, ${SELF_HTTPS_HOST}/app-help-center.html)}}`]
+                            answer: [
+                                `{{helpView(list-help-id-$help_list_id, $help_list)}}`
+                            ],
+                            process: async (state, match) => {
+                                state.set('help_list_id', uuidv4_1.default());
+                                state.set('help_list', await helpCenterService.list(1)
+                                    .then(res => res.json()));
+                            }
                         },
                         {
                             call: ['adicionar', 'incluir', 'inserir'],
                             goto: 'add_help_title',
+                            process: process.checkLoggedIn('cr_help'),
                             answer: ['Qual o seu problema? 😋 (título)']
                         }
                     ]
@@ -147,7 +248,16 @@ System.register(["./chatBotProcessEntities", "../../services/index", "../../mode
                             call: [/^.*$/],
                             normalize: false,
                             goto: 'add_help_desc',
-                            process: process.raw('add_help_title', 0),
+                            process: (state, match) => {
+                                const title = match[0];
+                                const val = valHelp.title(pseudoInput(title));
+                                if (val) {
+                                    state.set('_GOTO', 'add_help_title');
+                                    state.set('_ANSWER', ['Algo de errado não está certo 🤔', val]);
+                                    return;
+                                }
+                                state.set('add_help_title', title);
+                            },
                             answer: ['O que tem a dizer sobre o problema? 🙂']
                         }
                     ]
@@ -158,10 +268,20 @@ System.register(["./chatBotProcessEntities", "../../services/index", "../../mode
                             call: [/^.*$/],
                             normalize: false,
                             goto: 'main',
-                            process: (state, match) => {
+                            process: async (state, match) => {
                                 const desc = match[0];
+                                const val = valHelp.desc(pseudoInput(desc));
+                                if (val) {
+                                    state.set('_GOTO', 'add_help_desc');
+                                    state.set('_ANSWER', ['Algo de errado não está certo 🤔', val]);
+                                    return;
+                                }
                                 const postToAdd = new Post_1.Post(state.get('add_help_title'), desc);
-                                helpCenterService.add(postToAdd);
+                                const resp = await helpCenterService.add(postToAdd);
+                                const possibleErrObj = await resp.json();
+                                const possibleErrMsg = possibleErrObj.erro;
+                                if (possibleErrMsg)
+                                    state.set('_ANSWER', ['Algo de errado não deu certo 🤔', possibleErrMsg]);
                             },
                             answer: ['Adicionado com sucesso!']
                         }

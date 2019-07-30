@@ -393,3 +393,6 @@ body {
     word-break: break-word;
 }
 
+#chatbot-history ul li .card {
+    color: var(--dark);
+}
