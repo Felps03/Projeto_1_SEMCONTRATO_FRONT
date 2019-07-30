@@ -149,10 +149,15 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         return result.json();
                     })
                         .then((res) => {
+<<<<<<< HEAD
                         this.TotalPages = res[res.length - 1].totalPages;
                         this.paginationView.update(this.currentPage, this.totalPages);
                         const posts = index_1.Posts.from(res.slice(0, -1));
                         this.postsView.update(posts, this.totalPages);
+=======
+                        const posts = index_1.Posts.from(res.reverse().slice(1, -1));
+                        this.postsView.update(posts);
+>>>>>>> deeb9017baa2d36e7dda1df656d78878c5e58533
                         Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
                             const i = el.getAttribute('data-i');
                             if (i) {

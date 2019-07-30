@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../helpers/dateHelper", "../helpers/validate", "../models/index", "../views/HomeDailyView", "../models/HomeDailyNotes", "../views/HomeHelpCenterView", "../models/HomeHelpCenters"], function (exports_1, context_1) {
     "use strict";
     var UserService_1, HelpCenterService_1, DailyNoteService_1, dateHelper_1, validate_1, index_1, HomeDailyView_1, HomeDailyNotes_1, HomeHelpCenterView_1, HomeHelpCenters_1, HomeController;
+=======
+System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../models/index", "../views/HomeDailyView", "../models/HomeDailyNotes", "../views/HomeHelpCenterView", "../models/HomeHelpCenters", "../helpers/dateHelper"], function (exports_1, context_1) {
+    "use strict";
+    var UserService_1, HelpCenterService_1, DailyNoteService_1, index_1, HomeDailyView_1, HomeDailyNotes_1, HomeHelpCenterView_1, HomeHelpCenters_1, dateHelper_1, HomeController;
+>>>>>>> deeb9017baa2d36e7dda1df656d78878c5e58533
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -13,12 +19,15 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
             function (DailyNoteService_1_1) {
                 DailyNoteService_1 = DailyNoteService_1_1;
             },
+<<<<<<< HEAD
             function (dateHelper_1_1) {
                 dateHelper_1 = dateHelper_1_1;
             },
             function (validate_1_1) {
                 validate_1 = validate_1_1;
             },
+=======
+>>>>>>> deeb9017baa2d36e7dda1df656d78878c5e58533
             function (index_1_1) {
                 index_1 = index_1_1;
             },
@@ -33,6 +42,12 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
             },
             function (HomeHelpCenters_1_1) {
                 HomeHelpCenters_1 = HomeHelpCenters_1_1;
+<<<<<<< HEAD
+=======
+            },
+            function (dateHelper_1_1) {
+                dateHelper_1 = dateHelper_1_1;
+>>>>>>> deeb9017baa2d36e7dda1df656d78878c5e58533
             }
         ],
         execute: function () {
@@ -68,8 +83,9 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         .then(results => {
                         let helpCenters = new HomeHelpCenters_1.HomeHelpCenters();
                         this.helpCenterView = new HomeHelpCenterView_1.HomeHelpCenterView('#last-helps');
-                        results.length = 4;
                         results.pop();
+                        results.reverse();
+                        results.length = 3;
                         results.map((result) => new index_1.HomeHelpCenter(result['owner'], result['date'], result['title'], result['desc']))
                             .forEach((result) => helpCenters.add(result));
                         this.helpCenterView.update(helpCenters);
@@ -89,6 +105,7 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         let dailyNotes = new HomeDailyNotes_1.HomeDailyNotes();
                         this.dailyView = new HomeDailyView_1.HomeDailyView('#all-dailys');
                         results.pop();
+                        results.reverse();
                         results.map((result) => new index_1.HomeDailyNote(result['owner'], result['yesterday'], result['today'], result['impediment']))
                             .forEach((result) => dailyNotes.add(result));
                         this.dailyView.update(dailyNotes);

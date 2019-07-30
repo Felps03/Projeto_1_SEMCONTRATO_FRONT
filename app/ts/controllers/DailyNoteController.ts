@@ -123,7 +123,7 @@ export class DailyNoteController {
                 this.dailyView = new RegisteredDailyView('#dayliesResult');
 
                 result.pop();
-                result.map((result: any) => new RegisteredDaily(result['id_daily'], result['id_user'], result['yesterday'], result['today'], result['impediment'], result['date'], result['owner']))
+                result.reverse().map((result: any) => new RegisteredDaily(result['id_daily'], result['id_user'], result['yesterday'], result['today'], result['impediment'], result['date'], result['owner']))
                     .forEach((result: any) => registeredDaylies.add(result))
 
                 this.dailyView.update(registeredDaylies);

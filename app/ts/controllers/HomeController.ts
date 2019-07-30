@@ -1,14 +1,18 @@
 import { UserService } from "../services/UserService";
 import { HelpCenterService } from "../services/HelpCenterService";
 import { DailyNoteService } from "../services/DailyNoteService";
+<<<<<<< HEAD
 import { dateFormatYYYYMMDD } from "../helpers/dateHelper";
 import { clean } from "../helpers/validate";
+=======
+>>>>>>> deeb9017baa2d36e7dda1df656d78878c5e58533
 import { DailyNote, HomeDailyNote, HomeHelpCenter } from "../models/index";
 import { HomeDailyView } from "../views/HomeDailyView";
 import { DailyNotes } from "../models/DailyNotes";
 import { HomeDailyNotes } from "../models/HomeDailyNotes";
 import { HomeHelpCenterView } from "../views/HomeHelpCenterView";
 import { HomeHelpCenters } from "../models/HomeHelpCenters";
+import { dateFormatYYYYMMDD } from "../helpers/dateHelper";
 
 export class HomeController {
 
@@ -51,9 +55,11 @@ export class HomeController {
                 let helpCenters = new HomeHelpCenters();
                 this.helpCenterView = new HomeHelpCenterView('#last-helps');
 
-                results.length = 4;
+                
 
                 results.pop();
+                results.reverse();
+                results.length = 3;
                 results.map((result: any) => new HomeHelpCenter(result['owner'], result['date'], result['title'], result['desc']))
                 .forEach((result: any) => helpCenters.add(result))
 
@@ -78,7 +84,10 @@ export class HomeController {
                 let dailyNotes = new HomeDailyNotes();
                 this.dailyView = new HomeDailyView('#all-dailys');
 
+                
+
                 results.pop();
+                results.reverse();
                 results.map((result: any) => new HomeDailyNote(result['owner'], result['yesterday'], result['today'], result['impediment']))
                 .forEach((result: any) => dailyNotes.add(result))
 
