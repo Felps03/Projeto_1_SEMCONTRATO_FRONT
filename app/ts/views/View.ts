@@ -23,6 +23,6 @@ export abstract class View<T> {
         this._el.innerHTML = template;
     }
 
-    abstract template(model: T, totalPages: number, type:number ,value?:string): string;
+     abstract template(model: T, totalPages: number, type?:number ,value?:string): string;
 
 }
