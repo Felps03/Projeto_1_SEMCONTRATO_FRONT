@@ -77,7 +77,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         let registeredDaylies = new RegisteredDaylies_1.RegisteredDaylies();
                         this.dailyView = new RegisteredDailyView_1.RegisteredDailyView('#dayliesResult');
                         result.pop();
-                        result.map((result) => new RegisteredDaily_1.RegisteredDaily(result['id_daily'], result['id_user'], result['yesterday'], result['today'], result['impediment'], result['date'], result['owner']))
+                        result.reverse().map((result) => new RegisteredDaily_1.RegisteredDaily(result['id_daily'], result['id_user'], result['yesterday'], result['today'], result['impediment'], result['date'], result['owner']))
                             .forEach((result) => registeredDaylies.add(result));
                         this.dailyView.update(registeredDaylies);
                         return result;
