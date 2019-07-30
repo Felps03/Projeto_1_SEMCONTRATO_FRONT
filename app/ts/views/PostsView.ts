@@ -32,7 +32,6 @@ export class PostsView extends View<Posts> {
                             
                         </div>
                     </div>
-                    ${post.AuthorId === localStorage.getItem('id') ? `<button id="delete-answer">Excluir</button> <button id="edit-answer">Editar</button>` : ''}
                 </div>
             </div>
             `).join('')}

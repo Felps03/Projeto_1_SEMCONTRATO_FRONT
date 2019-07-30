@@ -33,7 +33,6 @@ export class Post {
     }
 
     get Id() {
-        console.log('teste', this.id)
         return this.id
     }
 }

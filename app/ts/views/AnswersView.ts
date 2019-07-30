@@ -4,6 +4,7 @@ import { Post, PostAsk, PostAsks } from '../models/index';
 export class AnswersView extends View<PostAsks> {
 
     template(model: PostAsks, page: number = 1): string {
+        //console.log(model);
         return `
             <div class="container">
                 ${model.toArray().map((PostAsk, i) => `
@@ -26,7 +27,7 @@ export class AnswersView extends View<PostAsks> {
                                 <p>${PostAsk.Desc}</p>
                             </div>
                         </div>
-                    ${PostAsk.Id === localStorage.getItem('id') ? `<button id="delete-answer">Excluir</button> <button id="edit-answer">Editar</button>` : ''}
+                    ${PostAsk.Id === localStorage.getItem('id') ? `<button id="delete-answer">Excluir</button>` : ''}
                     </div>
                 </div>
                 `).join('')}

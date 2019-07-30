@@ -57,7 +57,6 @@ export class HelpCenterAskController {
 
     add(event: Event) {
         event.preventDefault();
-        console.log('chegou');
         if (noFalse(this.addVals)) {
 
             const postIdField = document.getElementById('post-meta')

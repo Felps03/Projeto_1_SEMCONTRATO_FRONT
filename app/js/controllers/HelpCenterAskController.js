@@ -55,7 +55,6 @@ System.register(["../services/index", "../models/PostAsk", "../views/PostAsksVie
                 }
                 add(event) {
                     event.preventDefault();
-                    console.log('chegou');
                     if (index_4.noFalse(this.addVals)) {
                         const postIdField = document.getElementById('post-meta');
                         if (!(postIdField)) {

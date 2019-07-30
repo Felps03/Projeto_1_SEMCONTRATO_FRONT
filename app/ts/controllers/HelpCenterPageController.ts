@@ -6,13 +6,6 @@ import { AnswersView } from '../views/AnswersView';
 import { PaginationView } from '../views/PaginationView';
 import { MessageView } from '../views/MessageView';
 
-
-import { validate } from '../helpers/index';
-import * as vals from '../validation/helpCenterAskValidate';
-import { noFalse } from '../utils/index';
-
-import { HelpCenterAskController } from '../controllers/HelpCenterAskController'
-
 export class HelpCenterPageController {
     private currentPage: number;
     private paginationView: PaginationView;
@@ -20,10 +13,8 @@ export class HelpCenterPageController {
 
     private url = new URLSearchParams(location.search);
 
-    private addVals: (() => boolean)[]
     private addComment: HTMLInputElement
 
-    private messageView: MessageView;
     private url_ask_id: string;
     private questionView: QuestionView;
     private answersView: AnswersView;
@@ -42,6 +33,7 @@ export class HelpCenterPageController {
         this.addComment = <HTMLInputElement>document.querySelector('#answer');
 
         this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
+
     }
 
     set CurrentPage(page: number) {
@@ -51,43 +43,6 @@ export class HelpCenterPageController {
 
     set TotalPages(total: number) {
         this.totalPages = total;
-    }
-
-    delete(event: Event) {
-        event.preventDefault();
-        const postIdField = document.getElementById('post-meta');
-
-        if (!postIdField) {
-            return;
-        }
-
-        const ID_POST = this.url_ask_id;
-
-        if (!ID_POST) {
-            return;
-        }
-
-        const helpCenterService = new HelpCenterService();
-        helpCenterService
-            .remove(ID_POST)
-            .then((result) => {
-                if (Math.floor(result.status / 100) === 2) {
-                    result.json().then((res) => {
-                        this.list(event);
-                        document.getElementById('confirm-del-modal-close').click();
-                        document.getElementById('view-modal-close').click();
-                        this.messageView.update('Deletado com sucesso.');
-                    });
-                } else {
-                    result.json().then((res) => {
-                        this.list(event);
-                        this.messageView.update(res.erro);
-                    });
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
     }
 
     add(event: Event) {
@@ -159,7 +114,7 @@ export class HelpCenterPageController {
                 this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
 
                 this.questionView = new QuestionView('#ask_result');
-                let question = new Post(res.question.ask, res.question.text, res.question.id_user, res.question.owner, res.question.id_helpCenter)
+                let question = new Post(res.question.ask, res.question.text, res.question.id_user, res.question.owner, res.question.date, res.question.id_helpCenter)
                 this.questionView.update(question);
                 this.currentPage = res.pagination.page
                 //console.log(res.pagination.page);

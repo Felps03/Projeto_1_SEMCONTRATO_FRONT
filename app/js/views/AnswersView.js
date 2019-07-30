@@ -33,7 +33,7 @@ System.register(["./View"], function (exports_1, context_1) {
                                 <p>${PostAsk.Desc}</p>
                             </div>
                         </div>
-                    ${PostAsk.Id === localStorage.getItem('id') ? `<button id="delete-answer">Excluir</button> <button id="edit-answer">Editar</button>` : ''}
+                    ${PostAsk.Id === localStorage.getItem('id') ? `<button id="delete-answer">Excluir</button>` : ''}
                     </div>
                 </div>
                 `).join('')}
