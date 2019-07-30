@@ -27,7 +27,7 @@ export class HomeController {
                         userName: result['userName']
                     }
                     return data
-                });
+                })
         }
     }
 
