@@ -55,7 +55,7 @@ export class HomeController {
                             <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
                                 <div>
                                     <h5 class="mt-2 mb-2 ml-4">${result[aux]['owner']}</h5>
-                                    <p class="mt-2 mb-2 ml-4">${date}</p>
+                                    <p class="mt-2 mb-2 ml-4">${dateFormatted}</p>
                                     <button type="button" name="view"
                                         class="btn btn-outline-info btn-sm input-circle pt-2 ml-4" id="resp-view"
                                         data-toggle="modal" data-target="#respModal">
