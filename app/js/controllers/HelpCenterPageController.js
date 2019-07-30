@@ -22,16 +22,17 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
         ],
         execute: function () {
             HelpCenterPageController = class HelpCenterPageController {
-                constructor(currentPage = 1) {
+                constructor(currentPage = 1, totalPages = 1) {
                     this.url = new URLSearchParams(location.search);
-                    this.url_ask_id = this.url.get('id');
                     this.currentPage = currentPage;
+                    this.totalPages = totalPages;
+                    this.url_ask_id = this.url.get('id');
                     this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-asks.html');
-                    this.paginationView.update(currentPage);
+                    this.paginationView.update(this.currentPage, this.totalPages, 2, this.url_ask_id);
                 }
                 set CurrentPage(page) {
                     this.currentPage = page;
-                    this.paginationView.update(this.currentPage);
+                    this.paginationView.update(this.currentPage, this.totalPages, 2);
                 }
                 set TotalPages(total) {
                     this.totalPages = total;
@@ -47,7 +48,7 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                         .then((res) => {
                         console.log(res);
                         this.TotalPages = res.pagination.totalPages;
-                        this.paginationView.update(this.currentPage, this.totalPages);
+                        this.paginationView.update(this.currentPage, this.totalPages, 2, this.url_ask_id);
                         this.questionView = new QuestionView_1.QuestionView('#ask_result');
                         let question = new index_1.Post(res.question.ask, res.question.text, res.question.id_user, res.question.owner, res.question.id_helpCenter);
                         this.questionView.update(question);
