@@ -105,22 +105,13 @@ export class DailyNoteService {
     }
 
     registeredDaily(id: string) {
-
-        // let year = `${new Date().getFullYear()}`;
-        // let month = `${new Date().getMonth()+1}`;
-        // let day = `${new Date().getDate()}`;
-
-        // if (month.length < 2 ) month = "0" + month;
-        // if (day.length < 2 ) day = "0" + day;
-
-        // let today = `${year}-${month}-${day}`
-        // console.log(`${HOST}/dailys/user/${id}`)
         return fetch(`${HOST}dailys/user/${id}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
-                "Authorization": `Bearer ${localStorage.getItem('tkn')}`
+                "Authorization": `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
             }
         })
     }

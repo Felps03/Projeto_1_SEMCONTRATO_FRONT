@@ -6,3 +6,6 @@ export * from './Posts';
 export * from './PostAsk';
 export * from './PostAsks';
 export * from './Chat';
+export * from './HomeDailyNote';
+export * from './HomeHelpCenter';
+export * from './RegisteredDaily';
