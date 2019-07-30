@@ -1,10 +1,6 @@
 System.register(["../models/DailyNote", "../services/DailyNoteService", "../helpers/index", "../validation/dailyNoteValidate", "../utils/listCheck", "../views/DailyNotesView", "../views/PaginationView", "../views/RegisteredDailyView", "../models/RegisteredDaylies", "../models/RegisteredDaily", "../views/DailyStatusView"], function (exports_1, context_1) {
     "use strict";
-<<<<<<< HEAD
     var DailyNote_1, DailyNoteService_1, index_1, vals, listCheck_1, DailyNotesView_1, PaginationView_1, RegisteredDailyView_1, RegisteredDaylies_1, RegisteredDaily_1, DailyStatusView_1, DailyNoteController;
-=======
-    var DailyNote_1, DailyNoteService_1, index_1, vals, listCheck_1, RegisteredDailyView_1, RegisteredDaylies_1, RegisteredDaily_1, DailyStatusView_1, DailyNoteController;
->>>>>>> deeb9017baa2d36e7dda1df656d78878c5e58533
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [

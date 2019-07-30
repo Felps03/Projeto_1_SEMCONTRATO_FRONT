@@ -24,11 +24,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
         function reject(value) { resume("throw", value); }
         function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
     };
-<<<<<<< HEAD
     var Chat_1, chatBotTree_1, index_1, chatAnswerParser_1, promiser_1, ChatBotManager;
-=======
-    var Chat_1, chatBotTree_1, index_1, chatAnswerParser_1, ChatBotManager;
->>>>>>> deeb9017baa2d36e7dda1df656d78878c5e58533
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -81,7 +77,6 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                             if (lastMsg) {
                                 const normalizedMsg = lastMsg ? index_1.normalize(lastMsg[1]) : '';
                                 for (let branch of chatBotTree_1.dialog[this.context].children) {
-<<<<<<< HEAD
                                     if (branch.normalize === undefined)
                                         branch.normalize = true;
                                     if (branch.call) {
@@ -92,39 +87,11 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                                             if (processed) {
                                                 success = true;
                                                 const msgs = yield __await(this.toBranch(branch, processed));
-=======
-                                    if (branch.call) {
-                                        for (let synonym of branch.call) {
-                                            const processed = new RegExp(synonym).exec(normalizedMsg);
-                                            if (processed) {
-                                                success = true;
-                                                if (branch.artificialDelay === undefined)
-                                                    branch.artificialDelay = true;
-                                                if (branch.process) {
-                                                    branch.process(this.state, processed);
-                                                }
-                                                const actualState = this.state;
-                                                this.toBranch(branch);
-                                                const possibleGreet = chatBotTree_1.dialog[this.context].greet;
-                                                let msgs = branch.answer.map((msg) => [
-                                                    Chat_1.ChatAgent.Bot,
-                                                    chatAnswerParser_1.parseState(actualState, msg)
-                                                ]);
-                                                if (possibleGreet) {
-                                                    possibleGreet.forEach(greet => {
-                                                        msgs.push([
-                                                            Chat_1.ChatAgent.Bot,
-                                                            chatAnswerParser_1.parseState(actualState, greet)
-                                                        ]);
-                                                    });
-                                                }
->>>>>>> deeb9017baa2d36e7dda1df656d78878c5e58533
                                                 for (const msg of msgs) {
                                                     yield yield __await(index_1.delay(this.message(msg), branch.artificialDelay ? this.DELAY_TIME : 0));
                                                 }
                                                 return yield __await(void 0);
                                             }
-<<<<<<< HEAD
                                         }
                                     }
                                 }
@@ -136,35 +103,14 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                                                 Chat_1.ChatAgent.Bot,
                                                 chatAnswerParser_1.parseState(this.state, msg)
                                             ]), this.DELAY_TIME));
-=======
->>>>>>> deeb9017baa2d36e7dda1df656d78878c5e58533
                                         }
-                                    }
-                                }
-                                if (!success) {
-                                    this.store();
-                                    for (let msg of chatBotTree_1.dialog['understandnt'].children[0].answer) {
-                                        yield yield __await(index_1.delay(this.message([
-                                            Chat_1.ChatAgent.Bot,
-                                            chatAnswerParser_1.parseState(this.state, msg)
-                                        ]), this.DELAY_TIME));
                                     }
                                 }
                             }
                             else {
                                 let msgs = [];
                                 msgs.push([Chat_1.ChatAgent.Bot, chatBotTree_1.mainBranch.greet]);
-<<<<<<< HEAD
                                 msgs.push(...yield __await(this.toBranch(chatBotTree_1.dialog[chatBotTree_1.mainBranch.goto], null)));
-=======
-                                this.toBranch(chatBotTree_1.mainBranch);
-                                const possibleGreet = chatBotTree_1.dialog[this.context].greet;
-                                if (possibleGreet) {
-                                    possibleGreet.forEach(greet => {
-                                        msgs.push([Chat_1.ChatAgent.Bot, greet]);
-                                    });
-                                }
->>>>>>> deeb9017baa2d36e7dda1df656d78878c5e58533
                                 for (const msg of msgs) {
                                     yield yield __await(index_1.delay(this.message(msg), this.DELAY_TIME));
                                 }
@@ -268,11 +214,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                 }
                 clear() {
                     return __asyncGenerator(this, arguments, function* clear_1() {
-<<<<<<< HEAD
                         this.toBranch(chatBotTree_1.mainBranch, null);
-=======
-                        this.toBranch(chatBotTree_1.mainBranch);
->>>>>>> deeb9017baa2d36e7dda1df656d78878c5e58533
                         this.chat = new Chat_1.Chat();
                         this.store();
                         this.init();

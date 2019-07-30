@@ -1,11 +1,7 @@
 import { UserService } from "../services/UserService";
 import { HelpCenterService } from "../services/HelpCenterService";
 import { DailyNoteService } from "../services/DailyNoteService";
-<<<<<<< HEAD
-import { dateFormatYYYYMMDD } from "../helpers/dateHelper";
 import { clean } from "../helpers/validate";
-=======
->>>>>>> deeb9017baa2d36e7dda1df656d78878c5e58533
 import { DailyNote, HomeDailyNote, HomeHelpCenter } from "../models/index";
 import { HomeDailyView } from "../views/HomeDailyView";
 import { DailyNotes } from "../models/DailyNotes";
