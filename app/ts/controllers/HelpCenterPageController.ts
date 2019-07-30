@@ -16,33 +16,37 @@ import { HelpCenterAskController } from '../controllers/HelpCenterAskController'
 export class HelpCenterPageController {
     private currentPage: number;
     private paginationView: PaginationView;
-    private totalPages: number;
+
 
     private url = new URLSearchParams(location.search);
-    private url_ask_id = this.url.get('id');
-
-    private questionView: QuestionView;
-    private answersView: AnswersView;
 
     private addVals: (() => boolean)[]
     private addComment: HTMLInputElement
 
     private messageView: MessageView;
+    private url_ask_id: string;
+    private questionView: QuestionView;
+    private answersView: AnswersView;
+    private totalPages: number;
+    private type: number;
 
-    constructor(currentPage: number = 1) {
+    constructor(currentPage: number = 1, totalPages: number = 1) {
         this.currentPage = currentPage;
+        this.totalPages = totalPages;
+        this.type = 2;
+        this.url_ask_id = this.url.get('id');
         this.paginationView = new PaginationView('#pagination', 'app-help-asks.html');
-        this.paginationView.update(currentPage);
 
         this.answersView = new AnswersView('#post-ask-list')
 
         this.addComment = <HTMLInputElement>document.querySelector('#answer');
 
+        this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
     }
 
     set CurrentPage(page: number) {
         this.currentPage = page;
-        this.paginationView.update(this.currentPage);
+        this.paginationView.update(this.currentPage, this.totalPages, this.type);
     }
 
     set TotalPages(total: number) {
@@ -152,7 +156,7 @@ export class HelpCenterPageController {
             .then((res) => {
                 //console.log(res);
                 this.TotalPages = res.pagination.totalPages;
-                this.paginationView.update(this.currentPage, this.totalPages);
+                this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
 
                 this.questionView = new QuestionView('#ask_result');
                 let question = new Post(res.question.ask, res.question.text, res.question.id_user, res.question.owner, res.question.id_helpCenter)

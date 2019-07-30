@@ -16,10 +16,10 @@ System.register(["./controllers/HelpCenterPageController", "./utils/userData"], 
             controller = new HelpCenterPageController_1.HelpCenterPageController();
             url = new URLSearchParams(location.search);
             url_ask_id = url.get('id');
+            askResult = document.getElementById("ask_result");
             if (url.get('page')) {
                 controller.CurrentPage = +url.get('page');
             }
-            askResult = document.getElementById("ask_result");
             askResult.addEventListener('click', controller.list.bind(controller));
             $(document).ready(function () {
                 document.getElementById('ask_result').click();
