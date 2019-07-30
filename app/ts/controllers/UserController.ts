@@ -22,6 +22,8 @@ export class UserController {
     private passwordConfirm: HTMLInputElement;
     private id: HTMLInputElement;
 
+    private recaptchaChange: HTMLInputElement;
+
     private addVals: (() => boolean)[];
 
     constructor() {
@@ -34,6 +36,9 @@ export class UserController {
         this.dateOfBirth = <HTMLInputElement>document.querySelector('#dateOfBirth');
         this.passwordConfirm = <HTMLInputElement>document.querySelector('#passwordConfirm');
         this.id = <HTMLInputElement>document.querySelector('#id');
+
+
+        this.recaptchaChange = <HTMLInputElement>document.querySelector('#recaptchaChange');
 
         this.messageView = new MessageView('#message-view')
 
@@ -132,6 +137,7 @@ export class UserController {
 
         if (noFalse(this.addVals)) {
             let dataOfBirth = this.dateOfBirth.value.replace(/-/g, ',');
+            let recaptchaON = false;
 
             const user = new User(
                 this.name.value.toString(),
@@ -142,11 +148,13 @@ export class UserController {
                 this.password.value.toString()
             );
 
+            if ($('#recaptchaChange').prop( "checked")) recaptchaON = true;     
+
             const userService = new UserService();
 
             let msg = document.getElementById('retrieve-msg')
 
-            userService.update(user, id.value)
+            userService.update(user, id.value, recaptchaON)
                 .then(result => {
                     if (result.status == 201) {
 

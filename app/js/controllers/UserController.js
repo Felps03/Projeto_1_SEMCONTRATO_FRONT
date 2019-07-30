@@ -34,6 +34,7 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
                     this.dateOfBirth = document.querySelector('#dateOfBirth');
                     this.passwordConfirm = document.querySelector('#passwordConfirm');
                     this.id = document.querySelector('#id');
+                    this.recaptchaChange = document.querySelector('#recaptchaChange');
                     this.messageView = new MessageView_1.MessageView('#message-view');
                     this.addVals = [
                         index_1.validate(this.name, vals.name),
@@ -105,10 +106,13 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
                     let id = document.querySelector('#id');
                     if (listCheck_1.noFalse(this.addVals)) {
                         let dataOfBirth = this.dateOfBirth.value.replace(/-/g, ',');
+                        let recaptchaON = false;
                         const user = new User_1.User(this.name.value.toString(), this.lastName.value.toString(), this.userName.value.toString(), this.email.value.toString(), dataOfBirth, this.password.value.toString());
+                        if ($('#recaptchaChange').prop("checked"))
+                            recaptchaON = true;
                         const userService = new UserService_1.UserService();
                         let msg = document.getElementById('retrieve-msg');
-                        userService.update(user, id.value)
+                        userService.update(user, id.value, recaptchaON)
                             .then(result => {
                             if (result.status == 201) {
                                 document.querySelector('#nameSpan').textContent = this.name.value;

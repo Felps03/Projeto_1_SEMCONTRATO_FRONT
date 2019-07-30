@@ -7,6 +7,11 @@ import { AuthenticateController } from "./controllers/AuthenticateController";
 import { ChatBotController } from "./controllers/ChatBotController";
 import { PasswordRecoveryController } from "./controllers/PasswordRecoveryController";
 
+import { ConfigurationService } from "./services/ConfigurationService";
+
+declare const grecaptcha: any;
+
+
 let userData = getUser();
 
 let homeController = new HomeController();
@@ -38,4 +43,15 @@ if (recoveryPasswordCancel) {
     let homeController = new HomeController();
     recoveryPasswordCancel.addEventListener('click', homeController.cancel.bind(homeController));
 }
+let configurationService = new ConfigurationService();
+configurationService.listAll()
+    .then(res => res.json())
+    .then(res => {
+        if(res.recaptcha) $("#recaptcha").show()
+        else $("#recaptcha").hide()
+    })
+    .catch(err => {
+        console.log(err);
+    })
+
 

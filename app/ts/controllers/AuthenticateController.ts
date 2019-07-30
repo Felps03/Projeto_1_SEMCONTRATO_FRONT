@@ -48,9 +48,7 @@ export class AuthenticateController {
         if (noFalse(this.authVals)) {
 
             const authenticateService = new AuthenticateService();
-
-            //console.log(this.email.value);
-
+            
             authenticateService.authenticate(this.email.value, this.password.value)
                 .catch(res => res.json())
                 .then((res: any) => {

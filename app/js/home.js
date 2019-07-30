@@ -1,6 +1,10 @@
-System.register(["./controllers/HomeController", "./controllers/DailyNoteController", "./utils/userData", "./controllers/AuthenticateController", "./controllers/ChatBotController"], function (exports_1, context_1) {
+System.register(["./controllers/HomeController", "./controllers/DailyNoteController", "./utils/userData", "./controllers/AuthenticateController", "./controllers/ChatBotController", "./services/ConfigurationService"], function (exports_1, context_1) {
     "use strict";
+<<<<<<< HEAD
     var HomeController_1, DailyNoteController_1, userData_1, AuthenticateController_1, ChatBotController_1, userData, homeController, chatBotController, authenticate, addDailyNote, recoveryPasswordCancel;
+=======
+    var HomeController_1, DailyNoteController_1, userData_1, AuthenticateController_1, ChatBotController_1, ConfigurationService_1, userData, homeController, chatBotController, authenticate, addDailyNote, configurationService;
+>>>>>>> f861341543e2e1adbfea3248e1b0bb3ac1b0669b
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -18,6 +22,9 @@ System.register(["./controllers/HomeController", "./controllers/DailyNoteControl
             },
             function (ChatBotController_1_1) {
                 ChatBotController_1 = ChatBotController_1_1;
+            },
+            function (ConfigurationService_1_1) {
+                ConfigurationService_1 = ConfigurationService_1_1;
             }
         ],
         execute: function () {
@@ -41,11 +48,26 @@ System.register(["./controllers/HomeController", "./controllers/DailyNoteControl
                 const dailyNoteController = new DailyNoteController_1.DailyNoteController();
                 addDailyNote.addEventListener('submit', dailyNoteController.add.bind(dailyNoteController));
             }
+<<<<<<< HEAD
             recoveryPasswordCancel = document.querySelector('#recoveryPasswordCancel');
             if (recoveryPasswordCancel) {
                 let homeController = new HomeController_1.HomeController();
                 recoveryPasswordCancel.addEventListener('click', homeController.cancel.bind(homeController));
             }
+=======
+            configurationService = new ConfigurationService_1.ConfigurationService();
+            configurationService.listAll()
+                .then(res => res.json())
+                .then(res => {
+                if (res.recaptcha)
+                    $("#recaptcha").show();
+                else
+                    $("#recaptcha").hide();
+            })
+                .catch(err => {
+                console.log(err);
+            });
+>>>>>>> f861341543e2e1adbfea3248e1b0bb3ac1b0669b
         }
     };
 });
