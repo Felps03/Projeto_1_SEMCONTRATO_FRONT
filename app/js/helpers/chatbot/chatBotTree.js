@@ -1,17 +1,25 @@
-System.register(["./chatBotProcessEntities"], function (exports_1, context_1) {
+System.register(["./chatBotProcessEntities", "../../services/index", "../../models/Post"], function (exports_1, context_1) {
     "use strict";
-    var process, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, actualHours, greeting, mainBranch, dialog;
+    var process, index_1, Post_1, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, helpCenterService, dailyNoteService, actualHours, greeting, mainBranch, dialog;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (process_1) {
                 process = process_1;
+            },
+            function (index_1_1) {
+                index_1 = index_1_1;
+            },
+            function (Post_1_1) {
+                Post_1 = Post_1_1;
             }
         ],
         execute: function () {
             BOT_NAME = 'Contratinho';
             NOT_IMPLEMENTED_ANSWER = ['Hm... desculpa, não sei fazer isso ainda 😔'];
             SELF_HTTPS_HOST = 'http://' + window.location.host;
+            helpCenterService = new index_1.HelpCenterService();
+            dailyNoteService = new index_1.DailyNoteService();
             actualHours = new Date().getHours();
             if (actualHours >= 4 && actualHours < 12) {
                 greeting = 'Bom dia';
@@ -128,8 +136,34 @@ System.register(["./chatBotProcessEntities"], function (exports_1, context_1) {
                         },
                         {
                             call: ['adicionar', 'incluir', 'inserir'],
+                            goto: 'add_help_title',
+                            answer: ['Qual o seu problema? 😋 (título)']
+                        }
+                    ]
+                },
+                add_help_title: {
+                    children: [
+                        {
+                            call: [/^.*$/],
+                            normalize: false,
+                            goto: 'add_help_desc',
+                            process: process.raw('add_help_title', 0),
+                            answer: ['O que tem a dizer sobre o problema? 🙂']
+                        }
+                    ]
+                },
+                add_help_desc: {
+                    children: [
+                        {
+                            call: [/^.*$/],
+                            normalize: false,
                             goto: 'main',
-                            answer: NOT_IMPLEMENTED_ANSWER
+                            process: (state, match) => {
+                                const desc = match[0];
+                                const postToAdd = new Post_1.Post(state.get('add_help_title'), desc);
+                                helpCenterService.add(postToAdd);
+                            },
+                            answer: ['Adicionado com sucesso!']
                         }
                     ]
                 },

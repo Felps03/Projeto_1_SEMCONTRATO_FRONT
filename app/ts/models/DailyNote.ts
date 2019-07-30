@@ -1,17 +1,13 @@
 export class DailyNote {
 
-    private yesterday: string;
-    private today: string;
-    private impediment: string;
-    private date: Date;
+    // private yesterday: string;
+    // private today: string;
+    // private impediment: string;
+    // private date: Date;
+    // private id?: string
 
-    constructor(yesterday: string, today: string, impediment: string, date: Date) {
-
-        this.yesterday = yesterday;
-        this.today = today;
-        this.impediment = impediment;
-        this.date = date;
-    }
+    constructor(private yesterday: string, private today: string, private impediment: string, private date: Date, private id?: string) 
+    { }
 
     get Yesterday() {
         return this.yesterday;
@@ -24,6 +20,10 @@ export class DailyNote {
     }
     get Date() {
         return this.date;
+    }
+
+    get Id() {
+        return this.id
     }
 
 }

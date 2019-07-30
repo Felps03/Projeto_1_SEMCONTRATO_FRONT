@@ -12,7 +12,6 @@ System.register(["../config/index"], function (exports_1, context_1) {
             AuthenticateService = class AuthenticateService {
                 authenticate(email, password) {
                     return new Promise((resolve, reject) => {
-                        console.log('chegou');
                         fetch(`${index_1.HOST}users/authenticate`, {
                             method: 'POST',
                             mode: 'cors',
@@ -22,7 +21,8 @@ System.register(["../config/index"], function (exports_1, context_1) {
                             },
                             body: JSON.stringify({
                                 "email": email,
-                                "password": password
+                                "password": password,
+                                "g-recaptcha-response": grecaptcha.getResponse()
                             })
                         }).then(res => {
                             if (res.status !== 200) {

@@ -2,10 +2,12 @@ import { UserService } from "../services/UserService";
 import { HelpCenterService } from "../services/HelpCenterService";
 import { DailyNoteService } from "../services/DailyNoteService";
 import { DailyNote } from "../models/index";
+import { dateFormatYYYYMMDD } from "../helpers/dateHelper";
+import { clean } from "../helpers/validate";
 
 export class HomeController {
 
-    constructor() {}
+    constructor() { }
 
     getUser() {
         let data;
@@ -25,13 +27,12 @@ export class HomeController {
                         userName: result['userName']
                     }
                     return data
-                });
+                })
         }
     }
 
     listLastHelp(event: Event) {
         event.preventDefault();
-        console.log('oi');
         const helpCenterService = new HelpCenterService()
 
         helpCenterService.listLastHelp()
@@ -46,7 +47,7 @@ export class HomeController {
 
                 for (let aux = 0; aux < 3; aux++) {
                     let date = new Date(result[aux]['date']);
-                    let dateFormatted = `${date.getDate()+1}/${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}/${date.getFullYear()}`;
+                    let dateFormatted = `${date.getDate() + 1}/${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}/${date.getFullYear()}`;
 
                     row.innerHTML += `
                     <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
@@ -82,16 +83,12 @@ export class HomeController {
 
     listDailyDate(event: Event) {
         event.preventDefault();
-        let date = new Date().toLocaleDateString('pt-BR').slice(0, 10);
+
         const dailyNoteService = new DailyNoteService();
 
-        let year = date.slice(6, 10);
-        let month = date.slice(3, 5);
-        let day = date.slice(0, 2);
+        let data = dateFormatYYYYMMDD(new Date());
 
-        let fullDate = `${year}-${month}-${day}`;
-
-        dailyNoteService.listDate(fullDate, 1)
+        dailyNoteService.listDate(data, 1)
             .then(result => {
                 return result.json();
             }).then(result => {
@@ -112,5 +109,10 @@ export class HomeController {
             .catch(error => {
                 console.log(error);
             })
+    }
+
+    cancel(event: Event) {
+        event.preventDefault();
+        clean(<HTMLInputElement>document.querySelector('#email_rec'));
     }
 }

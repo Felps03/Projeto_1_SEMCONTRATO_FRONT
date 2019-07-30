@@ -1,6 +1,6 @@
-System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService"], function (exports_1, context_1) {
+System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../helpers/dateHelper", "../helpers/validate"], function (exports_1, context_1) {
     "use strict";
-    var UserService_1, HelpCenterService_1, DailyNoteService_1, HomeController;
+    var UserService_1, HelpCenterService_1, DailyNoteService_1, dateHelper_1, validate_1, HomeController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -12,6 +12,12 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
             },
             function (DailyNoteService_1_1) {
                 DailyNoteService_1 = DailyNoteService_1_1;
+            },
+            function (dateHelper_1_1) {
+                dateHelper_1 = dateHelper_1_1;
+            },
+            function (validate_1_1) {
+                validate_1 = validate_1_1;
             }
         ],
         execute: function () {
@@ -39,7 +45,6 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                 }
                 listLastHelp(event) {
                     event.preventDefault();
-                    console.log('oi');
                     const helpCenterService = new HelpCenterService_1.HelpCenterService();
                     helpCenterService.listLastHelp()
                         .then(result => {
@@ -85,13 +90,9 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                 }
                 listDailyDate(event) {
                     event.preventDefault();
-                    let date = new Date().toLocaleDateString('pt-BR').slice(0, 10);
                     const dailyNoteService = new DailyNoteService_1.DailyNoteService();
-                    let year = date.slice(6, 10);
-                    let month = date.slice(3, 5);
-                    let day = date.slice(0, 2);
-                    let fullDate = `${year}-${month}-${day}`;
-                    dailyNoteService.listDate(fullDate, 1)
+                    let data = dateHelper_1.dateFormatYYYYMMDD(new Date());
+                    dailyNoteService.listDate(data, 1)
                         .then(result => {
                         return result.json();
                     }).then(result => {
@@ -111,6 +112,10 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         .catch(error => {
                         console.log(error);
                     });
+                }
+                cancel(event) {
+                    event.preventDefault();
+                    validate_1.clean(document.querySelector('#email_rec'));
                 }
             };
             exports_1("HomeController", HomeController);
