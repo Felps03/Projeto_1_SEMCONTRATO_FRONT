@@ -6,6 +6,7 @@ import uuidv4 from '../../utils/uuidv4'
 import { Post } from '../../models/Post';
 import { InputWrapper } from '../../utils/index';
 import * as valHelp from '../../validation/helpCenterValidate'
+import { DailyNote } from '../../models/index';
 
 export type DialogBranch = {
     // go into branch if one call matches
@@ -126,9 +127,9 @@ export const dialog: { [node: string]: Dialog } = {
             },
             {
                 call: ['adicionar', 'incluir', 'inserir'],
-                goto: 'main',
                 process: process.checkLoggedIn('cr_daily'),
-                answer: NOT_IMPLEMENTED_ANSWER
+                goto: 'add_daily_yesterday',
+                answer: ['O que você fez ontem? 😃']
             }
         ]
     },
@@ -174,6 +175,59 @@ export const dialog: { [node: string]: Dialog } = {
                 goto: 'main',
                 answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`],
                 process: process.entRaw('list_daily_note_user')
+            }
+        ]
+    },
+
+    add_daily_yesterday: {
+        children: [
+            {
+                call: [/^.*$/],
+                normalize: false,
+                goto: 'add_daily_today',
+                process: process.entRaw('add_daily_yesterday', 0),
+                answer: ['O que fará hoje? 🙂']
+            }
+        ]
+    },
+
+    add_daily_today: {
+        children: [
+            {
+                call: [/^.*$/],
+                normalize: false,
+                goto: 'add_daily_impediment',
+                process: process.entRaw('add_daily_today', 0),
+                answer: ['Algum impedimento? 🙂']
+            }
+        ]
+    },
+
+    add_daily_impediment: {
+        children: [
+            {
+                call: [/^.*$/],
+                normalize: false,
+                goto: 'main',
+                process: (state: Map<string, any>, match: RegExpExecArray) => {
+                    const impediment = match[0]
+
+                    // const dailyToAdd = new DailyNote(
+                    //     <string>state.get('add_daily_yesterday'),
+                    //     <string>state.get('add_daily_today'),
+                    //     impediment,
+                    //     new Date()
+                    // )
+
+                    // dailyNoteService.add(dailyToAdd)
+                    dailyNoteService.add(
+                        <string>state.get('add_daily_yesterday'),
+                        <string>state.get('add_daily_today'),
+                        impediment,
+                        null // inst used anyway
+                    )
+                },
+                answer: ['Daily registrada com sucesso!']
             }
         ]
     },

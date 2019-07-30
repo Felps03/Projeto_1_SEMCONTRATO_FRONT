@@ -58,6 +58,10 @@ export class ChatBotManager {
 
                     if (branch.call) {
                         for (let synonym of branch.call) {
+
+                            if (branch.normalize === undefined)
+                                branch.normalize = true
+
                             const processed = new RegExp(synonym).exec(
                                 branch.normalize ? normalizedMsg : lastMsg[1]
                             )

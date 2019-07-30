@@ -81,6 +81,11 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                                         branch.normalize = true;
                                     if (branch.call) {
                                         for (let synonym of branch.call) {
+<<<<<<< HEAD
+=======
+                                            if (branch.normalize === undefined)
+                                                branch.normalize = true;
+>>>>>>> chatbot_add_daily
                                             const processed = new RegExp(synonym).exec(branch.normalize ? normalizedMsg : lastMsg[1]);
                                             if (processed) {
                                                 success = true;
