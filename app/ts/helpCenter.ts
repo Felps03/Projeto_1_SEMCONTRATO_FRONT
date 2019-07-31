@@ -17,7 +17,7 @@ let mostraHelp = document.getElementById("mostra-help");
 
 mostraHelp.addEventListener('click', controller.list.bind(controller));
 
-$(document).ready(function() {
+$(document).ready(function () {
     document.getElementById('mostra-help').click();
 });
 

@@ -56,7 +56,8 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     this.dailyNotesView = new DailyNotesView_1.DailyNotesView('#dayliesResult');
                     this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-daily-note.html');
                     this.totalPages = totalPages;
-                    this.paginationView.update(1, this.totalPages);
+                    this.type = 0;
+                    this.paginationView.update(1, this.totalPages, this.type);
                     this.addVals = [
                         index_1.validate(this.yesterday, vals.yesterday),
                         index_1.validate(this.today, vals.today),
@@ -93,7 +94,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         console.log(result);
                         console.log(result[result.length - 1].totalPages);
                         this.TotalPages = result[result.length - 1].totalPages;
-                        this.paginationView.update(page, this.totalPages, fullDate);
+                        this.paginationView.update(page, this.totalPages, this.type, fullDate);
                         let registeredDaylies = new RegisteredDaylies_1.RegisteredDaylies();
                         this.dailyView = new RegisteredDailyView_1.RegisteredDailyView('#dayliesResult');
                         result.pop();

@@ -47,7 +47,8 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     this.messageView = new MessageView_1.MessageView('#message-view');
                     this.currentPage = currentPage;
                     this.totalPages = totalPages;
-                    this.paginationView.update(this.currentPage, this.totalPages);
+                    this.type = 1;
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
                     this.addVals = [index_3.validate(this.addTitle, vals.title), index_3.validate(this.addDesc, vals.desc)];
                     this.postView.didMount(() => {
                         this.helpCenterAsk = new HelpCenterAskController_1.HelpCenterAskController();
@@ -69,7 +70,7 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                 }
                 set CurrentPage(page) {
                     this.currentPage = page;
-                    this.paginationView.update(this.currentPage, this.totalPages);
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
                 }
                 set TotalPages(total) {
                     this.totalPages = total;
@@ -144,15 +145,15 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     event.preventDefault();
                     const helpCenterService = new index_2.HelpCenterService();
                     helpCenterService
-                        .list(this.currentPage)
+                        .list(this.currentPage, null)
                         .then((result) => {
                         return result.json();
                     })
                         .then((res) => {
                         this.TotalPages = res[res.length - 1].totalPages;
-                        this.paginationView.update(this.currentPage, this.totalPages);
-                        const posts = index_1.Posts.from(res.reverse().slice(1, -1));
-                        this.postsView.update(posts);
+                        this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                        const posts = index_1.Posts.from(res.slice(0, -1));
+                        this.postsView.update(posts, this.totalPages);
                         Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
                             const i = el.getAttribute('data-i');
                             if (i) {

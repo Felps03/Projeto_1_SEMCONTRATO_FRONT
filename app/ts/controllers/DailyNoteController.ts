@@ -36,6 +36,7 @@ export class DailyNoteController {
     private paginationView: PaginationView;
     private totalPages: number;
     private currentPage: number;
+    private type: number;
 
     // private headerPagination: headerPaginationView;
 
@@ -53,8 +54,9 @@ export class DailyNoteController {
         this.paginationView = new PaginationView('#pagination', 'app-daily-note.html');
 
         this.totalPages = totalPages;
+        this.type = 0;
+        this.paginationView.update(1, this.totalPages, this.type);
 
-        this.paginationView.update(1, this.totalPages);
         // init validations
         this.addVals = [
             validate(this.yesterday, vals.yesterday),
@@ -117,7 +119,7 @@ export class DailyNoteController {
                 console.log(result);
                 console.log(result[result.length - 1].totalPages);
                 this.TotalPages = result[result.length - 1].totalPages;
-                this.paginationView.update(page, this.totalPages, fullDate);
+                this.paginationView.update(page, this.totalPages, this.type, fullDate);
                 // console.log(result);
                 let registeredDaylies = new RegisteredDaylies();
                 this.dailyView = new RegisteredDailyView('#dayliesResult');

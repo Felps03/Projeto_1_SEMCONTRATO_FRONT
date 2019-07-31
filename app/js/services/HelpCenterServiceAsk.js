@@ -11,7 +11,6 @@ System.register(["../config/index"], function (exports_1, context_1) {
         execute: function () {
             HelpCenterAskService = class HelpCenterAskService {
                 add(post) {
-                    console.log(post);
                     return fetch(`${index_1.HOST}helps/ask/`, {
                         method: 'POST',
                         headers: {

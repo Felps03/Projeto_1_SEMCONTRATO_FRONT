@@ -57,7 +57,6 @@ export class HelpCenterAskController {
 
     add(event: Event) {
         event.preventDefault();
-
         if (noFalse(this.addVals)) {
 
             const postIdField = document.getElementById('post-meta')
@@ -164,7 +163,7 @@ export class HelpCenterAskController {
             .then(result => {
                 return result.json()
             }).then(res => {
-               
+
                 this.postAsksView.update(
                     PostAsks.from(
                         res.filter((ask: any) => ask['id_helpCenter'] === ID_POST)
