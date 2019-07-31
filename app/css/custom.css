@@ -276,13 +276,21 @@ body {
 
     height: var(--chat-total-height);
     width: var(--chat-closed-width);
-    transform: translateY(calc(var(--chat-total-height) - var(--chat-tab-height)));
+    min-width: var(--chat-closed-width);
+
+    transform: translateY(calc(var(--chat-total-height) - var(--chat-tab-height) + 1px));
     transition: transform ease-out 0.2s;
 
     right: 2rem;
     bottom: 0;
 
     background-color: var(--light);
+}
+
+@media(max-width: 600px) {
+    #chatbot-area {
+        right: calc(50vw - calc(var(--chat-closed-width) / 2));
+    }
 }
 
 #chatbot-area.active {
