@@ -84,7 +84,7 @@ export const dialog: { [node: string]: Dialog } = {
             'Como posso ajudar? 😊',
             '{{button(DailyNote)}}',
             '{{button(HelpCenter)}}',
-            '{{button(Login)}}',
+            // '{{button(Login)}}',
         ],
 
         children: [
@@ -105,13 +105,13 @@ export const dialog: { [node: string]: Dialog } = {
                     '{{button(Ver)}}',
                     '{{button(Adicionar)}}'
                 ]
-            },
-            {
-                call: ['login'],
-                goto: 'main',
-                answer: NOT_IMPLEMENTED_ANSWER,
-                process: process.checkNotLoggedIn('main')
             }
+            // {
+            //     call: ['login'],
+            //     goto: 'main',
+            //     answer: NOT_IMPLEMENTED_ANSWER,
+            //     process: process.checkNotLoggedIn('main')
+            // }
         ]
     },
 

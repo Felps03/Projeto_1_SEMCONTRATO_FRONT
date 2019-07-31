@@ -54,7 +54,6 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                         'Como posso ajudar? 😊',
                         '{{button(DailyNote)}}',
                         '{{button(HelpCenter)}}',
-                        '{{button(Login)}}',
                     ],
                     children: [
                         {
@@ -74,12 +73,6 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                                 '{{button(Ver)}}',
                                 '{{button(Adicionar)}}'
                             ]
-                        },
-                        {
-                            call: ['login'],
-                            goto: 'main',
-                            answer: NOT_IMPLEMENTED_ANSWER,
-                            process: process.checkNotLoggedIn('main')
                         }
                     ]
                 },
