@@ -48,6 +48,13 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                         authenticateService.authenticate(this.email.value, this.password.value)
                             .catch(res => res.json())
                             .then((res) => {
+                            document.getElementById('message-view').innerHTML = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    `;
                             if (res.erro)
                                 this.messageView.update(res.erro);
                         });
@@ -61,7 +68,6 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                         const authenticateService = new index_1.AuthenticateService();
                         authenticateService.resetPassword(this.emailRec.value.toString())
                             .then(res => {
-                            console.log('status', res.status);
                             if (Math.floor(res.status / 100) === 2) {
                                 res.json()
                                     .then(() => {

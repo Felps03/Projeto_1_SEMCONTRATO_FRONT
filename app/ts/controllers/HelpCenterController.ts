@@ -33,8 +33,11 @@ export class HelpCenterController {
 	private editVals: (() => boolean)[];
 
 	private currentPage: number;
+	private totalPages: number;
 
-	constructor(currentPage: number = 1) {
+	private type: number;
+
+	constructor(currentPage: number = 1, totalPages: number = 1) {
 		this.searchTitle = <HTMLInputElement>document.getElementById('search-joker');
 		// this.searchDesc = <HTMLInputElement>document.getElementById('search-desc')
 
@@ -49,7 +52,9 @@ export class HelpCenterController {
 
 		this.currentPage = currentPage;
 
-		this.paginationView.update(currentPage);
+		this.totalPages = totalPages;
+		this.type = 1;
+		this.paginationView.update(this.currentPage, this.totalPages, this.type);
 
 		// init validations
 
@@ -84,7 +89,10 @@ export class HelpCenterController {
 
 	set CurrentPage(page: number) {
 		this.currentPage = page;
-		this.paginationView.update(this.currentPage);
+		this.paginationView.update(this.currentPage, this.totalPages, this.type);
+	}
+	set TotalPages(total: number) {
+		this.totalPages = total;
 	}
 
 	add(event: Event) {
@@ -173,13 +181,17 @@ export class HelpCenterController {
 		event.preventDefault();
 		const helpCenterService = new HelpCenterService();
 		helpCenterService
-			.list(this.currentPage)
+			.list(this.currentPage, null)
 			.then((result) => {
 				return result.json();
 			})
 			.then((res) => {
+
+				//console.log(res);
+				this.TotalPages = res[res.length - 1].totalPages;
+				this.paginationView.update(this.currentPage, this.totalPages, this.type);
 				const posts = Posts.from(res.slice(0, -1));
-				this.postsView.update(posts);
+				this.postsView.update(posts, this.totalPages);
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');
 					if (i) {
@@ -193,6 +205,33 @@ export class HelpCenterController {
 				console.error(error);
 			});
 	}
+
+	// listQuestionAndAnswer(event: Event) {
+	// 	event.preventDefault();
+	// 	const helpCenterService = new HelpCenterService();
+	// 	helpCenterService
+	// 		.list(this.currentPage)
+	// 		.then((result) => {
+	// 			return result.json();
+	// 		})
+	// 		.then((res) => {
+	// 			// console.log(res);
+
+	// 			const posts = Posts.from(res.slice(0, -1));
+	// 			this.postsView.update(posts);
+	// 			Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
+	// 				const i = el.getAttribute('data-i');
+	// 				if (i) {
+	// 					el.addEventListener('click', () => {
+	// 						this.postView.update(posts.get(+i));
+	// 					});
+	// 				}
+	// 			});
+	// 		})
+	// 		.catch((error) => {
+	// 			console.error(error);
+	// 		});
+	// }
 
 	delete(event: Event) {
 		event.preventDefault();
@@ -231,12 +270,12 @@ export class HelpCenterController {
 			});
 	}
 
-	findByTitle(event: Event) {
+	findByJoker(event: Event) {
 		event.preventDefault();
 		let title = this.searchTitle.value;
 		const helpCenterService = new HelpCenterService();
 		helpCenterService
-			.findByJoker(title)
+			.findByJoker(title, 1)
 			.then((result) => {
 				return result.json();
 			})

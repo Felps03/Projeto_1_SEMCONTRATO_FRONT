@@ -38,8 +38,16 @@ export class HelpCenterService {
         });
     };
 
-    list(page: number) {
-        return fetch(`${HOST}helps/list/post/${page}`, {
+    list(page: number, ID: string) {
+        let url;
+        if (!ID) {
+            url = `${HOST}helps/list/post/${page}`;
+        }
+        else {
+            url = `${HOST}helps/answer/${ID}/${page}`;
+        }
+
+        return fetch(url, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -75,8 +83,8 @@ export class HelpCenterService {
         })
     }
 
-    findByJoker(joker: string) {
-        return fetch(`${HOST}helps/post/joker/1`, {
+    findByJoker(joker: string, page: number) {
+        return fetch(`${HOST}helps/list/joker/${page}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -89,6 +97,33 @@ export class HelpCenterService {
             })
         });
     }
+
+    listByID(ID: string) {
+        return fetch(`${HOST}helps/post/${ID}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
+                'id_user': localStorage.getItem('id')
+            }
+        })
+    }
+
+    // listQuestionAndAnswer(ID: string, page: number) {
+
+    //     return fetch(`${HOST}helps/answer/${ID}/${page}`, {
+    //         method: 'GET',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
+    //             'id_user': localStorage.getItem('id')
+    //         }
+    //     })
+    // }
+
+
 
     // findByDesc(desc: string) {
     //     return fetch(`${HOST}helps/post/desc/1`, {

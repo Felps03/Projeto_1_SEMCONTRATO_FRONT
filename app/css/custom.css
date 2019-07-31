@@ -388,3 +388,11 @@ body {
     margin-left: 15px;
     margin-right: 15px;
 }
+
+#table-container td, #table-container th{
+    word-break: break-word;
+}
+
+#chatbot-history ul li .card {
+    color: var(--dark);
+}

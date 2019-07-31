@@ -49,11 +49,16 @@ export class AuthenticateController {
 
             const authenticateService = new AuthenticateService();
 
-            //console.log(this.email.value);
-
             authenticateService.authenticate(this.email.value, this.password.value)
                 .catch(res => res.json())
                 .then((res: any) => {
+                    document.getElementById('message-view').innerHTML = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    `;
                     if (res.erro)
                         this.messageView.update(res.erro)
                 });
@@ -72,8 +77,6 @@ export class AuthenticateController {
 
             authenticateService.resetPassword(this.emailRec.value.toString())
                 .then(res => {
-                    console.log('status', res.status)
-                    // 200, 201, 202, 203...
                     if (Math.floor(res.status / 100) === 2) {
                         res.json()
                             .then(() => {

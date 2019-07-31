@@ -4,7 +4,6 @@ import { PostAsk } from "../models/PostAsk";
 export class HelpCenterAskService {
 
     add(post: PostAsk) {
-        console.log(post)
         return fetch(`${HOST}helps/ask/`, {
             method: 'POST',
             headers: {

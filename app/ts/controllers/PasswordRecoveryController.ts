@@ -45,8 +45,6 @@ export class PasswordRecoveryController {
 
             const authenticateService = new AuthenticateService();
 
-            console.log('pimba');
-
             authenticateService.verifyCode(URL_KEY, this.email.value, this.password.value)
                 .then(res => res.json())
                 .then(res => {

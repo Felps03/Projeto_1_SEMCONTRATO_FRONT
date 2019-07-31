@@ -96,7 +96,8 @@ System.register(["../config/index"], function (exports_1, context_1) {
                         headers: {
                             'Accept': 'application/json, text/plain, */*',
                             'Content-Type': 'application/json',
-                            "Authorization": `Bearer ${localStorage.getItem('tkn')}`
+                            "Authorization": `Bearer ${localStorage.getItem('tkn')}`,
+                            'id_user': localStorage.getItem('id')
                         }
                     });
                 }
