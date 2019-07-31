@@ -1,6 +1,6 @@
-System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4", "../../models/Post", "../../utils/index", "../../validation/helpCenterValidate", "../../validation/dailyNoteValidate"], function (exports_1, context_1) {
+System.register(["./chatBotProcess", "../../services/index", "../../models/Post", "../../utils/index", "../../validation/helpCenterValidate", "../../validation/dailyNoteValidate"], function (exports_1, context_1) {
     "use strict";
-    var process, index_1, uuidv4_1, Post_1, index_2, valHelp, valDaily, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, helpCenterService, dailyNoteService, actualHours, greeting, mainBranch, dialog;
+    var process, index_1, Post_1, index_2, valHelp, valDaily, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, helpCenterService, dailyNoteService, actualHours, greeting, mainBranch, dialog;
     var __moduleName = context_1 && context_1.id;
     function pseudoInput(val) {
         const input = document.createElement('input');
@@ -14,9 +14,6 @@ System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4
             },
             function (index_1_1) {
                 index_1 = index_1_1;
-            },
-            function (uuidv4_1_1) {
-                uuidv4_1 = uuidv4_1_1;
             },
             function (Post_1_1) {
                 Post_1 = Post_1_1;
@@ -34,7 +31,7 @@ System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4
         execute: function () {
             BOT_NAME = 'Contratinho';
             NOT_IMPLEMENTED_ANSWER = ['Hm... desculpa, não sei fazer isso ainda 😔'];
-            SELF_HTTPS_HOST = 'http://' + window.location.host;
+            SELF_HTTPS_HOST = 'https://' + window.location.host;
             helpCenterService = new index_1.HelpCenterService();
             dailyNoteService = new index_1.DailyNoteService();
             actualHours = new Date().getHours();
@@ -226,13 +223,8 @@ System.register(["./chatBotProcess", "../../services/index", "../../utils/uuidv4
                             call: ['listar', 'ver', 'mostrar'],
                             goto: 'main',
                             answer: [
-                                `{{helpView(list-help-id-$help_list_id, $help_list)}}`
-                            ],
-                            process: async (state, match) => {
-                                state.set('help_list_id', uuidv4_1.default());
-                                state.set('help_list', await helpCenterService.list(1, null)
-                                    .then(res => res.json()));
-                            }
+                                `{{link(Clique aqui para ver os posts! 😃, ${SELF_HTTPS_HOST}/app-help-center.html)}}`,
+                            ]
                         },
                         {
                             call: ['adicionar', 'incluir', 'inserir'],

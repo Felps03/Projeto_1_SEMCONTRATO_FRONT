@@ -46,7 +46,7 @@ export type Dialog = {
 // config
 const BOT_NAME = 'Contratinho'
 const NOT_IMPLEMENTED_ANSWER = ['Hm... desculpa, não sei fazer isso ainda 😔']
-const SELF_HTTPS_HOST = 'http://' + window.location.host
+const SELF_HTTPS_HOST = 'https://' + window.location.host
 
 // initialiazing stuff
 const helpCenterService = new HelpCenterService()
@@ -288,16 +288,19 @@ export const dialog: { [node: string]: Dialog } = {
             {
                 call: ['listar', 'ver', 'mostrar'],
                 goto: 'main',
+                // answer: [
+                //     `{{helpView(list-help-id-$help_list_id, $help_list)}}`
+                // ],
+                // process: async (state: Map<string, any>, match: RegExpExecArray) => {
+                //     state.set('help_list_id', uuidv4())
+                //     state.set('help_list',
+                //         await helpCenterService.list(1, null)
+                //             .then(res => res.json())
+                //     )
+                // }
                 answer: [
-                    `{{helpView(list-help-id-$help_list_id, $help_list)}}`
-                ],
-                process: async (state: Map<string, any>, match: RegExpExecArray) => {
-                    state.set('help_list_id', uuidv4())
-                    state.set('help_list',
-                        await helpCenterService.list(1, null)
-                            .then(res => res.json())
-                    )
-                }
+                    `{{link(Clique aqui para ver os posts! 😃, ${SELF_HTTPS_HOST}/app-help-center.html)}}`,
+                ]
             },
             {
                 call: ['adicionar', 'incluir', 'inserir'],
