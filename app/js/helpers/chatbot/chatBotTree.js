@@ -82,9 +82,9 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                             call: ['listar', 'ver', 'mostrar'],
                             goto: 'list_daily',
                             answer: [
-                                'Gostaria de filtrar por data ou usuário?',
-                                '{{button(Não)}}',
-                                '{{button(Data)}}',
+                                'Gostaria de filtrar por?..',
+                                '{{button(Ver dailies de hoje)}}',
+                                '{{button(Outra data)}}',
                                 '{{button(Usuário)}}',
                             ]
                         },
@@ -117,7 +117,7 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                             answer: ['Ok. Que usuário?']
                         },
                         {
-                            call: ['nao', 'nop'],
+                            call: ['nao', 'nop', 'hoje'],
                             goto: 'main',
                             answer: [
                                 `{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html)}}`,
