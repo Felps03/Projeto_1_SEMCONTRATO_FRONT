@@ -5,37 +5,29 @@ export class PostsView extends View<Posts> {
 
     template(model: Posts): string {
         return `
-        <div class="container">
+
             ${model.toArray().map((post, i) => `
-            <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
-                <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
-                    <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
-                        <div>
-                            <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
-                            <h5 class="mt-2 mb-2">${post.AuthorName ? post.AuthorName : ""}</h5>
-                            <p class="mt-2 mb-2">${post.Date}</p>
-                        </div>
-                        <a href="app-help-asks.html?id=${post.Id}">
-                            <button class="btn btn-default btn-sm btn-info">
-                                <i class="material-icons"> forum </i>
-                            </button>
-                        </a>
-
+            <hr>
+            <div class="col-sm-11 col-12 d-flex align-items-stretch">
+                <div class="d-flex flex-row flex-md-column align-items-center text-center justify-content-around pl-3 pr-3 w-100">
+                    <div>
+                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle" width="70px">
+                        <h6 class="mt-2">${post.AuthorName ? post.AuthorName : ""}</h6>
                     </div>
                 </div>
-                <div class="col-md-9 col-12 card-body">
-                    <div class="card mb-2">
-                        <div class="card-body">
 
-                            <h5>${post.Title}</h5>
-                            <p>${post.Desc}</p>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <div class="col-sm-12 col-12">
+                    <h5><strong>${post.Title}</strong></h5>
+                    <div>${post.Desc}</div>
+
+                    <a href="app-help-asks.html?id=${post.Id}" class="position-absolute custom-bottom-align">
+                        <button type="button" class="btn btn-outline-warning btn-sm pr-4 pl-4 input-circle">Responder</button>
+                    </a>
+                </div> 
+            </div>   
+ 
             `).join('')}
-        </div>
+        
         `;
     }
 }

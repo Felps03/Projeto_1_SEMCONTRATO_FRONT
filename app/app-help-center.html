@@ -83,69 +83,38 @@
                 </div>
                 <hr class="register-line">
 
-                <form action="" id="search-form">
-                    <div class="row mb-5">
-                        <div class="col-sm-10 col-12">
-
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="material-icons">search</i></span>
-                                </div>
-                                <input type="text" name="search-joker" id="search-joker" class="form-control form-control input-circle" placeholder="Pesquisa" autofocus>
+                <form action="" id="search-form" autocomplete="off">
+                    <div class="row mb-3">
+                        <div class="col-sm-10 col-12 mt-3">
+                            <div class="form-group">
+                                <label for="email">Buscar pergunta:</label>
+                                <input type="text" name="search-joker" class="form-control form-control-sm input-circle" id="search-joker" placeholder="Informe as palavras chave">
                                 <div id="search-jokervalidator"></div>
                             </div>
-
-                            <!-- <div class="form-group">
-                                <label for="search-desc">Descrição:</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="material-icons">search</i></span>
-                                    </div>
-                                    <textarea name="search-desc" class="form-control input-circle" id="search-desc"
-                                        placeholder="Pesquisar por descrição" autofocus></textarea>
-                                    <div id="search-descvalidator"></div>
-                                </div>
-                            </div> -->
                         </div>
 
-                        <div class="col-sm-2 col-12 d-flex justify-content-center align-items-center mb-3 mb-sm-0">
-                            <button type="button" class="btn btn-lg btn-outline-primary d-flex justify-content-center align-items-center" data-toggle="modal" data-target="#add-modal"><i class="material-icons">add</i></button>
+                        <div class="col-sm-2 col-12" style="margin-top:37px">
+                            <button type="button" name="new_daily" class="btn btn-sm btn-outline-success btn-sm float-right pr-4 pl-4 input-circle"
+                                data-toggle="modal" data-toggle="modal" data-target="#add-modal">Perguntar
+                            </button>
                         </div>
-
                     </div>
                 </form>
 
                 <div id="message-view"></div>
 
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h4 class="mb-0">Perguntas e Respostas</h4>
-                    </div>
-                </div>
 
-                <!-- list -->
+                <div class="vt-line mb-3">
+                    <h5>
+                        <strong>Perguntas</strong>
+                    </h5>
+                </div>
                 <div id="post-list"></div>
 
             </div>
 
             <nav class="float-right mt-1">
-                <ul id="pagination" class="pagination">
-                    <!-- <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Anterior">
-                            <span aria-hidden="true" class="txt-primary">&laquo;</span>
-                            <span class="sr-only txt-primary">Anterior</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link txt-primary" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link txt-primary" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link txt-primary" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Próximo">
-                            <span aria-hidden="true" class="txt-primary">&raquo;</span>
-                            <span class="sr-only txt-primary">Próximo</span>
-                        </a>
-                    </li> -->
-                </ul>
+                <ul id="pagination" class="pagination"></ul>
             </nav>
 
     </div>

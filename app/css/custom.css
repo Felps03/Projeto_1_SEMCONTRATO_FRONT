@@ -221,6 +221,10 @@ body {
     margin-top: 36px;
 }
 
+.custom-bottom-align {
+    bottom: 0;
+}
+
 /* User menu */
 
 .dropdown {
