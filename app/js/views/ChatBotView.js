@@ -37,31 +37,37 @@ System.register(["./View", "../models/Chat", "../helpers/chatbot/chatAnswerParse
         <div id="chatbot-history">
             <ul>
             ${model.History.map((msg) => {
-                        if (msg[0] === Chat_1.ChatAgent.User) {
-                            msg[1] = msg[1].replace('<', '&lt;').replace('>', '&gt;');
+                        const author = msg[0];
+                        let processedMsg;
+                        if (author === Chat_1.ChatAgent.User) {
+                            processedMsg = msg[1].replace('<', '&lt;').replace('>', '&gt;');
                         }
                         else {
-                            msg[1] = chatAnswerParser_1.parseView(msg[1]);
+                            processedMsg = chatAnswerParser_1.parseView(msg[1]);
                         }
-                        msg[1] = msg[1].replace('\n', '<br>');
+                        processedMsg = processedMsg.replace(/\n/g, '<br>');
                         return `
-                <li data-author="${msg[0]}" class="shadow-sm">
-                    <span class="chatbot-msg">
-                        ${msg[1]}
-                    </span>
-                </li>
-            `;
+                    <li data-author="${author}" class="shadow-sm ${/^\s*{{button\(.*\)}}\s*$/.test(msg[1]) ? 'w-100 p-0' : ''}">
+                        ${processedMsg}
+                    </li>
+                `;
                     }).join('')} 
             </ul>
         </div>
 
         <div id="chatbot-input">
-            <div class="p-1">
+            <div class="p-1 h-100">
                 <form action="" id="chatbot-input-form">
                     <div class="form-group m-1">
                         <textarea name="bot-msg" class="form-control form-control-sm input-circle"
                             id="chatbot-input-field" placeholder="Digite sua mensagem aqui"></textarea>
                         <div></div>
+                    </div>
+
+                    <div class="align-items-center d-inline-flex d-row justify-content-end ml-1">
+                        <button id="chatbot-clear" type="submit" class="align-items-center btn btn-danger btn-sm d-flex">
+                            <i class="material-icons">autorenew</i>
+                        </button>
                     </div>
 
                     <div class="align-items-center d-inline-flex d-row float-right justify-content-end mr-1">

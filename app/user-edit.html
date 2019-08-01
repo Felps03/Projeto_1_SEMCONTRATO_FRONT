@@ -21,7 +21,9 @@
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container">
             <div class="row navbar-header align-baseline ml-n3">
-                <a href="index.html"><img src="./img/logo_compasso.png"></a>
+                <a href="index.html">
+                    <img src="./img/logo_compasso.png">
+                </a>
                 <div class="vt-apps-line ml-2"></div>
                 <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
                     <h5>
@@ -36,7 +38,34 @@
             </div>
 
             <!-- User menu -->
-            <div id="user-menu-login-link"></div>
+            <!-- <div id="user-menu-login-link"></div> -->
+            <div id="user-main">
+                <div class="dropdown mr-n4 txt-user" style="float:right;">
+                    <div class="d-flex align-items-center btn" data-toggle="dropdown">
+                        <span id="nameSpan"></span>
+                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle" width="60px">
+                        <i class="material-icons ml-n2">arrow_drop_down</i>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-right align-user">
+                        <div class="dropdown-item">
+                            Usuário: <span id="userNameSpan"></span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
+                            <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
+                        <a class="dropdown-item d-flex align-items-center" href="index.html">
+                            <i class="material-icons mr-2">home</i>Home</a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item d-flex align-items-center" id="logout">
+                            <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
+                    </div>
+                </div>
+            </div>
+            <!-- end User menu -->
+
         </div>
     </nav>
 
@@ -114,6 +143,12 @@
                     <div id="usernamevalidator"></div>
                 </div>
 
+
+                <div class="form-group" id="recaptcha" style="display: none;">
+                    <label for="recaptchaChange">Recaptcha:</label>
+                    <input type="checkbox" name="recaptcha" id="recaptchaChange">
+                </div>
+
                 <div class="form-group">
                     <label for="passwordChange">Trocar senha:</label>
                     <input type="checkbox" name="passwordChange" id="passwordChange">
@@ -181,7 +216,7 @@
         System.defaultJSExtensions = true;
         System.import('js/user-edit.js').catch(err => console.error(err));
         System.import('js/logout.js').catch(err => console.error(err));
-        System.import('js/chatbot.js').catch(err => console.error(err))
+        //System.import('js/chatbot.js').catch(err => console.error(err))
     </script>
 
 

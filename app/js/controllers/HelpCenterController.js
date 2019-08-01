@@ -37,7 +37,7 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
         ],
         execute: function () {
             HelpCenterController = class HelpCenterController {
-                constructor(currentPage = 1) {
+                constructor(currentPage = 1, totalPages = 1) {
                     this.searchTitle = document.getElementById('search-joker');
                     this.addTitle = document.getElementById('add-title');
                     this.addDesc = document.getElementById('add-desc');
@@ -46,7 +46,9 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-center.html');
                     this.messageView = new MessageView_1.MessageView('#message-view');
                     this.currentPage = currentPage;
-                    this.paginationView.update(currentPage);
+                    this.totalPages = totalPages;
+                    this.type = 1;
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
                     this.addVals = [index_3.validate(this.addTitle, vals.title), index_3.validate(this.addDesc, vals.desc)];
                     this.postView.didMount(() => {
                         this.helpCenterAsk = new HelpCenterAskController_1.HelpCenterAskController();
@@ -68,7 +70,10 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                 }
                 set CurrentPage(page) {
                     this.currentPage = page;
-                    this.paginationView.update(this.currentPage);
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                }
+                set TotalPages(total) {
+                    this.totalPages = total;
                 }
                 add(event) {
                     event.preventDefault();
@@ -140,13 +145,15 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     event.preventDefault();
                     const helpCenterService = new index_2.HelpCenterService();
                     helpCenterService
-                        .list(this.currentPage)
+                        .list(this.currentPage, null)
                         .then((result) => {
                         return result.json();
                     })
                         .then((res) => {
+                        this.TotalPages = res[res.length - 1].totalPages;
+                        this.paginationView.update(this.currentPage, this.totalPages, this.type);
                         const posts = index_1.Posts.from(res.slice(0, -1));
-                        this.postsView.update(posts);
+                        this.postsView.update(posts, this.totalPages);
                         Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
                             const i = el.getAttribute('data-i');
                             if (i) {
@@ -193,12 +200,12 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         console.log(error);
                     });
                 }
-                findByTitle(event) {
+                findByJoker(event) {
                     event.preventDefault();
                     let title = this.searchTitle.value;
                     const helpCenterService = new index_2.HelpCenterService();
                     helpCenterService
-                        .findByJoker(title)
+                        .findByJoker(title, 1)
                         .then((result) => {
                         return result.json();
                     })

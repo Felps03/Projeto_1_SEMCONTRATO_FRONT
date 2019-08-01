@@ -2,6 +2,7 @@ import { User } from '../models/index';
 import { HOST } from '../config/index';
 import { dateOfBirth } from '../validation/userValidate';
 
+declare const grecaptcha: any
 export class UserService {
 
     add(user: User) {
@@ -18,7 +19,8 @@ export class UserService {
                 "userName": user.UserName,
                 "email": user.Email,
                 "dateOfBirth": user.DateOfBirth,
-                "password": user.Password
+                "password": user.Password,
+                "g-recaptcha-response": grecaptcha.getResponse()
             })
         })
     }
@@ -47,7 +49,7 @@ export class UserService {
      * 
      * @param id para alterar dados do usuário dessa id
      */
-    update(user: User, ID: string) {
+    update(user: User, ID: string, recaptchaON: boolean) {
         let dateOfBirth = user.DateOfBirth.replace(/,/g, '-');
 
         if (user.Password == '') {
@@ -63,7 +65,8 @@ export class UserService {
                     "lastName": user.LastName,
                     "userName": user.UserName,
                     "email": user.Email,
-                    "dateOfBirth": dateOfBirth
+                    "dateOfBirth": dateOfBirth,
+                    "recaptcha": recaptchaON
                 })
             })
         } else {

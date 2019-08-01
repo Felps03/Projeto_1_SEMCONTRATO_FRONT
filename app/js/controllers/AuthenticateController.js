@@ -45,10 +45,16 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                 authenticate(event) {
                     if (listCheck_1.noFalse(this.authVals)) {
                         const authenticateService = new index_1.AuthenticateService();
-                        console.log(this.email.value);
                         authenticateService.authenticate(this.email.value, this.password.value)
                             .catch(res => res.json())
                             .then((res) => {
+                            document.getElementById('message-view').innerHTML = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    `;
                             if (res.erro)
                                 this.messageView.update(res.erro);
                         });
@@ -62,7 +68,6 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                         const authenticateService = new index_1.AuthenticateService();
                         authenticateService.resetPassword(this.emailRec.value.toString())
                             .then(res => {
-                            console.log('status', res.status);
                             if (Math.floor(res.status / 100) === 2) {
                                 res.json()
                                     .then(() => {
@@ -84,23 +89,8 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                 }
                 logout(event) {
                     event.preventDefault();
-                    console.log("chegou no controller");
-                    const authenticateService = new index_1.AuthenticateService();
-                    authenticateService.logout().then(res => {
-                        if (res.status == 400) {
-                            alert("Houve um erro ao Deslogar");
-                        }
-                        if (res.status == 200) {
-                            localStorage.removeItem("tkn");
-                            localStorage.removeItem("email");
-                            localStorage.removeItem("isAdmin");
-                            localStorage.removeItem("id");
-                            window.location.href = 'index.html';
-                        }
-                    }).catch(error => {
-                        console.log("error: ", error);
-                        return error;
-                    });
+                    localStorage.clear();
+                    window.location.href = 'home.html';
                 }
             };
             exports_1("AuthenticateController", AuthenticateController);

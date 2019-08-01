@@ -25,7 +25,7 @@ System.register(["./index"], function (exports_1, context_1) {
                 static from(arr) {
                     const newPosts = new Posts();
                     arr.forEach((val) => {
-                        newPosts.add(new index_1.Post(val.title, val.desc, val.id_user, val.owner, val._id));
+                        newPosts.add(new index_1.Post(val.title, val.desc, val.id_user, val.owner, val.date, val._id));
                     });
                     return newPosts;
                 }

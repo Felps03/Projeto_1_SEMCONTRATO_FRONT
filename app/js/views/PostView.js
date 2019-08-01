@@ -82,6 +82,7 @@ System.register(["./View"], function (exports_1, context_1) {
                         </div>
 
                         <div class="d-inline-flex d-row justify-content-start align-items-center ${model.AuthorId ? canEdit ? '' : 'invisible' : 'invisible'} ">
+                        <div>  </div>
                             <button type="button" id="delete-btn" class="btn btn-outline-danger btn-sm pt-2 ml-1" data-toggle="modal" data-target="#confirm-del-modal">
                                 <i class="small material-icons">delete</i>
                             </button>
