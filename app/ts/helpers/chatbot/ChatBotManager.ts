@@ -24,7 +24,7 @@ export class ChatBotManager {
 
         // simpler conditions weren't possible for some reason
         if (this.chat.History.length === 0) {
-            console.log('init')
+            this.context = mainBranch.goto
             yield* this.answer()
         } else {
             yield this.chat
@@ -117,7 +117,7 @@ export class ChatBotManager {
             }
 
         } else {
-            this.context = Object.getOwnPropertyNames(dialog)[0]
+            this.context = mainBranch.goto;
         }
         // })
     }
