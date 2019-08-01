@@ -101,6 +101,20 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                         console.error(error);
                     });
                 }
+                delete(id, event) {
+                    event.preventDefault();
+                    const helpCenterService = new index_2.HelpCenterAskService();
+                    helpCenterService.remove(id)
+                        .then(result => {
+                        console.log(result);
+                        return result.json();
+                    }).then(res => {
+                        this.list(event);
+                    })
+                        .catch(error => {
+                        console.error(error);
+                    });
+                }
             };
             exports_1("HelpCenterPageController", HelpCenterPageController);
         }

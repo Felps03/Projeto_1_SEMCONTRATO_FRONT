@@ -1,6 +1,6 @@
 System.register(["./controllers/HelpCenterPageController", "./utils/userData"], function (exports_1, context_1) {
     "use strict";
-    var HelpCenterPageController_1, userData_1, userData, controller, url, url_ask_id, askResult, cadastrar;
+    var HelpCenterPageController_1, userData_1, userData, controller, url, url_ask_id, askResult, cadastrar, deletar;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -27,6 +27,10 @@ System.register(["./controllers/HelpCenterPageController", "./utils/userData"], 
             cadastrar = document.querySelector("#send_answer");
             if (cadastrar) {
                 cadastrar.addEventListener('click', controller.add.bind(controller));
+            }
+            deletar = document.querySelector("#delete_ask");
+            if (deletar) {
+                deletar.addEventListener('submit', controller.delete.bind(controller));
             }
             if (!localStorage.getItem('tkn'))
                 document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;

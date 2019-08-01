@@ -131,4 +131,20 @@ export class HelpCenterPageController {
                 console.error(error);
             });
     }
+
+    delete(id: string, event: Event) {
+        event.preventDefault();
+        const helpCenterService = new HelpCenterAskService();
+        helpCenterService.remove(id)
+            .then(result => {
+                console.log(result);
+                return result.json()
+            }).then(res => {
+                // console.log(res);
+                this.list(event)
+            })
+            .catch(error => {
+                console.error(error)
+            });
+    }
 }
