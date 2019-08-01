@@ -1,6 +1,6 @@
 System.register(["./controllers/UserController", "./utils/userData", "./controllers/HomeController", "./services/ConfigurationService"], function (exports_1, context_1) {
     "use strict";
-    var UserController_1, userData_1, HomeController_1, ConfigurationService_1, userData, homeController, update, passwordChange, userController, configurationService;
+    var UserController_1, userData_1, HomeController_1, ConfigurationService_1, userData, recaptchaBox, homeController, update, passwordChange, userController, configurationService;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -21,6 +21,9 @@ System.register(["./controllers/UserController", "./utils/userData", "./controll
             userData = userData_1.getUser();
             if (!localStorage.getItem('tkn'))
                 document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+            recaptchaBox = document.querySelector('#recaptcha');
+            if (localStorage.getItem('isAdmin') == 'true')
+                recaptchaBox.hidden = false;
             homeController = new HomeController_1.HomeController();
             update = document.getElementById("user-edit");
             if (update) {
