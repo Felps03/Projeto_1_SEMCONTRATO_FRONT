@@ -44,14 +44,33 @@ if (recoveryPasswordCancel) {
     recoveryPasswordCancel.addEventListener('click', homeController.cancel.bind(homeController));
 }
 let configurationService = new ConfigurationService();
+let captcha: any;
 configurationService.listAll()
-    .then(res => res.json())
     .then(res => {
-        if(res.recaptcha) $("#recaptcha").show()
-        else $("#recaptcha").hide()
+        // console.log(res);
+        return res.json()
+    })
+    .then(res => {
+        // console.log("res: ", res);
+        // console.log("res.recaptcha: ", res.recaptcha);
+        captcha = res.recaptcha;
+        if (res.recaptcha) $("#recaptcha").show()
+        else $("#recaptcha").hide();
+        // console.log(res.captcha);
+
+        // console.log('captcha: ', captcha);
+        return res.captcha;
     })
     .catch(err => {
         console.log(err);
-    })
+    });
 
 
+// export function to get configuration to another controllers    
+export function getCaptchaConfig() {
+    // console.log(captcha);
+    return captcha
+}
+// getCaptchaConfig();
+
+// export captcha;

@@ -1,4 +1,4 @@
-System.register(["./DailyNoteService", "./AuthenticateService", "./UserService", "./HelpCenterService", "./HelpCenterServiceAsk"], function (exports_1, context_1) {
+System.register(["./DailyNoteService", "./AuthenticateService", "./UserService", "./HelpCenterService", "./HelpCenterServiceAsk", "./ConfigurationService"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function exportStar_1(m) {
@@ -24,6 +24,9 @@ System.register(["./DailyNoteService", "./AuthenticateService", "./UserService",
             },
             function (HelpCenterServiceAsk_1_1) {
                 exportStar_1(HelpCenterServiceAsk_1_1);
+            },
+            function (ConfigurationService_1_1) {
+                exportStar_1(ConfigurationService_1_1);
             }
         ],
         execute: function () {

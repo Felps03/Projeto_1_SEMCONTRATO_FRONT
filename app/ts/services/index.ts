@@ -3,3 +3,4 @@ export * from './AuthenticateService';
 export * from './UserService';
 export * from './HelpCenterService';
 export * from './HelpCenterServiceAsk';
+export * from './ConfigurationService';

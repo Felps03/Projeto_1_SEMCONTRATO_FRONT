@@ -1,7 +1,11 @@
 System.register(["./controllers/HomeController", "./controllers/DailyNoteController", "./utils/userData", "./controllers/AuthenticateController", "./controllers/ChatBotController", "./services/ConfigurationService"], function (exports_1, context_1) {
     "use strict";
-    var HomeController_1, DailyNoteController_1, userData_1, AuthenticateController_1, ChatBotController_1, ConfigurationService_1, userData, homeController, chatBotController, authenticate, addDailyNote, recoveryPasswordCancel, configurationService;
+    var HomeController_1, DailyNoteController_1, userData_1, AuthenticateController_1, ChatBotController_1, ConfigurationService_1, userData, homeController, chatBotController, authenticate, addDailyNote, recoveryPasswordCancel, configurationService, captcha;
     var __moduleName = context_1 && context_1.id;
+    function getCaptchaConfig() {
+        return captcha;
+    }
+    exports_1("getCaptchaConfig", getCaptchaConfig);
     return {
         setters: [
             function (HomeController_1_1) {
@@ -51,12 +55,16 @@ System.register(["./controllers/HomeController", "./controllers/DailyNoteControl
             }
             configurationService = new ConfigurationService_1.ConfigurationService();
             configurationService.listAll()
-                .then(res => res.json())
                 .then(res => {
+                return res.json();
+            })
+                .then(res => {
+                captcha = res.recaptcha;
                 if (res.recaptcha)
                     $("#recaptcha").show();
                 else
                     $("#recaptcha").hide();
+                return res.captcha;
             })
                 .catch(err => {
                 console.log(err);

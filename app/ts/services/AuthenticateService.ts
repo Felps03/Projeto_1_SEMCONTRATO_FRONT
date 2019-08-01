@@ -41,13 +41,13 @@ export class AuthenticateService {
                     .then((result: any) => {
                         // console.log(token);
                         // console.log(result);
-                        localStorage.setItem('email', result[0]['email'])
-                        localStorage.setItem('id', result[0]['_id'])
-                        localStorage.setItem('isAdmin', result[0]['isAdmin'])
-                        // console.log(result[0]['email']);
-                        window.location.href = "index.html";
+                        // localStorage.setItem('email', result[0]['email'])
+                        // localStorage.setItem('id', result[0]['_id'])
+                        // localStorage.setItem('isAdmin', result[0]['isAdmin'])
+                        // // console.log(result[0]['email']);
+                        // window.location.href = "index.html";
 
-                        resolve()
+                        resolve(res)
                     })
             })
             /*.then(res => console.log(res));*/
