@@ -28,6 +28,12 @@ if (cadastrar) {
     //window.addEventListener('load', controller.list.bind(controller));
 }
 
+let deletar = document.querySelector("#delete_ask");
+if (deletar) {
+    deletar.addEventListener('submit', controller.delete.bind(controller));
+    //window.addEventListener('load', controller.list.bind(controller));
+}
+
 if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
 
 // $("#idQuest");
