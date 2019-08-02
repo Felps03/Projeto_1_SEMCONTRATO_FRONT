@@ -1,5 +1,5 @@
 
-import { HelpCenterAskService } from '../services/index';
+import { HelpCenterServiceAsk } from '../services/index';
 import { PostAsk } from '../models/PostAsk';
 import { PostAsksView } from "../views/PostAsksView";
 import { PostAsks } from '../models/index';
@@ -73,7 +73,7 @@ export class HelpCenterAskController {
 
             const postAsk = new PostAsk(ID_POST, this.addComment.value, localStorage.getItem('id') || '');
 
-            const helpCenterService = new HelpCenterAskService();
+            const helpCenterService = new HelpCenterServiceAsk();
 
             helpCenterService.add(postAsk)
                 .then(result => {
@@ -115,7 +115,7 @@ export class HelpCenterAskController {
 
             // console.log(postAsk);
             // const postAsk = new PostAsk("teste", "teste", "teste");
-            const helpCenterService = new HelpCenterAskService();
+            const helpCenterService = new HelpCenterServiceAsk();
             helpCenterService.update(postAsk, id)
                 .then(result => {
                     return result.json()
@@ -131,7 +131,7 @@ export class HelpCenterAskController {
 
     list(event: Event) {
         event.preventDefault();
-        const helpCenterService = new HelpCenterAskService();
+        const helpCenterService = new HelpCenterServiceAsk();
         helpCenterService.list(1)
             .then(result => {
                 return result.json()
@@ -158,7 +158,7 @@ export class HelpCenterAskController {
             return
         }
 
-        const helpCenterService = new HelpCenterAskService();
+        const helpCenterService = new HelpCenterServiceAsk();
         helpCenterService.list(1)
             .then(result => {
                 return result.json()
@@ -177,7 +177,7 @@ export class HelpCenterAskController {
 
     delete(id: string, event: Event) {
         event.preventDefault();
-        const helpCenterService = new HelpCenterAskService();
+        const helpCenterService = new HelpCenterServiceAsk();
         helpCenterService.remove(id)
             .then(result => {
                 return result.json()
@@ -192,7 +192,7 @@ export class HelpCenterAskController {
 
     findByID(event: Event) {
         event.preventDefault();
-        const helpCenterService = new HelpCenterAskService();
+        const helpCenterService = new HelpCenterServiceAsk();
         helpCenterService.findById('title')
             .then(result => {
                 return result.json()

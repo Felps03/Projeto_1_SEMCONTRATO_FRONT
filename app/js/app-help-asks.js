@@ -28,9 +28,10 @@ System.register(["./controllers/HelpCenterPageController", "./utils/userData"], 
             if (cadastrar) {
                 cadastrar.addEventListener('click', controller.add.bind(controller));
             }
-            deletar = document.querySelector("#delete_ask");
+            deletar = document.getElementById("teste2");
             if (deletar) {
-                deletar.addEventListener('submit', controller.delete.bind(controller));
+                console.log("oi");
+                console.log("oioi");
             }
             if (!localStorage.getItem('tkn'))
                 document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;

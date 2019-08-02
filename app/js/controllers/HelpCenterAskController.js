@@ -65,7 +65,7 @@ System.register(["../services/index", "../models/PostAsk", "../views/PostAsksVie
                             return;
                         }
                         const postAsk = new PostAsk_1.PostAsk(ID_POST, this.addComment.value, localStorage.getItem('id') || '');
-                        const helpCenterService = new index_1.HelpCenterAskService();
+                        const helpCenterService = new index_1.HelpCenterServiceAsk();
                         helpCenterService.add(postAsk)
                             .then(result => {
                             return result.json();
@@ -93,7 +93,7 @@ System.register(["../services/index", "../models/PostAsk", "../views/PostAsksVie
                             return;
                         }
                         const postAsk = new PostAsk_1.PostAsk(ID_POST, textareaEl.value, localStorage.getItem('id') || '', id);
-                        const helpCenterService = new index_1.HelpCenterAskService();
+                        const helpCenterService = new index_1.HelpCenterServiceAsk();
                         helpCenterService.update(postAsk, id)
                             .then(result => {
                             return result.json();
@@ -107,7 +107,7 @@ System.register(["../services/index", "../models/PostAsk", "../views/PostAsksVie
                 }
                 list(event) {
                     event.preventDefault();
-                    const helpCenterService = new index_1.HelpCenterAskService();
+                    const helpCenterService = new index_1.HelpCenterServiceAsk();
                     helpCenterService.list(1)
                         .then(result => {
                         return result.json();
@@ -127,7 +127,7 @@ System.register(["../services/index", "../models/PostAsk", "../views/PostAsksVie
                     if (!ID_POST) {
                         return;
                     }
-                    const helpCenterService = new index_1.HelpCenterAskService();
+                    const helpCenterService = new index_1.HelpCenterServiceAsk();
                     helpCenterService.list(1)
                         .then(result => {
                         return result.json();
@@ -140,7 +140,7 @@ System.register(["../services/index", "../models/PostAsk", "../views/PostAsksVie
                 }
                 delete(id, event) {
                     event.preventDefault();
-                    const helpCenterService = new index_1.HelpCenterAskService();
+                    const helpCenterService = new index_1.HelpCenterServiceAsk();
                     helpCenterService.remove(id)
                         .then(result => {
                         return result.json();
@@ -153,7 +153,7 @@ System.register(["../services/index", "../models/PostAsk", "../views/PostAsksVie
                 }
                 findByID(event) {
                     event.preventDefault();
-                    const helpCenterService = new index_1.HelpCenterAskService();
+                    const helpCenterService = new index_1.HelpCenterServiceAsk();
                     helpCenterService.findById('title')
                         .then(result => {
                         return result.json();

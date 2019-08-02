@@ -28,9 +28,12 @@ if (cadastrar) {
     //window.addEventListener('load', controller.list.bind(controller));
 }
 
-let deletar = document.querySelector("#delete_ask");
+let deletar = document.getElementById("teste2");
+
+// console.log()
 if (deletar) {
-    deletar.addEventListener('submit', controller.delete.bind(controller));
+    console.log("oi");
+    console.log("oioi");
     //window.addEventListener('load', controller.list.bind(controller));
 }
 
