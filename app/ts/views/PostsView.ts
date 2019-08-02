@@ -1,9 +1,14 @@
+
 import { View } from './View';
 import { Posts, User } from '../models/index';
+
+
+
 
 export class PostsView extends View<Posts> {
 
     template(model: Posts): string {
+
         return `
 
             ${model.toArray().map((post, i) => `
@@ -18,6 +23,7 @@ export class PostsView extends View<Posts> {
 
                 <div class="col-sm-12 col-12">
                     <h5><strong>${post.Title}</strong></h5>
+                    <div>${moment(post.Date).format('LLLL')}</div>
                     <div>${post.Desc}</div>
 
                     <a href="app-help-asks.html?id=${post.Id}" class="position-absolute custom-bottom-align">

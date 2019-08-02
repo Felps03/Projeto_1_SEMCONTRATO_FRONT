@@ -1,11 +1,14 @@
-System.register(["./View"], function (exports_1, context_1) {
+System.register(["./View", "moment/moment.js"], function (exports_1, context_1) {
     "use strict";
-    var View_1, PostsView;
+    var View_1, moment, PostsView;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (View_1_1) {
                 View_1 = View_1_1;
+            },
+            function (moment_1) {
+                moment = moment_1;
             }
         ],
         execute: function () {
@@ -25,6 +28,7 @@ System.register(["./View"], function (exports_1, context_1) {
 
                 <div class="col-sm-12 col-12">
                     <h5><strong>${post.Title}</strong></h5>
+                    <div>${moment(post.Date).format('LLLL')}</div>
                     <div>${post.Desc}</div>
 
                     <a href="app-help-asks.html?id=${post.Id}" class="position-absolute custom-bottom-align">

@@ -190,7 +190,9 @@ export class HelpCenterController {
 				//console.log(res);
 				this.TotalPages = res[res.length - 1].totalPages;
 				this.paginationView.update(this.currentPage, this.totalPages, this.type);
+				
 				const posts = Posts.from(res.slice(0, -1));
+
 				this.postsView.update(posts, this.totalPages);
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');
