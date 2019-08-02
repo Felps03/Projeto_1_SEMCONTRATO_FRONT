@@ -55,6 +55,10 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                     return __asyncGenerator(this, arguments, function* init_1() {
                         this.getFromStorage();
                         if (this.chat.History.length === 0) {
+<<<<<<< HEAD
+=======
+                            this.context = chatBotTree_1.mainBranch.goto;
+>>>>>>> 62112e2a35157a42dccf411be8079ca40f4a5413
                             yield __await(yield* __asyncDelegator(__asyncValues(this.answer())));
                         }
                         else {
@@ -116,7 +120,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                             }
                         }
                         else {
-                            this.context = Object.getOwnPropertyNames(chatBotTree_1.dialog)[0];
+                            this.context = chatBotTree_1.mainBranch.goto;
                         }
                     });
                 }

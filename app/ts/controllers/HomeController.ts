@@ -12,10 +12,20 @@ import { dateFormatYYYYMMDD } from "../helpers/dateHelper";
 
 export class HomeController {
 
-    private dailyView : HomeDailyView;
-    private helpCenterView : HomeHelpCenterView;
+    private dailyView: HomeDailyView;
+    private helpCenterView: HomeHelpCenterView;
 
-    constructor() {}
+    constructor() { }
+
+    clickHelpASK(event: Event) {
+        let temp = (<HTMLElement>event.target).parentElement.parentElement.parentElement.parentElement.parentElement.lastElementChild;
+        let idHelpCenter = (temp.querySelector('.card .card-body #idHelp').textContent);
+
+        console.log(idHelpCenter);
+
+        window.location.href = `app-help-asks.html?id=${idHelpCenter}`;
+
+    }
 
     getUser() {
         let data;
@@ -51,13 +61,13 @@ export class HomeController {
                 let helpCenters = new HomeHelpCenters();
                 this.helpCenterView = new HomeHelpCenterView('#last-helps');
 
-                
+
 
                 results.pop();
                 results.reverse();
                 results.length = 3;
-                results.map((result: any) => new HomeHelpCenter(result['owner'], result['date'], result['title'], result['desc']))
-                .forEach((result: any) => helpCenters.add(result))
+                results.map((result: any) => new HomeHelpCenter(result['_id'], result['owner'], result['date'], result['title'], result['desc']))
+                    .forEach((result: any) => helpCenters.add(result))
 
                 this.helpCenterView.update(helpCenters);
             })
@@ -80,12 +90,12 @@ export class HomeController {
                 let dailyNotes = new HomeDailyNotes();
                 this.dailyView = new HomeDailyView('#all-dailys');
 
-                
+
 
                 results.pop();
                 results.reverse();
                 results.map((result: any) => new HomeDailyNote(result['owner'], result['yesterday'], result['today'], result['impediment']))
-                .forEach((result: any) => dailyNotes.add(result))
+                    .forEach((result: any) => dailyNotes.add(result))
 
                 this.dailyView.update(dailyNotes);
             })

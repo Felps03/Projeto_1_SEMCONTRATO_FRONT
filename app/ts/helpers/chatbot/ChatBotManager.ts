@@ -117,7 +117,7 @@ export class ChatBotManager {
             }
 
         } else {
-            this.context = Object.getOwnPropertyNames(dialog)[0]
+            this.context = mainBranch.goto;
         }
         // })
     }

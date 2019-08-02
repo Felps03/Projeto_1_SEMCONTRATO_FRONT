@@ -38,6 +38,12 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
         execute: function () {
             HomeController = class HomeController {
                 constructor() { }
+                clickHelpASK(event) {
+                    let temp = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.lastElementChild;
+                    let idHelpCenter = (temp.querySelector('.card .card-body #idHelp').textContent);
+                    console.log(idHelpCenter);
+                    window.location.href = `app-help-asks.html?id=${idHelpCenter}`;
+                }
                 getUser() {
                     let data;
                     if (!localStorage.getItem('tkn')) {
@@ -71,7 +77,7 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         results.pop();
                         results.reverse();
                         results.length = 3;
-                        results.map((result) => new index_1.HomeHelpCenter(result['owner'], result['date'], result['title'], result['desc']))
+                        results.map((result) => new index_1.HomeHelpCenter(result['_id'], result['owner'], result['date'], result['title'], result['desc']))
                             .forEach((result) => helpCenters.add(result));
                         this.helpCenterView.update(helpCenters);
                     })
