@@ -55,7 +55,6 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                     return __asyncGenerator(this, arguments, function* init_1() {
                         this.getFromStorage();
                         if (this.chat.History.length === 0) {
-                            console.log('init');
                             yield __await(yield* __asyncDelegator(__asyncValues(this.answer())));
                         }
                         else {
@@ -117,7 +116,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                             }
                         }
                         else {
-                            this.context = Object.getOwnPropertyNames(chatBotTree_1.dialog)[0];
+                            this.context = chatBotTree_1.mainBranch.goto;
                         }
                     });
                 }
@@ -129,7 +128,6 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                     }));
                 }
                 async toBranch(branch, match) {
-                    console.log('>>', this.context);
                     if (typeof branch === 'string') {
                         if (branch === chatBotTree_1.mainBranch.goto) {
                             this.state = new Map();

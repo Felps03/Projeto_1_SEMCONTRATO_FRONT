@@ -47,7 +47,7 @@ export class AuthenticateService {
                         // console.log(result[0]['email']);
                         window.location.href = "index.html";
 
-                        resolve()
+                        resolve(res)
                     })
             })
             /*.then(res => console.log(res));*/

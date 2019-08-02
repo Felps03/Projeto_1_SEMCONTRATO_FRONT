@@ -32,6 +32,7 @@ System.register(["./View"], function (exports_1, context_1) {
                             <div class="card-body">
                                 <h5>${homeHelpCenter.Title}</h5>
                                 <p>${homeHelpCenter.Description}</p>
+                                <p id="idHelp" style="display:none">${homeHelpCenter.Id}</p>
                             </div>
                         </div>
                     </div>

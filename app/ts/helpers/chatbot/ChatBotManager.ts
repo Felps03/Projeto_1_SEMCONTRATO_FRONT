@@ -24,7 +24,7 @@ export class ChatBotManager {
 
         // simpler conditions weren't possible for some reason
         if (this.chat.History.length === 0) {
-            console.log('init')
+            // console.log('init')
             yield* this.answer()
         } else {
             yield this.chat
@@ -117,7 +117,7 @@ export class ChatBotManager {
             }
 
         } else {
-            this.context = Object.getOwnPropertyNames(dialog)[0]
+            this.context = mainBranch.goto;
         }
         // })
     }
@@ -135,7 +135,7 @@ export class ChatBotManager {
 
     // here be dragons
     async toBranch(branch: DialogBranch | string, match: RegExpExecArray): Promise<[ChatAgent, string][]> {
-        console.log('>>', this.context)
+        // console.log('>>', this.context)
         if (typeof branch === 'string') {
             if (branch === mainBranch.goto) {
                 this.state = new Map<string, any>()

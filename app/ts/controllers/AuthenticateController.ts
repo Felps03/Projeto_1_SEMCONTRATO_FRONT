@@ -1,10 +1,12 @@
 import { Authenticate } from "../models/index";
-import { AuthenticateService, UserService } from "../services/index";
+import { AuthenticateService, UserService, ConfigurationService } from "../services/index";
 import { MessageView } from '../views/MessageView'
 
 import { validate } from '../helpers/index'
 import * as vals from '../validation/userValidate';
-import { noFalse } from '../utils/listCheck'
+import { noFalse } from '../utils/listCheck';
+import { getCaptchaConfig } from '../utils/getConfig';
+
 
 export class AuthenticateController {
 
@@ -48,20 +50,24 @@ export class AuthenticateController {
         if (noFalse(this.authVals)) {
 
             const authenticateService = new AuthenticateService();
-
+            const configurationService = new ConfigurationService();
+            let haveRecaptcha = getCaptchaConfig();
+            console.log("config do captcha: ", haveRecaptcha);
             authenticateService.authenticate(this.email.value, this.password.value)
-                .catch(res => res.json())
                 .then((res: any) => {
+
+                })
+                .catch(err => {
+                    console.log(err);
                     document.getElementById('message-view').innerHTML = `
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                     </div>
                     `;
-                    if (res.erro)
-                        this.messageView.update(res.erro)
-                });
+                    // this.messageView.update(err.error)
+                })
         }
 
         event.preventDefault();

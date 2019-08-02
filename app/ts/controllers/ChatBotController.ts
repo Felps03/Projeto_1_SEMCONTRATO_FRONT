@@ -37,6 +37,7 @@ export class ChatBotController {
         this.chatBotManager = new ChatBotManager();
 
         (async () => {
+            console.log('oi kk')
             for await (const chat of this.chatBotManager.init()) {
                 this.chatBotView.update(chat)
             }

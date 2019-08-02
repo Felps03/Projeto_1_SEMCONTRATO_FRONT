@@ -1,6 +1,6 @@
-System.register(["../services/index", "../views/MessageView", "../helpers/index", "../validation/userValidate", "../utils/listCheck"], function (exports_1, context_1) {
+System.register(["../services/index", "../views/MessageView", "../helpers/index", "../validation/userValidate", "../utils/listCheck", "../utils/getConfig"], function (exports_1, context_1) {
     "use strict";
-    var index_1, MessageView_1, index_2, vals, listCheck_1, AuthenticateController;
+    var index_1, MessageView_1, index_2, vals, listCheck_1, getConfig_1, AuthenticateController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -18,6 +18,9 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
             },
             function (listCheck_1_1) {
                 listCheck_1 = listCheck_1_1;
+            },
+            function (getConfig_1_1) {
+                getConfig_1 = getConfig_1_1;
             }
         ],
         execute: function () {
@@ -45,18 +48,21 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                 authenticate(event) {
                     if (listCheck_1.noFalse(this.authVals)) {
                         const authenticateService = new index_1.AuthenticateService();
+                        const configurationService = new index_1.ConfigurationService();
+                        let haveRecaptcha = getConfig_1.getCaptchaConfig();
+                        console.log("config do captcha: ", haveRecaptcha);
                         authenticateService.authenticate(this.email.value, this.password.value)
-                            .catch(res => res.json())
                             .then((res) => {
+                        })
+                            .catch(err => {
+                            console.log(err);
                             document.getElementById('message-view').innerHTML = `
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                     </div>
                     `;
-                            if (res.erro)
-                                this.messageView.update(res.erro);
                         });
                     }
                     event.preventDefault();
