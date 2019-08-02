@@ -36,6 +36,7 @@ System.register(["../models/index", "../views/ChatBotView", "../helpers/chatbot/
                     this.chatBotManager = new ChatBotManager_1.ChatBotManager();
                     (async () => {
                         var e_1, _a;
+                        console.log('oi kk');
                         try {
                             for (var _b = __asyncValues(this.chatBotManager.init()), _c; _c = await _b.next(), !_c.done;) {
                                 const chat = _c.value;
