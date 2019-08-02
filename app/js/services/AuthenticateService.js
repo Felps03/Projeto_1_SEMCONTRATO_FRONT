@@ -34,6 +34,10 @@ System.register(["../config/index"], function (exports_1, context_1) {
                             }
                             res.json()
                                 .then((result) => {
+                                localStorage.setItem('email', result[0]['email']);
+                                localStorage.setItem('id', result[0]['_id']);
+                                localStorage.setItem('isAdmin', result[0]['isAdmin']);
+                                window.location.href = "index.html";
                                 resolve(res);
                             });
                         });

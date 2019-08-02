@@ -64,13 +64,3 @@ configurationService.listAll()
     .catch(err => {
         console.log(err);
     });
-
-
-// export function to get configuration to another controllers    
-export function getCaptchaConfig() {
-    // console.log(captcha);
-    return captcha
-}
-// getCaptchaConfig();
-
-// export captcha;

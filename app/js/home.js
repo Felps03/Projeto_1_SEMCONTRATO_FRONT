@@ -2,10 +2,6 @@ System.register(["./controllers/HomeController", "./controllers/DailyNoteControl
     "use strict";
     var HomeController_1, DailyNoteController_1, userData_1, AuthenticateController_1, ChatBotController_1, ConfigurationService_1, userData, homeController, chatBotController, authenticate, addDailyNote, recoveryPasswordCancel, configurationService, captcha;
     var __moduleName = context_1 && context_1.id;
-    function getCaptchaConfig() {
-        return captcha;
-    }
-    exports_1("getCaptchaConfig", getCaptchaConfig);
     return {
         setters: [
             function (HomeController_1_1) {

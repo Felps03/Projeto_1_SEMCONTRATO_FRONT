@@ -53,11 +53,16 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                         console.log("config do captcha: ", haveRecaptcha);
                         authenticateService.authenticate(this.email.value, this.password.value)
                             .then((res) => {
-                            if (haveRecaptcha) {
-                            }
                         })
-                            .catch(res => {
-                            console.log(res);
+                            .catch(err => {
+                            console.log(err);
+                            document.getElementById('message-view').innerHTML = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    `;
                         });
                     }
                     event.preventDefault();

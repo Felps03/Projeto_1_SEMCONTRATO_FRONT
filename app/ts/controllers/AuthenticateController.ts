@@ -51,34 +51,22 @@ export class AuthenticateController {
 
             const authenticateService = new AuthenticateService();
             const configurationService = new ConfigurationService();
-
             let haveRecaptcha = getCaptchaConfig();
             console.log("config do captcha: ", haveRecaptcha);
             authenticateService.authenticate(this.email.value, this.password.value)
                 .then((res: any) => {
 
-                    if (haveRecaptcha) {
-
-                        // if (res.erro) {
-                        //     console.log("ola");
-                        //     document.getElementById('message-view').innerHTML = `
-                        // <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
-                        // <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        // <span aria-hidden="true">&times;</span>
-                        // </button>
-                        // </div>
-                        // `;
-                        //     this.messageView.update(res.erro)
-                        // }
-                    }
-
-
-
                 })
-                .catch(res => {
-                    console.log(res);
-
-                    // res.json()
+                .catch(err => {
+                    console.log(err);
+                    document.getElementById('message-view').innerHTML = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    `;
+                    // this.messageView.update(err.error)
                 })
         }
 
