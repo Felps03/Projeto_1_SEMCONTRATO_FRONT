@@ -8,6 +8,10 @@ let userData = getUser();
 if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
 if (!localStorage.getItem('tkn')) { window.location.href = "index.html"; }
 
+let recaptchaBox = <HTMLInputElement>document.querySelector('#recaptcha');
+
+if (localStorage.getItem('isAdmin') == 'true') recaptchaBox.hidden = false;
+
 let homeController = new HomeController();
 
 let update = document.getElementById("user-edit");
@@ -24,9 +28,9 @@ if (passwordChange) {
 
 let userController = new UserController().getUserData();
 
-if(localStorage.getItem('isAdmin')) {
+if (localStorage.getItem('isAdmin')) {
     $("#recaptcha").show()
-}else {
+} else {
     $("#recaptcha").hide()
 }
 
@@ -34,7 +38,7 @@ let configurationService = new ConfigurationService();
 configurationService.listAll()
     .then(res => res.json())
     .then(res => {
-        if(res.recaptcha) {           
+        if (res.recaptcha) {
             $('#recaptchaChange').prop("checked", true);
         }
     })

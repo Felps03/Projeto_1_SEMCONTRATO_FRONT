@@ -154,7 +154,7 @@ export class UserController {
                 this.password.value.toString()
             );
 
-            if ($('#recaptchaChange').prop( "checked")) recaptchaON = true;     
+            if ($('#recaptchaChange').prop("checked")) recaptchaON = true;
 
             const userService = new UserService();
 
