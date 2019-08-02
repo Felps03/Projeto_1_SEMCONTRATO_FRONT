@@ -1,6 +1,6 @@
-System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../helpers/validate", "../models/index", "../views/HomeDailyView", "../models/HomeDailyNotes", "../views/HomeHelpCenterView", "../models/HomeHelpCenters", "../helpers/dateHelper"], function (exports_1, context_1) {
+System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../models/index", "../views/HomeDailyView", "../models/HomeDailyNotes", "../views/HomeHelpCenterView", "../models/HomeHelpCenters", "../helpers/dateHelper"], function (exports_1, context_1) {
     "use strict";
-    var UserService_1, HelpCenterService_1, DailyNoteService_1, validate_1, index_1, HomeDailyView_1, HomeDailyNotes_1, HomeHelpCenterView_1, HomeHelpCenters_1, dateHelper_1, HomeController;
+    var UserService_1, HelpCenterService_1, DailyNoteService_1, index_1, HomeDailyView_1, HomeDailyNotes_1, HomeHelpCenterView_1, HomeHelpCenters_1, dateHelper_1, HomeController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -12,9 +12,6 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
             },
             function (DailyNoteService_1_1) {
                 DailyNoteService_1 = DailyNoteService_1_1;
-            },
-            function (validate_1_1) {
-                validate_1 = validate_1_1;
             },
             function (index_1_1) {
                 index_1 = index_1_1;
@@ -69,7 +66,6 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         let helpCenters = new HomeHelpCenters_1.HomeHelpCenters();
                         this.helpCenterView = new HomeHelpCenterView_1.HomeHelpCenterView('#last-helps');
                         results.pop();
-                        results.reverse();
                         results.length = 3;
                         results.map((result) => new index_1.HomeHelpCenter(result['owner'], result['date'], result['title'], result['desc']))
                             .forEach((result) => helpCenters.add(result));
@@ -98,10 +94,6 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         .catch(error => {
                         console.log(error);
                     });
-                }
-                cancel(event) {
-                    event.preventDefault();
-                    validate_1.clean(document.querySelector('#email_rec'));
                 }
             };
             exports_1("HomeController", HomeController);
