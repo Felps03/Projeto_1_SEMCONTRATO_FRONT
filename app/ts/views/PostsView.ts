@@ -6,7 +6,7 @@ export class PostsView extends View<Posts> {
     template(model: Posts): string {
         return `
         <div class="container">
-            ${model.toArray().map((post, i) => `
+            ${model.toArray().reverse().map((post, i) => `
             <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
                 <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
                     <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">

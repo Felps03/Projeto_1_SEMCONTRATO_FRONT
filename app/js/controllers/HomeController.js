@@ -66,7 +66,6 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         let helpCenters = new HomeHelpCenters_1.HomeHelpCenters();
                         this.helpCenterView = new HomeHelpCenterView_1.HomeHelpCenterView('#last-helps');
                         results.pop();
-                        results.reverse();
                         results.length = 3;
                         results.map((result) => new index_1.HomeHelpCenter(result['owner'], result['date'], result['title'], result['desc']))
                             .forEach((result) => helpCenters.add(result));
