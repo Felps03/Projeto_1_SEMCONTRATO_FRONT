@@ -28,6 +28,10 @@ System.register(["./View", "../models/Chat", "../helpers/chatbot/chatAnswerParse
         <i class="material-icons">chat</i>
         <h5 class="m-1">Chat</h5>
 
+        <div class="w-100">
+            <img class="float-right mr-3" src="./img/contratinhoduck.png" height="30" style="transform:scaleX(-1)">
+        </div>
+
         <!--<a class="w-100" href="#" id="refresh-chat">
             <i class="material-icons float-right mr-3">refresh</i>
         </a>-->
