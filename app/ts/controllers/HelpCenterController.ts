@@ -46,7 +46,7 @@ export class HelpCenterController {
 
 		this.postsView = new PostsView('#post-list');
 		this.postView = new PostView('#view-view-modal');
-		this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
+		// this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
 
 		this.messageView = new MessageView('#message-view');
 
@@ -54,7 +54,7 @@ export class HelpCenterController {
 
 		this.totalPages = totalPages;
 		this.type = 1;
-		this.paginationView.update(this.currentPage, this.totalPages, this.type);
+		// this.paginationView.update(this.currentPage, this.totalPages, this.type);
 
 		// init validations
 
@@ -114,7 +114,7 @@ export class HelpCenterController {
 							.then(() => {
 								this.list(event);
 								document.getElementById('add-modal-close').click();
-								this.messageView.update('Adicionado com sucesso!');
+								this.messageView.update('Pergunta publicada com sucesso!');
 							})
 							.catch((error) => {
 								console.error(error);
@@ -186,14 +186,21 @@ export class HelpCenterController {
 				return result.json();
 			})
 			.then((res) => {
-
+				
 				//console.log(res);
 				this.TotalPages = res[res.length - 1].totalPages;
-				this.paginationView.update(this.currentPage, this.totalPages, this.type);
-				
 				const posts = Posts.from(res.slice(0, -1));
 
+
+				console.log(posts.toArray().length);
+
+				if (posts.toArray().length != 0) {
+					this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
+					this.paginationView.update(this.currentPage, this.totalPages, this.type);
+				}
+
 				this.postsView.update(posts, this.totalPages);
+
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');
 					if (i) {

@@ -43,12 +43,10 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     this.addDesc = document.getElementById('add-desc');
                     this.postsView = new PostsView_1.PostsView('#post-list');
                     this.postView = new PostView_1.PostView('#view-view-modal');
-                    this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-center.html');
                     this.messageView = new MessageView_1.MessageView('#message-view');
                     this.currentPage = currentPage;
                     this.totalPages = totalPages;
                     this.type = 1;
-                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
                     this.addVals = [index_3.validate(this.addTitle, vals.title), index_3.validate(this.addDesc, vals.desc)];
                     this.postView.didMount(() => {
                         this.helpCenterAsk = new HelpCenterAskController_1.HelpCenterAskController();
@@ -89,7 +87,7 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                                     .then(() => {
                                     this.list(event);
                                     document.getElementById('add-modal-close').click();
-                                    this.messageView.update('Adicionado com sucesso!');
+                                    this.messageView.update('Pergunta publicada com sucesso!');
                                 })
                                     .catch((error) => {
                                     console.error(error);
@@ -151,8 +149,12 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     })
                         .then((res) => {
                         this.TotalPages = res[res.length - 1].totalPages;
-                        this.paginationView.update(this.currentPage, this.totalPages, this.type);
                         const posts = index_1.Posts.from(res.slice(0, -1));
+                        console.log(posts.toArray().length);
+                        if (posts.toArray().length != 0) {
+                            this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-center.html');
+                            this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                        }
                         this.postsView.update(posts, this.totalPages);
                         Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
                             const i = el.getAttribute('data-i');

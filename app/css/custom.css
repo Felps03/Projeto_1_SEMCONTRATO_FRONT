@@ -1,5 +1,9 @@
-/* Colors */
+/* Remove default styles */
+a:hover {
+    text-decoration: none;
+}
 
+/* Colors */
 .bg-primary {
     background-color: #f8fdff;
 }

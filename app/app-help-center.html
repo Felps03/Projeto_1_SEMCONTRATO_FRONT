@@ -74,7 +74,7 @@
 
     <div class="container page-position col-12 col-sm-7" id="">
 
-        <section class="section-register custom-bx">
+        <section class="section-help pb-2 custom-bx">
 
             <div class="pt-1 pl-4 pr-4 pb-4">
 
@@ -83,39 +83,48 @@
                 </div>
                 <hr class="register-line">
 
-                <form action="" id="search-form" autocomplete="off">
+                <div id="message-view"></div>
+
+                <form action="" id="search-form" class="mb-4" autocomplete="off">
                     <div class="row mb-3">
                         <div class="col-sm-10 col-12 mt-3">
                             <div class="form-group">
-                                <label for="email">Buscar pergunta:</label>
-                                <input type="text" name="search-joker" class="form-control form-control-sm input-circle" id="search-joker" placeholder="Informe as palavras chave">
+                                <label for="search-joker">Buscar pergunta:</label>
+                                <input type="text" name="search-joker" class="form-control form-control-sm input-circle" id="search-joker" placeholder="Informe as palavras-chave">
                                 <div id="search-jokervalidator"></div>
                             </div>
                         </div>
 
                         <div class="col-sm-2 col-12" style="margin-top:37px">
-                            <button type="button" name="new_daily" class="btn btn-sm btn-outline-success btn-sm float-right pr-4 pl-4 input-circle"
-                                data-toggle="modal" data-toggle="modal" data-target="#add-modal">Perguntar
+                            <button type="button" name="new_daily" class="btn btn-sm btn-outline-success btn-block float-right input-circle"
+                                data-toggle="modal" data-toggle="modal" data-target="#add-modal">
+                                <i class="small material-icons mr-2 align-middle">help</i>
+                                Perguntar
                             </button>
                         </div>
                     </div>
                 </form>
 
-                <div id="message-view"></div>
-
-
-                <div class="vt-line mb-3">
-                    <h5>
-                        <strong>Perguntas</strong>
-                    </h5>
+                <!-- paginação top -->
+                <div class="row mb-n4">
+                    <div class="col-sm-12 mb-1">
+                        <nav class="float-right">
+                            <ul id="pagination" class="pagination"></ul>
+                        </nav>
+        
+                        <div class="vt-line mt-1">
+                            <h5><strong>Perguntas</strong></h5>
+                        </div>
+                    </div>
                 </div>
+                
                 <div id="post-list"></div>
 
             </div>
 
-            <nav class="float-right mt-1">
+            <!-- <nav class="float-right mt-1">
                 <ul id="pagination" class="pagination"></ul>
-            </nav>
+            </nav> -->
 
     </div>
     </section>

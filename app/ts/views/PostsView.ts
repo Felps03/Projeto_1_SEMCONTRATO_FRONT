@@ -1,16 +1,14 @@
-
-import { View } from './View';
-import { Posts, User } from '../models/index';
-
-
-
+import { Posts } from "../models/Posts";
+import { View } from "./View";
+import { publish } from "../utils/publish";
 
 export class PostsView extends View<Posts> {
 
     template(model: Posts): string {
-
-        return `
-
+        if(model.toArray().length == 0) {
+            return `<div class='text-black-50 mt-4'>Não há perguntas registradas no momento.</div>`;
+        } else {
+            return `
             ${model.toArray().map((post, i) => `
             <hr>
             <div class="col-sm-11 col-12 d-flex align-items-stretch">
@@ -22,18 +20,27 @@ export class PostsView extends View<Posts> {
                 </div>
 
                 <div class="col-sm-12 col-12">
-                    <h5><strong>${post.Title}</strong></h5>
-                    <div>${moment(post.Date).format('LLLL')}</div>
-                    <div>${post.Desc}</div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5><strong>${post.Title}</strong></h5>
+                            <a href="app-help-asks.html?id=${post.Id}" class="float-right d-flex justify-content-center mr-n3">
+                                <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mt-n4 input-circle">
+                                    <i class="small material-icons mr-2 align-middle">question_answer</i>Responder
+                                </button>
+                            </a>
+                            <div class="text-black-50 mt-n2 mb-2">${publish(post.Date)}</div>
 
-                    <a href="app-help-asks.html?id=${post.Id}" class="position-absolute custom-bottom-align">
-                        <button type="button" class="btn btn-outline-warning btn-sm pr-4 pl-4 input-circle">Responder</button>
-                    </a>
+                            
+                        </div>
+                    </div>
+                    <div class="mt-1">${post.Desc}</div> 
                 </div> 
             </div>   
  
             `).join('')}
         
         `;
+        }
+       
     }
 }
