@@ -113,8 +113,8 @@
 }
 
 .login-line {
-    width: 50vh;
-    margin-left: -1.9rem;
+    width: 100%;
+    margin-left: -1.8rem;
 }
 
 .lastdaily-line {
@@ -130,6 +130,11 @@
 .register-line {
     width: 120%;
     margin-left: -1.9rem;
+}
+
+.recovery-line {
+    width: 120%;
+    margin-left: -1.8rem;
 }
 
 .vt-line {
