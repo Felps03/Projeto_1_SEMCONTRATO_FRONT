@@ -1,10 +1,6 @@
 System.register(["./controllers/HomeController", "./controllers/DailyNoteController", "./utils/userData", "./controllers/AuthenticateController", "./services/ConfigurationService"], function (exports_1, context_1) {
     "use strict";
-<<<<<<< HEAD
-    var HomeController_1, DailyNoteController_1, userData_1, AuthenticateController_1, ChatBotController_1, ConfigurationService_1, userData, homeController, chatBotController, authenticate, addDailyNote, recoveryPasswordCancel, configurationService, captcha;
-=======
-    var HomeController_1, DailyNoteController_1, userData_1, AuthenticateController_1, ConfigurationService_1, userData, homeController, authenticate, addDailyNote, recoveryPasswordCancel, configurationService;
->>>>>>> 62112e2a35157a42dccf411be8079ca40f4a5413
+    var HomeController_1, DailyNoteController_1, userData_1, AuthenticateController_1, ConfigurationService_1, userData, homeController, authenticate, addDailyNote, recoveryPasswordCancel, configurationService, captcha;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [

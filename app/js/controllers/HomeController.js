@@ -1,6 +1,6 @@
-System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../helpers/validate", "../models/index", "../views/HomeDailyView", "../models/HomeDailyNotes", "../views/HomeHelpCenterView", "../models/HomeHelpCenters", "../helpers/dateHelper"], function (exports_1, context_1) {
+System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../helpers/validate", "../models/index", "../views/HomeDailyView", "../models/HomeDailyNotes", "../views/HomeHelpCenterView", "../models/HomeHelpCenters", "../helpers/dateHelper", "../utils/escapeTag"], function (exports_1, context_1) {
     "use strict";
-    var UserService_1, HelpCenterService_1, DailyNoteService_1, validate_1, index_1, HomeDailyView_1, HomeDailyNotes_1, HomeHelpCenterView_1, HomeHelpCenters_1, dateHelper_1, HomeController;
+    var UserService_1, HelpCenterService_1, DailyNoteService_1, validate_1, index_1, HomeDailyView_1, HomeDailyNotes_1, HomeHelpCenterView_1, HomeHelpCenters_1, dateHelper_1, escapeTag_1, HomeController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -33,6 +33,9 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
             },
             function (dateHelper_1_1) {
                 dateHelper_1 = dateHelper_1_1;
+            },
+            function (escapeTag_1_1) {
+                escapeTag_1 = escapeTag_1_1;
             }
         ],
         execute: function () {
@@ -57,8 +60,8 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         })
                             .then(result => {
                             let data = {
-                                name: result['name'],
-                                userName: result['userName']
+                                name: escapeTag_1.escapeTag(result['name']),
+                                userName: escapeTag_1.escapeTag(result['userName'])
                             };
                             return data;
                         });

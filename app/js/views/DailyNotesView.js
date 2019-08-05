@@ -1,6 +1,6 @@
-System.register(["./View", "../models/index"], function (exports_1, context_1) {
+System.register(["./View", "../models/index", "../utils/escapeTag"], function (exports_1, context_1) {
     "use strict";
-    var View_1, index_1, DailyNotesView;
+    var View_1, index_1, escapeTag_1, DailyNotesView;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -9,6 +9,9 @@ System.register(["./View", "../models/index"], function (exports_1, context_1) {
             },
             function (index_1_1) {
                 index_1 = index_1_1;
+            },
+            function (escapeTag_1_1) {
+                escapeTag_1 = escapeTag_1_1;
             }
         ],
         execute: function () {
@@ -22,7 +25,7 @@ System.register(["./View", "../models/index"], function (exports_1, context_1) {
                         <label for="name">Nome:</label>
                         <input type="text" name="name"
                             class="form-control form-control-sm input-circle"
-                            id="name" value="${index_1.User.name}" disabled>
+                            id="name" value="${escapeTag_1.escapeTag(index_1.User.name)}" disabled>
                         <div id="namevalidator"></div>
                     </div>
                 </div>
@@ -41,21 +44,21 @@ System.register(["./View", "../models/index"], function (exports_1, context_1) {
             <div class="form-group">
                 <label for="first"><strong>1. </strong>O que fez ontem?</label>
                 <textarea name="first" class="form-control form-control-sm input-circle" id="first"
-                    disabled>${dailyNote.Yesterday}</textarea>
+                    disabled>${escapeTag_1.escapeTag(dailyNote.Yesterday)}</textarea>
                 <div id="firstvalidator"></div>
             </div>
 
             <div class="form-group">
                 <label for="second"><strong>2. </strong>O que vai fazer hoje?</label>
                 <textarea name="second" class="form-control form-control-sm input-circle" id="second"
-                    disabled>${dailyNote.Today}</textarea>
+                    disabled>${escapeTag_1.escapeTag(dailyNote.Today)}</textarea>
                 <div id="secondvalidator"></div>
             </div>
 
             <div class="form-group">
                 <label for="third"><strong>3. </strong>Tem impedimentos? Se sim, qual(is)?</label>
                 <textarea name="third" class="form-control form-control-sm input-circle" id="third"
-                    disabled>${dailyNote.Impediment}</textarea>
+                    disabled>${escapeTag_1.escapeTag(dailyNote.Impediment)}</textarea>
                 <div id="thirdvalidator"></div>
             </div>`).join()};
 
