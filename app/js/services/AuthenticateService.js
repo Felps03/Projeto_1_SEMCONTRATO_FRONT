@@ -25,7 +25,11 @@ System.register(["../config/index"], function (exports_1, context_1) {
                                 "g-recaptcha-response": grecaptcha.getResponse()
                             })
                         }).then(res => {
-                            if (res.status !== 200) {
+                            console.log(res.status);
+                            if (res.status === 400) {
+                                return resolve(res);
+                            }
+                            if (res.status === 406) {
                                 return reject(res);
                             }
                             const token = res.headers.get("Token");

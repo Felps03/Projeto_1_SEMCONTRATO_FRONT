@@ -4,6 +4,7 @@ import { HOST } from '../config/index';
 import { UserService } from './UserService';
 
 declare const grecaptcha: any
+
 export class AuthenticateService {
 
     /**
@@ -27,9 +28,13 @@ export class AuthenticateService {
                     "g-recaptcha-response": grecaptcha.getResponse()
                 })
             }).then(res => {
-                // console.log(res.headers.get("Token"));
-                if (res.status !== 200) {
-                    return reject(res)
+                console.log(res.status);
+                if (res.status === 400) {
+                    return resolve(res)
+                }
+
+                if (res.status === 406) {
+                    return reject(res)  
                 }
 
                 const token = res.headers.get("Token");
@@ -39,18 +44,14 @@ export class AuthenticateService {
 
                 res.json()
                     .then((result: any) => {
-                        // console.log(token);
-                        // console.log(result);
                         localStorage.setItem('email', result[0]['email'])
                         localStorage.setItem('id', result[0]['_id'])
                         localStorage.setItem('isAdmin', result[0]['isAdmin'])
-                        // console.log(result[0]['email']);
                         window.location.href = "index.html";
 
                         resolve(res)
                     })
             })
-            /*.then(res => console.log(res));*/
         })
     }
 
