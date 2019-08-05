@@ -6,6 +6,13 @@ let userData = getUser();
 
 const controller = new HelpCenterPageController();
 
+const answerForm = document.getElementById('answer_form')
+if (answerForm) {
+    if (!localStorage.getItem('tkn')) {
+        answerForm.innerHTML = ''
+    }
+}
+
 const url = new URLSearchParams(location.search);
 const url_ask_id = url.get('id');
 
