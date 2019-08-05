@@ -152,8 +152,9 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         .then((res) => {
                         this.TotalPages = res[res.length - 1].totalPages;
                         this.paginationView.update(this.currentPage, this.totalPages, this.type);
-                        const posts = index_1.Posts.from(res.slice(0, -1));
+                        const posts = index_1.Posts.from(res.reverse().slice(1, 11));
                         this.postsView.update(posts, this.totalPages);
+                        this.postsView.update(posts);
                         Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
                             const i = el.getAttribute('data-i');
                             if (i) {
