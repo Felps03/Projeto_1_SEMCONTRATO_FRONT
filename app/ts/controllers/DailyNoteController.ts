@@ -13,6 +13,7 @@ import { RegisteredDailyView } from '../views/RegisteredDailyView';
 import { RegisteredDaylies } from '../models/RegisteredDaylies';
 import { RegisteredDaily } from '../models/RegisteredDaily';
 import { DailyStatusView } from '../views/DailyStatusView';
+import { dateFormatYYYYMMDD } from '../helpers/dateHelper';
 
 export class DailyNoteController {
 
@@ -116,7 +117,6 @@ export class DailyNoteController {
                 return res.json();
             })
             .then(result => {
-                console.log(result);
                 console.log(result[result.length - 1].totalPages);
                 this.TotalPages = result[result.length - 1].totalPages;
                 this.paginationView.update(page, this.totalPages, this.type, fullDate);
@@ -160,7 +160,7 @@ export class DailyNoteController {
     showAllDailys() {
         if (this.url.get('date') && this.url.get('page')) this.listDateDaily(event);
         let date = new Date();
-        let today = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1) < 10 ? '0' + (date.getUTCMonth() + 1) : (date.getUTCMonth() + 1)}-${date.getUTCDate()}`;
+        let today = dateFormatYYYYMMDD(new Date());
 
         this.dateField.value = this.url_date || today;
 

@@ -28,7 +28,6 @@ export class DailyNoteService {
      */
 
     update(daily: DailyNote, ID: string) {
-        // console.log(ID)
         return fetch(`${HOST}dailys/daily/${ID}`, {
             method: 'PUT',
             headers: {
@@ -52,7 +51,6 @@ export class DailyNoteService {
      * @param date para buscar a daily da data informada
      */
     listDate(data: string, page: number) {
-        //console.log(`${HOST}dailys/daily/${data}/1`);
         return fetch(`${HOST}dailys/list/${data}/${page}`, {
             method: 'GET',
             headers: {
