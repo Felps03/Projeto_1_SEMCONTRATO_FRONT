@@ -109,6 +109,14 @@ export class AuthenticateController {
         window.location.href = 'home.html';
     }
 
+    checkAdmin() {
+        event.preventDefault();
+
+        const authenticateService = new AuthenticateService();
+        return authenticateService.verifyAdmin();
+
+    }
+
     // logout(event: Event) {
     //     event.preventDefault();
 
@@ -133,4 +141,5 @@ export class AuthenticateController {
     //     });
 
     // }
+
 }
