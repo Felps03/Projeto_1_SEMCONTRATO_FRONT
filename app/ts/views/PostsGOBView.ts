@@ -16,7 +16,7 @@ export class PostsGOBView extends View<PostsGOB> {
                             <h5 class="mt-2 mb-2">${post.AuthorName ? post.AuthorName : ""}</h5>
                             <p class="mt-2 mb-2">${post.Date}</p>
                         </div>
-                        <a href="app-help-asks.html?id=${post.Id}">
+                        <a href="http://gob-dev.azurewebsites.net/helpCenter/topico/${post.Id}" target="_blank">
                             <button class="btn btn-default btn-sm btn-info">
                                 <i class="material-icons"> forum </i>
                             </button>
