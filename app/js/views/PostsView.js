@@ -1,11 +1,14 @@
-System.register(["./View"], function (exports_1, context_1) {
+System.register(["./View", "../utils/escapeTag"], function (exports_1, context_1) {
     "use strict";
-    var View_1, PostsView;
+    var View_1, escapeTag_1, PostsView;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (View_1_1) {
                 View_1 = View_1_1;
+            },
+            function (escapeTag_1_1) {
+                escapeTag_1 = escapeTag_1_1;
             }
         ],
         execute: function () {
@@ -19,7 +22,7 @@ System.register(["./View"], function (exports_1, context_1) {
                     <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
                         <div>
                             <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
-                            <h5 class="mt-2 mb-2">${post.AuthorName ? post.AuthorName : ""}</h5>
+                            <h5 class="mt-2 mb-2">${post.AuthorName ? escapeTag_1.escapeTag(post.AuthorName) : ""}</h5>
                             <p class="mt-2 mb-2">${post.Date}</p>
                         </div>
                         <a href="app-help-asks.html?id=${post.Id}">
@@ -34,8 +37,8 @@ System.register(["./View"], function (exports_1, context_1) {
                     <div class="card mb-2">
                         <div class="card-body">
 
-                            <h5>${post.Title}</h5>
-                            <p>${post.Desc}</p>
+                            <h5>${escapeTag_1.escapeTag(post.Title)}</h5>
+                            <p>${escapeTag_1.escapeTag(post.Desc)}</p>
                             
                         </div>
                     </div>

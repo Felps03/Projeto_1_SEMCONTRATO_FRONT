@@ -8,6 +8,8 @@ import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck'
 import { MessageView } from '../views/MessageView';
 
+declare const grecaptcha: any
+
 export class UserController {
 
     private messageView: MessageView
@@ -83,7 +85,9 @@ export class UserController {
                             };
                             resolve(result.json())
                         } else {
+                            
                             reject(result)
+
                         }
                     })
             }).then((res: any) => {
@@ -100,6 +104,7 @@ export class UserController {
                         </button>
                     </div>
                     `;
+                    grecaptcha.reset();
                     if (res.erro)
                         this.messageView.update(res.erro)
                 })

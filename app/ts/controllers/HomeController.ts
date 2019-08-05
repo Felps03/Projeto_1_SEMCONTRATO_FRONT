@@ -9,6 +9,7 @@ import { HomeDailyNotes } from "../models/HomeDailyNotes";
 import { HomeHelpCenterView } from "../views/HomeHelpCenterView";
 import { HomeHelpCenters } from "../models/HomeHelpCenters";
 import { dateFormatYYYYMMDD } from "../helpers/dateHelper";
+import { escapeTag } from "../utils/escapeTag";
 
 export class HomeController {
 
@@ -41,8 +42,8 @@ export class HomeController {
                 })
                 .then(result => {
                     let data = {
-                        name: result['name'],
-                        userName: result['userName']
+                        name: escapeTag(result['name']),
+                        userName: escapeTag(result['userName'])
                     }
                     return data
                 })
