@@ -1,7 +1,7 @@
 
 import { HelpCenterServiceAsk } from '../services/index';
 import { PostAsk } from '../models/PostAsk';
-import { PostAsksView } from "../views/PostAsksView";
+import { AnswerView } from "../views/AnswerView";
 import { PostAsks } from '../models/index';
 import { validate } from '../helpers/index';
 import * as vals from '../validation/helpCenterAskValidate';
@@ -9,7 +9,7 @@ import { noFalse } from '../utils/index';
 
 export class HelpCenterAskController {
 
-    private postAsksView: PostAsksView
+    private AnswerView: AnswerView
 
     private addComment: HTMLInputElement
     private editComments: HTMLInputElement[]
@@ -19,7 +19,7 @@ export class HelpCenterAskController {
     private editVals: Map<string, (() => boolean)[]>
 
     constructor() {
-        this.postAsksView = new PostAsksView('#post-ask-list')
+        this.AnswerView = new AnswerView('#answer_result')
 
         this.addComment = <HTMLInputElement>document.getElementById('comment')
 
@@ -190,10 +190,10 @@ export class HelpCenterAskController {
             });
     }
 
-    findByID(event: Event) {
+    findByID(id: string, event: Event) {
         event.preventDefault();
         const helpCenterService = new HelpCenterServiceAsk();
-        helpCenterService.findById('title')
+        helpCenterService.findById(id)
             .then(result => {
                 return result.json()
             }).then(res => {

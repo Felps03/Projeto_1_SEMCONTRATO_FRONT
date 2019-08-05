@@ -39,14 +39,11 @@ System.register(["./View"], function (exports_1, context_1) {
                                             <p>${PostAsk.Desc}</p>
                                         </div>
                                     </div>
-                                `;
-                        if (PostAsk.Id_user === localStorage.getItem('id')) {
-                            result += `<a class="can-delete" data-id="${PostAsk.Id}" href="#" id="teste">Deletar</a>`;
-                        }
-                        if (PostAsk.Id_user === localStorage.getItem('id')) {
-                            result += `<a class="can-edit" data-id="${PostAsk.Id}" href="#" id="teste">Editar</a>`;
-                        }
-                        result += `</div>
+                                
+                                ${PostAsk.Id_user === localStorage.getItem('id') ? `<a class="can-delete" data-id="${PostAsk.Id}" href="#">Deletar</a>` : ""}
+                                    
+                                ${PostAsk.Id_user === localStorage.getItem('id') ? `<a class="can-edit" data-id="${PostAsk.Id}" href="./../help-ask-edit.html?id=${PostAsk.Id}&owner=${PostAsk.Id_user}">Editar</a>` : ""}
+                                </div>
                             </div>
                         </div>`;
                     });

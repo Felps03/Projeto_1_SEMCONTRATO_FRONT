@@ -151,10 +151,10 @@ System.register(["../services/index", "../models/PostAsk", "../views/PostAsksVie
                         console.error(error);
                     });
                 }
-                findByID(event) {
+                findByID(id, event) {
                     event.preventDefault();
                     const helpCenterService = new index_1.HelpCenterServiceAsk();
-                    helpCenterService.findById('title')
+                    helpCenterService.findById(id)
                         .then(result => {
                         return result.json();
                     }).then(res => {

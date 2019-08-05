@@ -28,15 +28,6 @@ if (cadastrar) {
     //window.addEventListener('load', controller.list.bind(controller));
 }
 
-let deletar = document.getElementById("teste2");
-
-// console.log()
-if (deletar) {
-    console.log("oi");
-    console.log("oioi");
-    //window.addEventListener('load', controller.list.bind(controller));
-}
-
 if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
 
 // $("#idQuest");
