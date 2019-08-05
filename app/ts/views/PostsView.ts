@@ -1,5 +1,6 @@
 import { View } from './View';
 import { Posts, User } from '../models/index';
+import { escapeTag } from '../utils/escapeTag';
 
 export class PostsView extends View<Posts> {
 
@@ -12,7 +13,7 @@ export class PostsView extends View<Posts> {
                     <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
                         <div>
                             <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
-                            <h5 class="mt-2 mb-2">${post.AuthorName ? post.AuthorName : ""}</h5>
+                            <h5 class="mt-2 mb-2">${post.AuthorName ? escapeTag(post.AuthorName) : ""}</h5>
                             <p class="mt-2 mb-2">${post.Date}</p>
                         </div>
                         <a href="app-help-asks.html?id=${post.Id}">
@@ -27,8 +28,8 @@ export class PostsView extends View<Posts> {
                     <div class="card mb-2">
                         <div class="card-body">
 
-                            <h5>${post.Title}</h5>
-                            <p>${post.Desc}</p>
+                            <h5>${escapeTag(post.Title)}</h5>
+                            <p>${escapeTag(post.Desc)}</p>
                             
                         </div>
                     </div>
