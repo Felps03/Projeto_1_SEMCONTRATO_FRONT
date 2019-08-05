@@ -219,9 +219,9 @@ export class DailyNoteController {
                 this.listDateDaily(event);
                 document.getElementById('dailyModal').click();
                 document.getElementById('add_daily').setAttribute('disabled', 'disabled');
-             
+
                 this.dailyStatusView = new DailyStatusView('#status_daily');
-                this.dailyStatusView.update(res.status == 200 ? 'Daily cadastrada com sucesso!' : res.status == 400 ? 'Você já cadastrou sua daily!': '');
+                this.dailyStatusView.update(res.status == 200 ? 'Daily cadastrada com sucesso!' : res.status == 400 ? 'Você já cadastrou sua daily!' : '');
             });
     }
 

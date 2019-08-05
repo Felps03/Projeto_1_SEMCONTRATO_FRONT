@@ -178,7 +178,7 @@ export class HelpCenterController {
 				return result.json();
 			})
 			.then((res) => {
-				const posts = Posts.from(res.reverse().slice(1, -1));
+				const posts = Posts.from(res.reverse().slice(1, 11));
 				this.postsView.update(posts);
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');

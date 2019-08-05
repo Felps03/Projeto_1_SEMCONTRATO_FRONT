@@ -50,8 +50,6 @@ export class HomeController {
                 let helpCenters = new HomeHelpCenters();
                 this.helpCenterView = new HomeHelpCenterView('#last-helps');
 
-
-
                 results.pop();
                 //results.reverse();
                 results.length = 3;
