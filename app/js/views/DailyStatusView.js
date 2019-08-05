@@ -10,9 +10,9 @@ System.register(["./View"], function (exports_1, context_1) {
         ],
         execute: function () {
             DailyStatusView = class DailyStatusView extends View_1.View {
-                template(response) {
+                template(response, totalPages, type, typeAlert) {
                     return `
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="alert ${typeAlert ? typeAlert : "alert-success"}  alert-dismissible fade show" role="alert">
                 <strong>${response}</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

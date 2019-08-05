@@ -4,7 +4,6 @@ import { getUser } from './utils/userData';
 import { dateFormatYYYYMMDD } from './helpers/dateHelper';
 
 let userData = getUser();
-let dayliesResult = document.getElementById("dayliesResult");
 let cadastrar = document.querySelector('#daily-form');
 let dailyesResult = document.querySelector('#dayliesResult');
 let cancel = document.getElementById("cancel");
