@@ -175,6 +175,13 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                 dailyButton(event) {
                     this.registered(event)
                         .then((res) => {
+                        let typeAlert = 'alert-warning';
+                        this.dailyStatusView = new DailyStatusView_1.DailyStatusView('#status_daily');
+                        if (res.status == 400) {
+                            this.dailyStatusView.update('Você já cadastrou sua daily!', 0, 0, typeAlert);
+                            setTimeout(() => $("#status_daily").hide(), 10000);
+                            document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
+                        }
                         if (res.status == 400)
                             document.getElementById('add_daily').setAttribute('disabled', 'disabled');
                     });
@@ -185,6 +192,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         this.listDateDaily(event);
                         document.getElementById('dailyModal').click();
                         document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+                        document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                         this.dailyStatusView = new DailyStatusView_1.DailyStatusView('#status_daily');
                         this.dailyStatusView.update(res.status == 200 ? 'Daily cadastrada com sucesso!' : res.status == 400 ? 'Você já cadastrou sua daily!' : '');
                     });
