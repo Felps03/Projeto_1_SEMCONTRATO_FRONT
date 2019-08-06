@@ -28,3 +28,12 @@ configurationService.listAll()
     .catch(err => {
         console.log(err);
     })
+
+//pog    
+// if (window.innerWidth < 576) {
+//     document.getElementById('reg-col').classList.remove("custom-mr");
+//     document.getElementById('can-col').classList.remove("custom-mr");
+// }else {
+//     document.getElementById('reg-col').classList.add("custom-mr");
+//     document.getElementById('can-col').classList.add("custom-mr");
+// }

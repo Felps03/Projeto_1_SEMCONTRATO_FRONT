@@ -208,6 +208,10 @@ body {
     justify-content: center;
 }
 
+.custom-mr {
+    margin: 3%;
+}
+
 /* Elements */
 
 .card-size {
