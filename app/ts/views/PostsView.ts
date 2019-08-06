@@ -5,8 +5,9 @@ import { publish } from "../utils/publish";
 export class PostsView extends View<Posts> {
 
     template(model: Posts): string {
-        if(model.toArray().length == 0) {
-            return `<div class='text-black-50 mt-4'>Não há perguntas registradas no momento.</div>`;
+        console.log(model.toArray());
+        if (model.toArray().length == 0) {
+            return `<div class='text-black-50 mt-4'>Nenhuma pergunta encontrada.</div>`;
         } else {
             return `
             ${model.toArray().map((post, i) => `
@@ -23,24 +24,41 @@ export class PostsView extends View<Posts> {
                     <div class="row">
                         <div class="col-sm-12">
                             <h5><strong>${post.Title}</strong></h5>
+
                             <a href="app-help-asks.html?id=${post.Id}" class="float-right d-flex justify-content-center mr-n3">
-                                <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mt-n4 input-circle">
+                                <button type="button" class="btn btn-outline-info btn-sm pr-3 pl-3 mt-n4 input-circle">
                                     <i class="small material-icons mr-2 align-middle">question_answer</i>Responder
                                 </button>
                             </a>
-                            <div class="text-black-50 mt-n2 mb-2">${publish(post.Date)}</div>
 
+                            ${localStorage.getItem('id') === post.AuthorId ? `
+                                <a href="app-help-asks.html?id=${post.Id}" class="float-right d-flex justify-content-center mr-n3">
+                                    <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle">
+                                        <i class="small material-icons mr-2 align-middle">edit</i>Editar
+                                    </button>
+                                </a>
+
+                                <a href="app-help-asks.html?id=${post.Id}" class="float-right d-flex justify-content-center mr-n3">
+                                    <button type="button" class="btn btn-outline-danger btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle">
+                                        <i class="small material-icons mr-2 align-middle">close</i>Excluir
+                                    </button>
+                                </a>
+                            ` : ``}
                             
+                            <div class="text-black-50 mt-n2 mb-2">
+                                <image src="https://image.flaticon.com/icons/png/512/59/59252.png" class="mr-1" style="height: 15px">
+                                ${publish(post.Date)}
+                            </div>
+   
                         </div>
                     </div>
                     <div class="mt-1">${post.Desc}</div> 
                 </div> 
             </div>   
  
-            `).join('')}
-        
+            `).join('')}       
         `;
         }
-       
+
     }
 }

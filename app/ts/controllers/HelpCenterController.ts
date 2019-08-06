@@ -87,13 +87,7 @@ export class HelpCenterController {
 		});
 	}
 
-	set CurrentPage(page: number) {
-		this.currentPage = page;
-		this.paginationView.update(this.currentPage, this.totalPages, this.type);
-	}
-	set TotalPages(total: number) {
-		this.totalPages = total;
-	}
+	
 
 	add(event: Event) {
 		event.preventDefault();
@@ -176,6 +170,15 @@ export class HelpCenterController {
 		}
 	}
 
+	set CurrentPage(page: number) {
+		this.currentPage = page;
+		this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
+		this.paginationView.update(this.currentPage, this.totalPages, this.type);
+	}
+	set TotalPages(total: number) {
+		this.totalPages = total;
+	}
+
 	// here be dragons
 	list(event: Event) {
 		event.preventDefault();
@@ -186,24 +189,28 @@ export class HelpCenterController {
 				return result.json();
 			})
 			.then((res) => {
-				
-				//console.log(res);
+
 				this.TotalPages = res[res.length - 1].totalPages;
+
+				let totalQuestions = res[res.length-1].totalDocs;
+
 				const posts = Posts.from(res.slice(0, -1));
 
-
-				console.log(posts.toArray().length);
-
 				if (posts.toArray().length != 0) {
+					document.getElementById('response').textContent = `Total de ${totalQuestions} pergunta${totalQuestions == 1 ? '' : 's'} encontrada${totalQuestions == 1 ? '' : 's'}.`;
 					this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
 					this.paginationView.update(this.currentPage, this.totalPages, this.type);
+				} else {
+					document.getElementById('response').textContent = '';
+					this.paginationView.update(this.currentPage, this.totalPages, this.type);
+					document.getElementById('pagination').textContent = '';
 				}
 
 				this.postsView.update(posts, this.totalPages);
 
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');
-					if (i) {
+					if (i) {'	'
 						el.addEventListener('click', () => {
 							this.postView.update(posts.get(+i));
 						});

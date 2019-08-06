@@ -60,6 +60,11 @@ a:hover {
     border: 1px solid #ffc107 !important;
 }
 
+.btn-outline-info {
+    border: 1px solid #283772 !important;
+    color: #283772;
+}
+
 .btn-warning {
     border: 1px solid #ffc107 !important;
 }
@@ -68,6 +73,12 @@ a:hover {
     border: 1px solid #dddddd !important;
     background: #dddddd;
     color: #292b2c !important;
+}
+
+.btn-outline-info:hover {
+    background: #283772;
+    border: 1px solid #283772 !important;
+    color: #ffffff;
 }
 
 .btn-danger:hover {

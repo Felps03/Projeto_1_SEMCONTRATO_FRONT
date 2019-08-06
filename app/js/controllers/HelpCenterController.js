@@ -66,13 +66,6 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         this.helpCenterAsk.listByPost(new Event(''));
                     });
                 }
-                set CurrentPage(page) {
-                    this.currentPage = page;
-                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
-                }
-                set TotalPages(total) {
-                    this.totalPages = total;
-                }
                 add(event) {
                     event.preventDefault();
                     if (listCheck_1.noFalse(this.addVals)) {
@@ -139,6 +132,14 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         console.log('vals');
                     }
                 }
+                set CurrentPage(page) {
+                    this.currentPage = page;
+                    this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-center.html');
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                }
+                set TotalPages(total) {
+                    this.totalPages = total;
+                }
                 list(event) {
                     event.preventDefault();
                     const helpCenterService = new index_2.HelpCenterService();
@@ -149,16 +150,23 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     })
                         .then((res) => {
                         this.TotalPages = res[res.length - 1].totalPages;
+                        let totalQuestions = res[res.length - 1].totalDocs;
                         const posts = index_1.Posts.from(res.slice(0, -1));
-                        console.log(posts.toArray().length);
                         if (posts.toArray().length != 0) {
+                            document.getElementById('response').textContent = `Total de ${totalQuestions} pergunta${totalQuestions == 1 ? '' : 's'} encontrada${totalQuestions == 1 ? '' : 's'}.`;
                             this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-center.html');
                             this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                        }
+                        else {
+                            document.getElementById('response').textContent = '';
+                            this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                            document.getElementById('pagination').textContent = '';
                         }
                         this.postsView.update(posts, this.totalPages);
                         Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
                             const i = el.getAttribute('data-i');
                             if (i) {
+                                '	';
                                 el.addEventListener('click', () => {
                                     this.postView.update(posts.get(+i));
                                 });

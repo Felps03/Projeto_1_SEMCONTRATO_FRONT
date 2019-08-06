@@ -113,6 +113,7 @@ export class HelpCenterPageController {
                 this.TotalPages = res.pagination.totalPages;
                 this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
 
+                //FIXME
                 this.questionView = new QuestionView('#ask_result');
                 let question = new Post(res.question.ask, res.question.text, res.question.id_user, res.question.owner, res.question.date, res.question.id_helpCenter)
                 this.questionView.update(question);

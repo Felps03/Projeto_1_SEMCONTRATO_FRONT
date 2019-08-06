@@ -28,7 +28,9 @@ System.register([], function (exports_1, context_1) {
             monthName[monthName["Dezembro"] = 11] = "Dezembro";
         })(monthName || (monthName = {}));
         let day = date.getUTCDate() < 10 ? '0' + date.getUTCDate() : '' + date.getUTCDate();
-        return `publicado em ${weekDay[date.getDay() + 1]}, ${day} de ${monthName[date.getUTCMonth()]} de ${date.getUTCFullYear()}`;
+        let hours = date.getHours() < 10 ? '0' + date.getHours() : '' + date.getHours();
+        let minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : '' + date.getMinutes();
+        return `publicado em ${weekDay[date.getDay() + 1]}, ${day} de ${monthName[date.getUTCMonth()]} de ${date.getUTCFullYear()} às ${hours}:${minutes}.`;
     }
     exports_1("publish", publish);
     return {

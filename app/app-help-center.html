@@ -104,17 +104,17 @@
                         </div>
                     </div>
                 </form>
-
+                
                 <!-- paginação top -->
                 <div class="row mb-n4">
                     <div class="col-sm-12 mb-1">
                         <nav class="float-right">
                             <ul id="pagination" class="pagination"></ul>
                         </nav>
-        
+
                         <div class="vt-line mt-1">
                             <h5><strong>Perguntas</strong></h5>
-                        </div>
+                        </div><div id="response" class="text-black-50 mb-3"></div>
                     </div>
                 </div>
                 
@@ -122,13 +122,53 @@
 
             </div>
 
-            <!-- <nav class="float-right mt-1">
-                <ul id="pagination" class="pagination"></ul>
-            </nav> -->
-
     </div>
     </section>
 
+    </div>
+
+    <!-- New Daily modal -->
+    <div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title vt-line mt-2" id="dailyTitle">
+                        <h3>
+                            <strong>Nova Pergunta</strong>
+                        </h3>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" id="add-modal-close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="newResult"> </div>
+                <div class="modal-body">
+
+                    <form class="form" method="post" id="daily-form" autocomplete="off">
+
+                        <div class="form-group">
+                            <label for="add-title">Qual a sua dúvida?</label>
+                            <input type="text" name="title" class="form-control form-control-sm input-circle" id="add-title" placeholder="Informe um titulo" autofocus>
+                            <div id="add-titlevalidator"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="add-desc">Descrição:</label>
+                            <textarea name="desc" class="form-control form-control-sm input-circle" id="add-desc" placeholder="Descreva a sua dúvida"></textarea>
+                            <div id="add-descvalidator"></div>
+                        </div>
+
+                        <button type="submit" name="send"
+                            class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle d-flex justify-content-center"
+                            id="cadastroHelpCenter"><i class="small material-icons mr-2 align-middle">help</i>Perguntar</button>
+                        <button type="button"
+                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle d-flex justify-content-center"
+                            data-dismiss="modal" id="cancel"><i class="small material-icons mr-1 align-middle">close</i>Cancelar</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- add modal -->
@@ -150,6 +190,7 @@
                                 <div id="add-titlevalidator"></div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="add-desc">Descrição:</label>
                             <div class="input-group">
@@ -159,6 +200,8 @@
                         </div>
                     </form>
                 </div>
+
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" id="cadastroHelpCenter" class="btn btn-primary d-flex align-items-center">Enviar <i class="material-icons ml-2"
@@ -169,7 +212,7 @@
     </div>
 
     <!-- confirm delete modal -->
-    <div id="confirm-del-modal" class="modal fade" tabindex="-1" role="dialog">
+    <!-- <div id="confirm-del-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -184,7 +227,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <button name="daily" id="mostra-help" hidden></button>
 
