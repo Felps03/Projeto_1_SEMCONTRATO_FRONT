@@ -35,10 +35,14 @@ System.register(["../models/index", "../services/index", "../views/PostsGOBView"
                     this.totalPages = totalPages;
                     this.type = 1;
                     this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                    this.protected = true;
                 }
                 set CurrentPage(page) {
                     this.currentPage = page;
                     this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                }
+                set CurrentSearch(term) {
+                    this.searchTitle.value = term;
                 }
                 set TotalPages(total) {
                     this.totalPages = total;
@@ -52,18 +56,22 @@ System.register(["../models/index", "../services/index", "../views/PostsGOBView"
                         return result.json();
                     })
                         .then((res) => {
-                        this.TotalPages = res.count;
-                        this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                        if (this.protected) {
+                            this.currentPage = this.currentPage || 1;
+                            this.protected = false;
+                        }
+                        else {
+                            this.currentPage = 1;
+                        }
+                        this.totalPages = res.count;
                         const posts = index_1.PostsGOB.from(res.postagens);
                         this.postsView.update(posts, this.totalPages);
-                        Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
-                            const i = el.getAttribute('data-i');
-                            if (i) {
-                                el.addEventListener('click', () => {
-                                    this.postView.update(posts.get(+i));
-                                });
-                            }
-                        });
+                        if (this.totalPages === 1) {
+                            this.clearPagination(event);
+                        }
+                        else {
+                            this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                        }
                     })
                         .catch((error) => {
                         console.error(error);
@@ -74,30 +82,45 @@ System.register(["../models/index", "../services/index", "../views/PostsGOBView"
                     let title = this.searchTitle.value;
                     if (!title) {
                         this.list(event);
-                        return;
+                        return false;
                     }
                     const helpCenterService = new index_2.HelpCenterGOBService();
                     helpCenterService
-                        .findByJoker(title, 1)
+                        .findByJoker(title, this.currentPage)
                         .then((result) => {
                         return result.json();
                     })
                         .then((res) => {
-                        this.TotalPages = res.count;
+                        if (this.protected) {
+                            this.currentPage = this.currentPage || 1;
+                            this.protected = false;
+                        }
+                        else {
+                            this.currentPage = 1;
+                        }
+                        this.totalPages = res.count;
                         const posts = index_1.PostsGOB.from(res.postagens);
                         this.postsView.update(posts, this.totalPages);
-                        Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
-                            const i = el.getAttribute('data-i');
-                            if (i) {
-                                el.addEventListener('click', () => {
-                                    this.postView.update(posts.get(+i));
-                                });
-                            }
-                        });
+                        console.log('>>', title, this.currentPage, this.totalPages);
+                        if (this.totalPages === 1) {
+                            this.clearPagination(event);
+                        }
+                        else {
+                            console.log('>>', title, this.currentPage, this.totalPages);
+                            this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                            Array.from(document.getElementsByClassName('page-link')).forEach((el) => {
+                                el.href = el.href + '&q=' + encodeURI(this.searchTitle.value);
+                            });
+                        }
                     })
                         .catch((error) => {
                         console.error(error);
                     });
+                }
+                clearPagination(event) {
+                    event.preventDefault();
+                    document.getElementById('pagination').innerHTML = '';
+                    console.log('clearng');
                 }
             };
             exports_1("HelpCenterGOBController", HelpCenterGOBController);
