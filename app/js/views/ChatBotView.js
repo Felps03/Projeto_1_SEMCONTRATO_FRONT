@@ -1,6 +1,6 @@
-System.register(["./View", "../models/Chat", "../helpers/chatbot/chatAnswerParser"], function (exports_1, context_1) {
+System.register(["./View", "../models/Chat", "../helpers/chatbot/chatAnswerParser", "../utils/escapeTag"], function (exports_1, context_1) {
     "use strict";
-    var View_1, Chat_1, chatAnswerParser_1, ChatBotView;
+    var View_1, Chat_1, chatAnswerParser_1, escapeTag_1, ChatBotView;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -12,6 +12,9 @@ System.register(["./View", "../models/Chat", "../helpers/chatbot/chatAnswerParse
             },
             function (chatAnswerParser_1_1) {
                 chatAnswerParser_1 = chatAnswerParser_1_1;
+            },
+            function (escapeTag_1_1) {
+                escapeTag_1 = escapeTag_1_1;
             }
         ],
         execute: function () {
@@ -44,7 +47,7 @@ System.register(["./View", "../models/Chat", "../helpers/chatbot/chatAnswerParse
                         const author = msg[0];
                         let processedMsg;
                         if (author === Chat_1.ChatAgent.User) {
-                            processedMsg = msg[1].replace('<', '&lt;').replace('>', '&gt;');
+                            processedMsg = escapeTag_1.escapeTag(msg[1]);
                         }
                         else {
                             processedMsg = chatAnswerParser_1.parseView(msg[1]);

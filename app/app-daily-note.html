@@ -42,8 +42,7 @@
                 <div class="dropdown mr-n4 txt-user" style="float:right;">
                     <div class="d-flex align-items-center btn" data-toggle="dropdown">
                         <span id="nameSpan"></span>
-                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png"
-                            class="rounded-circle" width="60px">
+                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle" width="60px">
                         <i class="material-icons ml-n2">arrow_drop_down</i>
                     </div>
                     <div class="dropdown-menu dropdown-menu-right align-user">
@@ -91,22 +90,17 @@
                     <div class="col-12 col-sm-4 mt-3">
                         <div class="form-group">
                             <label for="filter">Visualizar por data:</label>
-                            <input type="date" name="filter"
-                                class="form-control form-control-sm ext-placeholder input-circle" id="date_filter">
+                            <input type="date" name="filter" class="form-control form-control-sm ext-placeholder input-circle" id="date_filter">
                             <div id="filtervalidator"></div>
 
-                            <button type="button" name="new_daily"
-                                class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle mt-add-daily"
-                                id="filter">Buscar
+                            <button type="button" name="new_daily" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle mt-add-daily" id="filter">Buscar
                             </button>
                         </div>
 
                     </div>
 
                     <div class="col-12 col-sm-8">
-                        <button type="button" name="new_daily"
-                            class="btn btn-outline-success btn-sm pr-4 pl-4 float-right input-circle mt-add-daily"
-                            data-toggle="modal" data-target="#dailyModal" id="add_daily">Adicionar Daily
+                        <button type="button" name="new_daily" class="btn btn-outline-success btn-sm pr-4 pl-4 float-right input-circle mt-add-daily" data-toggle="modal" data-target="#dailyModal" id="add_daily">Adicionar Daily
                         </button>
                     </div>
                 </div>
@@ -177,16 +171,14 @@
                             <label for="first">
                                 <strong>1. </strong>O que eu fiz ontem?</label>
 
-                            <textarea name="first" class="form-control form-control-sm input-circle" id="yesterday"
-                                placeholder="Informe sua resposta aqui" autofocus></textarea>
+                            <textarea name="first" class="form-control form-control-sm input-circle" id="yesterday" placeholder="Informe sua resposta aqui" autofocus></textarea>
                             <div id="firstvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="second">
                                 <strong>2. </strong>O que eu vou fazer hoje?</label>
-                            <textarea name="second" class="form-control form-control-sm input-circle" id="today"
-                                placeholder="Informe sua resposta aqui"></textarea>
+                            <textarea name="second" class="form-control form-control-sm input-circle" id="today" placeholder="Informe sua resposta aqui"></textarea>
 
                             <div id="secondvalidator"></div>
                         </div>
@@ -195,16 +187,11 @@
                             <label for="third">
                                 <strong>3. </strong>Eu tenho impedimentos? Se sim, qual(is)?
                             </label>
-                            <textarea name="third" class="form-control form-control-sm input-circle" id="impediment"
-                                placeholder="Informe sua resposta aqui"></textarea>
+                            <textarea name="third" class="form-control form-control-sm input-circle" id="impediment" placeholder="Informe sua resposta aqui"></textarea>
                             <div id="thirdvalidator"></div>
                         </div>
-                        <button type="submit" name="send"
-                            class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle"
-                            id="recovery-pass">Adicionar</button>
-                        <button type="button"
-                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle"
-                            data-dismiss="modal" id="cancel">Cancelar</button>
+                        <button type="submit" name="send" class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle" id="recovery-pass">Adicionar</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle" data-dismiss="modal" id="cancel">Cancelar</button>
                     </form>
 
                 </div>
@@ -219,7 +206,7 @@
     <script src="./lib/particlejs/particle-config.js"></script>
 
     <script>
-        document.getElementById('filter').onkeyup = function () {
+        document.getElementById('filter').onkeyup = function() {
             let dateHolder = document.getElementById('filter');
             let dateValue = document.getElementById('filter').value;
 

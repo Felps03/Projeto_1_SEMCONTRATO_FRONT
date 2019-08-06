@@ -80,6 +80,7 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
                         </button>
                     </div>
                     `;
+                            grecaptcha.reset();
                             if (res.erro)
                                 this.messageView.update(res.erro);
                         });

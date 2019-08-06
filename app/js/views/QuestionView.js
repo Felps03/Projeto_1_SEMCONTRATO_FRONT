@@ -1,11 +1,14 @@
-System.register(["./View"], function (exports_1, context_1) {
+System.register(["./View", "../utils/escapeTag"], function (exports_1, context_1) {
     "use strict";
-    var View_1, QuestionView;
+    var View_1, escapeTag_1, QuestionView;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (View_1_1) {
                 View_1 = View_1_1;
+            },
+            function (escapeTag_1_1) {
+                escapeTag_1 = escapeTag_1_1;
             }
         ],
         execute: function () {
@@ -18,7 +21,7 @@ System.register(["./View"], function (exports_1, context_1) {
             <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
                 <div>
                     <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
-                    <h5 class="mt-2 mb-2">${model.AuthorName ? model.AuthorName : ""}</h5>
+                    <h5 class="mt-2 mb-2">${model.AuthorName ? escapeTag_1.escapeTag(model.AuthorName) : ""}</h5>
                 </div>
             </div>
         </div>
@@ -26,8 +29,8 @@ System.register(["./View"], function (exports_1, context_1) {
             <div class="card mb-2">
                 <div class="card-body">
 
-                    <h5>${model.Title}</h5>
-                    <p>${model.Desc}</p>
+                    <h5>${escapeTag_1.escapeTag(model.Title)}</h5>
+                    <p>${escapeTag_1.escapeTag(model.Desc)}</p>
                 </div>
             </div>
         </div>

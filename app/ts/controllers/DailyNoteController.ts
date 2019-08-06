@@ -13,6 +13,7 @@ import { RegisteredDailyView } from '../views/RegisteredDailyView';
 import { RegisteredDaylies } from '../models/RegisteredDaylies';
 import { RegisteredDaily } from '../models/RegisteredDaily';
 import { DailyStatusView } from '../views/DailyStatusView';
+import { dateFormatYYYYMMDD } from '../helpers/dateHelper';
 
 export class DailyNoteController {
 
@@ -116,7 +117,6 @@ export class DailyNoteController {
                 return res.json();
             })
             .then(result => {
-                console.log(result);
                 console.log(result[result.length - 1].totalPages);
                 this.TotalPages = result[result.length - 1].totalPages;
                 this.paginationView.update(page, this.totalPages, this.type, fullDate);
@@ -159,8 +159,10 @@ export class DailyNoteController {
 
     showAllDailys() {
         if (this.url.get('date') && this.url.get('page')) this.listDateDaily(event);
+
+
         let date = new Date();
-        let today = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1) < 10 ? '0' + (date.getUTCMonth() + 1) : (date.getUTCMonth() + 1)}-${date.getUTCDate()}`;
+        let today = dateFormatYYYYMMDD(new Date());
 
         this.dateField.value = this.url_date || today;
 
@@ -179,6 +181,8 @@ export class DailyNoteController {
             result.then((result) => {
                 result.forEach((r: any) => {
                     const daily = new DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
+
+                    //console.log('Resposta: ', r);
 
                     let totalPages: number;
                     if (r.hasOwnProperty('totalPages')) {
@@ -242,6 +246,15 @@ export class DailyNoteController {
     dailyButton(event: Event) {
         this.registered(event)
             .then((res) => {
+                let typeAlert = 'alert-warning';
+                this.dailyStatusView = new DailyStatusView('#status_daily');
+
+                if (res.status == 400) {
+                    this.dailyStatusView.update('Você já cadastrou sua daily!', 0, 0, typeAlert);
+                    setTimeout(() => $("#status_daily").hide(), 10000);
+                    document.getElementById("add_daily").setAttribute('title'," Você já cadastrou sua daily");
+                }
+
                 if (res.status == 400) document.getElementById('add_daily').setAttribute('disabled', 'disabled');
             });
     }
@@ -252,8 +265,11 @@ export class DailyNoteController {
                 this.listDateDaily(event);
                 document.getElementById('dailyModal').click();
                 document.getElementById('add_daily').setAttribute('disabled', 'disabled');
-
+                document.getElementById("add_daily").setAttribute('title'," Você já cadastrou sua daily");
                 this.dailyStatusView = new DailyStatusView('#status_daily');
+
+                //alt="Hello World!"
+
                 this.dailyStatusView.update(res.status == 200 ? 'Daily cadastrada com sucesso!' : res.status == 400 ? 'Você já cadastrou sua daily!' : '');
             });
     }
