@@ -3,7 +3,7 @@ import { GOB_HOST } from "../config/index";
 export class HelpCenterGOBService {
 
     list(page: number) {
-        return fetch(`${GOB_HOST}/helpcenter/atividade/${page}`, {
+        return fetch(`${GOB_HOST}helpcenter/atividade/${page}`, {
             method: 'GET'
         })
     }
@@ -22,7 +22,7 @@ export class HelpCenterGOBService {
     // }
 
     findByJoker(joker: string, page: number) {
-        return fetch(`${GOB_HOST}/helpcenter/query/${joker}/${page}`, {
+        return fetch(`${GOB_HOST}helpcenter/query/${joker}/${page}`, {
             method: 'GET'
         })
     }

@@ -11,12 +11,12 @@ System.register(["../config/index"], function (exports_1, context_1) {
         execute: function () {
             HelpCenterGOBService = class HelpCenterGOBService {
                 list(page) {
-                    return fetch(`${index_1.GOB_HOST}/helpcenter/atividade/${page}`, {
+                    return fetch(`${index_1.GOB_HOST}helpcenter/atividade/${page}`, {
                         method: 'GET'
                     });
                 }
                 findByJoker(joker, page) {
-                    return fetch(`${index_1.GOB_HOST}/helpcenter/query/${joker}/${page}`, {
+                    return fetch(`${index_1.GOB_HOST}helpcenter/query/${joker}/${page}`, {
                         method: 'GET'
                     });
                 }

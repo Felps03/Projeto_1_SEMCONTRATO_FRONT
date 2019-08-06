@@ -20,6 +20,9 @@ export class HelpCenterGOBController {
     private totalPages: number;
 
     private type: number;
+    // the first list/findByJoker will be done at the current page,
+    // but further ones will return to the 1st page
+    private protected: boolean;
 
     constructor(currentPage: number = 1, totalPages: number = 1) {
         this.searchTitle = <HTMLInputElement>document.getElementById('search-joker');
@@ -37,11 +40,16 @@ export class HelpCenterGOBController {
         this.type = 1;
         this.paginationView.update(this.currentPage, this.totalPages, this.type);
 
+        this.protected = true
+
     }
 
     set CurrentPage(page: number) {
         this.currentPage = page;
         this.paginationView.update(this.currentPage, this.totalPages, this.type);
+    }
+    set CurrentSearch(term: string) {
+        this.searchTitle.value = term
     }
     set TotalPages(total: number) {
         this.totalPages = total;
@@ -58,19 +66,24 @@ export class HelpCenterGOBController {
             })
             .then((res) => {
 
+                if (this.protected) {
+                    this.currentPage = this.currentPage || 1
+                    this.protected = false
+                } else {
+                    this.currentPage = 1
+                }
+
                 //console.log(res);
-                this.TotalPages = res.count;
-                this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                this.totalPages = res.count;
+
                 const posts = PostsGOB.from(res.postagens);
-                this.postsView.update(posts, this.totalPages);
-                Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
-                    const i = el.getAttribute('data-i');
-                    if (i) {
-                        el.addEventListener('click', () => {
-                            this.postView.update(posts.get(+i));
-                        });
-                    }
-                });
+                this.postsView.update(posts, this.totalPages)
+
+                if (this.totalPages === 1) {
+                    this.clearPagination(event)
+                } else {
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                }
             })
             .catch((error) => {
                 console.error(error);
@@ -86,22 +99,35 @@ export class HelpCenterGOBController {
         }
         const helpCenterService = new HelpCenterGOBService();
         helpCenterService
-            .findByJoker(title, 1)
+            .findByJoker(title, this.currentPage)
             .then((result) => {
                 return result.json();
             })
             .then((res) => {
-                this.TotalPages = res.count;
+
+                if (this.protected) {
+                    this.currentPage = this.currentPage || 1
+                    this.protected = false
+                } else {
+                    this.currentPage = 1
+                }
+
+                this.totalPages = res.count;
+
                 const posts = PostsGOB.from(res.postagens);
-                this.postsView.update(posts, this.totalPages);
-                Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
-                    const i = el.getAttribute('data-i');
-                    if (i) {
-                        el.addEventListener('click', () => {
-                            this.postView.update(posts.get(+i));
-                        });
-                    }
-                });
+                this.postsView.update(posts, this.totalPages)
+
+                console.log('>>', title, this.currentPage, this.totalPages)
+
+                if (this.totalPages === 1) {
+                    this.clearPagination(event)
+                } else {
+                    console.log('>>', title, this.currentPage, this.totalPages)
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                    Array.from(document.getElementsByClassName('page-link')).forEach((el: HTMLAnchorElement) => {
+                        el.href = el.href + '&q=' + encodeURI(this.searchTitle.value)
+                    })
+                }
             })
             .catch((error) => {
                 console.error(error);

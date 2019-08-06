@@ -30,15 +30,21 @@ System.register(["./controllers/HelpCenterGOBController", "./utils/userData"], f
             if (url.get('page')) {
                 controller.CurrentPage = +url.get('page');
             }
+            if (url.get('q')) {
+                controller.CurrentSearch = url.get('q');
+            }
             mostraHelp = document.getElementById("mostra-help");
-            mostraHelp.addEventListener('click', controller.list.bind(controller));
+            if (!url.get('q')) {
+                mostraHelp.addEventListener('click', controller.list.bind(controller));
+            }
+            else {
+                mostraHelp.addEventListener('click', controller.findByJoker.bind(controller));
+            }
             $(document).ready(function () {
                 document.getElementById('mostra-help').click();
             });
             $('#search-joker').keyup(delay((e) => {
-                if (controller.findByJoker.bind(controller)(e) !== false) {
-                    controller.clearPagination(e);
-                }
+                controller.findByJoker.bind(controller)(e);
             }, 500));
         }
     };

@@ -112,6 +112,14 @@ System.register(["./View"], function (exports_1, context_1) {
                             return result;
                     }
                 }
+                update(model, totalPages = 0, type, value) {
+                    super.update(model, totalPages, type, value);
+                    if (this.didMountFn)
+                        this.didMountFn();
+                }
+                didMount(cb) {
+                    this.didMountFn = cb;
+                }
             };
             exports_1("PaginationView", PaginationView);
         }
