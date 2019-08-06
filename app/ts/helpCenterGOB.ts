@@ -35,6 +35,10 @@ function delay(callback: any, ms: any) {
     };
 }
 
-$('#search-joker').keyup(delay(controller.findByJoker.bind(controller), 500));
+$('#search-joker').keyup(delay((e: Event) => {
+    if (controller.findByJoker.bind(controller)(e) !== false) {
+        controller.clearPagination(e)
+    }
+}, 500));
 // if (searchDesc)
 //     searchDesc.addEventListener('change', controller.findByDesc.bind(controller))

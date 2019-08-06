@@ -35,7 +35,11 @@ System.register(["./controllers/HelpCenterGOBController", "./utils/userData"], f
             $(document).ready(function () {
                 document.getElementById('mostra-help').click();
             });
-            $('#search-joker').keyup(delay(controller.findByJoker.bind(controller), 500));
+            $('#search-joker').keyup(delay((e) => {
+                if (controller.findByJoker.bind(controller)(e) !== false) {
+                    controller.clearPagination(e);
+                }
+            }, 500));
         }
     };
 });

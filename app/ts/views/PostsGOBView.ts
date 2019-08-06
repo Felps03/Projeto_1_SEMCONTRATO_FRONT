@@ -28,7 +28,7 @@ export class PostsGOBView extends View<PostsGOB> {
 
                     <div class="d-flex justify-content-end align-items-center">
                         <div class="w-100 font-italic">
-                            ${post.Tags.replace(/,/g, ', ')}
+                            ${post.Tags ? post.Tags.replace(/,/g, ', ') : ''}
                         </div>
                         <h3 class="mb-0 mr-2">${post.Likes}</h3>
                         <i class="material-icons">favorite</i>

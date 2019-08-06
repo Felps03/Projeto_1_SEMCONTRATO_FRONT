@@ -74,7 +74,7 @@ System.register(["../models/index", "../services/index", "../views/PostsGOBView"
                     let title = this.searchTitle.value;
                     if (!title) {
                         this.list(event);
-                        return;
+                        return false;
                     }
                     const helpCenterService = new index_2.HelpCenterGOBService();
                     helpCenterService
@@ -98,6 +98,11 @@ System.register(["../models/index", "../services/index", "../views/PostsGOBView"
                         .catch((error) => {
                         console.error(error);
                     });
+                }
+                clearPagination(event) {
+                    event.preventDefault();
+                    document.getElementById('pagination').innerHTML = '';
+                    console.log('clearng');
                 }
             };
             exports_1("HelpCenterGOBController", HelpCenterGOBController);

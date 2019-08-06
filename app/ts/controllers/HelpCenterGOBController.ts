@@ -82,7 +82,7 @@ export class HelpCenterGOBController {
         let title = this.searchTitle.value;
         if (!title) {
             this.list(event)
-            return
+            return false
         }
         const helpCenterService = new HelpCenterGOBService();
         helpCenterService
@@ -106,6 +106,12 @@ export class HelpCenterGOBController {
             .catch((error) => {
                 console.error(error);
             });
+    }
+
+    clearPagination(event: Event) {
+        event.preventDefault()
+        document.getElementById('pagination').innerHTML = ''
+        console.log('clearng')
     }
 
 }
