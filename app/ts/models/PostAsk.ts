@@ -31,9 +31,9 @@ export class PostAsk {
     }
 
     get Date() {
-        let hoje = new Date(this.date);
-        let options = { year: 'numeric', month: '2-digit', day: '2-digit' };       
-        return  hoje.toLocaleDateString('pt-BR', options)
+        return new Date(this.date);
+        // let options = { year: 'numeric', month: '2-digit', day: '2-digit' };       
+        // return  hoje.toLocaleDateString('pt-BR', options)
     }
 
 }

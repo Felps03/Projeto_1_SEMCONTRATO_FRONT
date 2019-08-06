@@ -40,7 +40,7 @@ export class PostsView extends View<Posts> {
 
                                 <a href="app-help-asks.html?id=${post.Id}" class="float-right d-flex justify-content-center mr-n3">
                                     <button type="button" class="btn btn-outline-danger btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle">
-                                        <i class="small material-icons mr-2 align-middle">close</i>Excluir
+                                        <i class="small material-icons mr-2 align-middle">delete</i>Excluir
                                     </button>
                                 </a>
                             ` : ``}

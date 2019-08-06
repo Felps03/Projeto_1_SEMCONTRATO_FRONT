@@ -74,15 +74,36 @@
 
                 <!-- <div id="delete-view"></div> -->
                 <div id="post-ask-list" class="mt-4"></div>
+                
                 <div id="ask_result"></div>
+                <hr class="mt-4 help-line">
+
+                <!-- paginação top -->
+                <div class="row mb-n4">
+                    <div class="col-sm-12 mb-1">
+                        <nav class="float-right mt-4">
+                            <ul id="pagination" class="pagination"></ul>
+                        </nav>
+
+                        <div class="vt-line mt-3">
+                            <h5><strong>Soluções</strong></h5>
+                        </div><div id="response" class="text-black-50 mb-3"></div>
+                    </div>
+                </div>
+
                 <div id="aswers_result"></div>
 
-                <textarea id="answer"></textarea>
-                <button id="send_answer" class="btn btn-default btn-sm btn-success">Responder</button>
-                <nav class="float-right mt-1">
-                    <ul id="pagination" class="pagination">
-                    </ul>
-                </nav>
+                <div class="form-group mt-4">
+                    <label for="add-desc">Você tem alguma solução para essa pergunta?</label>
+                    <textarea name="answer" class="form-control form-control-sm input-circle" id="answer" placeholder="Informe a sua solução"></textarea>
+                    <div id="answervalidator"></div>
+                    <!-- adicionar answer validator-->
+                </div>
+
+                <button name="send_answer"
+                            class="btn btn-outline-success btn-sm float-right pr-4 pl-4 ml-2 input-circle d-flex justify-content-center"
+                            id="send_answer"><i class="small material-icons mr-2 align-middle">textsms</i>Responder</button>
+                
         </section>
     </div>
 

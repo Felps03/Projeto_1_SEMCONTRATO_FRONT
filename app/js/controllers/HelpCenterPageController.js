@@ -1,6 +1,6 @@
-System.register(["../models/index", "../services/index", "../views/QuestionView", "../views/AnswersView", "../views/PaginationView"], function (exports_1, context_1) {
+System.register(["../models/index", "../services/index", "../views/QuestionView", "../views/AnswersView", "../views/PaginationView", "../helpers/index", "../validation/helpCenterAskValidate"], function (exports_1, context_1) {
     "use strict";
-    var index_1, index_2, QuestionView_1, AnswersView_1, PaginationView_1, HelpCenterPageController;
+    var index_1, index_2, QuestionView_1, AnswersView_1, PaginationView_1, index_3, vals, HelpCenterPageController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -18,6 +18,12 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
             },
             function (PaginationView_1_1) {
                 PaginationView_1 = PaginationView_1_1;
+            },
+            function (index_3_1) {
+                index_3 = index_3_1;
+            },
+            function (vals_1) {
+                vals = vals_1;
             }
         ],
         execute: function () {
@@ -32,6 +38,9 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                     this.answersView = new AnswersView_1.AnswersView('#post-ask-list');
                     this.addComment = document.querySelector('#answer');
                     this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
+                    this.answerValidator = [
+                        index_3.validate(this.addComment, vals.comment)
+                    ];
                 }
                 set CurrentPage(page) {
                     this.currentPage = page;
@@ -85,15 +94,23 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                     })
                         .then((res) => {
                         this.TotalPages = res.pagination.totalPages;
-                        this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
                         this.questionView = new QuestionView_1.QuestionView('#ask_result');
+                        if (res.hasOwnProperty('answerData')) {
+                            let countAnswers = res.pagination.totalDocs;
+                            document.getElementById('response').textContent = `Total de ${countAnswers} resposta${countAnswers == 1 ? '' : 's'} encontrada${countAnswers == 1 ? '' : 's'}.`;
+                            this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
+                        }
+                        else {
+                            document.getElementById('pagination').textContent = '';
+                            document.getElementById('response').textContent = '';
+                        }
                         let question = new index_1.Post(res.question.ask, res.question.text, res.question.id_user, res.question.owner, res.question.date, res.question.id_helpCenter);
                         this.questionView.update(question);
                         this.currentPage = res.pagination.page;
                         let postAsks = new index_1.PostAsks();
                         this.answersView = new AnswersView_1.AnswersView('#aswers_result');
                         if (res.answerData || res.answerData != undefined)
-                            res.answerData.map((res) => new index_1.PostAsk(res.id_helpCenter, res.text, res.id_user, res.owner, res.id_answer))
+                            res.answerData.map((res) => new index_1.PostAsk(res.id_helpCenter, res.text, res.id_user, res.owner, res.id_answer, res.date))
                                 .forEach((res) => postAsks.add(res));
                         this.answersView.update(postAsks);
                     })

@@ -202,7 +202,7 @@ export class HelpCenterController {
 					this.paginationView.update(this.currentPage, this.totalPages, this.type);
 				} else {
 					document.getElementById('response').textContent = '';
-					this.paginationView.update(this.currentPage, this.totalPages, this.type);
+					// this.paginationView.update(this.currentPage, this.totalPages, this.type);
 					document.getElementById('pagination').textContent = '';
 				}
 
@@ -298,6 +298,14 @@ export class HelpCenterController {
 			.then((res) => {
 				const posts = Posts.from(res.slice(0, -1));
 				this.postsView.update(posts);
+
+				if(res.length-1 != 0) {
+					document.getElementById('response_search').textContent = '';
+					document.getElementById('response_search').textContent = `Aproximadamente ${res.length-1} pergunta${res.length-1 == 1 ? '' : 's'}.`;
+				} else {
+					document.getElementById('response_search').textContent = '';
+				}
+				
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');
 					if (i) {
