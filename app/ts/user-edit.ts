@@ -1,16 +1,29 @@
 import { UserController } from "./controllers/UserController";
 import { getUser } from "./utils/userData";
 import { HomeController } from "./controllers/HomeController";
+import { AuthenticateController } from "./controllers/AuthenticateController";
 
 import { ConfigurationService } from "./services/ConfigurationService";
+
+let recaptchaBox = <HTMLInputElement>document.querySelector('#recaptcha');
+
+const authenticateController = new AuthenticateController();
+authenticateController.checkAdmin()
+    .then(res => {
+        if (res.status === 200) {
+            recaptchaBox.hidden = false;
+        } else {
+            recaptchaBox.hidden = true;
+        }
+    })
+
 
 let userData = getUser();
 if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
 if (!localStorage.getItem('tkn')) { window.location.href = "index.html"; }
 
-let recaptchaBox = <HTMLInputElement>document.querySelector('#recaptcha');
 
-if (localStorage.getItem('isAdmin') == 'true') recaptchaBox.hidden = false;
+// if (localStorage.getItem('isAdmin') == 'true') recaptchaBox.hidden = false;
 
 let homeController = new HomeController();
 

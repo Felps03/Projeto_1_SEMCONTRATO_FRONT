@@ -71,6 +71,16 @@ System.register(["../config/index"], function (exports_1, context_1) {
                         return err;
                     });
                 }
+                verifyAdmin() {
+                    return fetch(`${index_1.HOST}users/user/check`, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json, text/plain, */*',
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                        },
+                    });
+                }
             };
             exports_1("AuthenticateService", AuthenticateService);
         }

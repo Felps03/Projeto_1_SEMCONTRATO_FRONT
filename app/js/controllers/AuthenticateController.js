@@ -98,6 +98,11 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                     localStorage.clear();
                     window.location.href = 'home.html';
                 }
+                checkAdmin() {
+                    event.preventDefault();
+                    const authenticateService = new index_1.AuthenticateService();
+                    return authenticateService.verifyAdmin();
+                }
             };
             exports_1("AuthenticateController", AuthenticateController);
         }
