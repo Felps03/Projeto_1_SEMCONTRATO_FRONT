@@ -132,6 +132,11 @@
     margin-left: -1.9rem;
 }
 
+.daily-edit-line {
+    width: 120%;
+    margin-left: -1.8rem;
+}
+
 .vt-line {
     padding-top: 2px;
     border-left: 8px solid #f1be1d;
