@@ -3,6 +3,7 @@ import { HOST } from '../config/index';
 import { dateOfBirth } from '../validation/userValidate';
 
 declare const grecaptcha: any
+
 export class UserService {
 
     add(user: User) {

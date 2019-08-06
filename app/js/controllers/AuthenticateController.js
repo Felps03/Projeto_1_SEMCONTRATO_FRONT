@@ -41,7 +41,6 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                     }
                     catch (e) {
                     }
-                    grecaptcha.reset();
                 }
                 authenticate(event) {
                     if (listCheck_1.noFalse(this.authVals)) {

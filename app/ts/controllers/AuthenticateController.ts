@@ -44,9 +44,6 @@ export class AuthenticateController {
         } catch (e) {
             // console.log("passo no catch");
         }
-
-        grecaptcha.reset();
-
     }
 
     authenticate(event: Event) {
@@ -59,6 +56,7 @@ export class AuthenticateController {
             authenticateService.authenticate(this.email.value, this.password.value)
                 .then((res: any) => {
                     if (res.status === 400) {
+
                         grecaptcha.reset();
 
                         document.getElementById('message-view').innerHTML = `
