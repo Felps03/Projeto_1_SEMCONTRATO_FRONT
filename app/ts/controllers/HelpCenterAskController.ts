@@ -2,6 +2,7 @@
 import { HelpCenterServiceAsk } from '../services/index';
 import { PostAsk } from '../models/PostAsk';
 import { AnswerView } from "../views/AnswerView";
+import { AnswersView } from "../views/AnswersView";
 import { PostAsks } from '../models/index';
 import { validate } from '../helpers/index';
 import * as vals from '../validation/helpCenterAskValidate';
@@ -10,6 +11,8 @@ import { noFalse } from '../utils/index';
 export class HelpCenterAskController {
 
     private AnswerView: AnswerView
+
+    private AnswersView: AnswersView
 
     private addComment: HTMLInputElement
     private editComments: HTMLInputElement[]
@@ -26,27 +29,6 @@ export class HelpCenterAskController {
         const addForm = document.getElementById('comment-form')
         if (addForm)
             addForm.addEventListener('submit', this.add.bind(this))
-
-        this.postAsksView.childrenDidMount((postAsk: PostAsk) => {
-
-            const editForm = document.getElementById(`comment-edit-form-${postAsk.Id}`)
-            const editField = <HTMLInputElement>document.getElementById(`comment-edit-${postAsk.Id}`)
-            // console.log(editForm);
-
-            const deleteBtn = document.getElementById(`comment-del-${postAsk.Id}`)
-            // console.log(' ~~~ ~', deleteBtn)
-
-            this.editVals.set(postAsk.Id, [
-                validate(editField, vals.comment)
-            ])
-
-            if (editForm) {
-                editForm.addEventListener('submit', this.update.bind(this, postAsk.Id))
-            }
-            if (deleteBtn) {
-                deleteBtn.addEventListener('click', this.delete.bind(this, postAsk.Id))
-            }
-        })
 
         // init validations
         this.addVals = [
@@ -164,7 +146,7 @@ export class HelpCenterAskController {
                 return result.json()
             }).then(res => {
 
-                this.postAsksView.update(
+                this.AnswersView.update(
                     PostAsks.from(
                         res.filter((ask: any) => ask['id_helpCenter'] === ID_POST)
                     )

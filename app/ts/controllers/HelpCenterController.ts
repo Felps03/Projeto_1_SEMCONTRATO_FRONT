@@ -10,6 +10,7 @@ import { PostView } from '../views/PostView';
 import { HelpCenterAskController } from './HelpCenterAskController';
 import { MessageView } from '../views/MessageView';
 import { PaginationView } from '../views/PaginationView';
+import { QuestionView } from '../views/QuestionView' ;
 
 export class HelpCenterController {
 	private messageView: MessageView;
@@ -45,7 +46,6 @@ export class HelpCenterController {
 		this.addDesc = <HTMLInputElement>document.getElementById('add-desc');
 
 		this.postsView = new PostsView('#post-list');
-		this.postView = new PostView('#view-view-modal');
 		this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
 
 		this.messageView = new MessageView('#message-view');
@@ -60,31 +60,12 @@ export class HelpCenterController {
 
 		this.addVals = [validate(this.addTitle, vals.title), validate(this.addDesc, vals.desc)];
 
-		this.postView.didMount(() => {
-			this.helpCenterAsk = new HelpCenterAskController();
-
-			this.editTitle = <HTMLInputElement>document.getElementById('edit-title');
-			this.editDesc = <HTMLInputElement>document.getElementById('edit-desc');
-
-			const editForm = document.getElementById('edit-form');
-			const deleteBtn = document.getElementById('confirm-del-btn');
-
-			if (editForm) {
-				editForm.addEventListener('submit', this.update.bind(this));
-			}
-			if (deleteBtn) {
-				deleteBtn.addEventListener('click', this.delete.bind(this));
-			}
-
-			// init validations
-
-			// if one exists, both exist
-			if (this.editTitle) {
-				this.editVals = [validate(this.editTitle, vals.title), validate(this.editDesc, vals.desc)];
-			}
-
-			this.helpCenterAsk.listByPost(new Event(''));
-		});
+		this.postsView.didMount(() => {
+            Array.from(document.querySelectorAll('a.can-delete')).forEach(button => {
+                const id = button.getAttribute('data-id')
+                button.addEventListener('click', this.delete.bind(this, id))
+            })
+        })
 	}
 
 	set CurrentPage(page: number) {
@@ -233,23 +214,12 @@ export class HelpCenterController {
 	// 		});
 	// }
 
-	delete(event: Event) {
+	delete(id: string, event: Event) {
 		event.preventDefault();
-		const postIdField = document.getElementById('post-meta');
-
-		if (!postIdField) {
-			return;
-		}
-
-		const ID_POST = postIdField.getAttribute('data-id');
-
-		if (!ID_POST) {
-			return;
-		}
-
+		
 		const helpCenterService = new HelpCenterService();
 		helpCenterService
-			.remove(ID_POST)
+			.remove(id)
 			.then((result) => {
 				if (Math.floor(result.status / 100) === 2) {
 					result.json().then((res) => {
@@ -281,7 +251,7 @@ export class HelpCenterController {
 			})
 			.then((res) => {
 				const posts = Posts.from(res.slice(0, -1));
-				this.postsView.update(posts);
+				this.postsView.update(posts, this.totalPages);
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');
 					if (i) {

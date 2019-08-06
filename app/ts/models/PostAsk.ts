@@ -8,6 +8,7 @@ export class PostAsk {
         private authorName?: string,
         private id?: string,
         private date?: Date
+        
     ) { }
 
     get helpCenter() {

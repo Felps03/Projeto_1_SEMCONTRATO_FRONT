@@ -1,6 +1,6 @@
-System.register(["../models/index", "../services/index", "../helpers/index", "../validation/helpCenterValidate", "../utils/listCheck", "../views/PostsView", "../views/PostView", "./HelpCenterAskController", "../views/MessageView", "../views/PaginationView"], function (exports_1, context_1) {
+System.register(["../models/index", "../services/index", "../helpers/index", "../validation/helpCenterValidate", "../utils/listCheck", "../views/PostsView", "../views/MessageView", "../views/PaginationView"], function (exports_1, context_1) {
     "use strict";
-    var index_1, index_2, index_3, vals, listCheck_1, PostsView_1, PostView_1, HelpCenterAskController_1, MessageView_1, PaginationView_1, HelpCenterController;
+    var index_1, index_2, index_3, vals, listCheck_1, PostsView_1, MessageView_1, PaginationView_1, HelpCenterController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -22,12 +22,6 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
             function (PostsView_1_1) {
                 PostsView_1 = PostsView_1_1;
             },
-            function (PostView_1_1) {
-                PostView_1 = PostView_1_1;
-            },
-            function (HelpCenterAskController_1_1) {
-                HelpCenterAskController_1 = HelpCenterAskController_1_1;
-            },
             function (MessageView_1_1) {
                 MessageView_1 = MessageView_1_1;
             },
@@ -42,7 +36,6 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     this.addTitle = document.getElementById('add-title');
                     this.addDesc = document.getElementById('add-desc');
                     this.postsView = new PostsView_1.PostsView('#post-list');
-                    this.postView = new PostView_1.PostView('#view-view-modal');
                     this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-center.html');
                     this.messageView = new MessageView_1.MessageView('#message-view');
                     this.currentPage = currentPage;
@@ -50,22 +43,11 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     this.type = 1;
                     this.paginationView.update(this.currentPage, this.totalPages, this.type);
                     this.addVals = [index_3.validate(this.addTitle, vals.title), index_3.validate(this.addDesc, vals.desc)];
-                    this.postView.didMount(() => {
-                        this.helpCenterAsk = new HelpCenterAskController_1.HelpCenterAskController();
-                        this.editTitle = document.getElementById('edit-title');
-                        this.editDesc = document.getElementById('edit-desc');
-                        const editForm = document.getElementById('edit-form');
-                        const deleteBtn = document.getElementById('confirm-del-btn');
-                        if (editForm) {
-                            editForm.addEventListener('submit', this.update.bind(this));
-                        }
-                        if (deleteBtn) {
-                            deleteBtn.addEventListener('click', this.delete.bind(this));
-                        }
-                        if (this.editTitle) {
-                            this.editVals = [index_3.validate(this.editTitle, vals.title), index_3.validate(this.editDesc, vals.desc)];
-                        }
-                        this.helpCenterAsk.listByPost(new Event(''));
+                    this.postsView.didMount(() => {
+                        Array.from(document.querySelectorAll('a.can-delete')).forEach(button => {
+                            const id = button.getAttribute('data-id');
+                            button.addEventListener('click', this.delete.bind(this, id));
+                        });
                     });
                 }
                 set CurrentPage(page) {
@@ -167,19 +149,11 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         console.error(error);
                     });
                 }
-                delete(event) {
+                delete(id, event) {
                     event.preventDefault();
-                    const postIdField = document.getElementById('post-meta');
-                    if (!postIdField) {
-                        return;
-                    }
-                    const ID_POST = postIdField.getAttribute('data-id');
-                    if (!ID_POST) {
-                        return;
-                    }
                     const helpCenterService = new index_2.HelpCenterService();
                     helpCenterService
-                        .remove(ID_POST)
+                        .remove(id)
                         .then((result) => {
                         if (Math.floor(result.status / 100) === 2) {
                             result.json().then((res) => {
@@ -211,7 +185,7 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     })
                         .then((res) => {
                         const posts = index_1.Posts.from(res.slice(0, -1));
-                        this.postsView.update(posts);
+                        this.postsView.update(posts, this.totalPages);
                         Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
                             const i = el.getAttribute('data-i');
                             if (i) {

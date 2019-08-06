@@ -2,25 +2,38 @@ import { HelpCenterServiceAsk } from '../services/HelpCenterServiceAsk';
 import { PostAsk } from '../models/PostAsk';
 
 import { validate } from '../helpers/index'
-import * as vals from '../validation/HelpCenterServiceAsk';
+import * as vals from '../validation/helpCenterAskValidate';
 import { noFalse } from '../utils/listCheck';
 
 export class EditAskController {
 
-    private yesterday: HTMLInputElement;
+    private  id_helpCenter: string;
 
-    private idDaily: HTMLInputElement;
+    private id_user: string;
+
+    private desc: HTMLInputElement;
+
+    private idAsk: HTMLInputElement;
+
+    private authorName: string;
+
+    private date: Date;
 
     private addVals: (() => boolean)[];
 
     constructor() {
+       // this.id_helpCenter = "";
+        //this.id_helpCenter = "";
         this.desc = <HTMLInputElement>document.querySelector('#edit-desc');
         this.idAsk = <HTMLInputElement>document.querySelector('#idAsk');
+        //this.id_helpCenter = "";
+
 
         this.addVals = [
-            validate(this.desc, vals.desc)
+            validate(this.desc, vals.comment)
         ];
     }
+
 
     getAskData(id: string) {
         
@@ -28,9 +41,11 @@ export class EditAskController {
         return askService.findById(id)
             .then(res => res.json())
             .then(result => {
-                
-                this.desck.value = result.desc;
+                this.id_helpCenter = result.id_helpCenter;
+                this.id_user = result.id_user;
+                this.desc.value = result.desc;
                 this.idAsk.value = result._id;
+                this.date = result.date;
 
             })
     }
@@ -39,17 +54,23 @@ export class EditAskController {
         event.preventDefault();
 
         let id = <HTMLInputElement>document.querySelector('#idAsk');
+        //console.log(id.value);
 
         if (noFalse(this.addVals)) {
 
             const postAsk = new PostAsk(
-                this.
+                this.id_helpCenter,
                 this.desc.value.toString(),
-                new Date()
+                this.id_user,
+                this.authorName="",
+                id.value.toString(),
+                this.date
             )
+            //console.log(this);
+            console.log(postAsk);
   
-            const dailyService = new DailyNoteService();
-            return dailyService.update(daily, this.idDaily.value.toString())
+            const helpCenterServiceAsk = new HelpCenterServiceAsk();
+            return helpCenterServiceAsk.update(postAsk, id.value.toString())
         
         }
     }

@@ -39,11 +39,22 @@ System.register(["./View"], function (exports_1, context_1) {
                             
                         </div>
                     </div>
+                    ${post.AuthorId === localStorage.getItem('id') ? `<a class="can-delete" data-id="${post.Id}" href="#">Deletar</a>` : ""}
+                                    
+                ${post.AuthorId === localStorage.getItem('id') ? `<a class="can-edit" data-id="${post.Id}" href="./../help-center-edit.html?id=${post.Id}&owner=${post.AuthorId}">Editar</a>` : ""}
                 </div>
             </div>
             `).join('')}
         </div>
         `;
+                }
+                update(model, totalPages) {
+                    super.update(model, totalPages);
+                    if (this.didMountFn)
+                        this.didMountFn();
+                }
+                didMount(cb) {
+                    this.didMountFn = cb;
                 }
             };
             exports_1("PostsView", PostsView);

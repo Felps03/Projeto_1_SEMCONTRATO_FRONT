@@ -99,8 +99,8 @@ export class HelpCenterService {
     }
 
     listByID(ID: string) {
-        return fetch(`${HOST}helps/post/${ID}`, {
-            method: 'DELETE',
+        return fetch(`${HOST}helps/list/${ID}`, {
+            method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
