@@ -6,7 +6,8 @@ let userData = getUser();
 if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
 
 //document.addEventListener("DOMContentLoaded", function (event) {
-if (!localStorage.getItem('tkn')) { window.location.href = "index.html"; }
+if (localStorage.getItem('tkn')) { window.location.href = "index.html"; }
+
 //});
 
 let homeController = new HomeController();
