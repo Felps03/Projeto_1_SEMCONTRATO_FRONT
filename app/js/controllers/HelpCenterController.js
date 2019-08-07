@@ -153,7 +153,7 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         let totalQuestions = res[res.length - 1].totalDocs;
                         const posts = index_1.Posts.from(res.slice(0, -1));
                         if (posts.toArray().length != 0) {
-                            document.getElementById('response').textContent = `Total de ${totalQuestions} pergunta${totalQuestions == 1 ? '' : 's'} encontrada${totalQuestions == 1 ? '' : 's'}.`;
+                            document.getElementById('response').textContent = `Total de ${totalQuestions} pergunta${totalQuestions == 1 ? '' : 's'} registrada${totalQuestions == 1 ? '' : 's'}.`;
                             this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-center.html');
                             this.paginationView.update(this.currentPage, this.totalPages, this.type);
                         }

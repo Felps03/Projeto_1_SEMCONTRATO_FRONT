@@ -44,3 +44,10 @@ function delay(callback: any, ms: any) {
   $('#search-joker').keyup(delay(controller.findByJoker.bind(controller), 500));
 // if (searchDesc)
 //     searchDesc.addEventListener('change', controller.findByDesc.bind(controller))
+
+
+//Responsive
+if (window.innerWidth <= 576) {
+  document.getElementById('help-add-ocult').classList.remove('mt-3');
+}
+

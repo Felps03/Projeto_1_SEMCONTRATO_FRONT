@@ -28,7 +28,15 @@ System.register([], function (exports_1, context_1) {
             monthName[monthName["Dezembro"] = 11] = "Dezembro";
         })(monthName || (monthName = {}));
         let day = date.getUTCDate() < 10 ? '0' + date.getUTCDate() : '' + date.getUTCDate();
-        return `publicado em ${weekDay[date.getDay() + 1]}, ${day} de ${monthName[date.getUTCMonth()]} de ${date.getUTCFullYear()}.`;
+        let week = weekDay[date.getDay() + 1];
+        let month = monthName[date.getUTCMonth()];
+        let year = date.getUTCFullYear();
+        if (window.innerWidth > 576) {
+            return `publicado em ${week}, ${day} de ${month} de ${year}.`;
+        }
+        else {
+            return `publicado em ${day}/${date.getUTCMonth() < 10 ? '0' + date.getUTCMonth() : date.getUTCMonth()}/${year}`;
+        }
     }
     exports_1("publish", publish);
     return {

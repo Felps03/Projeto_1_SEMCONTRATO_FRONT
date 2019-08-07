@@ -19,11 +19,9 @@
     <!-- particles.js -->
     <div id="particles-js"></div>
 
-    <div id="">
-        <!-- view modal -->
-        <div id="view-modal" class="modal fade show" tabindex="-1" role="dialog">
-            <div id="view-view-modal" class="modal-dialog" role="document">
-            </div>
+    <!-- view modal -->
+    <div id="view-modal" class="modal fade show" tabindex="-1" role="dialog">
+        <div id="view-view-modal" class="modal-dialog" role="document">
         </div>
     </div>
 
@@ -72,7 +70,7 @@
         </div>
     </nav>
 
-    <div class="container page-position col-12 col-sm-7" id="">
+    <div class="container page-position col-12 col-sm-7 responsive-help-section">
 
         <section class="section-help pb-2 custom-bx">
 
@@ -97,10 +95,11 @@
                             
                         </div>
 
-                        <div class="col-sm-2 col-12" style="margin-top:37px">
-                            <button type="button" name="new_daily" class="btn btn-sm btn-outline-success btn-block float-right input-circle"
+                        <div class="col-sm-2 col-12 mt-3 responsive-help-add" id="help-add-ocult">
+                            <label for="search-joker">Deseja perguntar algo?</label>
+                            <button type="button" name="new_help" class="btn btn-sm btn-outline-success btn-block float-right input-circle"
                                 data-toggle="modal" data-toggle="modal" data-target="#add-modal">
-                                <i class="small material-icons mr-2 align-middle">help</i>
+                                <i class="small material-icons mr-2 align-middle custom-icon-margin">help</i>
                                 Perguntar
                             </button>
                         </div>
@@ -129,7 +128,7 @@
 
     </div>
 
-    <!-- New Daily modal -->
+    <!-- New Help modal -->
     <div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
