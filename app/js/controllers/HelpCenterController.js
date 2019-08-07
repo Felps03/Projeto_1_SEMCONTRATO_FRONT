@@ -90,6 +90,7 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                                     this.list(event);
                                     document.getElementById('add-modal-close').click();
                                     this.messageView.update('Adicionado com sucesso!');
+                                    this.limpar();
                                 })
                                     .catch((error) => {
                                     console.error(error);
@@ -143,6 +144,13 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                 }
                 list(event) {
                     event.preventDefault();
+                    let buttonAddHC = document.getElementById('help-add-ocult');
+                    if (localStorage.getItem('email')) {
+                        buttonAddHC.classList.remove('display-none');
+                    }
+                    else {
+                        buttonAddHC.classList.add('display-none');
+                    }
                     const helpCenterService = new index_2.HelpCenterService();
                     helpCenterService
                         .list(this.currentPage, null)
@@ -228,6 +236,9 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                 }
                 cancelar(event) {
                     event.preventDefault();
+                    this.limpar();
+                }
+                limpar() {
                     let title = document.querySelector('#add-title');
                     let desc = document.querySelector('#add-desc');
                     title.value = "";

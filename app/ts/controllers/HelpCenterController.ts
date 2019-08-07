@@ -114,6 +114,7 @@ export class HelpCenterController {
 								this.list(event);
 								document.getElementById('add-modal-close').click();
 								this.messageView.update('Adicionado com sucesso!');
+								this.limpar();
 							})
 							.catch((error) => {
 								console.error(error);
@@ -178,6 +179,15 @@ export class HelpCenterController {
 	// here be dragons
 	list(event: Event) {
 		event.preventDefault();
+
+		let buttonAddHC = document.getElementById('help-add-ocult');
+
+		if (localStorage.getItem('email')) {
+			buttonAddHC.classList.remove('display-none');
+		} else {
+			buttonAddHC.classList.add('display-none');
+		}
+
 		const helpCenterService = new HelpCenterService();
 		helpCenterService
 			.list(this.currentPage, null)
@@ -300,7 +310,10 @@ export class HelpCenterController {
 
 	cancelar(event: Event) {
 		event.preventDefault();
+		this.limpar();
+	}
 
+	limpar() {
 		let title = <HTMLInputElement>document.querySelector('#add-title');
 		let desc = <HTMLInputElement>document.querySelector('#add-desc');
 
