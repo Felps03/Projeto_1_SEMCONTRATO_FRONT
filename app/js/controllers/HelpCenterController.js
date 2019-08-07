@@ -226,6 +226,15 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         console.error(error);
                     });
                 }
+                cancelar(event) {
+                    event.preventDefault();
+                    let title = document.querySelector('#add-title');
+                    let desc = document.querySelector('#add-desc');
+                    title.value = "";
+                    desc.value = "";
+                    index_3.clean(title);
+                    index_3.clean(desc);
+                }
             };
             exports_1("HelpCenterController", HelpCenterController);
         }

@@ -27,20 +27,25 @@ if (cadastrar) {
     window.addEventListener('load', controller.list.bind(controller));
 }
 
+let cancelar = document.querySelector("#cancelarHelpCenter");
+if (cancelar) {
+    cancelar.addEventListener('click', controller.cancelar.bind(controller));
+}
+
 //const searchTitle = document.getElementById('search-joker')
 // const searchDesc = document.getElementById('search-desc')
 
 function delay(callback: any, ms: any) {
     var timer = 0;
-    return function() {
-      var context = this, args = arguments;
-      clearTimeout(timer);
-      timer = setTimeout(function () {
-        callback.apply(context, args);
-      }, ms || 0);
+    return function () {
+        var context = this, args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+            callback.apply(context, args);
+        }, ms || 0);
     };
-  }
+}
 
-  $('#search-joker').keyup(delay(controller.findByJoker.bind(controller), 500));
+$('#search-joker').keyup(delay(controller.findByJoker.bind(controller), 500));
 // if (searchDesc)
 //     searchDesc.addEventListener('change', controller.findByDesc.bind(controller))

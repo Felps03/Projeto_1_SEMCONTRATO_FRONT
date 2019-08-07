@@ -5,6 +5,7 @@ import { QuestionView } from '../views/QuestionView';
 import { AnswersView } from '../views/AnswersView';
 import { PaginationView } from '../views/PaginationView';
 import { MessageView } from '../views/MessageView';
+import { clean } from '../helpers/index';
 
 export class HelpCenterPageController {
     private currentPage: number;
@@ -47,7 +48,6 @@ export class HelpCenterPageController {
 
     add(event: Event) {
         event.preventDefault();
-        // if (noFalse(this.addVals)) {
 
         const postAsk = new PostAsk(this.url_ask_id, this.addComment.value, localStorage.getItem('id') || '');
 
@@ -58,12 +58,12 @@ export class HelpCenterPageController {
                 return result.json()
             }).then(res => {
                 this.list(event);
-                // $('#add-modal').modal('hide');
+                this.addComment.value = "";
+                clean(this.addComment);
             })
             .catch(error => {
                 console.error(error)
             })
-        // }
     }
 
     listByPost(event: Event) {

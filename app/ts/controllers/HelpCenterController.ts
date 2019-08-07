@@ -1,7 +1,7 @@
 import { Post, User, Posts } from '../models/index';
 import { HelpCenterService, UserService } from '../services/index';
 
-import { validate } from '../helpers/index';
+import { validate, clean } from '../helpers/index';
 import * as vals from '../validation/helpCenterValidate';
 import { noFalse } from '../utils/listCheck';
 
@@ -107,7 +107,6 @@ export class HelpCenterController {
 			helpCenterService
 				.add(post)
 				.then((result) => {
-					// 200, 201, 202, 203...
 					if (Math.floor(result.status / 100) === 2) {
 						result
 							.json()
@@ -187,7 +186,9 @@ export class HelpCenterController {
 			})
 			.then((res) => {
 
-				//console.log(res);
+
+
+
 				this.TotalPages = res[res.length - 1].totalPages;
 				this.paginationView.update(this.currentPage, this.totalPages, this.type);
 				const posts = Posts.from(res.reverse().slice(1, 11));
@@ -295,6 +296,19 @@ export class HelpCenterController {
 			.catch((error) => {
 				console.error(error);
 			});
+	}
+
+	cancelar(event: Event) {
+		event.preventDefault();
+
+		let title = <HTMLInputElement>document.querySelector('#add-title');
+		let desc = <HTMLInputElement>document.querySelector('#add-desc');
+
+		title.value = "";
+		desc.value = "";
+
+		clean(title);
+		clean(desc);
 	}
 
 	// findByDesc(event: Event) {

@@ -1,6 +1,6 @@
-System.register(["../models/index", "../services/index", "../views/QuestionView", "../views/AnswersView", "../views/PaginationView"], function (exports_1, context_1) {
+System.register(["../models/index", "../services/index", "../views/QuestionView", "../views/AnswersView", "../views/PaginationView", "../helpers/index"], function (exports_1, context_1) {
     "use strict";
-    var index_1, index_2, QuestionView_1, AnswersView_1, PaginationView_1, HelpCenterPageController;
+    var index_1, index_2, QuestionView_1, AnswersView_1, PaginationView_1, index_3, HelpCenterPageController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -18,6 +18,9 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
             },
             function (PaginationView_1_1) {
                 PaginationView_1 = PaginationView_1_1;
+            },
+            function (index_3_1) {
+                index_3 = index_3_1;
             }
         ],
         execute: function () {
@@ -49,6 +52,8 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                         return result.json();
                     }).then(res => {
                         this.list(event);
+                        this.addComment.value = "";
+                        index_3.clean(this.addComment);
                     })
                         .catch(error => {
                         console.error(error);
