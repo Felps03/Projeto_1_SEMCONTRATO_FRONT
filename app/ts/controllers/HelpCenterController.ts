@@ -1,7 +1,7 @@
 import { Post, User, Posts } from '../models/index';
 import { HelpCenterService, UserService } from '../services/index';
 
-import { validate } from '../helpers/index';
+import { validate, clean } from '../helpers/index';
 import * as vals from '../validation/helpCenterValidate';
 import { noFalse } from '../utils/listCheck';
 
@@ -75,6 +75,13 @@ export class HelpCenterController {
 	set TotalPages(total: number) {
 		this.totalPages = total;
 	}
+
+	cancel(event: Event) {
+        event.preventDefault();
+
+        clean(<HTMLInputElement>document.querySelector('#add-title'));
+        clean(<HTMLInputElement>document.querySelector('#add-desc'));
+    }
 
 	add(event: Event) {
 		event.preventDefault();

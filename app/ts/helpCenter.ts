@@ -2,6 +2,7 @@ import { HelpCenterController } from "./controllers/HelpCenterController";
 import { HelpCenterAskController } from "./controllers/HelpCenterAskController";
 import { HomeController } from "./controllers/HomeController";
 import { getUser } from "./utils/userData";
+import { clean } from "./helpers/index";
 
 let userData = getUser();
 if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
@@ -24,9 +25,11 @@ $(document).ready(function () {
 let cadastrar = document.querySelector("#cadastroHelpCenter");
 if (cadastrar) {
     cadastrar.addEventListener('click', controller.add.bind(controller));
+    cadastrar.addEventListener('click', controller.cancel.bind(controller));
     window.addEventListener('load', controller.list.bind(controller));
 }
-
+let cancel = document.getElementById("cancelHelpCenter");;
+if (cancel) cancel.addEventListener('click', controller.cancel.bind(controller));
 //const searchTitle = document.getElementById('search-joker')
 // const searchDesc = document.getElementById('search-desc')
 

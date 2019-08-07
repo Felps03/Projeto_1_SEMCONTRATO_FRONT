@@ -31,7 +31,7 @@ System.register(["./controllers/EditHelpController", "./utils/userData"], functi
                     update.addEventListener("submit", (e) => {
                         editController.update(e)
                             .then((res) => {
-                            if (res.status === 200) {
+                            if (res.status === 201) {
                                 idResult.textContent = "Pergunta Editada com sucesso";
                                 idResult.className = "alert alert-info";
                                 setTimeout(() => {

@@ -25,7 +25,7 @@ if ((localStorage.getItem('isAdmin') == 'true') || (localStorage.getItem('id') =
         update.addEventListener("submit", (e: Event) => {
             editController.update(e)
                 .then((res: (any)) => {
-                    if (res.status === 200) {
+                    if (res.status === 201) {
                         idResult.textContent = "Pergunta Editada com sucesso"
                         idResult.className = "alert alert-info"
                         setTimeout(() => {

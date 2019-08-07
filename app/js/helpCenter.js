@@ -1,6 +1,6 @@
 System.register(["./controllers/HelpCenterController", "./utils/userData"], function (exports_1, context_1) {
     "use strict";
-    var HelpCenterController_1, userData_1, userData, controller, url, mostraHelp, cadastrar;
+    var HelpCenterController_1, userData_1, userData, controller, url, mostraHelp, cadastrar, cancel;
     var __moduleName = context_1 && context_1.id;
     function delay(callback, ms) {
         var timer = 0;
@@ -38,8 +38,13 @@ System.register(["./controllers/HelpCenterController", "./utils/userData"], func
             cadastrar = document.querySelector("#cadastroHelpCenter");
             if (cadastrar) {
                 cadastrar.addEventListener('click', controller.add.bind(controller));
+                cadastrar.addEventListener('click', controller.cancel.bind(controller));
                 window.addEventListener('load', controller.list.bind(controller));
             }
+            cancel = document.getElementById("cancelHelpCenter");
+            ;
+            if (cancel)
+                cancel.addEventListener('click', controller.cancel.bind(controller));
             $('#search-joker').keyup(delay(controller.findByJoker.bind(controller), 500));
         }
     };

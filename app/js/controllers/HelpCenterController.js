@@ -57,6 +57,11 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                 set TotalPages(total) {
                     this.totalPages = total;
                 }
+                cancel(event) {
+                    event.preventDefault();
+                    index_3.clean(document.querySelector('#add-title'));
+                    index_3.clean(document.querySelector('#add-desc'));
+                }
                 add(event) {
                     event.preventDefault();
                     if (listCheck_1.noFalse(this.addVals)) {

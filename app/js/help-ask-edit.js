@@ -27,6 +27,7 @@ System.register(["./controllers/EditAskController", "./utils/userData"], functio
                 let update = document.getElementById('editask-form');
                 if (update) {
                     const editController = new EditAskController_1.EditAskController();
+                    editController.getAskData(url_ask_id);
                     update.addEventListener("submit", (e) => {
                         editController.update(e)
                             .then((res) => {
