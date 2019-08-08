@@ -1,7 +1,7 @@
 import { Post, User, Posts } from '../models/index';
 import { HelpCenterService, UserService } from '../services/index';
 
-import { validate } from '../helpers/index';
+import { validate, clean } from '../helpers/index';
 import * as vals from '../validation/helpCenterValidate';
 import { noFalse } from '../utils/listCheck';
 
@@ -109,6 +109,16 @@ export class HelpCenterController {
 								this.list(event);
 								document.getElementById('add-modal-close').click();
 								this.messageView.update('Pergunta publicada com sucesso!');
+
+								let title = <HTMLInputElement>document.getElementById('add-title');
+								let desc = <HTMLInputElement>document.getElementById('add-desc');
+        
+								title.value = '';
+								desc.value = '';
+
+								clean(title);
+								clean(desc);
+
 							})
 							.catch((error) => {
 								console.error(error);
@@ -197,7 +207,7 @@ export class HelpCenterController {
 				const posts = Posts.from(res.slice(0, -1));
 
 				if (posts.toArray().length != 0) {
-					document.getElementById('response').textContent = `Total de ${totalQuestions} pergunta${totalQuestions == 1 ? '' : 's'} registrada${totalQuestions == 1 ? '' : 's'}.`;
+					document.getElementById('response').textContent = `Total de ${totalQuestions} pergunta${totalQuestions == 1 ? '' : 's'} registrada${totalQuestions == 1 ? '' : 's'}. (página ${res[res.length-1].page})`;
 					this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
 					this.paginationView.update(this.currentPage, this.totalPages, this.type);
 				} else {
@@ -299,12 +309,17 @@ export class HelpCenterController {
 				const posts = Posts.from(res.slice(0, -1));
 				this.postsView.update(posts);
 
-				if(res.length-1 != 0) {
-					document.getElementById('response_search').textContent = '';
-					document.getElementById('response_search').textContent = `Aproximadamente ${res.length-1} pergunta${res.length-1 == 1 ? '' : 's'}.`;
+				let aux = <HTMLInputElement>document.getElementById('search-joker');
+				let response = <HTMLInputElement>document.getElementById('response_search');
+
+				if(aux.value == '') {
+					response.textContent = '';
 				} else {
-					document.getElementById('response_search').textContent = '';
+					response.textContent = `Aproximadamente ${res.length-1} pergunta${res.length-1 == 1 ? '' : 's'}.`;
 				}
+
+				
+				
 				
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');

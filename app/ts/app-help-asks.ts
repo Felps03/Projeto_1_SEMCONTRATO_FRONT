@@ -9,7 +9,7 @@ const controller = new HelpCenterPageController();
 const url = new URLSearchParams(location.search);
 const url_ask_id = url.get('id');
 
-let askResult = document.getElementById("ask_result");
+let askResult = document.getElementById("show-question");
 
 if (url.get('page')) {
     controller.CurrentPage = +url.get('page');
@@ -19,7 +19,7 @@ askResult.addEventListener('click', controller.list.bind(controller));
 
 
 $(document).ready(function () {
-    document.getElementById('ask_result').click();
+    document.getElementById('show-question').click();
 });
 
 let cadastrar = document.querySelector("#send_answer");

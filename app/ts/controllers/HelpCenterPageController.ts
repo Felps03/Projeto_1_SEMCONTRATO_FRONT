@@ -5,7 +5,7 @@ import { QuestionView } from '../views/QuestionView';
 import { AnswersView } from '../views/AnswersView';
 import { PaginationView } from '../views/PaginationView';
 import { MessageView } from '../views/MessageView';
-import { validate } from '../helpers/index';
+import { validate, clean } from '../helpers/index';
 import { InputWrapper } from '../utils/index';
 import * as vals from '../validation/helpCenterAskValidate';
 
@@ -67,6 +67,10 @@ export class HelpCenterPageController {
             }).then(res => {
                 this.list(event);
                 // $('#add-modal').modal('hide');
+                let response = <HTMLInputElement>document.getElementById('answer');
+        
+                response.value = '';
+                clean(response);
             })
             .catch(error => {
                 console.error(error)
@@ -122,7 +126,7 @@ export class HelpCenterPageController {
 
                 if (res.hasOwnProperty('answerData')) {
                     let countAnswers = res.pagination.totalDocs;
-                    document.getElementById('response').textContent = `Total de ${countAnswers} resposta${countAnswers == 1 ? '' : 's'} registrada${countAnswers == 1 ? '' : 's'}.`;
+                    document.getElementById('response').textContent = `Total de ${countAnswers} resposta${countAnswers == 1 ? '' : 's'} registrada${countAnswers == 1 ? '' : 's'}. (página ${res[res.length-1].page})`;
                     this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id); 
                 } else {
                     document.getElementById('pagination').textContent = '';

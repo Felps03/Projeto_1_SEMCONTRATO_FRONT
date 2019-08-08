@@ -88,7 +88,7 @@
                         <div class="col-sm-10 col-12 mt-3">
                             <div class="form-group">
                                 <label for="search-joker">Buscar pergunta:</label>
-                                <input type="text" name="search-joker" class="form-control form-control-sm input-circle" id="search-joker" placeholder="Informe as palavras-chave">
+                                <input type="text" name="search-joker" class="form-control form-control-sm input-circle" id="search-joker" placeholder="Informe as palavras-chave.">
                                 <div id="search-jokervalidator"></div>
                                 <div class='text-black-50 mt-1' id="response_search"></div>
                             </div>
@@ -159,12 +159,13 @@
                             <div id="add-descvalidator"></div>
                         </div>
 
-                        <button type="submit" name="send"
-                            class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle d-flex justify-content-center"
-                            id="cadastroHelpCenter"><i class="small material-icons mr-2 align-middle">help</i>Perguntar</button>
                         <button type="button"
                             class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle d-flex justify-content-center"
                             data-dismiss="modal" id="cancel"><i class="small material-icons mr-1 align-middle">close</i>Cancelar</button>
+
+                        <button type="submit" name="send"
+                            class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle d-flex justify-content-center"
+                            id="cadastroHelpCenter"><i class="small material-icons mr-2 align-middle">help</i>Perguntar</button>
                     </form>
 
                 </div>
@@ -173,7 +174,7 @@
     </div>
 
     <!-- add modal -->
-    <div id="add-modal" class="modal fade" tabindex="-1" role="dialog">
+    <!-- <div id="add-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -187,7 +188,7 @@
                         <div class="form-group">
                             <label for="add-title">Título:</label>
                             <div class="input-group">
-                                <input type="text" name="title" id="add-title" class="form-control form-control input-circle" placeholder="Qual o seu problema?" autofocus>
+                                <input type="text" name="title" id="add-title" class="form-control form-control input-circle" placeholder="Qual a sua dúvida?" autofocus>
                                 <div id="add-titlevalidator"></div>
                             </div>
                         </div>
@@ -195,7 +196,7 @@
                         <div class="form-group">
                             <label for="add-desc">Descrição:</label>
                             <div class="input-group">
-                                <textarea name="desc" class="form-control input-circle" id="add-desc" placeholder="Descreva-o aqui" autofocus></textarea>
+                                <textarea name="desc" class="form-control input-circle" id="add-desc" placeholder="Descreva-o aqui." autofocus></textarea>
                                 <div id="add-descvalidator"></div>
                             </div>
                         </div>
@@ -204,13 +205,13 @@
 
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelarHelpCenter">Cancelar</button>
                     <button type="submit" id="cadastroHelpCenter" class="btn btn-primary d-flex align-items-center">Enviar <i class="material-icons ml-2"
                             data-dismiss="modal">send</i></button>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- confirm delete modal -->
     <!-- <div id="confirm-del-modal" class="modal fade" tabindex="-1" role="dialog">

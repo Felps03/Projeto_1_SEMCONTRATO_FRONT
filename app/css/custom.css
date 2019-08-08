@@ -500,7 +500,7 @@ body {
     }
 
   
-    #edit-help-edit:hover, #edit-help-rmv:hover, #edit-help-resp:hover {
+    .edit-help-resp:hover, .rmv-help-resp:hover, .res-help-resp:hover {
         background: #c5c5c5;
     }
     

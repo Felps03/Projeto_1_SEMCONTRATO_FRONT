@@ -3,8 +3,6 @@ import { HelpCenterAskController } from "./controllers/HelpCenterAskController";
 import { HomeController } from "./controllers/HomeController";
 import { getUser } from "./utils/userData";
 
-console.log(window.innerWidth);
-
 let userData = getUser();
 if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
 
@@ -48,7 +46,11 @@ function delay(callback: any, ms: any) {
 //     searchDesc.addEventListener('change', controller.findByDesc.bind(controller))
 
 
+
+
 //Responsive
 if (window.innerWidth <= 576) {
+  document.getElementById('cancel').classList.add('btn-block');
+  document.getElementById('cadastroHelpCenter').classList.add('btn-block');
   document.getElementById('help-add-ocult').classList.remove('mt-3');
 }

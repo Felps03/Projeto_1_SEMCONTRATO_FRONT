@@ -22,7 +22,6 @@ System.register(["./controllers/HelpCenterController", "./utils/userData"], func
             }
         ],
         execute: function () {
-            console.log(window.innerWidth);
             userData = userData_1.getUser();
             if (!localStorage.getItem('tkn'))
                 document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
@@ -43,6 +42,8 @@ System.register(["./controllers/HelpCenterController", "./utils/userData"], func
             }
             $('#search-joker').keyup(delay(controller.findByJoker.bind(controller), 500));
             if (window.innerWidth <= 576) {
+                document.getElementById('cancel').classList.add('btn-block');
+                document.getElementById('cadastroHelpCenter').classList.add('btn-block');
                 document.getElementById('help-add-ocult').classList.remove('mt-3');
             }
         }

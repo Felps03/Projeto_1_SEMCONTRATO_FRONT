@@ -13,7 +13,7 @@ export class AnswersView extends View<PostAsks> {
                 ${model.toArray().map((PostAsk, i) => `
                     <hr class="mb-4" style="height: 1px;">
                     <div class="col-sm-11 col-12 mb-n3 d-flex align-items-stretch responsive-full-help">
-                        <div class="d-flex flex-row flex-md-column mt-n2 text-center justify-content-around pl-3 pr-3 w-100">
+                        <div class="d-flex flex-row flex-md-column mt-n2 text-center pl-3 pr-3 w-100">
                             <div class="responsive-user-help">
                                 <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle clock-image">
                                 <h6 class="mt-2 responsive-user-name">${PostAsk.AuthorName ? PostAsk.AuthorName : ""}</h6>
@@ -22,27 +22,23 @@ export class AnswersView extends View<PostAsks> {
                         <div class="col-9 col-sm-12 responsive-help-card">
                             <div class="row">
                                 <div class="col-12 col-sm-12 pr-0">
-                                    <div id="user-main responsive-help-drop mr-n2">
-                                        <div class="dropdown mt-0 txt-user pt-0 mr-n2" style="float:right;">
-                                            <div class="d-flex align-items-center btn pt-0 mr-n4 mt-n1" data-toggle="dropdown">
+                                
+                                    <div id="responsive-help-drop">
+                                        <div class="dropdown txt-user" style="float:right;">
+                                            <div class="d-flex align-items-center btn mr-n4 " data-toggle="dropdown">
                                                 
-                                                <i class="small material-icons align-middle float-right responsive-help-drop mr-2 pr-0">more_vert</i>  
+                                                <i class="small material-icons align-middle float-right responsive-help-drop">more_vert</i>  
                                             </div>
-                                            <div class="dropdown-menu dropdown-menu-right align-user">
-                                                <div class="dropdown-item">
-                                                    Usuário: <span id="userNameSpan"></span>
-                                                </div>
-                                                <div class="dropdown-divider"></div>
-                        
-                                                <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
-                                                    <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
-                                                <a class="dropdown-item d-flex align-items-center" href="index.html">
-                                                    <i class="material-icons mr-2">home</i>Home</a>
-                        
-                                                <div class="dropdown-divider"></div>
-                        
-                                                <a class="dropdown-item d-flex align-items-center" id="logout">
-                                                    <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
+
+                                            <div class="dropdown-menu dropdown-menu-right align-user pt-0 pb-0 mr-n3">
+
+                                                ${localStorage.getItem('id') === PostAsk.Author ? `
+                                                    <a class="dropdown-item d-flex align-items-center text-warning edit-help-resp" href="app-help-asks.html?id=${PostAsk.Id}">
+                                                        <i class="material-icons mr-2">edit</i>Editar</a>
+
+                                                    <a class="dropdown-item d-flex align-items-center text-danger rmv-help-resp" href="app-help-asks.html?id=${PostAsk.Id}">
+                                                        <i class="material-icons mr-2">delete</i>Excluir</a>`
+                                                : ''}
                                             </div>
                                         </div>
                                     </div>

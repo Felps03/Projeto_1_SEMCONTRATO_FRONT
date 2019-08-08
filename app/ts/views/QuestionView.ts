@@ -5,12 +5,10 @@ import { publish } from '../utils/publish';
 export class QuestionView extends View<Post> {
     private didMountFn: Function
 
-    template(model: Post): string {
-        console.log('pergunta: ', model);
-        
+    template(model: Post): string { 
         return `
             <div class="col-sm-11 col-12 mt-n2 mb-n3 d-flex align-items-stretch responsive-full-help">
-                <div class="d-flex flex-row flex-md-column text-center justify-content-around pl-3 pr-3 w-100">
+                <div class="d-flex flex-row flex-md-column text-center pl-3 pr-3 w-100">
                     <div class="responsive-user-help">
                         <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle clock-image">
                         <h6 class="mt-2 responsive-user-name">${model.AuthorName ? model.AuthorName : ""}</h6>
@@ -19,27 +17,23 @@ export class QuestionView extends View<Post> {
                 <div class="col-9 col-sm-12 responsive-help-card">
                     <div class="row">
                         <div class="col-12 col-sm-12 pr-0">
-                            <div id="user-main responsive-help-drop">
+
+                            <div id="responsive-help-drop">
                                 <div class="dropdown txt-user" style="float:right;">
                                     <div class="d-flex align-items-center btn mr-n4 " data-toggle="dropdown">
                                         
                                         <i class="small material-icons align-middle float-right responsive-help-drop">more_vert</i>  
                                     </div>
-                                    <div class="dropdown-menu dropdown-menu-right align-user">
-                                        <div class="dropdown-item">
-                                            Usuário: <span id="userNameSpan"></span>
-                                        </div>
-                                        <div class="dropdown-divider"></div>
-                
-                                        <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
-                                            <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
-                                        <a class="dropdown-item d-flex align-items-center" href="index.html">
-                                            <i class="material-icons mr-2">home</i>Home</a>
-                
-                                        <div class="dropdown-divider"></div>
-                
-                                        <a class="dropdown-item d-flex align-items-center" id="logout">
-                                            <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
+
+                                    <div class="dropdown-menu dropdown-menu-right align-user pt-0 pb-0 mr-n3">
+
+                                        ${localStorage.getItem('id') === model.AuthorId ? `
+                                            <a class="dropdown-item d-flex align-items-center text-warning edit-help-resp" href="app-help-asks.html?id=${model.Id}">
+                                                <i class="material-icons mr-2">edit</i>Editar</a>
+
+                                            <a class="dropdown-item d-flex align-items-center text-danger rmv-help-resp" href="app-help-asks.html?id=${model.Id}">
+                                                <i class="material-icons mr-2">delete</i>Excluir</a>`
+                                        : ''}
                                     </div>
                                 </div>
                             </div>

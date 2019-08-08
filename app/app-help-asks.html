@@ -73,6 +73,7 @@
                 <!-- <div id="delete-view"></div> -->
                 <div id="post-ask-list" class="mt-4"></div>
                 
+                <div id="show-question" hidden></div>
                 <div id="ask_result"></div>
                 <hr class="mt-4 help-line" style="height: 1px;">
 
@@ -93,7 +94,7 @@
 
                 <div class="form-group mt-4">
                     <label for="add-desc">Você tem alguma solução para essa pergunta?</label>
-                    <textarea name="answer" class="form-control form-control-sm input-circle" id="answer" placeholder="Informe a sua solução" rows="5"></textarea>
+                    <textarea name="answer" class="form-control form-control-sm input-circle" id="answer" placeholder="Informe a sua solução." rows="5"></textarea>
                     <div id="answervalidator"></div>
                     <!-- adicionar answer validator-->
                 </div>
@@ -106,6 +107,7 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="./lib/jquery/jquery.min.js"></script>
     <script src="./lib/bootstrap/bootstrap.min.js"></script>
     <script src="./lib/particlejs/particle.min.js"></script>

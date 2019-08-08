@@ -81,6 +81,12 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                                     this.list(event);
                                     document.getElementById('add-modal-close').click();
                                     this.messageView.update('Pergunta publicada com sucesso!');
+                                    let title = document.getElementById('add-title');
+                                    let desc = document.getElementById('add-desc');
+                                    title.value = '';
+                                    desc.value = '';
+                                    index_3.clean(title);
+                                    index_3.clean(desc);
                                 })
                                     .catch((error) => {
                                     console.error(error);
@@ -153,7 +159,7 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         let totalQuestions = res[res.length - 1].totalDocs;
                         const posts = index_1.Posts.from(res.slice(0, -1));
                         if (posts.toArray().length != 0) {
-                            document.getElementById('response').textContent = `Total de ${totalQuestions} pergunta${totalQuestions == 1 ? '' : 's'} registrada${totalQuestions == 1 ? '' : 's'}.`;
+                            document.getElementById('response').textContent = `Total de ${totalQuestions} pergunta${totalQuestions == 1 ? '' : 's'} registrada${totalQuestions == 1 ? '' : 's'}. (página ${res[res.length - 1].page})`;
                             this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-center.html');
                             this.paginationView.update(this.currentPage, this.totalPages, this.type);
                         }
@@ -221,12 +227,13 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         .then((res) => {
                         const posts = index_1.Posts.from(res.slice(0, -1));
                         this.postsView.update(posts);
-                        if (res.length - 1 != 0) {
-                            document.getElementById('response_search').textContent = '';
-                            document.getElementById('response_search').textContent = `Aproximadamente ${res.length - 1} pergunta${res.length - 1 == 1 ? '' : 's'}.`;
+                        let aux = document.getElementById('search-joker');
+                        let response = document.getElementById('response_search');
+                        if (aux.value == '') {
+                            response.textContent = '';
                         }
                         else {
-                            document.getElementById('response_search').textContent = '';
+                            response.textContent = `Aproximadamente ${res.length - 1} pergunta${res.length - 1 == 1 ? '' : 's'}.`;
                         }
                         Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
                             const i = el.getAttribute('data-i');
