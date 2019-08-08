@@ -215,14 +215,14 @@
                     <div class="col-12 col-sm-4">
                         <div class="row">
                             <div class="col-12 col-sm-6">
-                                <button type="submit" name="send"
+                                <button type="button" name="reset"
                                     class="btn btn-outline-danger btn-sm btn-block float-center mt-3 mb-3 input-circle"
-                                    id="access">Cancelar</button>
+                                    data-toggle="modal" data-target="#cancelModal">Cancelar</button>
                             </div>
                             <div class="col-12 col-sm-6">
                                 <button type="submit" name="send"
                                     class="btn btn-outline-success btn-sm btn-block float-center mt-3 mb-3 input-circle"
-                                    id="access">Cadastrar</button>
+                                    id="edit-user">Salvar</button>
                             </div>
                         </div>
                     </div>
@@ -250,7 +250,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger btn-sm pr-4 pl-4 input-circle"
                         data-dismiss="modal">Não</button>
-                    <a href="index.html">
+                    <a href="home.html">
+
                         <button type="button" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle"
                             id="cancelEdit">Sim</button>
                     </a>
