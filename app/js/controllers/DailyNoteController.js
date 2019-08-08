@@ -139,6 +139,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     this.login(event);
                 }
                 listDateDaily(event) {
+                    console.log("chegous");
                     this.dayliesResult.innerHTML = '';
                     const result = this.listD(event);
                     let date = document.getElementById('date_filter');

@@ -103,7 +103,7 @@ export class DailyNoteController {
         event.preventDefault();
 
         let value = this.dateField.value || this.url_date;
-        
+
         this.dateField.value = value;
         const page = parseInt(this.url_page) || 1;
 
@@ -176,6 +176,7 @@ export class DailyNoteController {
     }
 
     listDateDaily(event: Event) {
+        console.log("chegous");
         this.dayliesResult.innerHTML = '';
         const result = this.listD(event);
 

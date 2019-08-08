@@ -32,6 +32,7 @@ System.register(["./controllers/DailyNoteController", "./utils/userData"], funct
             m = document.getElementById('user-main');
             m.innerHTML = '';
             $(document).ready(() => {
+                document.getElementById('showDaylies').click();
                 if (localStorage.getItem('email')) {
                     m.innerHTML =
                         `<div class="dropdown ml-n2 txt-user">

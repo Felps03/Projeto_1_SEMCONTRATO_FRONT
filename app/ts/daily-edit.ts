@@ -21,7 +21,7 @@ if ((localStorage.getItem('isAdmin') == 'true') || (localStorage.getItem('id') =
 
     if (update) {
         const editController = new EditDailyController();
-        
+
         update.addEventListener("submit", (e: Event) => {
             editController.update(e)
                 .then((res: (any)) => {
@@ -35,7 +35,7 @@ if ((localStorage.getItem('isAdmin') == 'true') || (localStorage.getItem('id') =
                 })
         })
     }
-    
+
     const editDailyController = new EditDailyController().getDailyData(url_daily);
 
 }
