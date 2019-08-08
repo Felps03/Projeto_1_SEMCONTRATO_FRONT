@@ -1,7 +1,7 @@
 import { HOST } from "../config/index";
 import { PostAsk } from "../models/PostAsk";
 
-export class HelpCenterAskService {
+export class HelpCenterServiceAsk {
 
     add(post: PostAsk) {
         return fetch(`${HOST}helps/ask/`, {

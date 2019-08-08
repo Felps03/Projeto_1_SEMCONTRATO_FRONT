@@ -6,6 +6,13 @@ let userData = getUser();
 
 const controller = new HelpCenterPageController();
 
+const answerForm = document.getElementById('answer_form')
+if (answerForm) {
+    if (!localStorage.getItem('tkn')) {
+        answerForm.innerHTML = ''
+    }
+}
+
 const url = new URLSearchParams(location.search);
 const url_ask_id = url.get('id');
 
@@ -29,5 +36,11 @@ if (cadastrar) {
 }
 
 if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+
+if (window.innerWidth <= 575) {
+    document.getElementById('send_answer').classList.add('btn-block');
+
+    //document.getElementById('help-add-ocult').classList.remove('mt-3');
+}
 
 // $("#idQuest");

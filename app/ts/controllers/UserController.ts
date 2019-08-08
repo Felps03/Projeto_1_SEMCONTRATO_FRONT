@@ -8,6 +8,8 @@ import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck'
 import { MessageView } from '../views/MessageView';
 
+declare const grecaptcha: any
+
 export class UserController {
 
     private messageView: MessageView
@@ -83,7 +85,9 @@ export class UserController {
                             };
                             resolve(result.json())
                         } else {
+
                             reject(result)
+
                         }
                     })
             }).then((res: any) => {
@@ -91,17 +95,31 @@ export class UserController {
                 localStorage.setItem('id', res._id)
                 window.location.href = "index.html";
             })
-                .catch((res: any) => res.json())
-                .then((res: any) => {
-                    document.getElementById('message-view').innerHTML = `
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    `;
-                    if (res.erro)
-                        this.messageView.update(res.erro)
+                .catch(err => {
+                    console.log(err);
+                    if (err.status === 400) {
+
+                        grecaptcha.reset();
+
+                        document.getElementById('message-view').innerHTML = `
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">Email ou senha inválidos.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        `;
+                    }
+                    else if (err.status === 406) {
+                        grecaptcha.reset();
+
+                        document.getElementById('message-view').innerHTML = `
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        `;
+                    }
                 })
         };
     }

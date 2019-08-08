@@ -1,6 +1,6 @@
 System.register(["./controllers/DailyNoteController", "./utils/userData"], function (exports_1, context_1) {
     "use strict";
-    var DailyNoteController_1, userData_1, userData, dayliesResult, cadastrar, dailyesResult, cancel, listDate, showDaylies, controller;
+    var DailyNoteController_1, userData_1, userData, cadastrar, dailyesResult, cancel, listDate, showDaylies, controller;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -13,7 +13,6 @@ System.register(["./controllers/DailyNoteController", "./utils/userData"], funct
         ],
         execute: function () {
             userData = userData_1.getUser();
-            dayliesResult = document.getElementById("dayliesResult");
             cadastrar = document.querySelector('#daily-form');
             dailyesResult = document.querySelector('#dayliesResult');
             cancel = document.getElementById("cancel");

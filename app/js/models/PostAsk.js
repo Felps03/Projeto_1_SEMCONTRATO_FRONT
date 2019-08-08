@@ -29,6 +29,9 @@ System.register([], function (exports_1, context_1) {
                 get AuthorName() {
                     return this.authorName;
                 }
+                get Id_user() {
+                    return this.id_user;
+                }
                 get Date() {
                     let hoje = new Date(this.date);
                     let options = { year: 'numeric', month: '2-digit', day: '2-digit' };

@@ -1,6 +1,6 @@
-System.register(["../models/index", "../services/index", "../views/QuestionView", "../views/AnswersView", "../views/PaginationView"], function (exports_1, context_1) {
+System.register(["../models/index", "../services/index", "../views/QuestionView", "../views/AnswersView", "../views/PaginationView", "../helpers/index"], function (exports_1, context_1) {
     "use strict";
-    var index_1, index_2, QuestionView_1, AnswersView_1, PaginationView_1, HelpCenterPageController;
+    var index_1, index_2, QuestionView_1, AnswersView_1, PaginationView_1, index_3, HelpCenterPageController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -18,6 +18,9 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
             },
             function (PaginationView_1_1) {
                 PaginationView_1 = PaginationView_1_1;
+            },
+            function (index_3_1) {
+                index_3 = index_3_1;
             }
         ],
         execute: function () {
@@ -30,6 +33,12 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                     this.url_ask_id = this.url.get('id');
                     this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-asks.html');
                     this.answersView = new AnswersView_1.AnswersView('#post-ask-list');
+                    this.answersView.didMount(() => {
+                        Array.from(document.querySelectorAll('a.can-delete')).forEach(button => {
+                            const id = button.getAttribute('data-id');
+                            button.addEventListener('click', this.delete.bind(this, id));
+                        });
+                    });
                     this.addComment = document.querySelector('#answer');
                     this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
                 }
@@ -43,12 +52,14 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                 add(event) {
                     event.preventDefault();
                     const postAsk = new index_1.PostAsk(this.url_ask_id, this.addComment.value, localStorage.getItem('id') || '');
-                    const helpCenterService = new index_2.HelpCenterAskService();
+                    const helpCenterService = new index_2.HelpCenterServiceAsk();
                     helpCenterService.add(postAsk)
                         .then(result => {
                         return result.json();
                     }).then(res => {
                         this.list(event);
+                        this.addComment.value = "";
+                        index_3.clean(this.addComment);
                     })
                         .catch(error => {
                         console.error(error);
@@ -64,7 +75,7 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                     if (!ID_POST) {
                         return;
                     }
-                    const helpCenterService = new index_2.HelpCenterAskService();
+                    const helpCenterService = new index_2.HelpCenterServiceAsk();
                     helpCenterService.list(1)
                         .then(result => {
                         return result.json();
@@ -91,13 +102,29 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                         this.questionView.update(question);
                         this.currentPage = res.pagination.page;
                         let postAsks = new index_1.PostAsks();
-                        this.answersView = new AnswersView_1.AnswersView('#aswers_result');
                         if (res.answerData || res.answerData != undefined)
                             res.answerData.map((res) => new index_1.PostAsk(res.id_helpCenter, res.text, res.id_user, res.owner, res.id_answer))
                                 .forEach((res) => postAsks.add(res));
                         this.answersView.update(postAsks);
                     })
                         .catch((error) => {
+                        console.error(error);
+                    });
+                }
+                delete(id, event) {
+                    event.preventDefault();
+                    console.log(id);
+                    document.getElementById('id');
+                    console.log(document.getElementById('id'));
+                    const helpCenterService = new index_2.HelpCenterServiceAsk();
+                    helpCenterService.remove(id)
+                        .then(result => {
+                        return result.json();
+                    }).then(res => {
+                        console.log('response: ', res);
+                        this.list(event);
+                    })
+                        .catch(error => {
                         console.error(error);
                     });
                 }

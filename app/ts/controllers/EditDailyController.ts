@@ -26,7 +26,7 @@ export class EditDailyController {
             validate(this.impediment, vals.impediment),
         ];
     }
-
+ 
     getDailyData(id: string) {
         
         const dailyService = new DailyNoteService();

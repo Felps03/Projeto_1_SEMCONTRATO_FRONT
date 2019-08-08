@@ -1,6 +1,6 @@
-System.register(["../models/DailyNote", "../services/DailyNoteService", "../helpers/index", "../validation/dailyNoteValidate", "../utils/listCheck", "../views/DailyNotesView", "../views/PaginationView", "../views/RegisteredDailyView", "../models/RegisteredDaylies", "../models/RegisteredDaily", "../views/DailyStatusView"], function (exports_1, context_1) {
+System.register(["../models/DailyNote", "../services/DailyNoteService", "../helpers/index", "../validation/dailyNoteValidate", "../utils/listCheck", "../views/DailyNotesView", "../views/PaginationView", "../views/RegisteredDailyView", "../models/RegisteredDaylies", "../models/RegisteredDaily", "../views/DailyStatusView", "../helpers/dateHelper"], function (exports_1, context_1) {
     "use strict";
-    var DailyNote_1, DailyNoteService_1, index_1, vals, listCheck_1, DailyNotesView_1, PaginationView_1, RegisteredDailyView_1, RegisteredDaylies_1, RegisteredDaily_1, DailyStatusView_1, DailyNoteController;
+    var DailyNote_1, DailyNoteService_1, index_1, vals, listCheck_1, DailyNotesView_1, PaginationView_1, RegisteredDailyView_1, RegisteredDaylies_1, RegisteredDaily_1, DailyStatusView_1, dateHelper_1, DailyNoteController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -36,6 +36,9 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
             },
             function (DailyStatusView_1_1) {
                 DailyStatusView_1 = DailyStatusView_1_1;
+            },
+            function (dateHelper_1_1) {
+                dateHelper_1 = dateHelper_1_1;
             }
         ],
         execute: function () {
@@ -91,7 +94,6 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         return res.json();
                     })
                         .then(result => {
-                        console.log(result);
                         console.log(result[result.length - 1].totalPages);
                         this.TotalPages = result[result.length - 1].totalPages;
                         this.paginationView.update(page, this.totalPages, this.type, fullDate);
@@ -127,7 +129,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     if (this.url.get('date') && this.url.get('page'))
                         this.listDateDaily(event);
                     let date = new Date();
-                    let today = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1) < 10 ? '0' + (date.getUTCMonth() + 1) : (date.getUTCMonth() + 1)}-${date.getUTCDate()}`;
+                    let today = dateHelper_1.dateFormatYYYYMMDD(new Date());
                     this.dateField.value = this.url_date || today;
                     if (this.url.get('user'))
                         this.listUserDaily(event);
@@ -175,6 +177,13 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                 dailyButton(event) {
                     this.registered(event)
                         .then((res) => {
+                        let typeAlert = 'alert-warning';
+                        this.dailyStatusView = new DailyStatusView_1.DailyStatusView('#status_daily');
+                        if (res.status == 400) {
+                            this.dailyStatusView.update('Você já cadastrou sua daily!', 0, 0, typeAlert);
+                            setTimeout(() => $("#status_daily").hide(), 10000);
+                            document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
+                        }
                         if (res.status == 400)
                             document.getElementById('add_daily').setAttribute('disabled', 'disabled');
                     });
@@ -185,6 +194,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         this.listDateDaily(event);
                         document.getElementById('dailyModal').click();
                         document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+                        document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                         this.dailyStatusView = new DailyStatusView_1.DailyStatusView('#status_daily');
                         this.dailyStatusView.update(res.status == 200 ? 'Daily cadastrada com sucesso!' : res.status == 400 ? 'Você já cadastrou sua daily!' : '');
                     });

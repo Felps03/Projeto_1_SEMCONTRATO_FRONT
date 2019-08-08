@@ -1,5 +1,6 @@
 import { View } from './View';
 import { Post } from '../models/index';
+import { escapeTag } from '../utils/escapeTag';
 
 export class QuestionView extends View<Post> {
     private didMountFn: Function
@@ -11,7 +12,7 @@ export class QuestionView extends View<Post> {
             <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
                 <div>
                     <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
-                    <h5 class="mt-2 mb-2">${model.AuthorName ? model.AuthorName : ""}</h5>
+                    <h5 class="mt-2 mb-2">${model.AuthorName ? escapeTag(model.AuthorName) : ""}</h5>
                 </div>
             </div>
         </div>
@@ -19,8 +20,8 @@ export class QuestionView extends View<Post> {
             <div class="card mb-2">
                 <div class="card-body">
 
-                    <h5>${model.Title}</h5>
-                    <p>${model.Desc}</p>
+                    <h5>${escapeTag(model.Title)}</h5>
+                    <p>${escapeTag(model.Desc)}</p>
                 </div>
             </div>
         </div>

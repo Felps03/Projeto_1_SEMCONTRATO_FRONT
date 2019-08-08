@@ -9,6 +9,7 @@ import { HomeDailyNotes } from "../models/HomeDailyNotes";
 import { HomeHelpCenterView } from "../views/HomeHelpCenterView";
 import { HomeHelpCenters } from "../models/HomeHelpCenters";
 import { dateFormatYYYYMMDD } from "../helpers/dateHelper";
+import { escapeTag } from "../utils/escapeTag";
 
 export class HomeController {
 
@@ -21,10 +22,7 @@ export class HomeController {
         let temp = (<HTMLElement>event.target).parentElement.parentElement.parentElement.parentElement.parentElement.lastElementChild;
         let idHelpCenter = (temp.querySelector('.card .card-body #idHelp').textContent);
 
-        console.log(idHelpCenter);
-
         window.location.href = `app-help-asks.html?id=${idHelpCenter}`;
-
     }
 
     getUser() {
@@ -41,8 +39,8 @@ export class HomeController {
                 })
                 .then(result => {
                     let data = {
-                        name: result['name'],
-                        userName: result['userName']
+                        name: escapeTag(result['name']),
+                        userName: escapeTag(result['userName'])
                     }
                     return data
                 })
@@ -61,10 +59,8 @@ export class HomeController {
                 let helpCenters = new HomeHelpCenters();
                 this.helpCenterView = new HomeHelpCenterView('#last-helps');
 
-
-
                 results.pop();
-                results.reverse();
+                //results.reverse();
                 results.length = 3;
                 results.map((result: any) => new HomeHelpCenter(result['_id'], result['owner'], result['date'], result['title'], result['desc']))
                     .forEach((result: any) => helpCenters.add(result))

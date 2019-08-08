@@ -1,6 +1,6 @@
 System.register(["../config/index"], function (exports_1, context_1) {
     "use strict";
-    var index_1, HelpCenterAskService;
+    var index_1, HelpCenterServiceAsk;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -9,7 +9,7 @@ System.register(["../config/index"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
-            HelpCenterAskService = class HelpCenterAskService {
+            HelpCenterServiceAsk = class HelpCenterServiceAsk {
                 add(post) {
                     return fetch(`${index_1.HOST}helps/ask/`, {
                         method: 'POST',
@@ -78,7 +78,7 @@ System.register(["../config/index"], function (exports_1, context_1) {
                     });
                 }
             };
-            exports_1("HelpCenterAskService", HelpCenterAskService);
+            exports_1("HelpCenterServiceAsk", HelpCenterServiceAsk);
         }
     };
 });

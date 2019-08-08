@@ -1,18 +1,20 @@
 import { View } from './View';
-import { Posts, User } from '../models/index';
+// import { Posts, User } from '../models/index';
+import { escapeTag } from '../utils/escapeTag';
+import { Posts, User, Post } from '../models/index';
 
 export class PostsView extends View<Posts> {
-
+    private didMountFn: Function
     template(model: Posts): string {
         return `
         <div class="container">
-            ${model.toArray().map((post, i) => `
+            ${model.toArray().reverse().map((post, i) => `
             <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
                 <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
                     <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
                         <div>
                             <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
-                            <h5 class="mt-2 mb-2">${post.AuthorName ? post.AuthorName : ""}</h5>
+                            <h5 class="mt-2 mb-2">${post.AuthorName ? escapeTag(post.AuthorName) : ""}</h5>
                             <p class="mt-2 mb-2">${post.Date}</p>
                         </div>
                         <a href="app-help-asks.html?id=${post.Id}">
@@ -27,15 +29,29 @@ export class PostsView extends View<Posts> {
                     <div class="card mb-2">
                         <div class="card-body">
 
-                            <h5>${post.Title}</h5>
-                            <p>${post.Desc}</p>
+                            <h5>${escapeTag(post.Title)}</h5>
+                            <p>${escapeTag(post.Desc)}</p>
                             
                         </div>
                     </div>
+                    ${post.AuthorId === localStorage.getItem('id') ? `<a class="can-delete" data-id="${post.Id}" href="#">Deletar</a>` : ""}
+                                    
+                ${post.AuthorId === localStorage.getItem('id') ? `<a class="can-edit" data-id="${post.Id}" href="./../help-center-edit.html?id=${post.Id}&owner=${post.AuthorId}">Editar</a>` : ""}
                 </div>
             </div>
             `).join('')}
         </div>
         `;
     }
+    update(model: Posts, totalPages: number) {
+        super.update(model, totalPages)
+
+        if (this.didMountFn)
+            this.didMountFn()
+    }
+
+    didMount(cb: Function) {
+        this.didMountFn = cb
+    }
+
 }

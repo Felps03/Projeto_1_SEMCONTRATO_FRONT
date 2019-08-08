@@ -7,6 +7,7 @@ import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck';
 import { getCaptchaConfig } from '../utils/getConfig';
 
+declare const grecaptcha: any
 
 export class AuthenticateController {
 
@@ -51,22 +52,34 @@ export class AuthenticateController {
 
             const authenticateService = new AuthenticateService();
             const configurationService = new ConfigurationService();
-            let haveRecaptcha = getCaptchaConfig();
-            console.log("config do captcha: ", haveRecaptcha);
+
             authenticateService.authenticate(this.email.value, this.password.value)
                 .then((res: any) => {
+                    if (res.status === 400) {
 
+                        grecaptcha.reset();
+
+                        document.getElementById('message-view').innerHTML = `
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">Email ou senha inválidos.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        `;
+                    }
                 })
                 .catch(err => {
                     console.log(err);
+
+                    grecaptcha.reset();
+
                     document.getElementById('message-view').innerHTML = `
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     `;
-                    // this.messageView.update(err.error)
                 })
         }
 
@@ -109,6 +122,14 @@ export class AuthenticateController {
         window.location.href = 'home.html';
     }
 
+    checkAdmin() {
+        event.preventDefault();
+
+        const authenticateService = new AuthenticateService();
+        return authenticateService.verifyAdmin();
+
+    }
+
     // logout(event: Event) {
     //     event.preventDefault();
 
@@ -133,4 +154,5 @@ export class AuthenticateController {
     //     });
 
     // }
+
 }

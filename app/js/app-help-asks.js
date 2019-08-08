@@ -1,6 +1,6 @@
 System.register(["./controllers/HelpCenterPageController", "./utils/userData"], function (exports_1, context_1) {
     "use strict";
-    var HelpCenterPageController_1, userData_1, userData, controller, url, url_ask_id, askResult, cadastrar;
+    var HelpCenterPageController_1, userData_1, userData, controller, answerForm, url, url_ask_id, askResult, cadastrar;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -14,6 +14,12 @@ System.register(["./controllers/HelpCenterPageController", "./utils/userData"], 
         execute: function () {
             userData = userData_1.getUser();
             controller = new HelpCenterPageController_1.HelpCenterPageController();
+            answerForm = document.getElementById('answer_form');
+            if (answerForm) {
+                if (!localStorage.getItem('tkn')) {
+                    answerForm.innerHTML = '';
+                }
+            }
             url = new URLSearchParams(location.search);
             url_ask_id = url.get('id');
             askResult = document.getElementById("ask_result");
@@ -30,6 +36,9 @@ System.register(["./controllers/HelpCenterPageController", "./utils/userData"], 
             }
             if (!localStorage.getItem('tkn'))
                 document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+            if (window.innerWidth <= 575) {
+                document.getElementById('send_answer').classList.add('btn-block');
+            }
         }
     };
 });
