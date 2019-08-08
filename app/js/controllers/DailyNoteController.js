@@ -84,7 +84,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                 }
                 listD(event) {
                     event.preventDefault();
-                    let value = this.url_date || this.dateField.value;
+                    let value = this.dateField.value || this.url_date;
                     const page = parseInt(this.url_page) || 1;
                     let dailyNoteService = new DailyNoteService_1.DailyNoteService();
                     let date = new Date(value);

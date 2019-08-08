@@ -102,7 +102,8 @@ export class DailyNoteController {
     listD(event: Event) {
         event.preventDefault();
 
-        let value = this.url_date || this.dateField.value;
+        let value = this.dateField.value || this.url_date;
+        //this.url_date="";
         const page = parseInt(this.url_page) || 1;
 
 
