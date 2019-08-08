@@ -180,13 +180,13 @@ export class HelpCenterController {
 	list(event: Event) {
 		event.preventDefault();
 
-		let buttonAddHC = document.getElementById('help-add-ocult');
+		// let buttonAddHC = document.getElementById('help-add-ocult');
 
-		if (localStorage.getItem('email')) {
-			buttonAddHC.classList.remove('display-none');
-		} else {
-			buttonAddHC.classList.add('display-none');
-		}
+		// if (localStorage.getItem('email')) {
+		// 	buttonAddHC.classList.remove('display-none');
+		// } else {
+		// 	buttonAddHC.classList.add('display-none');
+		// }
 
 		const helpCenterService = new HelpCenterService();
 		helpCenterService
@@ -195,7 +195,6 @@ export class HelpCenterController {
 				return result.json();
 			})
 			.then((res) => {
-
 
 
 
@@ -292,8 +291,10 @@ export class HelpCenterController {
 				return result.json();
 			})
 			.then((res) => {
-				const posts = Posts.from(res.slice(0, -1));
-				this.postsView.update(posts);
+				this.paginationView.update(this.currentPage, this.totalPages, this.type);
+				const posts = Posts.from(res.reverse().slice(1));
+				this.postsView.update(posts, this.totalPages);
+				console.log(posts);
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');
 					if (i) {
