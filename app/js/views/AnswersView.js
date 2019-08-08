@@ -20,7 +20,7 @@ System.register(["./View"], function (exports_1, context_1) {
             <div class="container">
         `;
                     model.toArray().forEach(PostAsk => {
-                        result += `${console.log('resposta:', PostAsk)}
+                        result += `
                         <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
                                 <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
                                     <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">

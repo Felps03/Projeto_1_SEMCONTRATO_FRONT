@@ -28,7 +28,6 @@ System.register(["../../views/PostsView", "../../models/Posts"], function (expor
                     const postsView = new PostsView_1.PostsView('#' + id);
                     const parsedModel = JSON.parse(model);
                     const posts = Posts_1.Posts.from(parsedModel.slice(0, -1));
-                    postsView.update(posts);
                     const chatBotHistory = document.getElementById('chatbot-history');
                     chatBotHistory.scrollTo(0, chatBotHistory.scrollHeight);
                 }, 0);

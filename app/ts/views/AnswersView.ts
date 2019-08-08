@@ -22,8 +22,8 @@ export class AnswersView extends View<PostAsks> {
         let result: string = `
             <div class="container">
         `;
-                model.toArray().forEach(PostAsk => {
-                    result +=`${console.log('resposta:',PostAsk)}
+        model.toArray().forEach(PostAsk => {
+            result += `
                         <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
                                 <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
                                     <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
@@ -43,15 +43,15 @@ export class AnswersView extends View<PostAsks> {
                                         </div>
                                     </div>
                                 
-                                ${PostAsk.Id_user === localStorage.getItem('id') ? `<a class="can-delete" data-id="${PostAsk.Id}" href="#">Deletar</a>`: ""}
+                                ${PostAsk.Id_user === localStorage.getItem('id') ? `<a class="can-delete" data-id="${PostAsk.Id}" href="#">Deletar</a>` : ""}
                                     
                                 ${PostAsk.Id_user === localStorage.getItem('id') ? `<a class="can-edit" data-id="${PostAsk.Id}" href="./../help-ask-edit.html?id=${PostAsk.Id}&owner=${PostAsk.Id_user}">Editar</a>` : ""}
                                 </div>
                             </div>
                         </div>`
-                    ;
-                });
-                return result;
+                ;
+        });
+        return result;
     }
 
     update(model: PostAsks) {
