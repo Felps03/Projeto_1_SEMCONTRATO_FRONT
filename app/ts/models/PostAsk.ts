@@ -8,6 +8,7 @@ export class PostAsk {
         private authorName?: string,
         private id?: string,
         private date?: Date
+        
     ) { }
 
     get helpCenter() {
@@ -28,6 +29,10 @@ export class PostAsk {
 
     get AuthorName() {
         return this.authorName
+    }
+
+    get Id_user(){
+        return this.id_user
     }
 
     get Date() {
