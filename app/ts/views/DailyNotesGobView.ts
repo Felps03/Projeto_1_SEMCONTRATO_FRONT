@@ -7,9 +7,9 @@ export class DailyNotesGOBView extends View<DailyNotesGOB> {
 
     template(model: DailyNotesGOB): string {
 
-    return `
+        return `
         
-            ${model.paraArray().map(dailyNote =>            `
+            ${model.paraArray().map(dailyNote => `
             
         <tr> 
             <td> <img class="rounded-circle" height="70" src="${dailyNote.Photo ? `${GOB_HOST}public/uploads/${dailyNote.Photo}` : `${GOB_HOST}public/img/user.png`}"></td> 
@@ -20,8 +20,8 @@ export class DailyNotesGOBView extends View<DailyNotesGOB> {
             <td> ${dailyNote.Impediment} </td> 
         </tr>
             `
-            )}
-        
+        ).join('')}
+ 
     `
     }
 }
