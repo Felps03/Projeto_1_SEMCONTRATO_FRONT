@@ -1,6 +1,6 @@
-System.register(["../models/index", "../services/index", "../helpers/index", "../validation/helpCenterValidate", "../utils/listCheck", "../views/PostsView", "../views/MessageView", "../views/PaginationView"], function (exports_1, context_1) {
+System.register(["../models/index", "../services/index", "../helpers/index", "../validation/helpCenterValidate", "../utils/listCheck", "../views/PostsView", "../views/PostView", "../views/MessageView", "../views/PaginationView"], function (exports_1, context_1) {
     "use strict";
-    var index_1, index_2, index_3, vals, listCheck_1, PostsView_1, MessageView_1, PaginationView_1, HelpCenterController;
+    var index_1, index_2, index_3, vals, listCheck_1, PostsView_1, PostView_1, MessageView_1, PaginationView_1, HelpCenterController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -22,6 +22,9 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
             function (PostsView_1_1) {
                 PostsView_1 = PostsView_1_1;
             },
+            function (PostView_1_1) {
+                PostView_1 = PostView_1_1;
+            },
             function (MessageView_1_1) {
                 MessageView_1 = MessageView_1_1;
             },
@@ -36,12 +39,11 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     this.addTitle = document.getElementById('add-title');
                     this.addDesc = document.getElementById('add-desc');
                     this.postsView = new PostsView_1.PostsView('#post-list');
-                    this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-center.html');
+                    this.postView = new PostView_1.PostView('#view-view-modal');
                     this.messageView = new MessageView_1.MessageView('#message-view');
                     this.currentPage = currentPage;
                     this.totalPages = totalPages;
                     this.type = 1;
-                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
                     this.addVals = [index_3.validate(this.addTitle, vals.title), index_3.validate(this.addDesc, vals.desc)];
                     this.postsView.didMount(() => {
                         Array.from(document.querySelectorAll('a.can-delete')).forEach(button => {
@@ -49,13 +51,6 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                             button.addEventListener('click', this.delete.bind(this, id));
                         });
                     });
-                }
-                set CurrentPage(page) {
-                    this.currentPage = page;
-                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
-                }
-                set TotalPages(total) {
-                    this.totalPages = total;
                 }
                 cancel(event) {
                     event.preventDefault();
@@ -76,7 +71,13 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                                     .then(() => {
                                     this.list(event);
                                     document.getElementById('add-modal-close').click();
-                                    this.messageView.update('Adicionado com sucesso!');
+                                    this.messageView.update('Pergunta publicada com sucesso!');
+                                    let title = document.getElementById('add-title');
+                                    let desc = document.getElementById('add-desc');
+                                    title.value = '';
+                                    desc.value = '';
+                                    index_3.clean(title);
+                                    index_3.clean(desc);
                                 })
                                     .catch((error) => {
                                     console.error(error);
@@ -128,6 +129,14 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         console.log('vals');
                     }
                 }
+                set CurrentPage(page) {
+                    this.currentPage = page;
+                    this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-center.html');
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                }
+                set TotalPages(total) {
+                    this.totalPages = total;
+                }
                 list(event) {
                     event.preventDefault();
                     const helpCenterService = new index_2.HelpCenterService();
@@ -138,12 +147,23 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     })
                         .then((res) => {
                         this.TotalPages = res[res.length - 1].totalPages;
-                        this.paginationView.update(this.currentPage, this.totalPages, this.type);
-                        const posts = index_1.Posts.from(res.reverse().slice(1, 11));
+                        let totalQuestions = res[res.length - 1].totalDocs;
+                        res.pop();
+                        const posts = index_1.Posts.from(res.slice(0, 10));
+                        if (posts.toArray().length != 0) {
+                            document.getElementById('response').textContent = `Total de ${totalQuestions} pergunta${totalQuestions == 1 ? '' : 's'} registrada${totalQuestions == 1 ? '' : 's'}. (página ${res[res.length - 1] === undefined ? '' : res[res.length - 1].page})`;
+                            this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-center.html');
+                            this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                        }
+                        else {
+                            document.getElementById('response').textContent = '';
+                            document.getElementById('pagination').textContent = '';
+                        }
                         this.postsView.update(posts, this.totalPages);
                         Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
                             const i = el.getAttribute('data-i');
                             if (i) {
+                                '	';
                                 el.addEventListener('click', () => {
                                     this.postView.update(posts.get(+i));
                                 });
@@ -191,6 +211,14 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         .then((res) => {
                         const posts = index_1.Posts.from(res.slice(0, -1));
                         this.postsView.update(posts, this.totalPages);
+                        let aux = document.getElementById('search-joker');
+                        let response = document.getElementById('response_search');
+                        if (aux.value == '') {
+                            response.textContent = '';
+                        }
+                        else {
+                            response.textContent = `Aproximadamente ${res.length - 1} pergunta${res.length - 1 == 1 ? '' : 's'}.`;
+                        }
                         Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
                             const i = el.getAttribute('data-i');
                             if (i) {

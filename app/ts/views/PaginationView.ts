@@ -39,11 +39,6 @@ export class PaginationView extends View<number> {
 
     template(model: number, totalPages: number, type: number, value?: string): string {
 
-        // console.log(model);
-        // console.log(totalPages);
-        // console.log(this.generatePageNs(model, totalPages));
-        // console.log(type);
-        // console.log(value);
         let result = "";
         switch (type) {
             case 0: if (model > 1) {

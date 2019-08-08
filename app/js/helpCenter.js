@@ -88,6 +88,11 @@ System.register(["./controllers/HelpCenterController", "./utils/userData"], func
                     m.innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
                 }
             });
+            if (window.innerWidth <= 576) {
+                document.getElementById('cancel').classList.add('btn-block');
+                document.getElementById('cadastroHelpCenter').classList.add('btn-block');
+                document.getElementById('help-add-ocult').classList.remove('mt-3');
+            }
         }
     };
 });

@@ -19,11 +19,9 @@
     <!-- particles.js -->
     <div id="particles-js"></div>
 
-    <div id="">
-        <!-- view modal -->
-        <div id="view-modal" class="modal fade show" tabindex="-1" role="dialog">
-            <div id="view-view-modal" class="modal-dialog" role="document">
-            </div>
+    <!-- view modal -->
+    <div id="view-modal" class="modal fade show" tabindex="-1" role="dialog">
+        <div id="view-view-modal" class="modal-dialog" role="document">
         </div>
     </div>
 
@@ -106,9 +104,9 @@
         </div>
     </nav>
 
-    <div class="container page-position col-12 col-sm-7" id="">
+    <div class="container page-position col-12 col-sm-7 responsive-help-section">
 
-        <section class="section-register custom-bx">
+        <section class="section-help custom-bx">
 
             <div class="pt-1 pl-4 pr-4 pb-4">
 
@@ -117,133 +115,109 @@
                         <strong>Help Center</strong>
                     </h3>
                 </div>
-                <hr class="register-line">
-
-                <form action="" id="search-form">
-                    <div class="row mb-5">
-                        <div class="col-sm-10 col-12">
-
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="material-icons">search</i>
-                                    </span>
-                                </div>
-                                <input type="text" name="search-joker" id="search-joker"
-                                    class="form-control form-control input-circle" placeholder="Pesquisa" autofocus>
-                                <div id="search-jokervalidator"></div>
-                            </div>
-
-                            <!-- <div class="form-group">
-                                <label for="search-desc">Descrição:</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="material-icons">search</i></span>
-                                    </div>
-                                    <textarea name="search-desc" class="form-control input-circle" id="search-desc"
-                                        placeholder="Pesquisar por descrição" autofocus></textarea>
-                                    <div id="search-descvalidator"></div>
-                                </div>
-                            </div> -->
-                        </div>
-
-                        <div class="col-sm-2 col-12 d-flex justify-content-center align-items-center mb-3 mb-sm-0">
-                            <button type="button"
-                                class="btn btn-lg btn-outline-primary d-flex justify-content-center align-items-center"
-                                data-toggle="modal" data-target="#add-modal">
-                                <i class="material-icons">add</i>
-                            </button>
-                        </div>
-
-                    </div>
-                </form>
+                <hr class="help-line">
 
                 <div id="message-view"></div>
 
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h4 class="mb-0">Perguntas e Respostas</h4>
+                <form action="" id="search-form" class="mb-4" autocomplete="off">
+                    <div class="row mb-3">
+                        <div class="col-sm-10 col-12 mt-3">
+                            <div class="form-group">
+                                <label for="search-joker">Buscar pergunta:</label>
+                                <input type="text" name="search-joker" class="form-control form-control-sm input-circle"
+                                    id="search-joker" placeholder="Informe as palavras-chave.">
+                                <div id="search-jokervalidator"></div>
+                                <div class='text-black-50 mt-1' id="response_search"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-2 col-12 mt-3 responsive-help-add" id="help-add-ocult">
+                            <label for="search-joker">Deseja perguntar algo?</label>
+                            <button type="button" name="new_help"
+                                class="btn btn-sm btn-outline-success btn-block float-right input-circle"
+                                data-toggle="modal" data-toggle="modal" data-target="#add-modal">
+                                <i class="small material-icons mr-2 align-middle custom-icon-margin">help</i>
+                                Perguntar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- paginação top -->
+                <div class="row mb-n4">
+                    <div class="col-sm-12 mb-1">
+                        <nav class="float-right">
+                            <ul id="pagination" class="pagination"></ul>
+                        </nav>
+
+                        <div class="vt-line mt-1">
+                            <h5><strong>Perguntas</strong></h5>
+                        </div>
+                        <div id="response" class="text-black-50 mb-3"></div>
                     </div>
                 </div>
 
-                <!-- list -->
                 <div id="post-list"></div>
 
             </div>
-
-            <nav class="float-right mt-1">
-                <ul id="pagination" class="pagination">
-                    <!-- <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Anterior">
-                            <span aria-hidden="true" class="txt-primary">&laquo;</span>
-                            <span class="sr-only txt-primary">Anterior</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link txt-primary" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link txt-primary" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link txt-primary" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Próximo">
-                            <span aria-hidden="true" class="txt-primary">&raquo;</span>
-                            <span class="sr-only txt-primary">Próximo</span>
-                        </a>
-                    </li> -->
-                </ul>
-            </nav>
 
     </div>
     </section>
 
     </div>
 
-    <!-- add modal -->
-    <div id="add-modal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+    <!-- New Help modal -->
+    <div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Pergunta</h5>
-                    <button id="add-modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <div class="modal-title vt-line mt-2" id="dailyTitle">
+                        <h3>
+                            <strong>Nova Pergunta</strong>
+                        </h3>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" id="add-modal-close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <div id="newResult"> </div>
                 <div class="modal-body">
-                    <form action="" id="add-form">
+
+                    <form class="form" method="post" id="daily-form" autocomplete="off">
+
                         <div class="form-group">
-                            <label for="add-title">Título:</label>
-                            <div class="input-group">
-                                <input type="text" name="title" id="add-title"
-                                    class="form-control form-control input-circle" placeholder="Qual o seu problema?"
-                                    autofocus>
-                                <div id="add-titlevalidator"></div>
-                            </div>
+                            <label for="add-title">Qual a sua dúvida?</label>
+                            <input type="text" name="title" class="form-control form-control-sm input-circle"
+                                id="add-title" placeholder="Informe um titulo" autofocus>
+                            <div id="add-titlevalidator"></div>
                         </div>
+
                         <div class="form-group">
                             <label for="add-desc">Descrição:</label>
-                            <div class="input-group">
-                                <textarea name="desc" class="form-control input-circle" id="add-desc"
-                                    placeholder="Descreva-o aqui" autofocus></textarea>
-                                <div id="add-descvalidator"></div>
-                            </div>
+                            <textarea name="desc" class="form-control form-control-sm input-circle" id="add-desc"
+                                placeholder="Descreva a sua dúvida"></textarea>
+                            <div id="add-descvalidator"></div>
                         </div>
+
+                        <button type="button"
+                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle d-flex justify-content-center"
+                            data-dismiss="modal" id="cancel"><i
+                                class="small material-icons mr-1 align-middle">close</i>Cancelar</button>
+
+                        <button type="submit" name="send"
+                            class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 mr-2 input-circle d-flex justify-content-center"
+                            id="cadastroHelpCenter"><i
+                                class="small material-icons mr-2 align-middle">help</i>Perguntar</button>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <!-- <button type="button" id="cancelarHelpCenter" class="btn btn-secondary"
-                        data-dismiss="modal">Cancelar</button>
-                    <button type="submit" id="cadastroHelpCenter"
-                        class="btn btn-primary d-flex align-items-center">Enviar <i class="material-icons ml-2"></i> -->
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        id="cancelHelpCenter">Cancelar</button>
-                    <button type="submit" id="cadastroHelpCenter"
-                        class="btn btn-primary d-flex align-items-center">Enviar <i class="material-icons ml-2"
-                            data-dismiss="modal">send</i></button>
+
                 </div>
             </div>
         </div>
     </div>
 
     <!-- confirm delete modal -->
-    <div id="confirm-del-modal" class="modal fade" tabindex="-1" role="dialog">
+    <!-- <div id="confirm-del-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -260,11 +234,12 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <button name="daily" id="mostra-help" hidden></button>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="./lib/jquery/jquery.min.js"></script>
     <script src="./lib/bootstrap/bootstrap.min.js"></script>
     <script src="./lib/particlejs/particle.min.js"></script>

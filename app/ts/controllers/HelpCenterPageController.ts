@@ -5,7 +5,9 @@ import { QuestionView } from '../views/QuestionView';
 import { AnswersView } from '../views/AnswersView';
 import { PaginationView } from '../views/PaginationView';
 import { MessageView } from '../views/MessageView';
-import { clean } from '../helpers/index';
+import { validate, clean } from '../helpers/index';
+import { InputWrapper } from '../utils/index';
+import * as vals from '../validation/helpCenterAskValidate';
 
 export class HelpCenterPageController {
     private currentPage: number;
@@ -21,6 +23,7 @@ export class HelpCenterPageController {
     private answersView: AnswersView;
     private totalPages: number;
     private type: number;
+    private answerValidator: (() => boolean)[];
 
     constructor(currentPage: number = 1, totalPages: number = 1) {
         this.currentPage = currentPage;
@@ -40,6 +43,10 @@ export class HelpCenterPageController {
         this.addComment = <HTMLInputElement>document.querySelector('#answer');
 
         this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
+
+        this.answerValidator = [
+            validate(this.addComment, vals.comment)
+        ]
 
     }
 
@@ -115,20 +122,27 @@ export class HelpCenterPageController {
                 return result.json();
             })
             .then((res) => {
-
-                //console.log(res);
                 this.TotalPages = res.pagination.totalPages;
-                this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
-
                 this.questionView = new QuestionView('#ask_result');
+
+                if (res.hasOwnProperty('answerData')) {
+                    let countAnswers = res.pagination.totalDocs;
+                    document.getElementById('response').textContent = `Total de ${countAnswers} resposta${countAnswers == 1 ? '' : 's'} registrada${countAnswers == 1 ? '' : 's'}. ${res[res.length - 1] == undefined ? '' : `(página ${res[res.length - 1].page})`}`;
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
+                } else {
+                    document.getElementById('pagination').textContent = '';
+                    document.getElementById('response').textContent = '';
+                }
+
                 let question = new Post(res.question.ask, res.question.text, res.question.id_user, res.question.owner, res.question.date, res.question.id_helpCenter)
+
                 this.questionView.update(question);
                 this.currentPage = res.pagination.page
-                //console.log(res.pagination.page);
                 let postAsks = new PostAsks();
                 //this.answersView = new AnswersView('#aswers_result');
 
-                if (res.answerData || res.answerData != undefined) res.answerData.map((res: any) => new PostAsk(res.id_helpCenter, res.text, res.id_user, res.owner, res.id_answer))
+
+                if (res.answerData || res.answerData != undefined) res.answerData.map((res: any) => new PostAsk(res.id_helpCenter, res.text, res.id_user, res.owner, res.id_answer, res.date))
                     .forEach((res: any) => postAsks.add(res));
 
                 this.answersView.update(postAsks);
@@ -141,11 +155,11 @@ export class HelpCenterPageController {
             });
     }
 
-    
-        
-        
+
+
+
     delete(id: string, event: Event) {
-        
+
         event.preventDefault();
 
         //let id = this.url.get('id_ask');

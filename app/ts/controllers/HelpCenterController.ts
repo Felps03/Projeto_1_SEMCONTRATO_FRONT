@@ -46,7 +46,8 @@ export class HelpCenterController {
 		this.addDesc = <HTMLInputElement>document.getElementById('add-desc');
 
 		this.postsView = new PostsView('#post-list');
-		this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
+		this.postView = new PostView('#view-view-modal');
+		// this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
 
 		this.messageView = new MessageView('#message-view');
 
@@ -54,7 +55,7 @@ export class HelpCenterController {
 
 		this.totalPages = totalPages;
 		this.type = 1;
-		this.paginationView.update(this.currentPage, this.totalPages, this.type);
+		// this.paginationView.update(this.currentPage, this.totalPages, this.type);
 
 		// init validations
 
@@ -68,13 +69,7 @@ export class HelpCenterController {
 		})
 	}
 
-	set CurrentPage(page: number) {
-		this.currentPage = page;
-		this.paginationView.update(this.currentPage, this.totalPages, this.type);
-	}
-	set TotalPages(total: number) {
-		this.totalPages = total;
-	}
+
 
 	cancel(event: Event) {
 		event.preventDefault();
@@ -101,7 +96,17 @@ export class HelpCenterController {
 							.then(() => {
 								this.list(event);
 								document.getElementById('add-modal-close').click();
-								this.messageView.update('Adicionado com sucesso!');
+								this.messageView.update('Pergunta publicada com sucesso!');
+
+								let title = <HTMLInputElement>document.getElementById('add-title');
+								let desc = <HTMLInputElement>document.getElementById('add-desc');
+
+								title.value = '';
+								desc.value = '';
+
+								clean(title);
+								clean(desc);
+
 							})
 							.catch((error) => {
 								console.error(error);
@@ -163,6 +168,15 @@ export class HelpCenterController {
 		}
 	}
 
+	set CurrentPage(page: number) {
+		this.currentPage = page;
+		this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
+		this.paginationView.update(this.currentPage, this.totalPages, this.type);
+	}
+	set TotalPages(total: number) {
+		this.totalPages = total;
+	}
+
 	// here be dragons
 	list(event: Event) {
 		event.preventDefault();
@@ -174,17 +188,30 @@ export class HelpCenterController {
 			})
 			.then((res) => {
 
-
-
-
 				this.TotalPages = res[res.length - 1].totalPages;
-				this.paginationView.update(this.currentPage, this.totalPages, this.type);
-				const posts = Posts.from(res.reverse().slice(1, 11));
+
+				let totalQuestions = res[res.length - 1].totalDocs;
+
+				res.pop();
+				const posts = Posts.from(res.slice(0, 10));
+
+
+				if (posts.toArray().length != 0) {
+					document.getElementById('response').textContent = `Total de ${totalQuestions} pergunta${totalQuestions == 1 ? '' : 's'} registrada${totalQuestions == 1 ? '' : 's'}. (página ${res[res.length - 1] === undefined ? '' : res[res.length - 1].page})`;
+					this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
+					this.paginationView.update(this.currentPage, this.totalPages, this.type);
+				} else {
+					document.getElementById('response').textContent = '';
+					// this.paginationView.update(this.currentPage, this.totalPages, this.type);
+					document.getElementById('pagination').textContent = '';
+				}
+
 				this.postsView.update(posts, this.totalPages);
-				// this.postsView.update(posts);
+
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');
 					if (i) {
+						'	'
 						el.addEventListener('click', () => {
 							this.postView.update(posts.get(+i));
 						});
@@ -261,6 +288,19 @@ export class HelpCenterController {
 			.then((res) => {
 				const posts = Posts.from(res.slice(0, -1));
 				this.postsView.update(posts, this.totalPages);
+
+				let aux = <HTMLInputElement>document.getElementById('search-joker');
+				let response = <HTMLInputElement>document.getElementById('response_search');
+
+				if (aux.value == '') {
+					response.textContent = '';
+				} else {
+					response.textContent = `Aproximadamente ${res.length - 1} pergunta${res.length - 1 == 1 ? '' : 's'}.`;
+				}
+
+
+
+
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');
 					if (i) {

@@ -1,5 +1,9 @@
-/* Colors */
+/* Remove default styles */
+a:hover {
+    text-decoration: none;
+}
 
+/* Colors */
 .bg-primary {
     background-color: #f8fdff;
 }
@@ -56,6 +60,11 @@
     border: 1px solid #ffc107 !important;
 }
 
+.btn-outline-info {
+    border: 1px solid #283772 !important;
+    color: #283772;
+}
+
 .btn-warning {
     border: 1px solid #ffc107 !important;
 }
@@ -64,6 +73,12 @@
     border: 1px solid #dddddd !important;
     background: #dddddd;
     color: #292b2c !important;
+}
+
+.btn-outline-info:hover {
+    background: #283772;
+    border: 1px solid #283772 !important;
+    color: #ffffff;
 }
 
 .btn-danger:hover {
@@ -106,6 +121,11 @@
     color: #e2504b;
 }
 
+.custom-icon-margin {
+    margin-top: -5%;
+    margin-bottom: -5%;
+}
+
 /* Lines */
 
 .custom-bx {
@@ -123,7 +143,7 @@
 }
 
 .help-line {
-    width: 46vh;
+    width: 106%;
     margin-left: -1.9rem;
 }
 
@@ -226,6 +246,10 @@ body {
 
 .mt-add-daily {
     margin-top: 36px;
+}
+
+.custom-bottom-align {
+    bottom: 0;
 }
 
 /* User menu */
@@ -410,4 +434,76 @@ body {
 
 #chatbot-history ul li .card {
     color: var(--dark);
+}
+
+
+.clock-image {
+    width: 70px;
+}
+
+.responsive-help-drop {
+    display: none;
+    color: #c5c5c5;
+}
+
+/* Responsive */
+
+/* All pages */
+.section { z-index: 1 }
+
+#particles-js {
+    z-index: 0;
+    position: fixed;
+}
+
+/* Help Center */
+@media (max-width: 980px) {
+    .help-line { width: 116% }
+
+    .clock-image { 
+        width: 60px;
+        margin-top: 1%; 
+    }
+
+    .responsive-user-help {
+        margin-left: -1.9rem;
+    }
+
+    .responsive-user-name {
+        font-size: 95%;
+    }
+
+    .responsive-help-card {
+        margin-left: -8%;
+        margin-bottom: 4%;
+    }
+
+    .responsive-help-add {
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+
+    .responsive-help-section {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .responsive-full-help {
+        margin-top: -2%;
+        margin-bottom: -2%; 
+    }
+
+    .responsive-help-buttons {
+        display: none;
+    }
+
+    .responsive-help-drop {
+        display: block;
+    }
+
+  
+    .edit-help-resp:hover, .rmv-help-resp:hover, .res-help-resp:hover {
+        background: #c5c5c5;
+    }
+    
 }
