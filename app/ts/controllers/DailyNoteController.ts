@@ -103,7 +103,8 @@ export class DailyNoteController {
         event.preventDefault();
 
         let value = this.dateField.value || this.url_date;
-        //this.url_date="";
+        
+        this.dateField.value = value;
         const page = parseInt(this.url_page) || 1;
 
 
@@ -111,7 +112,7 @@ export class DailyNoteController {
 
         // let date = new Date();
         let date = new Date(value);
-        let fullDate = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1) < 10 ? '0' + (date.getUTCMonth() + 1) : (date.getUTCMonth() + 1)}-${date.getUTCDate()}`;
+        let fullDate = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1) < 10 ? '0' + (date.getUTCMonth() + 1) : (date.getUTCMonth() + 1)}-${(date.getUTCDate()) < 10 ? '0' + (date.getUTCDate()) : (date.getUTCDate())}`;
 
         return dailyNoteService.listDate(fullDate, page)
             .then(res => {
