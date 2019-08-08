@@ -70,9 +70,6 @@ System.register(["../config/index"], function (exports_1, context_1) {
                             "emailCode": emailCode,
                             "email": email
                         })
-                    }).catch(err => {
-                        console.log(err);
-                        return err;
                     });
                 }
                 verifyAdmin() {

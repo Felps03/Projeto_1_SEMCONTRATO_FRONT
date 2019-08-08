@@ -1,9 +1,10 @@
 import { View } from './View';
-import { Posts, User } from '../models/index';
+// import { Posts, User } from '../models/index';
 import { escapeTag } from '../utils/escapeTag';
+import { Posts, User, Post } from '../models/index';
 
 export class PostsView extends View<Posts> {
-
+    private didMountFn: Function
     template(model: Posts): string {
         return `
         <div class="container">
@@ -33,10 +34,24 @@ export class PostsView extends View<Posts> {
                             
                         </div>
                     </div>
+                    ${post.AuthorId === localStorage.getItem('id') ? `<a class="can-delete" data-id="${post.Id}" href="#">Deletar</a>` : ""}
+                                    
+                ${post.AuthorId === localStorage.getItem('id') ? `<a class="can-edit" data-id="${post.Id}" href="./../help-center-edit.html?id=${post.Id}&owner=${post.AuthorId}">Editar</a>` : ""}
                 </div>
             </div>
             `).join('')}
         </div>
         `;
     }
+    update(model: Posts, totalPages: number) {
+        super.update(model, totalPages)
+
+        if (this.didMountFn)
+            this.didMountFn()
+    }
+
+    didMount(cb: Function) {
+        this.didMountFn = cb
+    }
+
 }

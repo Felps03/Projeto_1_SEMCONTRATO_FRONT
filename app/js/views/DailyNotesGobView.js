@@ -26,8 +26,8 @@ System.register(["./View", "../config/index"], function (exports_1, context_1) {
             <td> ${dailyNote.Today} </td> 
             <td> ${dailyNote.Impediment} </td> 
         </tr>
-            `)}
-        
+            `).join('')}
+ 
     `;
                 }
             };

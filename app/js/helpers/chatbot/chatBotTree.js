@@ -1,6 +1,6 @@
 System.register(["./chatBotProcess", "../../services/index", "../../models/Post", "../../utils/index", "../../validation/helpCenterValidate", "../../validation/dailyNoteValidate"], function (exports_1, context_1) {
     "use strict";
-    var process, index_1, Post_1, index_2, valHelp, valDaily, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, helpCenterService, dailyNoteService, actualHours, greeting, mainBranch, dialog;
+    var process, index_1, Post_1, index_2, valHelp, valDaily, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, helpCenterService, dailyNoteService, userService, actualHours, greeting, mainBranch, dialog;
     var __moduleName = context_1 && context_1.id;
     function pseudoInput(val) {
         const input = document.createElement('input');
@@ -34,6 +34,7 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
             SELF_HTTPS_HOST = 'https://' + window.location.host;
             helpCenterService = new index_1.HelpCenterService();
             dailyNoteService = new index_1.DailyNoteService();
+            userService = new index_1.UserService();
             actualHours = new Date().getHours();
             if (actualHours >= 4 && actualHours < 12) {
                 greeting = 'Bom dia';
@@ -58,40 +59,28 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                     children: [
                         {
                             call: ['dailynote', 'daily'],
-                            goto: 'cr_daily',
-                            answer: [
-                                'Ok. Sobre DailyNote, o que você quer fazer?',
-                                '{{button(Ver)}}',
-                                '{{button(Adicionar)}}'
-                            ]
+                            goto: 'cr_daily'
                         },
                         {
                             call: ['helpcenter', 'help'],
-                            goto: 'cr_help',
-                            answer: [
-                                'Ok. Sobre HelpCenter, o que você quer fazer?',
-                                '{{button(Ver)}}',
-                                '{{button(Adicionar)}}'
-                            ]
+                            goto: 'cr_help'
                         }
                     ]
                 },
                 cr_daily: {
+                    greet: [
+                        'Ok. Sobre DailyNote, o que você quer fazer?',
+                        '{{button(Ver)}}',
+                        '{{button(Adicionar)}}'
+                    ],
                     children: [
                         {
                             call: ['listar', 'ver', 'mostrar'],
-                            goto: 'list_daily',
-                            answer: [
-                                'Gostaria de filtrar por?..',
-                                '{{button(Ver dailies de hoje)}}',
-                                '{{button(Outra data)}}',
-                                '{{button(Usuário)}}',
-                            ]
+                            goto: 'list_daily'
                         },
                         {
                             call: ['adicionar', 'incluir', 'inserir'],
                             goto: 'add_daily_yesterday',
-                            answer: ['O que você fez ontem? 😃'],
                             process: async (state, match) => {
                                 await process.checkLoggedIn('cr_daily')(state, match);
                                 const resp = await dailyNoteService.registeredDaily(localStorage.getItem('id'));
@@ -105,16 +94,20 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                     ]
                 },
                 list_daily: {
+                    greet: [
+                        'Gostaria de filtrar por?..',
+                        '{{button(Ver dailies de hoje)}}',
+                        '{{button(Outra data)}}',
+                        '{{button(Usuário)}}',
+                    ],
                     children: [
                         {
                             call: ['data', 'dia'],
-                            goto: 'list_daily_date',
-                            answer: ['Ok. Que dia? (formato dd/mm/aaaa)']
+                            goto: 'list_daily_date'
                         },
                         {
                             call: ['usuario'],
-                            goto: 'list_daily_user',
-                            answer: ['Ok. Que usuário?']
+                            goto: 'list_daily_user'
                         },
                         {
                             call: ['nao', 'nop', 'hoje'],
@@ -126,27 +119,67 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                     ]
                 },
                 list_daily_date: {
+                    greet: ['Ok. Que dia? (formato dd/mm/aaaa)'],
                     children: [
                         {
                             call: [/(\d{1,2})\/(\d{1,2})\/(\d+)/],
                             goto: 'main',
                             answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?date=$list_daily_note_date)}}`],
-                            process: process.entDate('list_daily_note_date')
+                            process: async (state, match) => {
+                                const dateSlot = 'list_daily_note_date';
+                                process.entDate(dateSlot)(state, match);
+                                const date = state.get(dateSlot);
+                                const result = await dailyNoteService.listDate(date, 1);
+                                const readableResult = await result.json();
+                                if (readableResult.length <= 1) {
+                                    state.set('_GOTO', 'main');
+                                    state.set('_ANSWER', [
+                                        `Não existe nenhuma daily cadastrada pra essa data, nem tem por que ir lá.`,
+                                        `Mas o link é {{link(esse, ${SELF_HTTPS_HOST}/app-daily-note.html?user=${date})}} anyway`
+                                    ]);
+                                    return;
+                                }
+                            }
                         }
                     ]
                 },
                 list_daily_user: {
+                    greet: ['Ok. Que usuário?'],
                     children: [
                         {
                             call: [/(\w+)/],
                             normalize: false,
                             goto: 'main',
                             answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`],
-                            process: process.entRaw('list_daily_note_user')
+                            process: async (state, match) => {
+                                console.log('verifying');
+                                const userName = match[1];
+                                const status = (await userService.checkIfExists(userName)).status;
+                                if (status === 204) {
+                                    state.set('_GOTO', 'list_daily_user');
+                                    state.set('_ANSWER', [
+                                        'Algo de errado não está certo 🤔',
+                                        `Usuário ${userName} não está cadastrado.`
+                                    ]);
+                                    return;
+                                }
+                                const result = await dailyNoteService.listUser(userName, 1);
+                                const readableResult = await result.json();
+                                if (readableResult.length === 0) {
+                                    state.set('_GOTO', 'main');
+                                    state.set('_ANSWER', [
+                                        `Não existe nenhuma daily cadastrada pra esse usuário, nem tem por que ir lá.`,
+                                        `Mas o link é {{link(esse, ${SELF_HTTPS_HOST}/app-daily-note.html?user=${userName})}} anyway`
+                                    ]);
+                                    return;
+                                }
+                                process.entRaw('list_daily_note_user')(state, match);
+                            }
                         }
                     ]
                 },
                 add_daily_yesterday: {
+                    greet: ['O que você fez ontem? 😃'],
                     children: [
                         {
                             call: [/^.*$/],
@@ -161,12 +194,12 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                                     return;
                                 }
                                 state.set('add_daily_yesterday', yesterday);
-                            },
-                            answer: ['O que fará hoje? 🙂']
+                            }
                         }
                     ]
                 },
                 add_daily_today: {
+                    greet: ['O que fará hoje? 🙂'],
                     children: [
                         {
                             call: [/^.*$/],
@@ -181,12 +214,12 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                                     return;
                                 }
                                 state.set('add_daily_today', today);
-                            },
-                            answer: ['Algum impedimento? 🙂']
+                            }
                         }
                     ]
                 },
                 add_daily_impediment: {
+                    greet: ['Algum impedimento? 🙂'],
                     children: [
                         {
                             call: [/^.*$/],
@@ -211,6 +244,11 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                     ]
                 },
                 cr_help: {
+                    greet: [
+                        'Ok. Sobre HelpCenter, o que você quer fazer?',
+                        '{{button(Ver)}}',
+                        '{{button(Adicionar)}}'
+                    ],
                     children: [
                         {
                             call: ['listar', 'ver', 'mostrar'],
@@ -222,12 +260,12 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                         {
                             call: ['adicionar', 'incluir', 'inserir'],
                             goto: 'add_help_title',
-                            process: process.checkLoggedIn('cr_help'),
-                            answer: ['Qual o seu problema? 😋 (título)']
+                            process: process.checkLoggedIn('cr_help')
                         }
                     ]
                 },
                 add_help_title: {
+                    greet: ['Qual o seu problema? 😋 (título)'],
                     children: [
                         {
                             call: [/^.*$/],
@@ -242,12 +280,12 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                                     return;
                                 }
                                 state.set('add_help_title', title);
-                            },
-                            answer: ['O que tem a dizer sobre o problema? 🙂']
+                            }
                         }
                     ]
                 },
                 add_help_desc: {
+                    greet: ['O que tem a dizer sobre o problema? 🙂'],
                     children: [
                         {
                             call: [/^.*$/],
@@ -281,12 +319,7 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                     ]
                 },
                 understandnt: {
-                    children: [
-                        {
-                            goto: 'main',
-                            answer: ['Hm... Desculpe, não entendi 😕']
-                        }
-                    ]
+                    greet: ['Hm... Desculpe, não entendi 😕']
                 }
             });
         }

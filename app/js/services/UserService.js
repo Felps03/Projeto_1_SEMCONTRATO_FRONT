@@ -123,6 +123,17 @@ System.register(["../config/index"], function (exports_1, context_1) {
                         },
                     });
                 }
+                checkIfExists(userName) {
+                    return fetch(`${index_1.HOST}user/exists/${userName}`, {
+                        method: 'GET',
+                        mode: 'cors',
+                        headers: {
+                            'Accept': 'application/json, text/plain, */*',
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                        }
+                    });
+                }
             };
             exports_1("UserService", UserService);
         }

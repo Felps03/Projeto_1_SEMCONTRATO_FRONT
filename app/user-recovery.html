@@ -19,53 +19,82 @@
     <!-- particles.js -->
     <div id="particles-js"></div>
 
-    <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container">
-            <div class="row navbar-header align-baseline ml-n3">
-                <a href="index.html"><img src="./img/logo_compasso.png"></a>
-                <div class="vt-apps-line ml-2"></div>
-                <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
-                    <h5><strong>Daily Note</strong></h5>
-                </a>
-                <a href="app-help-center.html" class="menu-item mt-3 ml-4">
-                    <h5><strong>Help Center</strong></h5>
-                </a>
-                <a href="app-daily-gob.html" class="menu-item mt-3 ml-4">
-                    <h5>
-                        <strong>Daily Note GOB</strong>
-                    </h5>
-                </a>
-            </div>
 
-            <!-- User menu -->
-            <!-- <div id="user-menu-login-link"></div> -->
-            <div id="user-main">
-                <div class="dropdown mr-n4 txt-user" style="float:right;">
-                    <div class="d-flex align-items-center btn" data-toggle="dropdown">
-                        <span id="nameSpan"></span>
-                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle" width="60px">
-                        <i class="material-icons ml-n2">arrow_drop_down</i>
-                    </div>
-                    <div class="dropdown-menu dropdown-menu-right align-user">
-                        <div class="dropdown-item">
-                            Usuário: <span id="userNameSpan"></span>
+            <a href="index.html">
+                <img src="./img/logo_compasso.png">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-around" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item ml-md-3 mr-md-3">
+                        <!-- <div class="vt-apps-line ml-2"></div> -->
+                        <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
+                            <h5>
+                                <strong>Daily Note</strong>
+                            </h5>
+                        </a>
+                    </li>
+                    <li class="nav-item ml-md-3 mr-md-3">
+                        <a href="app-help-center.html" class="menu-item mt-3 ml-4">
+                            <h5>
+                                <strong>Help Center</strong>
+                            </h5>
+                        </a>
+                    </li>
+                    <li class="nav-item ml-md-3 mr-md-3">
+                        <a href="app-daily-gob.html" class="menu-item mt-3 ml-4">
+                            <h5>
+                                <strong>Daily Note GOB</strong>
+                            </h5>
+                        </a>
+                    </li>
+                    <li class="nav-item ml-md-3 mr-md-1">
+                        <a href="app-help-center-gob.html" class="menu-item mt-3 ml-4">
+                            <h5>
+                                <strong>Help Center GOB</strong>
+                            </h5>
+                        </a>
+                    </li>
+
+                </ul>
+
+
+                <div class="" id="user-main">
+                    <div class="dropdown ml-n2 txt-user">
+                        <div class="d-flex align-items-center btn ml-5" data-toggle="dropdown">
+                            <span id="nameSpan"></span>
+                            <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png"
+                                class="rounded-circle" width="60px">
+                            <i class="material-icons ml-n2">arrow_drop_down</i>
                         </div>
-                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-menu dropdown-menu-right align-user">
+                            <div class="dropdown-item">
+                                Usuário:
+                                <span id="userNameSpan"></span>
+                            </div>
+                            <div class="dropdown-divider"></div>
 
-                        <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
-                            <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
-                        <a class="dropdown-item d-flex align-items-center" href="index.html">
-                            <i class="material-icons mr-2">home</i>Home</a>
+                            <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
+                                <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
+                            <a class="dropdown-item d-flex align-items-center" href="index.html">
+                                <i class="material-icons mr-2">home</i>Home</a>
 
-                        <div class="dropdown-divider"></div>
+                            <div class="dropdown-divider"></div>
 
-                        <a class="dropdown-item d-flex align-items-center" id="logout">
-                            <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
+                            <a class="dropdown-item d-flex align-items-center" id="logout">
+                                <i class="material-icons mr-2">power_settings_new</i>
+                                <strong>Sair</strong>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- end User menu -->
 
+
+            </div>
         </div>
     </nav>
 
@@ -77,32 +106,47 @@
                     <form class="form" method="post" id="recovery-code-form" autocomplete="off">
 
                         <div class="vt-line mt-4 mb-4">
-                            <h3><strong>Recuperar Senha</strong></h3>
+                            <h3>
+                                <strong>Recuperar Senha</strong>
+                            </h3>
                         </div>
-                        <hr class="register-line">
+                        <hr class="recovery-line">
 
                         <div class="alert alert-danger" id="link-expired" style="display: none;" role="alert"></div>
 
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input type="text" name="email" class="form-control form-control-sm input-circle" id="email_rec" placeholder="Informe seu email" autofocus>
+                            <input type="text" name="email" class="form-control form-control-sm input-circle"
+                                id="email_rec" placeholder="Informe seu email" autofocus>
                             <div id="emailvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="password_rec">Nova Senha:</label>
-                            <input type="password" name="senha" class="form-control form-control-sm input-circle" id="password_rec" placeholder="Informe uma nova senha" autofocus pattern=".{6,8}">
+                            <input type="password" name="senha" class="form-control form-control-sm input-circle"
+                                id="password_rec" placeholder="Informe uma nova senha" autofocus pattern=".{6,8}">
                             <div id="passwordvalidator_rec"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="password_rec_conf">Confirmação:</label>
-                            <input type="password" name="password_rec_conf" class="form-control form-control-sm input-circle" id="password_rec_conf" placeholder="Informe a senha novamente" pattern=".{6,8}">
+                            <input type="password" name="password_rec_conf"
+                                class="form-control form-control-sm input-circle" id="password_rec_conf"
+                                placeholder="Informe a senha novamente" pattern=".{6,8}">
                             <div id="passwordvalidator_rec_conf"></div>
                         </div>
 
-                        <button type="submit" name="send" class="btn btn-outline-warning btn-sm float-right mb-3 mt-3 pr-4 pl-4 input-circle" id="recoverycodeT">Alterar Senha
-                        </button>
+                        <div class="row">
+                            <div class="col-sm-8">
+
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <button type="submit" name="send"
+                                    class="btn btn-outline-warning btn-sm btn-block float-right mb-4 input-circle"
+                                    id="recoverycodeT">Alterar Senha</button>
+                            </div>
+
+                        </div>
 
                     </form>
 

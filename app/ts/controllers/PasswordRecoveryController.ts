@@ -44,21 +44,36 @@ export class PasswordRecoveryController {
             let URL_KEY = url.searchParams.get("key");
 
             const authenticateService = new AuthenticateService();
+            const userService = new UserService();
 
             authenticateService.verifyCode(URL_KEY, this.email.value, this.password.value)
-                .then(res => res.json())
                 .then(res => {
 
-                    let erro = res;
+                    if (res.status === 200) {
+                        const userService = new UserService();
+                        console.log(this.email.value)
+                        console.log(this.password.value)
+                        userService.changePassword(this.email.value, this.password.value)
+                            .then(res => {
 
-                    mesage.textContent = erro.erro;
+                                console.log(res)
+                                console.log(res.status === 200)
 
-                    if (erro.erro) document.getElementById("link-expired").style.display = "block";
+                                if (res.status === 200) {
 
-                }).catch(err => {
-                    console.log(err);
-                    mesage.textContent = JSON.stringify(err);
-                });
+                                    document.getElementById("link-expired").style.display = "block";
+                                    mesage.textContent = "Senha alterada com sucesso";
+                                }
+                            })
+                    }
+                    else {
+                        console.log(res.status)
+                        mesage.textContent = "Código Inválido";
+                        document.getElementById("link-expired").style.display = "block";
+
+                    }
+                })
+
         }
 
     }

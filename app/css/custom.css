@@ -113,8 +113,8 @@
 }
 
 .login-line {
-    width: 50vh;
-    margin-left: -1.9rem;
+    width: 100%;
+    margin-left: -1.8rem;
 }
 
 .lastdaily-line {
@@ -132,7 +132,7 @@
     margin-left: -1.9rem;
 }
 
-.daily-edit-line {
+.user-edit-line {
     width: 120%;
     margin-left: -1.8rem;
 }
@@ -145,6 +145,8 @@
 }
 
 /* Menu */
+
+
 
 .custom-icon {
     color: #f1be1d;
