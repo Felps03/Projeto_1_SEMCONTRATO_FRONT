@@ -24,7 +24,6 @@ export class ChatBotManager {
 
         // simpler conditions weren't possible for some reason
         if (this.chat.History.length === 0) {
-            // console.log('init')
             yield* this.answer()
         } else {
             yield this.chat
@@ -85,7 +84,7 @@ export class ChatBotManager {
 
                     this.store()
 
-                    for (let msg of dialog['understandnt'].children[0].answer) {
+                    for (let msg of dialog['understandnt'].greet) {
                         if (typeof msg === 'string') {
                             yield delay(this.message(
                                 [
@@ -95,6 +94,13 @@ export class ChatBotManager {
                             ), this.DELAY_TIME)
                         }
                     }
+
+                    // because people were confused
+                    const actualBranch = dialog[this.context]
+                    for (const msg of actualBranch.greet) {
+                        yield delay(this.message([ChatAgent.Bot, msg]), this.DELAY_TIME)
+                    }
+
                 }
                 // if answering to nothing
             } else {
