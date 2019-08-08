@@ -122,7 +122,7 @@ export class HelpCenterPageController {
 
                 if (res.hasOwnProperty('answerData')) {
                     let countAnswers = res.pagination.totalDocs;
-                    document.getElementById('response').textContent = `Total de ${countAnswers} resposta${countAnswers == 1 ? '' : 's'} encontrada${countAnswers == 1 ? '' : 's'}.`;
+                    document.getElementById('response').textContent = `Total de ${countAnswers} resposta${countAnswers == 1 ? '' : 's'} registrada${countAnswers == 1 ? '' : 's'}.`;
                     this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id); 
                 } else {
                     document.getElementById('pagination').textContent = '';
