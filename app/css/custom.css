@@ -498,4 +498,10 @@ body {
     .responsive-help-drop {
         display: block;
     }
+
+  
+    #edit-help-edit:hover, #edit-help-rmv:hover, #edit-help-resp:hover {
+        background: #c5c5c5;
+    }
+    
 }
