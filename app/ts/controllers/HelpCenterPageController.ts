@@ -68,7 +68,7 @@ export class HelpCenterPageController {
                 this.list(event);
                 // $('#add-modal').modal('hide');
                 let response = <HTMLInputElement>document.getElementById('answer');
-        
+
                 response.value = '';
                 clean(response);
             })
@@ -126,15 +126,15 @@ export class HelpCenterPageController {
 
                 if (res.hasOwnProperty('answerData')) {
                     let countAnswers = res.pagination.totalDocs;
-                    document.getElementById('response').textContent = `Total de ${countAnswers} resposta${countAnswers == 1 ? '' : 's'} registrada${countAnswers == 1 ? '' : 's'}. (página ${res[res.length-1].page})`;
-                    this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id); 
+                    document.getElementById('response').textContent = `Total de ${countAnswers} resposta${countAnswers == 1 ? '' : 's'} registrada${countAnswers == 1 ? '' : 's'}. ${res[res.length - 1] == undefined ? '' : `(página ${res[res.length - 1].page})`}`;
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
                 } else {
                     document.getElementById('pagination').textContent = '';
-                    document.getElementById('response').textContent = ''; 
+                    document.getElementById('response').textContent = '';
                 }
-				
+
                 let question = new Post(res.question.ask, res.question.text, res.question.id_user, res.question.owner, res.question.date, res.question.id_helpCenter)
-                
+
                 this.questionView.update(question);
                 this.currentPage = res.pagination.page
                 let postAsks = new PostAsks();

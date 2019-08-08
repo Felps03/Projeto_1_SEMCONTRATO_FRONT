@@ -22,7 +22,7 @@ System.register(["./View", "../utils/publish"], function (exports_1, context_1) 
             ${model.toArray().map((post, i) => `
             <hr style="height: 1px;">
             <div class="col-sm-11 col-12 mt-n2 mb-n3 d-flex align-items-stretch responsive-full-help">
-                <div class="d-flex flex-row flex-md-column text-center pl-3 pr-3 w-100">
+                <div class="d-flex flex-column text-center align-items-center pl-3 pr-3 w-100">
                     <div class="responsive-user-help">
                         <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle clock-image">
                         <h6 class="mt-2 responsive-user-name">${post.AuthorName ? post.AuthorName : ""}</h6>

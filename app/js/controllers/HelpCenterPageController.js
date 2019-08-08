@@ -100,7 +100,7 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                         this.questionView = new QuestionView_1.QuestionView('#ask_result');
                         if (res.hasOwnProperty('answerData')) {
                             let countAnswers = res.pagination.totalDocs;
-                            document.getElementById('response').textContent = `Total de ${countAnswers} resposta${countAnswers == 1 ? '' : 's'} registrada${countAnswers == 1 ? '' : 's'}. (página ${res[res.length - 1].page})`;
+                            document.getElementById('response').textContent = `Total de ${countAnswers} resposta${countAnswers == 1 ? '' : 's'} registrada${countAnswers == 1 ? '' : 's'}. ${res[res.length - 1] == undefined ? '' : `(página ${res[res.length - 1].page})`}`;
                             this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
                         }
                         else {
