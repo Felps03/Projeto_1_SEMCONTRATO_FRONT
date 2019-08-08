@@ -205,35 +205,29 @@
                     <div class="g-recaptcha mt-2" data-sitekey="6LfhNKsUAAAAALZSy7RxiuZfFQv7B7yA_C8m2G9H"></div>
                 </div>
 
-                <<<<<<< HEAD <div class="row">
+                <div class="row">
                     <div class="col-12 col-sm-8">
 
                     </div>
                     <div class="col-12 col-sm-4">
                         <div class="row">
                             <div class="col-12 col-sm-6">
-                                <button type="submit" name="send"
+                                <button type="button" name="reset"
                                     class="btn btn-outline-danger btn-sm btn-block float-center mt-3 mb-3 input-circle"
-                                    id="access">Cancelar</button>
+                                    data-toggle="modal" data-target="#cancelModal">Cancelar</button>
                             </div>
                             <div class="col-12 col-sm-6">
                                 <button type="submit" name="send"
                                     class="btn btn-outline-success btn-sm btn-block float-center mt-3 mb-3 input-circle"
-                                    id="access">Cadastrar</button>
+                                    id="edit-user">Cadastrar</button>
                             </div>
                         </div>
                     </div>
-    </div>
-    =======
-    <button type="submit" name="send" class="btn btn-outline-success btn-sm mt-3 pr-3 pl-3 float-right input-circle"
-        id="register-new-user">Cadastrar</button>
-    <button type="button" name="reset"
-        class="btn btn-outline-danger btn-sm mt-3 pr-3 pl-3 mr-2 float-right input-circle" data-toggle="modal"
-        data-target="#cancelModal">Cancelar</button>
-    >>>>>>> 210b6b3f2945f998d52a849429487bc5d5ad9964
+                </div>
 
-    </form>
-    </section>
+
+            </form>
+        </section>
     </div>
 
     <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelTitle"
@@ -255,8 +249,9 @@
                     <button type="button" class="btn btn-outline-danger btn-sm pr-4 pl-4 input-circle"
                         data-dismiss="modal">Não</button>
                     <a href="index.html">
+
                         <button type="button" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle"
-                            id="cancelRegister">Sim</button>
+                            id="cancelEdit">Sim</button>
                     </a>
                 </div>
             </div>
