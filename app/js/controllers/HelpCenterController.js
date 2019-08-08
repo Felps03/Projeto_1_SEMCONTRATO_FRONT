@@ -43,12 +43,10 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     this.addDesc = document.getElementById('add-desc');
                     this.postsView = new PostsView_1.PostsView('#post-list');
                     this.postView = new PostView_1.PostView('#view-view-modal');
-                    this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-center.html');
                     this.messageView = new MessageView_1.MessageView('#message-view');
                     this.currentPage = currentPage;
                     this.totalPages = totalPages;
                     this.type = 1;
-                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
                     this.addVals = [index_3.validate(this.addTitle, vals.title), index_3.validate(this.addDesc, vals.desc)];
                     this.postView.didMount(() => {
                         this.helpCenterAsk = new HelpCenterAskController_1.HelpCenterAskController();
@@ -68,13 +66,6 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         this.helpCenterAsk.listByPost(new Event(''));
                     });
                 }
-                set CurrentPage(page) {
-                    this.currentPage = page;
-                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
-                }
-                set TotalPages(total) {
-                    this.totalPages = total;
-                }
                 add(event) {
                     event.preventDefault();
                     if (listCheck_1.noFalse(this.addVals)) {
@@ -89,7 +80,7 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                                     .then(() => {
                                     this.list(event);
                                     document.getElementById('add-modal-close').click();
-                                    this.messageView.update('Adicionado com sucesso!');
+                                    this.messageView.update('Pergunta publicada com sucesso!');
                                 })
                                     .catch((error) => {
                                     console.error(error);
@@ -141,6 +132,14 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         console.log('vals');
                     }
                 }
+                set CurrentPage(page) {
+                    this.currentPage = page;
+                    this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-center.html');
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                }
+                set TotalPages(total) {
+                    this.totalPages = total;
+                }
                 list(event) {
                     event.preventDefault();
                     const helpCenterService = new index_2.HelpCenterService();
@@ -151,12 +150,22 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     })
                         .then((res) => {
                         this.TotalPages = res[res.length - 1].totalPages;
-                        this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                        let totalQuestions = res[res.length - 1].totalDocs;
                         const posts = index_1.Posts.from(res.slice(0, -1));
+                        if (posts.toArray().length != 0) {
+                            document.getElementById('response').textContent = `Total de ${totalQuestions} pergunta${totalQuestions == 1 ? '' : 's'} registrada${totalQuestions == 1 ? '' : 's'}.`;
+                            this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-center.html');
+                            this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                        }
+                        else {
+                            document.getElementById('response').textContent = '';
+                            document.getElementById('pagination').textContent = '';
+                        }
                         this.postsView.update(posts, this.totalPages);
                         Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
                             const i = el.getAttribute('data-i');
                             if (i) {
+                                '	';
                                 el.addEventListener('click', () => {
                                     this.postView.update(posts.get(+i));
                                 });
@@ -212,6 +221,13 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         .then((res) => {
                         const posts = index_1.Posts.from(res.slice(0, -1));
                         this.postsView.update(posts);
+                        if (res.length - 1 != 0) {
+                            document.getElementById('response_search').textContent = '';
+                            document.getElementById('response_search').textContent = `Aproximadamente ${res.length - 1} pergunta${res.length - 1 == 1 ? '' : 's'}.`;
+                        }
+                        else {
+                            document.getElementById('response_search').textContent = '';
+                        }
                         Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
                             const i = el.getAttribute('data-i');
                             if (i) {

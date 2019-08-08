@@ -41,6 +41,9 @@ System.register(["./controllers/HelpCenterController", "./utils/userData"], func
                 window.addEventListener('load', controller.list.bind(controller));
             }
             $('#search-joker').keyup(delay(controller.findByJoker.bind(controller), 500));
+            if (window.innerWidth <= 576) {
+                document.getElementById('help-add-ocult').classList.remove('mt-3');
+            }
         }
     };
 });

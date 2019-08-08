@@ -46,13 +46,12 @@ System.register(["./View"], function (exports_1, context_1) {
                     switch (type) {
                         case 0:
                             if (model > 1) {
-                                result += `
-                        <li class="page-item">
+                                result += `<li class="page-item">
                             <a class="page-link" href="${this.baseUrl}?page=${model - 1}&date=${value}" aria-label="Anterior">
-                                <span aria-hidden="true" class="txt-primary">&laquo;</span>
-                                <span class="sr-only txt-primary">Anterior</span>
-                            </a>
-                        </li>`;
+                            <span aria-hidden="true" class="txt-primary">&laquo;</span>
+                            <span class="sr-only txt-primary">Anterior</span>
+                        </a>
+                    </li>`;
                             }
                             result += `${this.generatePageNs(model, totalPages).map(n => `
                         <li class="page-item"><a class="page-link txt-primary" href="${this.baseUrl}?page=${n}&date=${value}">${n}</a></li>

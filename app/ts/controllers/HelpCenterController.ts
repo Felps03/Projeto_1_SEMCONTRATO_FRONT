@@ -46,7 +46,7 @@ export class HelpCenterController {
 
 		this.postsView = new PostsView('#post-list');
 		this.postView = new PostView('#view-view-modal');
-		this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
+		// this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
 
 		this.messageView = new MessageView('#message-view');
 
@@ -54,7 +54,7 @@ export class HelpCenterController {
 
 		this.totalPages = totalPages;
 		this.type = 1;
-		this.paginationView.update(this.currentPage, this.totalPages, this.type);
+		// this.paginationView.update(this.currentPage, this.totalPages, this.type);
 
 		// init validations
 
@@ -87,13 +87,7 @@ export class HelpCenterController {
 		});
 	}
 
-	set CurrentPage(page: number) {
-		this.currentPage = page;
-		this.paginationView.update(this.currentPage, this.totalPages, this.type);
-	}
-	set TotalPages(total: number) {
-		this.totalPages = total;
-	}
+	
 
 	add(event: Event) {
 		event.preventDefault();
@@ -114,7 +108,7 @@ export class HelpCenterController {
 							.then(() => {
 								this.list(event);
 								document.getElementById('add-modal-close').click();
-								this.messageView.update('Adicionado com sucesso!');
+								this.messageView.update('Pergunta publicada com sucesso!');
 							})
 							.catch((error) => {
 								console.error(error);
@@ -176,6 +170,15 @@ export class HelpCenterController {
 		}
 	}
 
+	set CurrentPage(page: number) {
+		this.currentPage = page;
+		this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
+		this.paginationView.update(this.currentPage, this.totalPages, this.type);
+	}
+	set TotalPages(total: number) {
+		this.totalPages = total;
+	}
+
 	// here be dragons
 	list(event: Event) {
 		event.preventDefault();
@@ -187,14 +190,27 @@ export class HelpCenterController {
 			})
 			.then((res) => {
 
-				//console.log(res);
 				this.TotalPages = res[res.length - 1].totalPages;
-				this.paginationView.update(this.currentPage, this.totalPages, this.type);
+
+				let totalQuestions = res[res.length-1].totalDocs;
+
 				const posts = Posts.from(res.slice(0, -1));
+
+				if (posts.toArray().length != 0) {
+					document.getElementById('response').textContent = `Total de ${totalQuestions} pergunta${totalQuestions == 1 ? '' : 's'} registrada${totalQuestions == 1 ? '' : 's'}.`;
+					this.paginationView = new PaginationView('#pagination', 'app-help-center.html');
+					this.paginationView.update(this.currentPage, this.totalPages, this.type);
+				} else {
+					document.getElementById('response').textContent = '';
+					// this.paginationView.update(this.currentPage, this.totalPages, this.type);
+					document.getElementById('pagination').textContent = '';
+				}
+
 				this.postsView.update(posts, this.totalPages);
+
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');
-					if (i) {
+					if (i) {'	'
 						el.addEventListener('click', () => {
 							this.postView.update(posts.get(+i));
 						});
@@ -282,6 +298,14 @@ export class HelpCenterController {
 			.then((res) => {
 				const posts = Posts.from(res.slice(0, -1));
 				this.postsView.update(posts);
+
+				if(res.length-1 != 0) {
+					document.getElementById('response_search').textContent = '';
+					document.getElementById('response_search').textContent = `Aproximadamente ${res.length-1} pergunta${res.length-1 == 1 ? '' : 's'}.`;
+				} else {
+					document.getElementById('response_search').textContent = '';
+				}
+				
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');
 					if (i) {
