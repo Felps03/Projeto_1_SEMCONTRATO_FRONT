@@ -117,7 +117,7 @@ export class DailyNoteController {
                 return res.json();
             })
             .then(result => {
-                console.log(result[result.length - 1].totalPages);
+                //console.log(result[result.length - 1].totalPages);
                 this.TotalPages = result[result.length - 1].totalPages;
                 this.paginationView.update(page, this.totalPages, this.type, fullDate);
                 // console.log(result);
@@ -177,7 +177,15 @@ export class DailyNoteController {
         this.dayliesResult.innerHTML = '';
         const result = this.listD(event);
 
-        if (result) {
+        let date = <HTMLInputElement>document.getElementById('date_filter');
+        let lastDate = new Date(date.value.split('-').join('/'));
+        let newDate = new Date();
+
+        if (lastDate > newDate) {
+            let typeAlert = 'alert-warning';
+            this.dailyStatusView = new DailyStatusView('#status_daily');
+            this.dailyStatusView.update('Não são cadastradas dailys em datas futuras :(', 0, 0, typeAlert);
+        } else if (result) {
             result.then((result) => {
                 result.forEach((r: any) => {
                     const daily = new DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
@@ -251,8 +259,8 @@ export class DailyNoteController {
 
                 if (res.status == 400) {
                     this.dailyStatusView.update('Você já cadastrou sua daily!', 0, 0, typeAlert);
-                    setTimeout(() => $("#status_daily").hide(), 10000);
-                    document.getElementById("add_daily").setAttribute('title'," Você já cadastrou sua daily");
+                    //setTimeout(() => $("#status_daily").hide(), 10000);
+                    document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                 }
 
                 if (res.status == 400) document.getElementById('add_daily').setAttribute('disabled', 'disabled');
@@ -265,7 +273,7 @@ export class DailyNoteController {
                 this.listDateDaily(event);
                 document.getElementById('dailyModal').click();
                 document.getElementById('add_daily').setAttribute('disabled', 'disabled');
-                document.getElementById("add_daily").setAttribute('title'," Você já cadastrou sua daily");
+                document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                 this.dailyStatusView = new DailyStatusView('#status_daily');
 
                 //alt="Hello World!"
