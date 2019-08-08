@@ -221,6 +221,16 @@ body {
     margin-top: 36px;
 }
 
+.home-app-card {
+    transition: transform ease-out 0.2s;
+}
+
+.home-app-card:hover {
+    text-decoration: none;
+    transform: scale(1.01);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+}
+
 /* User menu */
 
 .dropdown {

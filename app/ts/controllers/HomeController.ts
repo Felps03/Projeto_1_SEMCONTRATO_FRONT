@@ -18,12 +18,12 @@ export class HomeController {
 
     constructor() { }
 
-    clickHelpASK(event: Event) {
-        let temp = (<HTMLElement>event.target).parentElement.parentElement.parentElement.parentElement.parentElement.lastElementChild;
-        let idHelpCenter = (temp.querySelector('.card .card-body #idHelp').textContent);
+    // clickHelpASK(event: Event) {
+    //     let temp = (<HTMLElement>event.target).parentElement.parentElement.parentElement.parentElement.parentElement.lastElementChild;
+    //     let idHelpCenter = (temp.querySelector('.card .card-body #idHelp').textContent);
 
-        window.location.href = `app-help-asks.html?id=${idHelpCenter}`;
-    }
+    //     window.location.href = `app-help-asks.html?id=${idHelpCenter}`;
+    // }
 
     getUser() {
         let data;

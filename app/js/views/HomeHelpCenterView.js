@@ -14,34 +14,46 @@ System.register(["./View", "../utils/escapeTag"], function (exports_1, context_1
         execute: function () {
             HomeHelpCenterView = class HomeHelpCenterView extends View_1.View {
                 template(model) {
-                    return `
-            ${model.toArray().map(homeHelpCenter => `
-                <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
-                    <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
-                        <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
-                            <div>
-                                <h5 class="mt-2 mb-2 ml-4">${escapeTag_1.escapeTag(homeHelpCenter.Owner)}</h5>
-                                <p class="mt-2 mb-2 ml-4">${homeHelpCenter.Date.getUTCDate() < 10 ? "0" + homeHelpCenter.Date.getUTCDate() : homeHelpCenter.Date.getUTCDate()}/${homeHelpCenter.Date.getUTCMonth() + 1 < 10 ? "0" + (homeHelpCenter.Date.getUTCMonth() + 1) : homeHelpCenter.Date.getUTCMonth() + 1}/${homeHelpCenter.Date.getUTCFullYear()}</p>
-                                <button type="button" name="view"
-                                    class="btn btn-outline-info btn-sm input-circle pt-2 ml-4" id="resp-view"
-                                    data-toggle="modal" data-target="#respModal">
-                                    <i class="small material-icons">description</i>
-                                </button>
-                            </div>  
-                        </div>
-                    </div>
-                    <div class="col-md-9 col-12 card-body">
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <h5>${escapeTag_1.escapeTag(homeHelpCenter.Title)}</h5>
-                                <p>${escapeTag_1.escapeTag(homeHelpCenter.Description)}</p>
-                                <p id="idHelp" style="display:none">${homeHelpCenter.Id}</p>
-                            </div>
-                        </div>
+                    console.log(model.toArray());
+                    if (model.toArray().length == 0) {
+                        return `<div class='text-black-50 mt-4'>Nenhuma pergunta encontrada.</div>`;
+                    }
+                    else {
+                        return `
+            ${model.toArray().map((post, i) => `
+            <hr>
+            <div class="row" style="overflow-x:hidden">
+                <div class="d-flex col-3 flex-column align-items-center text-center justify-content-start pl-3 pr-3 w-100">
+                    <div class="responsive-user-help">
+                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle" width="70px">
+                        <h6 class="mt-2">${post.Owner ? escapeTag_1.escapeTag(post.Owner) : ""}</h6>
                     </div>
                 </div>
-            `).join('')}
+    
+                <div class="col-9 responsive-help-card">
+                    <div class="row">
+                        <div class="col-8 col-md-10">
+                            <h5 class="d-inline-block"><strong>${escapeTag_1.escapeTag(post.Title)}</strong></h5>
+                            
+                            <div class="text-black-50 mt-n2 mb-2">
+                                <image src="https://image.flaticon.com/icons/png/512/59/59252.png" class="mr-1" style="height: 15px">
+                            </div>
+    
+                        </div>
+                        <div class="col-4 col-md-2">
+                            <a href="app-help-asks.html?id=${post.Id}" class="float-right d-flex justify-content-center btn btn-outline-info btn-sm pr-3 pl-3 mb-1 input-circle">
+                                <i class="small material-icons mr-md-2 align-middle">question_answer</i>
+                                <span class="d-none d-sm-inline-block">Responder</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mt-1">${escapeTag_1.escapeTag(post.Description)}</div> 
+                </div> 
+            </div>   
+    
+            `).join('')}       
         `;
+                    }
                 }
             };
             exports_1("HomeHelpCenterView", HomeHelpCenterView);
