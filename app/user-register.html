@@ -22,69 +22,89 @@
     <!-- particles.js -->
     <div id="particles-js"></div>
 
-    <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container">
-            <div class="row navbar-header align-baseline ml-n3">
-                <a href="index.html">
-                    <img src="./img/logo_compasso.png">
-                </a>
-                <div class="vt-apps-line ml-2"></div>
-                <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
-                    <h5>
-                        <strong>Daily Note</strong>
-                    </h5>
-                </a>
-                <a href="app-help-center.html" class="menu-item mt-3 ml-4">
-                    <h5>
-                        <strong>Help Center</strong>
-                    </h5>
-                </a>
-                <a href="app-daily-gob.html" class="menu-item mt-3 ml-4">
-                    <h5>
-                        <strong>Daily Note GOB</strong>
-                    </h5>
-                </a>
-            </div>
 
-            <!-- User menu -->
-            <!-- <div id="user-menu-login-link"></div> -->
-            <div id="user-main">
-                <div class="dropdown mr-n4 txt-user" style="float:right;">
-                    <div class="d-flex align-items-center btn" data-toggle="dropdown">
-                        <span id="nameSpan"></span>
-                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle"
-                            width="60px">
-                        <i class="material-icons ml-n2">arrow_drop_down</i>
-                    </div>
-                    <div class="dropdown-menu dropdown-menu-right align-user">
-                        <div class="dropdown-item">
-                            Usuário:
-                            <span id="userNameSpan"></span>
-                        </div>
-                        <div class="dropdown-divider"></div>
-
-                        <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
-                            <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
-                        <a class="dropdown-item d-flex align-items-center" href="index.html">
-                            <i class="material-icons mr-2">home</i>Home</a>
-
-                        <div class="dropdown-divider"></div>
-
-                        <a class="dropdown-item d-flex align-items-center" id="logout">
-                            <i class="material-icons mr-2">power_settings_new</i>
-                            <strong>Sair</strong>
+            <a href="index.html">
+                <img src="./img/logo_compasso.png">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-around" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item ml-md-3 mr-md-3">
+                        <!-- <div class="vt-apps-line ml-2"></div> -->
+                        <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
+                            <h5>
+                                <strong>Daily Note</strong>
+                            </h5>
                         </a>
+                    </li>
+                    <li class="nav-item ml-md-3 mr-md-3">
+                        <a href="app-help-center.html" class="menu-item mt-3 ml-4">
+                            <h5>
+                                <strong>Help Center</strong>
+                            </h5>
+                        </a>
+                    </li>
+                    <li class="nav-item ml-md-3 mr-md-3">
+                        <a href="app-daily-gob.html" class="menu-item mt-3 ml-4">
+                            <h5>
+                                <strong>Daily Note GOB</strong>
+                            </h5>
+                        </a>
+                    </li>
+                    <li class="nav-item ml-md-3 mr-md-1">
+                        <a href="app-help-center-gob.html" class="menu-item mt-3 ml-4">
+                            <h5>
+                                <strong>Help Center GOB</strong>
+                            </h5>
+                        </a>
+                    </li>
+
+                </ul>
+
+
+                <div class="" id="user-main">
+                    <div class="dropdown ml-n2 txt-user">
+                        <div class="d-flex align-items-center btn ml-5" data-toggle="dropdown">
+                            <span id="nameSpan"></span>
+                            <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png"
+                                class="rounded-circle" width="60px">
+                            <i class="material-icons ml-n2">arrow_drop_down</i>
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-right align-user">
+                            <div class="dropdown-item">
+                                Usuário:
+                                <span id="userNameSpan"></span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+
+                            <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
+                                <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
+                            <a class="dropdown-item d-flex align-items-center" href="index.html">
+                                <i class="material-icons mr-2">home</i>Home</a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a class="dropdown-item d-flex align-items-center" id="logout">
+                                <i class="material-icons mr-2">power_settings_new</i>
+                                <strong>Sair</strong>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- end User menu -->
 
+
+            </div>
         </div>
     </nav>
 
     <div class="container page-position col-12 col-sm-7" id="register">
         <section class="section-register custom-bx">
-            <form class="form pt-1 pl-4 pr-4 pb-4" method="post" id="user-register" autocomplete="off" enctype="multipart/form-data">
+            <form class="form pt-1 pl-4 pr-4 pb-4" method="post" id="user-register" autocomplete="off"
+                enctype="multipart/form-data">
 
                 <div class="vt-line mt-4 mb-4">
                     <h3>
@@ -106,8 +126,8 @@
                         <div class="form-group">
                             <label for="name">Primeiro Nome:</label>
                             <!-- <input type="text" name="name" id="name" class="form-control form-control-sm input-circle" id="name" placeholder="Informe seu nome" autofocus> -->
-                            <input type="text" name="name" id="name" class="form-control form-control-sm input-circle" id="name" placeholder="Informe seu nome"
-                                autofocus>
+                            <input type="text" name="name" id="name" class="form-control form-control-sm input-circle"
+                                id="name" placeholder="Informe seu nome" autofocus>
                             <div id="namevalidator"></div>
                         </div>
                     </div>
@@ -115,7 +135,9 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="lastname">Sobrenome:</label>
-                            <input type="text" name="lastName" id="lastName" class="form-control form-control-sm input-circle" id="lastname" placeholder="Informe seu sobrenome">
+                            <input type="text" name="lastName" id="lastName"
+                                class="form-control form-control-sm input-circle" id="lastname"
+                                placeholder="Informe seu sobrenome">
                             <div id="lastnamevalidator"></div>
                         </div>
                     </div>
@@ -123,13 +145,15 @@
 
                 <div class="form-group">
                     <label for="birthdate">Data de nascimento:</label>
-                    <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control form-control-sm ext-placeholder input-circle">
+                    <input type="date" name="dateOfBirth" id="dateOfBirth"
+                        class="form-control form-control-sm ext-placeholder input-circle">
                     <div id="birthdatevalidator"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="email">E-mail:</label>
-                    <input type="text" name="email" class="form-control form-control-sm input-circle" id="email" placeholder="Informe seu e-mail">
+                    <input type="text" name="email" class="form-control form-control-sm input-circle" id="email"
+                        placeholder="Informe seu e-mail">
                     <div id="emailvalidator"></div>
                 </div>
 
@@ -151,7 +175,8 @@
 
                 <div class="form-group">
                     <label for="username">Nome de usuário:</label>
-                    <input type="text" name="userName" id="userName" class="form-control form-control-sm input-circle" placeholder="Informe um nome de usuário">
+                    <input type="text" name="userName" id="userName" class="form-control form-control-sm input-circle"
+                        placeholder="Informe um nome de usuário">
                     <div id="usernamevalidator"></div>
                 </div>
 
@@ -159,8 +184,8 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="password">Senha:</label>
-                            <input type="password" name="password" class="form-control form-control-sm input-circle" id="password" placeholder="Informe uma senha"
-                                maxlength="8">
+                            <input type="password" name="password" class="form-control form-control-sm input-circle"
+                                id="password" placeholder="Informe uma senha" maxlength="8">
                             <div id="passwordvalidator"></div>
                         </div>
                     </div>
@@ -168,7 +193,8 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="password">Confirmação:</label>
-                            <input type="password" name="pass_passwordConfirm" class="form-control form-control-sm input-circle" id="passwordConfirm"
+                            <input type="password" name="pass_passwordConfirm"
+                                class="form-control form-control-sm input-circle" id="passwordConfirm"
                                 placeholder="Informe a senha novamente" maxlength="8">
                             <div id="passwordconfirmvalidator"></div>
                         </div>
@@ -179,27 +205,39 @@
                     <div class="g-recaptcha mt-2" data-sitekey="6LfhNKsUAAAAALZSy7RxiuZfFQv7B7yA_C8m2G9H"></div>
                 </div>
 
-                <div class="row">
+                <<<<<<< HEAD <div class="row">
                     <div class="col-12 col-sm-8">
 
                     </div>
                     <div class="col-12 col-sm-4">
                         <div class="row">
                             <div class="col-12 col-sm-6">
-                                <button type="submit" name="send" class="btn btn-outline-danger btn-sm btn-block float-center mt-3 mb-3 input-circle" id="access">Cancelar</button>
+                                <button type="submit" name="send"
+                                    class="btn btn-outline-danger btn-sm btn-block float-center mt-3 mb-3 input-circle"
+                                    id="access">Cancelar</button>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <button type="submit" name="send" class="btn btn-outline-success btn-sm btn-block float-center mt-3 mb-3 input-circle" id="access">Cadastrar</button>
+                                <button type="submit" name="send"
+                                    class="btn btn-outline-success btn-sm btn-block float-center mt-3 mb-3 input-circle"
+                                    id="access">Cadastrar</button>
                             </div>
                         </div>
                     </div>
-                </div>
+    </div>
+    =======
+    <button type="submit" name="send" class="btn btn-outline-success btn-sm mt-3 pr-3 pl-3 float-right input-circle"
+        id="register-new-user">Cadastrar</button>
+    <button type="button" name="reset"
+        class="btn btn-outline-danger btn-sm mt-3 pr-3 pl-3 mr-2 float-right input-circle" data-toggle="modal"
+        data-target="#cancelModal">Cancelar</button>
+    >>>>>>> 210b6b3f2945f998d52a849429487bc5d5ad9964
 
-            </form>
-        </section>
+    </form>
+    </section>
     </div>
 
-    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelTitle" aria-hidden="true">
+    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelTitle"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -214,9 +252,11 @@
                 </div>
                 <div class="modal-body">Deseja cancelar o processo de cadastro?</div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger btn-sm pr-4 pl-4 input-circle" data-dismiss="modal">Não</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm pr-4 pl-4 input-circle"
+                        data-dismiss="modal">Não</button>
                     <a href="index.html">
-                        <button type="button" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle" id="cancelRegister">Sim</button>
+                        <button type="button" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle"
+                            id="cancelRegister">Sim</button>
                     </a>
                 </div>
             </div>
