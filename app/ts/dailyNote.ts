@@ -51,6 +51,6 @@ $(document).ready(() => {
                 </div>
             </div>`;
     } else {
-        m.innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`; m.innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+        m.innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
     }
 });

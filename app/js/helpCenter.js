@@ -1,7 +1,6 @@
 System.register(["./controllers/HelpCenterController", "./utils/userData"], function (exports_1, context_1) {
     "use strict";
-    var HelpCenterController_1, userData_1, userData, controller, url, mostraHelp, cadastrar, cancelar, cancel;
-    var HelpCenterController_1, userData_1, userData, controller, url, mostraHelp, cadastrar, cancelar, m;
+    var HelpCenterController_1, userData_1, userData, controller, url, mostraHelp, cadastrar, cancelar, cancel, m;
     var __moduleName = context_1 && context_1.id;
     function delay(callback, ms) {
         var timer = 0;
