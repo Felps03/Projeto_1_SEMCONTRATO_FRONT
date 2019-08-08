@@ -55,7 +55,6 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                     return __asyncGenerator(this, arguments, function* init_1() {
                         this.getFromStorage();
                         if (this.chat.History.length === 0) {
-                            console.log('init');
                             yield __await(yield* __asyncDelegator(__asyncValues(this.answer())));
                         }
                         else {
@@ -97,13 +96,17 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                                 }
                                 if (!success) {
                                     this.store();
-                                    for (let msg of chatBotTree_1.dialog['understandnt'].children[0].answer) {
+                                    for (let msg of chatBotTree_1.dialog['understandnt'].greet) {
                                         if (typeof msg === 'string') {
                                             yield yield __await(index_1.delay(this.message([
                                                 Chat_1.ChatAgent.Bot,
                                                 chatAnswerParser_1.parseState(this.state, msg)
                                             ]), this.DELAY_TIME));
                                         }
+                                    }
+                                    const actualBranch = chatBotTree_1.dialog[this.context];
+                                    for (const msg of actualBranch.greet) {
+                                        yield yield __await(index_1.delay(this.message([Chat_1.ChatAgent.Bot, msg]), this.DELAY_TIME));
                                     }
                                 }
                             }

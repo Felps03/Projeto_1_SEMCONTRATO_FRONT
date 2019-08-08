@@ -154,4 +154,16 @@ export class UserService {
             },
         })
     }
+
+    checkIfExists(userName: string) {
+        return fetch(`${HOST}user/exists/${userName}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            }
+        })
+    }
 }
