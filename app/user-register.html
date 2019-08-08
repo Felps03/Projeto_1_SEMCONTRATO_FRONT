@@ -25,13 +25,19 @@
     <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
         <div class="container">
             <div class="row navbar-header align-baseline ml-n3">
-                <a href="index.html"><img src="./img/logo_compasso.png"></a>
+                <a href="index.html">
+                    <img src="./img/logo_compasso.png">
+                </a>
                 <div class="vt-apps-line ml-2"></div>
                 <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
-                    <h5><strong>Daily Note</strong></h5>
+                    <h5>
+                        <strong>Daily Note</strong>
+                    </h5>
                 </a>
                 <a href="app-help-center.html" class="menu-item mt-3 ml-4">
-                    <h5><strong>Help Center</strong></h5>
+                    <h5>
+                        <strong>Help Center</strong>
+                    </h5>
                 </a>
                 <a href="app-daily-gob.html" class="menu-item mt-3 ml-4">
                     <h5>
@@ -46,12 +52,14 @@
                 <div class="dropdown mr-n4 txt-user" style="float:right;">
                     <div class="d-flex align-items-center btn" data-toggle="dropdown">
                         <span id="nameSpan"></span>
-                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle" width="60px">
+                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle"
+                            width="60px">
                         <i class="material-icons ml-n2">arrow_drop_down</i>
                     </div>
                     <div class="dropdown-menu dropdown-menu-right align-user">
                         <div class="dropdown-item">
-                            Usuário: <span id="userNameSpan"></span>
+                            Usuário:
+                            <span id="userNameSpan"></span>
                         </div>
                         <div class="dropdown-divider"></div>
 
@@ -63,7 +71,9 @@
                         <div class="dropdown-divider"></div>
 
                         <a class="dropdown-item d-flex align-items-center" id="logout">
-                            <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
+                            <i class="material-icons mr-2">power_settings_new</i>
+                            <strong>Sair</strong>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -96,7 +106,8 @@
                         <div class="form-group">
                             <label for="name">Primeiro Nome:</label>
                             <!-- <input type="text" name="name" id="name" class="form-control form-control-sm input-circle" id="name" placeholder="Informe seu nome" autofocus> -->
-                            <input type="text" name="name" id="name" class="form-control form-control-sm input-circle" id="name" placeholder="Informe seu nome" autofocus>
+                            <input type="text" name="name" id="name" class="form-control form-control-sm input-circle" id="name" placeholder="Informe seu nome"
+                                autofocus>
                             <div id="namevalidator"></div>
                         </div>
                     </div>
@@ -148,7 +159,8 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="password">Senha:</label>
-                            <input type="password" name="password" class="form-control form-control-sm input-circle" id="password" placeholder="Informe uma senha" maxlength="8">
+                            <input type="password" name="password" class="form-control form-control-sm input-circle" id="password" placeholder="Informe uma senha"
+                                maxlength="8">
                             <div id="passwordvalidator"></div>
                         </div>
                     </div>
@@ -156,7 +168,8 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label for="password">Confirmação:</label>
-                            <input type="password" name="pass_passwordConfirm" class="form-control form-control-sm input-circle" id="passwordConfirm" placeholder="Informe a senha novamente" maxlength="8">
+                            <input type="password" name="pass_passwordConfirm" class="form-control form-control-sm input-circle" id="passwordConfirm"
+                                placeholder="Informe a senha novamente" maxlength="8">
                             <div id="passwordconfirmvalidator"></div>
                         </div>
                     </div>
@@ -166,8 +179,21 @@
                     <div class="g-recaptcha mt-2" data-sitekey="6LfhNKsUAAAAALZSy7RxiuZfFQv7B7yA_C8m2G9H"></div>
                 </div>
 
-                <button type="submit" name="send" class="btn btn-outline-success btn-sm mt-3 pr-3 pl-3 float-right input-circle" id="register-new-user">Cadastrar</button>
-                <button type="button" name="reset" class="btn btn-outline-danger btn-sm mt-3 pr-3 pl-3 mr-2 float-right input-circle" data-toggle="modal" data-target="#cancelModal">Cancelar</button>
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <button type="submit" name="send" class="btn btn-outline-danger btn-sm btn-block float-center mt-3 mb-3 input-circle" id="access">Cancelar</button>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <button type="submit" name="send" class="btn btn-outline-success btn-sm btn-block float-center mt-3 mb-3 input-circle" id="access">Cadastrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </form>
         </section>
@@ -205,7 +231,7 @@
     <script>
         const customTxt = document.getElementById("custom-text");
 
-        document.getElementById('dateOfBirth').onkeyup = function() {
+        document.getElementById('dateOfBirth').onkeyup = function () {
             let dateHolder = document.getElementById('dateOfBirth');
             let dateValue = document.getElementById('dateOfBirth').value;
 
