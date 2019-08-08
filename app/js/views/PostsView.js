@@ -33,12 +33,6 @@ System.register(["./View", "../utils/publish"], function (exports_1, context_1) 
                 <div class="col-9 col-sm-12 responsive-help-card">
                     <div class="row">
                         <div class="col-12 col-sm-12">
-                            
-
-                            
-
-
-
                             <div id="user-main responsive-help-drop">
                                 <div class="dropdown mr-n4 txt-user" style="float:right;">
                                     <div class="d-flex align-items-center btn mr-n4 mt-n1" data-toggle="dropdown">
@@ -63,29 +57,9 @@ System.register(["./View", "../utils/publish"], function (exports_1, context_1) 
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
-
-                             
+                            
                             <h5><strong>${post.Title}</strong></h5>
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-                                                     
+                       
                             <a href="app-help-asks.html?id=${post.Id}" class="float-right d-flex justify-content-center mr-n3">
                                 <button type="button" class="btn btn-outline-info btn-sm  pr-3 pl-3 mt-n4 input-circle responsive-help-buttons" id="response-help">
                                     <i class="small material-icons mr-2 align-middle">question_answer</i>
