@@ -23,6 +23,10 @@ System.register(["./View", "../utils/publish"], function (exports_1, context_1) 
                         <h6 class="mt-2 responsive-user-name">${model.AuthorName ? model.AuthorName : ""}</h6>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> cbf6986f60abc4b508041136a2405f221a84d5eb
                 <div class="col-9 col-sm-12 responsive-help-card">
                     <div class="row">
                         <div class="col-12 col-sm-12 pr-0">
@@ -52,6 +56,10 @@ System.register(["./View", "../utils/publish"], function (exports_1, context_1) 
                             </div>
                             
                             <h5><strong>${model.Title}</strong></h5>
+<<<<<<< HEAD
+=======
+
+>>>>>>> cbf6986f60abc4b508041136a2405f221a84d5eb
                             ${localStorage.getItem('id') === model.AuthorId ? `
                                 <a href="app-help-asks.html?id=${model.Id}" class="float-right d-flex justify-content-center mr-n3">
                                     <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle responsive-help-buttons" id="edit-help">
@@ -59,6 +67,10 @@ System.register(["./View", "../utils/publish"], function (exports_1, context_1) 
                                         <text class="responsive-help-buttons">Editar</text>
                                     </button>
                                 </a>
+<<<<<<< HEAD
+=======
+
+>>>>>>> cbf6986f60abc4b508041136a2405f221a84d5eb
                                 <a href="app-help-asks.html?id=${model.Id}" class="float-right d-flex justify-content-center mr-n3">
                                     <button type="button" class="btn btn-outline-danger btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle responsive-help-buttons" id="remove-help">
                                         <i class="small material-icons mr-2 align-middle">delete</i>

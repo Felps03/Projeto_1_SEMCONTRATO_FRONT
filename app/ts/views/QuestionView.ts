@@ -45,6 +45,7 @@ export class QuestionView extends View<Post> {
                             </div>
                             
                             <h5><strong>${model.Title}</strong></h5>
+
                             ${localStorage.getItem('id') === model.AuthorId ? `
                                 <a href="app-help-asks.html?id=${model.Id}" class="float-right d-flex justify-content-center mr-n3">
                                     <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle responsive-help-buttons" id="edit-help">

@@ -46,6 +46,7 @@ export class AnswersView extends View<PostAsks> {
                                             </div>
                                         </div>
                                     </div>
+
                                     ${localStorage.getItem('id') === PostAsk.Author ? `
                                         <a href="app-help-asks.html?id=${PostAsk.Id}" class="float-right d-flex justify-content-center mr-n3">
                                             <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mt-n2 mr-4 mb-2 input-circle responsive-help-buttons" id="edit-help">
@@ -53,6 +54,7 @@ export class AnswersView extends View<PostAsks> {
                                                 <text class="responsive-help-buttons">Editar</text>
                                             </button>
                                         </a>
+
                                         <a href="app-help-asks.html?id=${PostAsk.Id}" class="float-right d-flex justify-content-center mr-n3">
                                             <button type="button" class="btn btn-outline-danger btn-sm pr-3 pl-3 mt-n2 mr-4 mb-2 input-circle responsive-help-buttons" id="remove-help">
                                                 <i class="small material-icons mr-2 align-middle">delete</i>
