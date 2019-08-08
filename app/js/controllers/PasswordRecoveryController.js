@@ -1,9 +1,12 @@
-System.register(["../services/index", "../helpers/index", "../validation/userValidate", "../utils/listCheck"], function (exports_1, context_1) {
+System.register(["../services/UserService", "../services/index", "../helpers/index", "../validation/userValidate", "../utils/listCheck"], function (exports_1, context_1) {
     "use strict";
-    var index_1, index_2, vals, listCheck_1, PasswordRecoveryController;
+    var UserService_1, index_1, index_2, vals, listCheck_1, PasswordRecoveryController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
+            function (UserService_1_1) {
+                UserService_1 = UserService_1_1;
+            },
             function (index_1_1) {
                 index_1 = index_1_1;
             },
@@ -37,16 +40,28 @@ System.register(["../services/index", "../helpers/index", "../validation/userVal
                         let url = new URL(url_string);
                         let URL_KEY = url.searchParams.get("key");
                         const authenticateService = new index_1.AuthenticateService();
+                        const userService = new UserService_1.UserService();
                         authenticateService.verifyCode(URL_KEY, this.email.value, this.password.value)
-                            .then(res => res.json())
                             .then(res => {
-                            let erro = res;
-                            mesage.textContent = erro.erro;
-                            if (erro.erro)
+                            if (res.status === 200) {
+                                const userService = new UserService_1.UserService();
+                                console.log(this.email.value);
+                                console.log(this.password.value);
+                                userService.changePassword(this.email.value, this.password.value)
+                                    .then(res => {
+                                    console.log(res);
+                                    console.log(res.status === 200);
+                                    if (res.status === 200) {
+                                        document.getElementById("link-expired").style.display = "block";
+                                        mesage.textContent = "Senha alterada com sucesso";
+                                    }
+                                });
+                            }
+                            else {
+                                console.log(res.status);
+                                mesage.textContent = "Código Inválido";
                                 document.getElementById("link-expired").style.display = "block";
-                        }).catch(err => {
-                            console.log(err);
-                            mesage.textContent = JSON.stringify(err);
+                            }
                         });
                     }
                 }

@@ -18,7 +18,7 @@ System.register(["./controllers/PasswordRecoveryController", "./utils/userData",
             userData = userData_1.getUser();
             if (!localStorage.getItem('tkn'))
                 document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
-            if (!localStorage.getItem('tkn')) {
+            if (localStorage.getItem('tkn')) {
                 window.location.href = "index.html";
             }
             homeController = new HomeController_1.HomeController();

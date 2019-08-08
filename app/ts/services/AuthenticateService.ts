@@ -34,7 +34,7 @@ export class AuthenticateService {
                 }
 
                 if (res.status === 406) {
-                    return reject(res)  
+                    return reject(res)
                 }
 
                 const token = res.headers.get("Token");
@@ -85,26 +85,7 @@ export class AuthenticateService {
                 "emailCode": emailCode,
                 "email": email
             })
-        }).catch(err => {
-            console.log(err);
-            return err;
         })
-        // Comentado porque não achei onde chama
-        // .then(res => {
-
-        //     if (res.status == 400) {
-        //         alert('Codigo invalido');
-        //     }
-        //     if (res.status == 200) {
-        //         const userService = new UserService();
-        //         userService.changePassword(email, password);
-
-        //     }
-        // })
-        //     .catch(error => {
-        //         console.log("error: ", error);
-        //         return error;
-        //     });
     }
 
     verifyAdmin() {
