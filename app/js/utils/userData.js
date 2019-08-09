@@ -13,7 +13,7 @@ System.register(["../controllers/HomeController"], function (exports_1, context_
                 document.querySelector('#nameSpan').innerHTML = userData.name;
                 document.querySelector('#userNameSpan').innerHTML = userData.userName;
                 let aux = window.location.href;
-                if (aux == 'http://localhost:3000/index.html' || 'http://rebornsemcontrato.azurewebsites.net/') {
+                if (aux == 'http://localhost:3000/index.html' || aux == 'http://rebornsemcontrato.azurewebsites.net/') {
                     document.getElementById('welcomeMessage').innerHTML = `
                 <div class="row ${window.innerWidth <= 576 ? '' : 'mt-3'} mb-3 mx-0" id="welcomeResponsive">
                     <div class="col-12 section-help">

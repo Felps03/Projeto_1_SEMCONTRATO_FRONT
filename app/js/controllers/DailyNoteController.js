@@ -216,6 +216,9 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     this.add(event)
                         .then((res) => {
                         this.listDateDaily(event);
+                        document.getElementById('dailyModal').click();
+                        document.getElementById('add_daily').setAttribute('hidden', 'true');
+                        document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                         this.dailyStatusView = new DailyStatusView_1.DailyStatusView('#status_daily');
                         this.dailyStatusView.update(res.status == 200 ? 'Daily cadastrada com sucesso!' : res.status == 400 ? 'Você já cadastrou sua daily!' : '');
                     });

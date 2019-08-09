@@ -294,12 +294,9 @@ export class DailyNoteController {
         this.add(event)
             .then((res) => {
                 this.listDateDaily(event);
-                // document.getElementById('dailyModal').click();
-
-                // document.getElementById('add_daily').style.display = 'none';
-                
-                // document.getElementById('add_daily').setAttribute('disabled', 'disabled');
-                // document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
+                document.getElementById('dailyModal').click();                
+                document.getElementById('add_daily').setAttribute('hidden', 'true');
+                document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                 this.dailyStatusView = new DailyStatusView('#status_daily');
 
                 //alt="Hello World!"
