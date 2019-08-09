@@ -20,7 +20,7 @@
     <div id="chatbot-view"></div>
     <div id="particles-js"></div>
 
-    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <nav class="navbar navbar-expand-sm bg-light navbar-light shadow">
         <div class="container">
 
             <a href="index.html">
@@ -99,7 +99,7 @@
         </div>
     </nav>
 
-    <div class="container page-position col-12 col-sm-7" id="">
+    <div class="container page-position col-12 col-sm-7 responsive-section">
 
         <section class="section-register custom-bx">
 
@@ -107,32 +107,63 @@
 
                 <div class="vt-line mt-4 mb-4">
                     <h3>
-                        <strong>Daily Note - Game Of Bols</strong>
+                        <strong>Daily Note - GOB</strong>
                     </h3>
                 </div>
-                <hr class="register-line">
+                <hr class="daily-line">
 
                 <div id="status_daily"></div>
 
-                <div class="row">
-                    <div class="col-12 col-sm-4 mt-3">
-                        <div class="form-group">
-                            <label for="filter">Visualizar por data:</label>
-                            <input type="date" name="filter"
-                                class="form-control form-control-sm ext-placeholder input-circle" id="date_filter">
-                            <div id="filtervalidator"></div>
+                <div class="row mt-4"> 
 
-                            <button type="button" name="new_daily"
-                                class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle mt-add-daily"
-                                id="filter">Buscar
-                            </button>
+                    <!-- <label for="mobile-add" class="ml-3 mb-3" id="mobile-add-label">Deseja registrar sua Daily?</label> -->
+                 
+                        
+                    <div class="col-sm-10">
+
+                            
+                        
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="filter">Visualizar por data:</label>
+                                    <input type="date" name="filter" class="form-control form-control-sm input-circle" id="date_filter">
+                                    <!-- <div id="filtervalidator"></div> -->
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <button type="button" name="search_daily" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle mt-add-daily" style="margin-top: 5%;" id="filter">
+                                <i class="small material-icons mr-2 align-middle">search</i>
+                                Buscar</button>
+                            </div>
                         </div>
+                    </div> 
 
+                    <div class='col-sm-2'>
+                        
                     </div>
 
                 </div>
+                    
 
-                <table class="table table-hover mt-4">
+                    
+                    <!-- paginação top -->
+                <div class="row mb-n4">
+                        <div class="col-sm-12 mb-1">
+                            <nav class="float-right mt-1">
+                                <ul id="pagination" class="pagination"></ul>
+                            </nav>
+    
+                            <div class="vt-line mt-1">
+                                <h5><strong>Daily Board</strong></h5>
+                            </div>
+                            <div id="response" class="text-black-50 mb-3"></div>
+                        </div>
+                    </div>
+                   
+
+                <!-- <table class="table table-hover mt-4">
 
                     <thead class="bg-light">
                         <tr>
@@ -143,10 +174,10 @@
                             <th scope="col">Hoje</th>
                             <th scope="col">Impedimentos</th>
                         </tr>
-                    </thead>
-                    <tbody id="dayliesResult"></tbody>
+                    </thead> -->
+                    <div id="dayliesResult"></div>
 
-                </table>
+                <!-- </table> -->
                 <nav class="float-right mt-1">
                     <ul id="pagination" class="pagination">
                         <!-- <li class="page-item">

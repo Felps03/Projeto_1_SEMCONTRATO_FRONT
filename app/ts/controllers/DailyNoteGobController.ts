@@ -71,6 +71,12 @@ export class DailyNoteGOBController {
                 this.dailyView = new DailyNotesGOBView('#dayliesResult');
                 let dailyNotesGOB = new DailyNotesGOB();
 
+                if (result.length != 0) {
+					document.getElementById('response').textContent = `Total de ${result.length-1} daily${result.length-1 == 1 ? '' : 's'} registrada${result.length-1 == 1 ? '' : 's'}. (página única)`;
+				} else {
+					document.getElementById('response').textContent = '';
+				}
+
                 result.reverse().forEach((result: any) => {
                     let dailyNoteGOB = new DailyNoteGOB(result['imagem'], result['usuario'], result['data'], result.corpo['ontem'], result.corpo['hoje'], result.corpo['impedimento'])
                     dailyNotesGOB.add(dailyNoteGOB)

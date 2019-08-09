@@ -488,6 +488,9 @@ body {
     position: fixed;
 }
 
+.navbar-light {
+    z-index: 20;
+}
 
 .response-help-mob {
     display: none;
