@@ -33,7 +33,7 @@ export class PostsView extends View<Posts> {
                                     </div>
                                     <div class="dropdown-menu dropdown-menu-right align-user pt-0 pb-0">
 
-                                        ${localStorage.getItem('id') === post.AuthorId ? `
+                                        ${localStorage.getItem('id') === post.AuthorId || localStorage.getItem('isAdmin') == 'true' ? `
                                             <a class="dropdown-item d-flex align-items-center text-warning edit-help-resp can-edit" data-id="${post.Id}" href="./../help-center-edit.html?id=${post.Id}&owner=${post.AuthorId}">
                                                 <i class="material-icons mr-2">edit</i>Editar</a>
 
@@ -57,7 +57,7 @@ export class PostsView extends View<Posts> {
                                 </button>
                             </a>
 
-                            ${localStorage.getItem('id') === post.AuthorId ? `
+                            ${localStorage.getItem('id') === post.AuthorId || localStorage.getItem('isAdmin') == 'true' ? `
                                 <a data-id="${post.Id}" href="./../help-center-edit.html?id=${post.Id}&owner=${post.AuthorId}" class="float-right d-flex justify-content-center mr-n3 can-edit">
                                     <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle responsive-help-buttons" id="edit-help">
                                         <i class="small material-icons mr-2 align-middle">edit</i>

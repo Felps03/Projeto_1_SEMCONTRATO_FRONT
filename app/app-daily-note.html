@@ -97,9 +97,9 @@
         </div>
     </nav>
 
-    <div class="container page-position col-12 col-sm-7" id="">
+    <div class="container page-position col-12 col-sm-7 responsive-section">
 
-        <section class="section-register custom-bx">
+        <section class="section-register pb-0 custom-bx">
 
             <div class="pt-1 pl-4 pr-4 pb-4">
 
@@ -108,66 +108,70 @@
                         <strong>Daily Note</strong>
                     </h3>
                 </div>
-                <hr class="register-line">
+                <hr class="daily-line">
 
                 <div id="status_daily"></div>
 
-                <div class="row">
-                    <div class="col-12 col-sm-4 mt-3">
-                        <div class="form-group">
-                            <label for="filter">Visualizar por data:</label>
-                            <input type="date" name="filter" class="form-control form-control-sm ext-placeholder input-circle" id="date_filter">
-                            <div id="filtervalidator"></div>
+                
+                
+                
+                <div class="row mt-4"> 
 
-                            <button type="button" name="new_daily" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle mt-add-daily" id="filter">Buscar
-                            </button>
+                    <!-- <label for="mobile-add" class="ml-3 mb-3" id="mobile-add-label">Deseja registrar sua Daily?</label> -->
+                    <button type="button" name="new_daily" class="btn btn-outline-success btn-sm btn-block pr-4 pl-4 mt-n2 ml-3 mr-3 input-circle mt-add-daily responsive-add-daily-top"
+                        data-toggle="modal" data-target="#dailyModal" id="add_daily">Registrar Daily
+                    </button>
+                        
+                    <div class="col-sm-10">
+
+                            
+                        
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="filter">Visualizar por data:</label>
+                                    <input type="date" name="filter" class="form-control form-control-sm ext-placeholder input-circle" id="date_filter">
+                                    <!-- <div id="filtervalidator"></div> -->
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <button type="button" name="search_daily" class="btn btn-outline-success btn-sm pr-4 pl-4 input-circle mt-add-daily" style="margin-top: 5%;" id="filter">Buscar</button>
+                            </div>
                         </div>
+                    </div> 
 
-                    </div>
-
-                    <div class="col-12 col-sm-8">
-                        <button type="button" name="new_daily" class="btn btn-outline-success btn-sm pr-4 pl-4 float-right input-circle mt-add-daily"
-                            data-toggle="modal" data-target="#dailyModal" id="add_daily">Adicionar Daily
+                    <div class='col-sm-2'>
+                        <button type="button" name="new_daily" class="btn btn-outline-success btn-sm btn-block pr-4 pl-4 mt-4 float-right input-circle mt-add-daily responsive-add-daily-bottom"
+                            data-toggle="modal" data-target="#dailyModal" id="add_daily">Registrar Daily
                         </button>
                     </div>
+
                 </div>
+                    
 
-                <table class="table table-hover mt-4">
+                    
+                    <!-- paginação top -->
+                <div class="row mb-n4">
+                        <div class="col-sm-12 mb-1">
+                            <nav class="float-right mt-1">
+                                <ul id="pagination" class="pagination"></ul>
+                            </nav>
+    
+                            <div class="vt-line mt-1">
+                                <h5><strong>Quadro de Daily</strong></h5>
+                            </div>
+                            <div id="response" class="text-black-50 mb-3"></div>
+                        </div>
+                    </div>
+                   
+                <div id="dayliesResult"></div>
 
-                    <thead class="bg-light">
-                        <tr>
-                            <th scope="col">Autor</th>
-                            <th scope="col">Data</th>
-                            <th scope="col">Ontem</th>
-                            <th scope="col">Hoje</th>
-                            <th scope="col">Impedimentos</th>
-                            <th scope="col">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="dayliesResult"></tbody>
+                <!-- <nav class="float-right mt-1">
+                    <ul id="pagination" class="pagination"></ul>
+                </nav> -->
 
-                </table>
-                <nav class="float-right mt-1">
-                    <ul id="pagination" class="pagination">
-                        <!-- <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Anterior">
-                                <span aria-hidden="true" class="txt-primary">&laquo;</span>
-                                <span class="sr-only txt-primary">Anterior</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link txt-primary" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link txt-primary" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link txt-primary" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Próximo">
-                                <span aria-hidden="true" class="txt-primary">&raquo;</span>
-                                <span class="sr-only txt-primary">Próximo</span>
-                            </a>
-                        </li> -->
-                    </ul>
-                </nav>
-
-                <div id="pages"></div>
+                <!-- <div id="pages"></div> -->
             </div>
         </section>
 
@@ -196,7 +200,7 @@
 
                         <div class="form-group">
                             <label for="first">
-                                <strong>1. </strong>O que eu fiz ontem?</label>
+                                <strong>1. </strong>O que você fez ontem?</label>
 
                             <textarea name="first" class="form-control form-control-sm input-circle" id="yesterday" placeholder="Informe sua resposta aqui"
                                 autofocus></textarea>
@@ -205,7 +209,7 @@
 
                         <div class="form-group">
                             <label for="second">
-                                <strong>2. </strong>O que eu vou fazer hoje?</label>
+                                <strong>2. </strong>O que você vai fazer hoje?</label>
                             <textarea name="second" class="form-control form-control-sm input-circle" id="today" placeholder="Informe sua resposta aqui"></textarea>
 
                             <div id="secondvalidator"></div>
@@ -213,7 +217,7 @@
 
                         <div class="form-group">
                             <label for="third">
-                                <strong>3. </strong>Eu tenho impedimentos? Se sim, qual(is)?
+                                <strong>3. </strong>Você tem impedimentos? Se sim, qual(is)?
                             </label>
                             <textarea name="third" class="form-control form-control-sm input-circle" id="impediment" placeholder="Informe sua resposta aqui"></textarea>
                             <div id="thirdvalidator"></div>

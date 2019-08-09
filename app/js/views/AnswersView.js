@@ -50,7 +50,7 @@ System.register(["./View", "../utils/escapeTag", "../utils/publish"], function (
 
                                             <div class="dropdown-menu dropdown-menu-right align-user pt-0 pb-0 mr-n3">
 
-                                                ${localStorage.getItem('id') === PostAsk.Author ? `
+                                                ${localStorage.getItem('id') === PostAsk.Author || localStorage.getItem('isAdmin') == 'true' ? `
                                                     <a class="dropdown-item d-flex align-items-center text-warning edit-help-resp can-edit" data-id="${PostAsk.Id}" href="./../help-ask-edit.html?id=${PostAsk.Id}&owner=${PostAsk.Id_user}">
                                                         <i class="material-icons mr-2">edit</i>Editar</a>
 
@@ -61,7 +61,7 @@ System.register(["./View", "../utils/escapeTag", "../utils/publish"], function (
                                         </div>
                                     </div>
 
-                                    ${localStorage.getItem('id') === PostAsk.Author ? `
+                                    ${localStorage.getItem('id') === PostAsk.Author || localStorage.getItem('isAdmin') == 'true' ? `
                                         <a data-id="${PostAsk.Id}" href="./../help-ask-edit.html?id=${PostAsk.Id}&owner=${PostAsk.Id_user}" class="float-right d-flex justify-content-center mr-n3 can-edit">
                                             <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mt-n2 mr-4 mb-2 input-circle responsive-help-buttons" id="edit-help">
                                                 <i class="small material-icons mr-2 align-middle">edit</i>

@@ -147,6 +147,11 @@ a:hover {
     margin-left: -1.9rem;
 }
 
+.daily-line {
+    width: 106%;
+    margin-left: -1.9rem;
+}
+
 .register-line {
     width: 120%;
     margin-left: -1.9rem;
@@ -452,6 +457,14 @@ body {
     color: #c5c5c5;
 }
 
+.responsive-add-daily-top {
+    display: none;
+}
+
+#mobile-add-label {
+    display: none;
+}
+
 /* Responsive */
 
 /* All pages */
@@ -464,7 +477,21 @@ body {
 
 /* Help Center */
 @media (max-width: 980px) {
+
+    .responsive-add-daily-top {
+        display: block;
+    }
+    
+    .responsive-add-daily-bottom {
+        display: none;
+    }
+
+    #mobile-add-label {
+        display: block;
+    }
+
     .help-line { width: 116% }
+    .daily-line { width: 116% }
 
     .clock-image { 
         width: 60px;
@@ -489,7 +516,7 @@ body {
         margin-bottom: 1%;
     }
 
-    .responsive-help-section {
+    .responsive-section {
         padding-left: 0px;
         padding-right: 0px;
     }
