@@ -73,6 +73,8 @@ System.register(["./controllers/DailyNoteController", "./utils/userData"], funct
                 }
             });
             if (window.innerWidth <= 576) {
+                document.getElementById('recovery-pass').classList.add('btn-block');
+                document.getElementById('cancel').classList.add('btn-block');
                 document.getElementById('filter').classList.add('btn-block');
                 document.getElementById('filter').classList.add('mt-0');
                 document.getElementById('filter').classList.add('mb-4');

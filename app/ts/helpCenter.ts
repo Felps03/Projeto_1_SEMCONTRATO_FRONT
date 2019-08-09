@@ -116,8 +116,6 @@ $(document).ready(() => {
     }
 });
 
-
-
 //Responsive
 if (window.innerWidth <= 576) {
     document.getElementById('cancel').classList.add('btn-block');

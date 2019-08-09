@@ -488,8 +488,28 @@ body {
     position: fixed;
 }
 
+
+.response-help-mob {
+    display: none;
+}
+
 /* Help Center */
 @media (max-width: 980px) {
+
+    
+.response-help-mob {
+    display: block;
+}
+
+    .responsive-home-full {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #welcomeResponsive {
+        margin-top: 0;
+    }
+
     .daily-line-edit {
         width: 116%;
     }

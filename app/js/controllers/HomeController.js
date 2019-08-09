@@ -73,6 +73,9 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         this.helpCenterView = new HomeHelpCenterView_1.HomeHelpCenterView('#last-helps');
                         results.pop();
                         results.length = 3;
+                        if (results.length <= 3) {
+                            document.getElementById('response').innerHTML = `Total de ${results.length} pergunta${results.length >= 1 ? 's' : ''} listada${results.length >= 1 ? 's' : ''}. <a href="app-help-center.html">(clique aqui para mais)</a>`;
+                        }
                         results.map((result) => new index_1.HomeHelpCenter(result['_id'], result['owner'], result['date'], result['title'], result['desc']))
                             .forEach((result) => helpCenters.add(result));
                         this.helpCenterView.update(helpCenters);
@@ -92,6 +95,10 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         let dailyNotes = new HomeDailyNotes_1.HomeDailyNotes();
                         this.dailyView = new HomeDailyView_1.HomeDailyView('#all-dailys');
                         results.pop();
+                        console.log();
+                        if (results.length > 0) {
+                            document.getElementById('response-two').innerHTML = `Total de ${results.length} daily${results.length >= 1 ? 's' : ''} listada${results.length >= 1 ? 's' : ''}. <a href="app-daily-note.html">(acessar o quadro)</a>`;
+                        }
                         results.reverse();
                         results.map((result) => new index_1.HomeDailyNote(result['owner'], result['yesterday'], result['today'], result['impediment']))
                             .forEach((result) => dailyNotes.add(result));
