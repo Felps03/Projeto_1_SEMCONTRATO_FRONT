@@ -98,7 +98,7 @@
         </div>
     </nav>
 
-    <div class="container page-position col-12 col-sm-7" id="">
+    <div class="container page-position col-12 col-sm-7 responsive-section">
 
         <section class="section-register custom-bx">
 
@@ -109,14 +109,14 @@
                         <strong>Editar Daily</strong>
                     </h3>
                 </div>
-                <hr class="daily-edit-line">
+                <hr class="daily-line-edit">
 
 
                 <div id="editResult"></div>
                 <form class="form" method="POST" id="editdaily-form" autocomplete="off">
                     <div class="form-group">
                         <label for="first">
-                            <strong>1. </strong>O que eu fiz ontem?</label>
+                            <strong>1. </strong>O que você fez ontem?</label>
                         <textarea name="first" class="form-control form-control-sm input-circle"
                             id="edit-yesterday"></textarea>
                         <div id="firstvalidator"></div>
@@ -124,7 +124,7 @@
 
                     <div class="form-group">
                         <label for="second">
-                            <strong>2. </strong>O que eu vou fazer hoje?</label>
+                            <strong>2. </strong>O que você vai fazer hoje?</label>
                         <textarea name="second" class="form-control form-control-sm input-circle"
                             id="edit-today"></textarea>
                         <div id="secondvalidator"></div>
@@ -132,25 +132,22 @@
 
                     <div class="form-group">
                         <label for="third">
-                            <strong>3. </strong>Eu tenho impedimentos? Se sim, qual(is)?
+                            <strong>3. </strong>Você tem impedimentos? Se sim, qual(is)?
                         </label>
                         <textarea name="third" class="form-control form-control-sm input-circle"
                             id="edit-impediment"></textarea>
                         <div id="thirdvalidator"></div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-sm-9">
-
-                        </div>
-                        <div class="col-12 col-sm-3">
+                        
+                      
                             <input type="hidden" id="idDaily">
                             <button type="submit" name="send"
-                                class="btn btn-outline-warning btn-sm btn-block float-right mt-2 pr-3 pl-3 ml-2 input-circle"
+                                class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle"
                                 id="access">Editar</button>
                             <!-- <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-2 pl-2 input-circle"
                         data-dismiss="modal">Cancelar</button> -->
-                        </div>
+                      
 
                     </div>
 

@@ -202,9 +202,9 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                             this.dailyStatusView.update('Você já cadastrou sua daily!', 0, 0, typeAlert);
                             document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                         }
-                        if (res.status == 400)
+                        if (res.status == 400 || !(localStorage.getItem('tkn')))
                             document.getElementById('add_daily').setAttribute('hidden', 'true');
-                        if (res.status == 400)
+                        if (res.status == 400 || !(localStorage.getItem('tkn')))
                             document.querySelector('.responsive-add-daily-bottom').setAttribute('hidden', 'true');
                     });
                 }

@@ -152,6 +152,11 @@ a:hover {
     margin-left: -1.9rem;
 }
 
+.daily-line-edit {
+    width: 106%;
+    margin-left: -1.9rem;
+}
+
 .register-line {
     width: 120%;
     margin-left: -1.9rem;
@@ -448,6 +453,14 @@ body {
 }
 
 
+
+
+
+
+
+
+
+
 .clock-image {
     width: 70px;
 }
@@ -477,6 +490,9 @@ body {
 
 /* Help Center */
 @media (max-width: 980px) {
+    .daily-line-edit {
+        width: 116%;
+    }
 
     .responsive-add-daily-top {
         display: block;

@@ -277,9 +277,9 @@ export class DailyNoteController {
                     document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                 }
 
-                if (res.status == 400) document.getElementById('add_daily').setAttribute('hidden', 'true');
+                if (res.status == 400 || !(localStorage.getItem('tkn'))) document.getElementById('add_daily').setAttribute('hidden', 'true');
 
-                if (res.status == 400) document.querySelector('.responsive-add-daily-bottom').setAttribute('hidden', 'true');
+                if (res.status == 400 || !(localStorage.getItem('tkn'))) document.querySelector('.responsive-add-daily-bottom').setAttribute('hidden', 'true');
 
             });
     }

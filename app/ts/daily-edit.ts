@@ -43,3 +43,8 @@ else {
     window.location.href = "index.html"
 
 }
+
+//Responsive
+if (window.innerWidth <= 576) {
+    document.getElementById('access').classList.add('btn-block');
+}
