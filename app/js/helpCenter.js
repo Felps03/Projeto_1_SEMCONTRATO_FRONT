@@ -1,6 +1,6 @@
 System.register(["./controllers/HelpCenterController", "./utils/userData"], function (exports_1, context_1) {
     "use strict";
-    var HelpCenterController_1, userData_1, userData, controller, url, mostraHelp, cadastrar, cancelar, cancel, m;
+    var HelpCenterController_1, userData_1, userData, controller, url, mostraHelp, cadastrar, cancelar, cancel, m, buttonAddHC;
     var __moduleName = context_1 && context_1.id;
     function delay(callback, ms) {
         var timer = 0;
@@ -50,8 +50,21 @@ System.register(["./controllers/HelpCenterController", "./utils/userData"], func
             $('#search-joker').keyup(delay(controller.findByJoker.bind(controller), 500));
             m = document.getElementById('user-main');
             m.innerHTML = '';
-            if (!localStorage.getItem('email')) {
-                document.getElementById('help-add-ocult').remove();
+            buttonAddHC = document.getElementById("help-add-ocult");
+            console.log(localStorage.getItem('email'));
+            if (localStorage.getItem('email') == null) {
+                console.log("älsjfalf");
+                buttonAddHC.innerHTML = ``;
+            }
+            else {
+                console.log(buttonAddHC);
+                buttonAddHC.innerHTML = `<label for="search-joker">Deseja perguntar algo?</label>
+                            <button type="button" name="new_help"
+                                class="btn btn-sm btn-outline-success btn-block float-right input-circle"
+                                data-toggle="modal" data-toggle="modal" data-target="#add-modal">
+                                <i class="small material-icons mr-2 align-middle custom-icon-margin">help</i>
+                                Perguntar
+                            </button>`;
             }
             $(document).ready(() => {
                 setTimeout(() => {

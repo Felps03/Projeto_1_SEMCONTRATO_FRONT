@@ -3,6 +3,7 @@ import { HelpCenterAskController } from "./controllers/HelpCenterAskController";
 import { HomeController } from "./controllers/HomeController";
 import { getUser } from "./utils/userData";
 import { clean } from "./helpers/index";
+import { checkLoggedIn } from "./helpers/chatbot/chatBotProcess";
 
 let userData = getUser();
 //if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
@@ -57,8 +58,22 @@ $('#search-joker').keyup(delay(controller.findByJoker.bind(controller), 500));
 let m = document.getElementById('user-main');
 m.innerHTML = '';
 
-if (!localStorage.getItem('email')) {
-    document.getElementById('help-add-ocult').remove();
+let buttonAddHC = <HTMLInputElement>document.getElementById("help-add-ocult");
+
+console.log(localStorage.getItem('email'))
+
+if (localStorage.getItem('email') == null) {
+    console.log("älsjfalf")
+    buttonAddHC.innerHTML = ``;
+} else {
+    console.log(buttonAddHC)
+    buttonAddHC.innerHTML = `<label for="search-joker">Deseja perguntar algo?</label>
+                            <button type="button" name="new_help"
+                                class="btn btn-sm btn-outline-success btn-block float-right input-circle"
+                                data-toggle="modal" data-toggle="modal" data-target="#add-modal">
+                                <i class="small material-icons mr-2 align-middle custom-icon-margin">help</i>
+                                Perguntar
+                            </button>`;
 }
 
 $(document).ready(() => {
