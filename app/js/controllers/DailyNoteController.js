@@ -95,6 +95,16 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         return res.json();
                     })
                         .then(result => {
+                        let pages = result[result.length - 1].page;
+                        if (result.length != 0) {
+                            document.getElementById('response').textContent = `Total de ${result.length - 1} daily${result.length - 1 == 1 ? '' : 's'} registrada${result.length - 1 == 1 ? '' : 's'}. (página ${result[result.length - 1] === undefined ? '' : pages})`;
+                            this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-daily-note.html');
+                            this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                        }
+                        else {
+                            document.getElementById('response').textContent = '';
+                            document.getElementById('pagination').textContent = '';
+                        }
                         this.TotalPages = result[result.length - 1].totalPages;
                         this.paginationView.update(page, this.totalPages, this.type, fullDate);
                         let registeredDaylies = new RegisteredDaylies_1.RegisteredDaylies();
@@ -196,17 +206,16 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                             this.dailyStatusView.update('Você já cadastrou sua daily!', 0, 0, typeAlert);
                             document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                         }
-                        if (res.status == 400)
-                            document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+                        if (res.status == 400 || !(localStorage.getItem('tkn')))
+                            document.getElementById('add_daily').setAttribute('hidden', 'true');
+                        if (res.status == 400 || !(localStorage.getItem('tkn')))
+                            document.querySelector('.responsive-add-daily-bottom').setAttribute('hidden', 'true');
                     });
                 }
                 registeredDaily(event) {
                     this.add(event)
                         .then((res) => {
                         this.listDateDaily(event);
-                        document.getElementById('dailyModal').click();
-                        document.getElementById('add_daily').setAttribute('disabled', 'disabled');
-                        document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                         this.dailyStatusView = new DailyStatusView_1.DailyStatusView('#status_daily');
                         this.dailyStatusView.update(res.status == 200 ? 'Daily cadastrada com sucesso!' : res.status == 400 ? 'Você já cadastrou sua daily!' : '');
                     });

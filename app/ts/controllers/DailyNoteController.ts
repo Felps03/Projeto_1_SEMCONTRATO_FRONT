@@ -120,6 +120,17 @@ export class DailyNoteController {
             })
             .then(result => {
                 //console.log(result[result.length - 1].totalPages);
+                let pages = result[result.length-1].page;
+                if (result.length != 0) {
+					document.getElementById('response').textContent = `Total de ${result.length-1} daily${result.length-1 == 1 ? '' : 's'} registrada${result.length-1 == 1 ? '' : 's'}. (página ${result[result.length-1] === undefined ? '' : pages})`;
+					this.paginationView = new PaginationView('#pagination', 'app-daily-note.html');
+					this.paginationView.update(this.currentPage, this.totalPages, this.type);
+				} else {
+					document.getElementById('response').textContent = '';
+					// this.paginationView.update(this.currentPage, this.totalPages, this.type);
+					document.getElementById('pagination').textContent = '';
+				}
+
                 this.TotalPages = result[result.length - 1].totalPages;
                 this.paginationView.update(page, this.totalPages, this.type, fullDate);
                 // console.log(result);
@@ -272,7 +283,10 @@ export class DailyNoteController {
                     document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                 }
 
-                if (res.status == 400) document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+                if (res.status == 400 || !(localStorage.getItem('tkn'))) document.getElementById('add_daily').setAttribute('hidden', 'true');
+
+                if (res.status == 400 || !(localStorage.getItem('tkn'))) document.querySelector('.responsive-add-daily-bottom').setAttribute('hidden', 'true');
+
             });
     }
 
@@ -280,9 +294,12 @@ export class DailyNoteController {
         this.add(event)
             .then((res) => {
                 this.listDateDaily(event);
-                document.getElementById('dailyModal').click();
-                document.getElementById('add_daily').setAttribute('disabled', 'disabled');
-                document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
+                // document.getElementById('dailyModal').click();
+
+                // document.getElementById('add_daily').style.display = 'none';
+                
+                // document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+                // document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                 this.dailyStatusView = new DailyStatusView('#status_daily');
 
                 //alt="Hello World!"

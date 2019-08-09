@@ -19,9 +19,7 @@ export class HomeDailyView extends View<HomeDailyNotes> {
                         <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle" width="70px">
                         <h6 class="mt-2">${daily.Author ? escapeTag(daily.Author) : ""}</h6>
                     </div>
-                </div>
-    
-                            
+                </div>            
 
                 <div class="col-9 responsive-help-card">
                     <div class="row">

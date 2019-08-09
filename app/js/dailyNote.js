@@ -72,6 +72,22 @@ System.register(["./controllers/DailyNoteController", "./utils/userData"], funct
                     m.innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
                 }
             });
+            if (window.innerWidth <= 576) {
+                document.getElementById('filter').classList.add('btn-block');
+                document.getElementById('filter').classList.add('mt-0');
+                document.getElementById('filter').classList.add('mb-4');
+                document.getElementById('filter').classList.remove('col-sm-6');
+                document.getElementById('filter').classList.add('col-sm-12');
+                document.getElementById('add_daily').classList.add('mb-4');
+                var btn = document.querySelector('.responsive-add-daily-bottom');
+                if (btn.parentNode)
+                    btn.parentNode.removeChild(btn);
+            }
+            else {
+                var btn = document.querySelector('.responsive-add-daily-top');
+                if (btn.parentNode)
+                    btn.parentNode.removeChild(btn);
+            }
         }
     };
 });

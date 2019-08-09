@@ -103,9 +103,10 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                         .then((res) => {
                         this.TotalPages = res.pagination.totalPages;
                         this.questionView = new QuestionView_1.QuestionView('#ask_result');
+                        let pages = res.pagination.page;
                         if (res.hasOwnProperty('answerData')) {
                             let countAnswers = res.pagination.totalDocs;
-                            document.getElementById('response').textContent = `Total de ${countAnswers} resposta${countAnswers == 1 ? '' : 's'} registrada${countAnswers == 1 ? '' : 's'}. ${res[res.length - 1] == undefined ? '' : `(página ${res[res.length - 1].page})`}`;
+                            document.getElementById('response').textContent = `Total de ${countAnswers} resposta${countAnswers == 1 ? '' : 's'} registrada${countAnswers == 1 ? '' : 's'}. ${res[res.length - 1] == undefined ? '' : `(página ${pages})`}`;
                             this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
                         }
                         else {
