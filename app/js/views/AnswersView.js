@@ -53,10 +53,11 @@ System.register(["./View", "../utils/escapeTag", "../utils/publish"], function (
                                                 ${localStorage.getItem('id') === PostAsk.Author || localStorage.getItem('isAdmin') == 'true' ? `
                                                     <a class="dropdown-item d-flex align-items-center text-warning edit-help-resp can-edit" data-id="${PostAsk.Id}" href="./../help-ask-edit.html?id=${PostAsk.Id}&owner=${PostAsk.Id_user}">
                                                         <i class="material-icons mr-2">edit</i>Editar</a>
-
+                                        
                                                     <a class="dropdown-item d-flex align-items-center text-danger rmv-help-resp can-delete" data-id="${PostAsk.Id}" href="#">
                                                         <i class="material-icons mr-2">delete</i>Excluir</a>`
                             : ''}
+
                                             </div>
                                         </div>
                                     </div>
@@ -68,7 +69,7 @@ System.register(["./View", "../utils/escapeTag", "../utils/publish"], function (
                                                 <text class="responsive-help-buttons">Editar</text>
                                             </button>
                                         </a>
-
+                                   
                                         <a data-id="${PostAsk.Id}" href="#" class="float-right d-flex justify-content-center mr-n3 can-delete">
                                             <button type="button" class="btn btn-outline-danger btn-sm pr-3 pl-3 mt-n2 mr-4 mb-2 input-circle responsive-help-buttons can-delete" id="remove-help">
                                                 <i class="small material-icons mr-2 align-middle">delete</i>

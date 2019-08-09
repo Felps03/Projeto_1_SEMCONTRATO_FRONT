@@ -43,8 +43,10 @@ System.register(["./View", "../utils/publish"], function (exports_1, context_1) 
 
                                         ${localStorage.getItem('id') === post.AuthorId || localStorage.getItem('isAdmin') == 'true' ? `
                                             <a class="dropdown-item d-flex align-items-center text-warning edit-help-resp can-edit" data-id="${post.Id}" href="./../help-center-edit.html?id=${post.Id}&owner=${post.AuthorId}">
-                                                <i class="material-icons mr-2">edit</i>Editar</a>
+                                                <i class="material-icons mr-2">edit</i>Editar</a>`
+                            : ''}
 
+                                        ${localStorage.getItem('id') === post.AuthorId ? `
                                             <a class="dropdown-item d-flex align-items-center text-danger rmv-help-resp can-delete" data-id="${post.Id}" href="#">
                                                 <i class="material-icons mr-2">delete</i>Excluir</a>`
                             : ''}
@@ -72,7 +74,9 @@ System.register(["./View", "../utils/publish"], function (exports_1, context_1) 
                                         <text class="responsive-help-buttons">Editar</text>
                                     </button>
                                 </a>
+                                ` : ``}
 
+                            ${localStorage.getItem('id') === post.AuthorId ? `
                                 <a data-id="${post.Id}" href="#" class="float-right d-flex justify-content-center mr-n3 can-delete">
                                     <button type="button" class="btn btn-outline-danger btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle responsive-help-buttons" id="remove-help">
                                         <i class="small material-icons mr-2 align-middle">delete</i>

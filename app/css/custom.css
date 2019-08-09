@@ -133,7 +133,7 @@ a:hover {
 }
 
 .login-line {
-    width: 100%;
+    width: 120%;
     margin-left: -1.8rem;
 }
 
@@ -498,11 +498,14 @@ body {
 
 /* Help Center */
 @media (max-width: 980px) {
+    .login-line {
+        width: 123%;
+    }
 
     
-.response-help-mob {
-    display: block;
-}
+    .response-help-mob {
+        display: block;
+    }
 
     .responsive-home-full {
         padding-left: 0;
