@@ -41,7 +41,7 @@ System.register(["./controllers/HelpCenterController", "./utils/userData"], func
                 cadastrar.addEventListener('click', controller.cancel.bind(controller));
                 window.addEventListener('load', controller.list.bind(controller));
             }
-            cancelar = document.querySelector("#cancelarHelpCenter");
+            cancelar = document.querySelector("#cancel");
             if (cancelar) {
                 cancelar.addEventListener('click', controller.cancelar.bind(controller));
             }

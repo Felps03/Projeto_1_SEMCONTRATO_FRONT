@@ -29,7 +29,7 @@ if (cadastrar) {
     window.addEventListener('load', controller.list.bind(controller));
 }
 
-let cancelar = document.querySelector("#cancelarHelpCenter");
+let cancelar = document.querySelector("#cancel");
 if (cancelar) {
     cancelar.addEventListener('click', controller.cancelar.bind(controller));
 }
