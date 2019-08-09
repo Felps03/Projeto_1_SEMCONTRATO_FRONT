@@ -41,11 +41,6 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
         execute: function () {
             HomeController = class HomeController {
                 constructor() { }
-                clickHelpASK(event) {
-                    let temp = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.lastElementChild;
-                    let idHelpCenter = (temp.querySelector('.card .card-body #idHelp').textContent);
-                    window.location.href = `app-help-asks.html?id=${idHelpCenter}`;
-                }
                 getUser() {
                     let data;
                     if (!localStorage.getItem('tkn')) {

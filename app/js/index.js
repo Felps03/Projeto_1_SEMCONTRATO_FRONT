@@ -21,7 +21,6 @@ System.register(["./controllers/HomeController", "./utils/userData"], function (
             mostraDaily.addEventListener('click', homeController.listDailyDate.bind(homeController));
             mostraHelp.addEventListener('click', homeController.listLastHelp.bind(homeController));
             clickHelp = document.getElementById("last-helps");
-            clickHelp.addEventListener('click', homeController.clickHelpASK.bind(homeController));
             m = document.getElementById('user-main');
             m.innerHTML = '';
             $(document).ready(function () {

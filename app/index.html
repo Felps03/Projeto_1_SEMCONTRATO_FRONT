@@ -112,8 +112,8 @@
                 <div class="dropdown mr-n4 txt-user" style="float:right;">
                     <div class="d-flex align-items-center btn" data-toggle="dropdown">
                         <span id="nameSpan"></span>
-                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle"
-                            width="60px">
+                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png"
+                            class="rounded-circle" width="60px">
                         <i class="material-icons ml-n2">arrow_drop_down</i>
                     </div>
                     <div class="dropdown-menu dropdown-menu-right align-user">
@@ -145,72 +145,46 @@
         <div class="row mt-5 d-flex justify-content-center">
 
             <!-- Daily Note -->
-            <div class="card card-size">
-                <img class="card-img-top" src="./img/daily-card.jpeg" alt="Card image cap">
+            <a class="text-dark home-app-card" href="app-daily-note.html">
+                <div class="card card-size">
+                    <img class="card-img-top" src="./img/daily-card.jpeg" alt="Card image cap">
 
-                <div class="card-body">
-                    <div class="vt-line mb-3">
-                        <h5 class="card-title">
-                            <strong>Daily Note</strong>
-                        </h5>
+                    <div class="card-body">
+                        <div class="vt-line mb-3">
+                            <h5 class="card-title">
+                                <strong>Daily Note</strong>
+                            </h5>
+                        </div>
+                        <p class="card-text text-justify">Registre e modifique as informações da sua Daily, e também,
+                            visualize as reuniões diárias do seu time.</p>
                     </div>
-                    <p class="card-text text-justify">Registre e modifique as informações da sua Daily, e também, visualize as reuniões diárias do seu time.</p>
-                    <a href="app-daily-note.html">
-                        <button name="daily" class="btn btn-outline-success btn-sm pr-3 pl-3 float-right input-circle">Acessar</button>
-                    </a>
                 </div>
-            </div>
+            </a>
 
             <!-- Help Center -->
-            <div class="card card-size ml-4">
-                <img class="card-img-top" src="./img/help-card.jpg" alt="Card image cap">
+            <a class="text-dark home-app-card" href="app-help-center.html">
+                <div class="card card-size ml-md-4 mt-4 mt-md-0">
+                    <img class="card-img-top" src="./img/help-card.jpg" alt="Card image cap">
 
-                <div class="card-body">
-                    <div class="vt-line mb-3">
-                        <h5 class="card-title">
-                            <strong>Help Center</strong>
-                        </h5>
+                    <div class="card-body">
+                        <div class="vt-line mb-3">
+                            <h5 class="card-title">
+                                <strong>Help Center</strong>
+                            </h5>
+                        </div>
+                        <p class="card-text text-justify">Envie perguntas sobre os erros durante o uso de ferramentas e
+                            receba soluções através de respostas de
+                            outros usuários.</p>
                     </div>
-                    <p class="card-text text-justify">Envie perguntas sobre os erros durante o uso de ferramentas e receba soluções através de respostas de
-                        outros usuários.</p>
-                    <a href="app-help-center.html">
-                        <button name="daily" class="btn btn-outline-success btn-sm pr-3 pl-3 float-right input-circle">Acessar</button>
-                    </a>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- DailyNote e HelpCenter -->
-        <div class="row mt-5 mb-5 justify-content-between">
-
-            <!-- DailyNote -->
-            <div id="dailyTable" class="dailyTable col-12 col-sm-7 section-lastdaily">
-                <div class="col-12">
-                    <div class="vt-line mt-4 mb-4">
-                        <h3>
-                            <strong>Última Daily</strong>
-                        </h3>
-                    </div>
-
-                    <div id="table-container" class="mt-4 mb-4">
-                        <table class="table table-hover mt-4">
-                            <thead class="bg-light">
-                                <tr>
-                                    <th style="width:15%;" scope="col">Autor</th>
-                                    <th style="width:29%;" scope="col">Ontem</th>
-                                    <th style="width:28%;" scope="col">Hoje</th>
-                                    <th style="width:28%;" scope="col">Impedimentos</th>
-                                </tr>
-                            </thead>
-                            <tbody id="all-dailys"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
+        <div class="row mt-5 mb-3 mx-0">
 
             <!-- HelpCenter -->
-            <div class="col-12 col-sm-4 section-help">
+            <div class="col-12 section-help">
                 <div class="col-12">
                     <div class="vt-line mt-4 mb-4">
                         <h3>
@@ -218,11 +192,30 @@
                         </h3>
                     </div>
 
-                    <hr class="help-line">
-
-                    <div id="last-helps"></div>
+                    <div id="last-helps" class="mb-4"></div>
                 </div>
             </div>
+
+        </div>
+
+        <div class="row mb-5 mx-0">
+
+            <!-- DailyNote -->
+            <div id="dailyTable" class="dailyTable col-12 section-lastdaily">
+                <div class="col-12">
+                    <div class="vt-line mt-4 mb-4">
+                        <h3>
+                            <strong>Últimas Dailies</strong>
+                        </h3>
+                    </div>
+
+                    <!-- <hr class="lastdaily-line"> -->
+
+                    <div id="all-dailys"></div>
+
+                </div>
+            </div>
+
         </div>
     </div>
 

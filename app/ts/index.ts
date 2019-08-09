@@ -18,7 +18,7 @@ mostraHelp.addEventListener('click', homeController.listLastHelp.bind(homeContro
 
 let clickHelp = document.getElementById("last-helps");
 
-clickHelp.addEventListener('click', homeController.clickHelpASK.bind(homeController));
+// clickHelp.addEventListener('click', homeController.clickHelpASK.bind(homeController));
 
 let m = document.getElementById('user-main');
 m.innerHTML = '';
