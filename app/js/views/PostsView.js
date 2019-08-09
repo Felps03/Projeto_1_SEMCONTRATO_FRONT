@@ -60,16 +60,16 @@ System.register(["./View", "../utils/publish"], function (exports_1, context_1) 
   
                             <h5><strong>${post.Title}</strong></h5>
                          
-                            <a href="app-help-asks.html?id=${post.Id}" class="float-right d-flex justify-content-center mr-n3">
-                                <button type="button" class="btn btn-outline-info btn-sm  pr-3 pl-3 mt-n4 input-circle responsive-help-buttons" id="response-help">
+                            <a href="app-help-asks.html?id=${post.Id}" class="float-right d-flex justify-content-center">
+                                <button type="button" class="btn btn-outline-info btn-sm  pr-3 pl-3 input-circle responsive-help-buttons" id="response-help">
                                     <i class="small material-icons mr-2 align-middle">question_answer</i>
                                     <text class="responsive-help-buttons">Responder</text>
                                 </button>
                             </a>
 
                             ${localStorage.getItem('id') === post.AuthorId || localStorage.getItem('isAdmin') == 'true' ? `
-                                <a data-id="${post.Id}" href="./../help-center-edit.html?id=${post.Id}&owner=${post.AuthorId}" class="float-right d-flex justify-content-center mr-n3 can-edit">
-                                    <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle responsive-help-buttons" id="edit-help">
+                                <a data-id="${post.Id}" href="./../help-center-edit.html?id=${post.Id}&owner=${post.AuthorId}" class="float-right d-flex justify-content-center can-edit">
+                                    <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mr-4 input-circle responsive-help-buttons" id="edit-help">
                                         <i class="small material-icons mr-2 align-middle">edit</i>
                                         <text class="responsive-help-buttons">Editar</text>
                                     </button>
@@ -77,8 +77,8 @@ System.register(["./View", "../utils/publish"], function (exports_1, context_1) 
                                 ` : ``}
 
                             ${localStorage.getItem('id') === post.AuthorId ? `
-                                <a data-id="${post.Id}" href="#" class="float-right d-flex justify-content-center mr-n3 can-delete">
-                                    <button type="button" class="btn btn-outline-danger btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle responsive-help-buttons" id="remove-help">
+                                <a data-id="${post.Id}" href="#" class="float-right d-flex justify-content-center can-delete">
+                                    <button type="button" class="btn btn-outline-danger btn-sm pr-3 pl-3 mr-4 input-circle responsive-help-buttons" id="remove-help">
                                         <i class="small material-icons mr-2 align-middle">delete</i>
                                         <text class="responsive-help-buttons">Excluir</text>
                                     </button>

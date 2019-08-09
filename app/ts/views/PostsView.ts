@@ -36,12 +36,12 @@ export class PostsView extends View<Posts> {
                                         ${localStorage.getItem('id') === post.AuthorId || localStorage.getItem('isAdmin') == 'true' ? `
                                             <a class="dropdown-item d-flex align-items-center text-warning edit-help-resp can-edit" data-id="${post.Id}" href="./../help-center-edit.html?id=${post.Id}&owner=${post.AuthorId}">
                                                 <i class="material-icons mr-2">edit</i>Editar</a>`
-                                        : ''}
+                    : ''}
 
                                         ${localStorage.getItem('id') === post.AuthorId ? `
                                             <a class="dropdown-item d-flex align-items-center text-danger rmv-help-resp can-delete" data-id="${post.Id}" href="#">
                                                 <i class="material-icons mr-2">delete</i>Excluir</a>`
-                                        : ''}
+                    : ''}
 
                                         <a class="dropdown-item d-flex align-items-center txt-primary res-help-resp" href="app-help-asks.html?id=${post.Id}" id="response-help">
                                             <i class="material-icons mr-2">question_answer</i>Responder</a>
@@ -52,16 +52,16 @@ export class PostsView extends View<Posts> {
   
                             <h5><strong>${post.Title}</strong></h5>
                          
-                            <a href="app-help-asks.html?id=${post.Id}" class="float-right d-flex justify-content-center mr-n3">
-                                <button type="button" class="btn btn-outline-info btn-sm  pr-3 pl-3 mt-n4 input-circle responsive-help-buttons" id="response-help">
+                            <a href="app-help-asks.html?id=${post.Id}" class="float-right d-flex justify-content-center">
+                                <button type="button" class="btn btn-outline-info btn-sm  pr-3 pl-3 input-circle responsive-help-buttons" id="response-help">
                                     <i class="small material-icons mr-2 align-middle">question_answer</i>
                                     <text class="responsive-help-buttons">Responder</text>
                                 </button>
                             </a>
 
                             ${localStorage.getItem('id') === post.AuthorId || localStorage.getItem('isAdmin') == 'true' ? `
-                                <a data-id="${post.Id}" href="./../help-center-edit.html?id=${post.Id}&owner=${post.AuthorId}" class="float-right d-flex justify-content-center mr-n3 can-edit">
-                                    <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle responsive-help-buttons" id="edit-help">
+                                <a data-id="${post.Id}" href="./../help-center-edit.html?id=${post.Id}&owner=${post.AuthorId}" class="float-right d-flex justify-content-center can-edit">
+                                    <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mr-4 input-circle responsive-help-buttons" id="edit-help">
                                         <i class="small material-icons mr-2 align-middle">edit</i>
                                         <text class="responsive-help-buttons">Editar</text>
                                     </button>
@@ -69,8 +69,8 @@ export class PostsView extends View<Posts> {
                                 ` : ``}
 
                             ${localStorage.getItem('id') === post.AuthorId ? `
-                                <a data-id="${post.Id}" href="#" class="float-right d-flex justify-content-center mr-n3 can-delete">
-                                    <button type="button" class="btn btn-outline-danger btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle responsive-help-buttons" id="remove-help">
+                                <a data-id="${post.Id}" href="#" class="float-right d-flex justify-content-center can-delete">
+                                    <button type="button" class="btn btn-outline-danger btn-sm pr-3 pl-3 mr-4 input-circle responsive-help-buttons" id="remove-help">
                                         <i class="small material-icons mr-2 align-middle">delete</i>
                                         <text class="responsive-help-buttons">Excluir</text>
                                     </button>
