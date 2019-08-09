@@ -77,6 +77,11 @@ System.register(["./controllers/HelpCenterGOBController", "./utils/userData"], f
                 else {
                     m.innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
                 }
+                setTimeout(() => {
+                    let logout = document.getElementById("logout");
+                    if (logout)
+                        logout.addEventListener('click', controller.logout.bind(controller));
+                }, 1000);
             });
             $('#search-joker').keyup(delay((e) => {
                 controller.findByJoker.bind(controller)(e);

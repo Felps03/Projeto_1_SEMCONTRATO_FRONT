@@ -5,7 +5,7 @@ import { getUser } from "./utils/userData";
 import { clean } from "./helpers/index";
 
 let userData = getUser();
-if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+//if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
 
 const controller = new HelpCenterController();
 
@@ -57,7 +57,16 @@ $('#search-joker').keyup(delay(controller.findByJoker.bind(controller), 500));
 let m = document.getElementById('user-main');
 m.innerHTML = '';
 
+if (!localStorage.getItem('email')) {
+    document.getElementById('help-add-ocult').remove();
+}
+
 $(document).ready(() => {
+    setTimeout(() => {
+        let logout = document.getElementById("logout");
+        if (logout) logout.addEventListener('click', controller.logout.bind(controller));
+    }, 1000);
+
     if (localStorage.getItem('email')) {
         m.innerHTML =
             `<div class="dropdown ml-n2 txt-user">

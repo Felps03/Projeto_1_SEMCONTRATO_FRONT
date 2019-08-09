@@ -27,11 +27,11 @@ export class DailyNoteGOBController {
     private dailyView: DailyNotesGOBView;
 
 
-    constructor(totalPages: number = 1){
+    constructor(totalPages: number = 1) {
         this.dateField = <HTMLInputElement>document.querySelector('#date_filter');
         this.listDate = <HTMLInputElement>document.querySelector('#filter');
     }
-   
+
     showAllDailys() {
         if (this.url.get('date') && this.url.get('page')) this.listD(event);
         let date = new Date();
@@ -42,6 +42,13 @@ export class DailyNoteGOBController {
         this.listD(event);
     }
 
+    logout(event: Event) {
+        event.preventDefault();
+
+        localStorage.clear();
+        window.location.href = 'index.html';
+    }
+
     listD(event: Event) {
         event.preventDefault();
 
@@ -50,12 +57,12 @@ export class DailyNoteGOBController {
         let dailyNoteGOBService = new DailyNoteGOBService();
 
         let fullDate = dateFormatYYYYMMDD(new Date)
-        
-        fullDate = this.dateField.value ;
+
+        fullDate = this.dateField.value;
 
         this.dateField.value = this.url_date || fullDate;
 
-        
+
         return dailyNoteGOBService.list(fullDate)
             .then(res => {
                 return res.json();

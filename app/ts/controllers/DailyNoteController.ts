@@ -175,8 +175,14 @@ export class DailyNoteController {
         this.login(event);
     }
 
+    logout(event: Event) {
+        event.preventDefault();
+
+        localStorage.clear();
+        window.location.href = 'index.html';
+    }
+
     listDateDaily(event: Event) {
-        console.log("chegous");
         this.dayliesResult.innerHTML = '';
         const result = this.listD(event);
 

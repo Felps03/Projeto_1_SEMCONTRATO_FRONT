@@ -102,7 +102,7 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                 logout(event) {
                     event.preventDefault();
                     localStorage.clear();
-                    window.location.href = 'home.html';
+                    window.location.href = 'index.html';
                 }
                 checkAdmin() {
                     event.preventDefault();

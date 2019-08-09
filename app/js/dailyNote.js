@@ -33,6 +33,11 @@ System.register(["./controllers/DailyNoteController", "./utils/userData"], funct
             m.innerHTML = '';
             $(document).ready(() => {
                 document.getElementById('showDaylies').click();
+                setTimeout(() => {
+                    let logout = document.getElementById("logout");
+                    if (logout)
+                        logout.addEventListener('click', controller.logout.bind(controller));
+                }, 1000);
                 if (localStorage.getItem('email')) {
                     m.innerHTML =
                         `<div class="dropdown ml-n2 txt-user">

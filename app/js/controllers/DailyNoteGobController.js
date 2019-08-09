@@ -38,6 +38,11 @@ System.register(["../models/DailyNoteGOB", "../models/DailyNotesGOB", "../servic
                     this.dateField.value = this.url_date || today;
                     this.listD(event);
                 }
+                logout(event) {
+                    event.preventDefault();
+                    localStorage.clear();
+                    window.location.href = 'index.html';
+                }
                 listD(event) {
                     event.preventDefault();
                     let value = this.dateField.value;

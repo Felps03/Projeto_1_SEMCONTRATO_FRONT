@@ -138,8 +138,12 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     this.dailyButton(event);
                     this.login(event);
                 }
+                logout(event) {
+                    event.preventDefault();
+                    localStorage.clear();
+                    window.location.href = 'index.html';
+                }
                 listDateDaily(event) {
-                    console.log("chegous");
                     this.dayliesResult.innerHTML = '';
                     const result = this.listD(event);
                     let date = document.getElementById('date_filter');

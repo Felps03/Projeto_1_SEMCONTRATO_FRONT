@@ -117,6 +117,11 @@ System.register(["../models/index", "../services/index", "../views/PostsGOBView"
                         console.error(error);
                     });
                 }
+                logout(event) {
+                    event.preventDefault();
+                    localStorage.clear();
+                    window.location.href = 'index.html';
+                }
                 clearPagination(event) {
                     event.preventDefault();
                     document.getElementById('pagination').innerHTML = '';

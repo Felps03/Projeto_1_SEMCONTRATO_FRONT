@@ -100,6 +100,13 @@ export class HomeController {
             })
     }
 
+    logout(event: Event) {
+        event.preventDefault();
+
+        localStorage.clear();
+        window.location.href = 'index.html';
+    }
+
     cancel(event: Event) {
         event.preventDefault();
         clean(<HTMLInputElement>document.querySelector('#email_rec'));

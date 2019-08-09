@@ -134,6 +134,13 @@ export class HelpCenterGOBController {
             });
     }
 
+    logout(event: Event) {
+        event.preventDefault();
+
+        localStorage.clear();
+        window.location.href = 'index.html';
+    }
+
     clearPagination(event: Event) {
         event.preventDefault()
         document.getElementById('pagination').innerHTML = ''

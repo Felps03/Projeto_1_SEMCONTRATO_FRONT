@@ -232,6 +232,11 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         console.error(error);
                     });
                 }
+                logout(event) {
+                    event.preventDefault();
+                    localStorage.clear();
+                    window.location.href = 'index.html';
+                }
                 cancelar(event) {
                     event.preventDefault();
                     let title = document.querySelector('#add-title');

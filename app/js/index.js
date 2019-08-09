@@ -26,6 +26,11 @@ System.register(["./controllers/HomeController", "./utils/userData"], function (
             $(document).ready(function () {
                 document.getElementById('mostra-daily').click();
                 document.getElementById('mostra-help').click();
+                setTimeout(() => {
+                    let logout = document.getElementById("logout");
+                    if (logout)
+                        logout.addEventListener('click', homeController.logout.bind(homeController));
+                }, 1000);
                 if (localStorage.getItem('email')) {
                     m.innerHTML =
                         `<div class="dropdown ml-n2 txt-user">

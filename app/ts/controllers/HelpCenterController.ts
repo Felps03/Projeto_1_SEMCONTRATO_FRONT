@@ -315,6 +315,13 @@ export class HelpCenterController {
 			});
 	}
 
+	logout(event: Event) {
+		event.preventDefault();
+
+		localStorage.clear();
+		window.location.href = 'index.html';
+	}
+
 	cancelar(event: Event) {
 		event.preventDefault();
 

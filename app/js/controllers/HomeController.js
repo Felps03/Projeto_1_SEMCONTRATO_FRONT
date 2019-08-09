@@ -101,6 +101,11 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         console.log(error);
                     });
                 }
+                logout(event) {
+                    event.preventDefault();
+                    localStorage.clear();
+                    window.location.href = 'index.html';
+                }
                 cancel(event) {
                     event.preventDefault();
                     validate_1.clean(document.querySelector('#email_rec'));

@@ -61,6 +61,11 @@ $(document).ready(function () {
     } else {
         m.innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
     }
+
+    setTimeout(() => {
+        let logout = document.getElementById("logout");
+        if (logout) logout.addEventListener('click', controller.logout.bind(controller));
+    }, 1000);
 });
 
 //const searchTitle = document.getElementById('search-joker')
