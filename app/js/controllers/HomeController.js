@@ -1,6 +1,6 @@
-System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../helpers/validate", "../models/index", "../views/HomeDailyView", "../models/HomeDailyNotes", "../views/HomeHelpCenterView", "../models/HomeHelpCenters", "../helpers/dateHelper", "../utils/escapeTag"], function (exports_1, context_1) {
+System.register(["../services/UserService", "../services/HelpCenterService", "../services/DailyNoteService", "../helpers/validate", "../models/index", "../views/HomeDailyView", "../views/HomeHelpCenterView", "../models/HomeHelpCenters", "../helpers/dateHelper", "../utils/escapeTag", "../models/RegisteredDaily", "../models/RegisteredDaylies"], function (exports_1, context_1) {
     "use strict";
-    var UserService_1, HelpCenterService_1, DailyNoteService_1, validate_1, index_1, HomeDailyView_1, HomeDailyNotes_1, HomeHelpCenterView_1, HomeHelpCenters_1, dateHelper_1, escapeTag_1, HomeController;
+    var UserService_1, HelpCenterService_1, DailyNoteService_1, validate_1, index_1, HomeDailyView_1, HomeHelpCenterView_1, HomeHelpCenters_1, dateHelper_1, escapeTag_1, RegisteredDaily_1, RegisteredDaylies_1, HomeController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -22,9 +22,6 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
             function (HomeDailyView_1_1) {
                 HomeDailyView_1 = HomeDailyView_1_1;
             },
-            function (HomeDailyNotes_1_1) {
-                HomeDailyNotes_1 = HomeDailyNotes_1_1;
-            },
             function (HomeHelpCenterView_1_1) {
                 HomeHelpCenterView_1 = HomeHelpCenterView_1_1;
             },
@@ -36,11 +33,19 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
             },
             function (escapeTag_1_1) {
                 escapeTag_1 = escapeTag_1_1;
+            },
+            function (RegisteredDaily_1_1) {
+                RegisteredDaily_1 = RegisteredDaily_1_1;
+            },
+            function (RegisteredDaylies_1_1) {
+                RegisteredDaylies_1 = RegisteredDaylies_1_1;
             }
         ],
         execute: function () {
             HomeController = class HomeController {
-                constructor() { }
+                constructor() {
+                    this.Dailydate = new Date();
+                }
                 getUser() {
                     let data;
                     if (!localStorage.getItem('tkn')) {
@@ -84,23 +89,28 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         console.error(error);
                     });
                 }
-                listDailyDate(event) {
+                listDailyDate(event, Dailydate) {
                     event.preventDefault();
+                    Dailydate = this.Dailydate;
+                    let data = dateHelper_1.dateFormatYYYYMMDD(Dailydate);
                     const dailyNoteService = new DailyNoteService_1.DailyNoteService();
-                    let data = dateHelper_1.dateFormatYYYYMMDD(new Date());
                     dailyNoteService.listDate(data, 1)
                         .then(result => {
                         return result.json();
                     }).then(results => {
-                        let dailyNotes = new HomeDailyNotes_1.HomeDailyNotes();
+                        let dailyNotes = new RegisteredDaylies_1.RegisteredDaylies();
                         this.dailyView = new HomeDailyView_1.HomeDailyView('#all-dailys');
+                        if (results.length == 1) {
+                            this.Dailydate.setDate(Dailydate.getDate() - 1);
+                            this.listDailyDate(event, Dailydate);
+                        }
                         results.pop();
-                        console.log();
                         if (results.length > 0) {
+                            document.getElementById('response-date').innerHTML = `Último registro em ${this.Dailydate.getDate() < 10 ? '0' + this.Dailydate.getDate() : this.Dailydate.getDate()}/${this.Dailydate.getMonth() < 10 ? '0' + (this.Dailydate.getMonth() + 1) : (this.Dailydate.getMonth() + 1)}/${this.Dailydate.getFullYear()}.`;
                             document.getElementById('response-two').innerHTML = `Total de ${results.length} daily${results.length >= 1 ? 's' : ''} listada${results.length >= 1 ? 's' : ''}. <a href="app-daily-note.html">(acessar o quadro)</a>`;
                         }
                         results.reverse();
-                        results.map((result) => new index_1.HomeDailyNote(result['owner'], result['yesterday'], result['today'], result['impediment']))
+                        results.map((result) => new RegisteredDaily_1.RegisteredDaily(result['id_daily'], result['id_user'], result['yesterday'], result['today'], result['impediment'], result['date'], result['owner']))
                             .forEach((result) => dailyNotes.add(result));
                         this.dailyView.update(dailyNotes);
                     })
