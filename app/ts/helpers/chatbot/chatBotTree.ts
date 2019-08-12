@@ -188,7 +188,7 @@ export const dialog: { [node: string]: Dialog } = {
                         state.set('_GOTO', 'main')
                         state.set('_ANSWER', [
                             `Não existe nenhuma daily cadastrada pra essa data, nem tem por que ir lá.`,
-                            `Mas o link é {{link(esse, ${SELF_HTTPS_HOST}/app-daily-note.html?user=${date})}} anyway`
+                            `Mas o link é {{link(esse, ${SELF_HTTPS_HOST}/app-daily-note.html?date=${date})}} anyway`
                         ])
                         return
                     }
