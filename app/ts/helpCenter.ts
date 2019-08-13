@@ -55,9 +55,6 @@ $('#search-joker').keyup(delay(controller.findByJoker.bind(controller), 500));
 // if (searchDesc)
 //     searchDesc.addEventListener('change', controller.findByDesc.bind(controller))
 
-let m = document.getElementById('user-main');
-m.innerHTML = '';
-
 let buttonAddHC = <HTMLInputElement>document.getElementById("help-add-ocult");
 
 console.log(localStorage.getItem('email'))

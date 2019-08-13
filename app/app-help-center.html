@@ -12,14 +12,7 @@
     <link href="./lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js"
-        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
-        </script>
-    <script>
-        $(function () {
-            $("#header").load("header.html");
-            $("#footer").load("footer.html");
-        });
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
     </script>
 
     <title>Help Center</title>
@@ -58,8 +51,7 @@
                         <div class="col-sm-10 col-12 mt-3">
                             <div class="form-group">
                                 <label for="search-joker">Buscar pergunta:</label>
-                                <input type="text" name="search-joker" class="form-control form-control-sm input-circle"
-                                    id="search-joker" placeholder="Informe as palavras-chave.">
+                                <input type="text" name="search-joker" class="form-control form-control-sm input-circle" id="search-joker" placeholder="Informe as palavras-chave.">
                                 <div id="search-jokervalidator"></div>
                                 <div class='text-black-50 mt-1' id="response_search"></div>
                             </div>
@@ -78,7 +70,9 @@
                         </nav>
 
                         <div class="vt-line mt-1">
-                            <h5><strong>Perguntas</strong></h5>
+                            <h5>
+                                <strong>Perguntas</strong>
+                            </h5>
                         </div>
                         <div id="response" class="text-black-50 mb-3"></div>
                     </div>
@@ -114,27 +108,24 @@
 
                         <div class="form-group">
                             <label for="add-title">Qual a sua dúvida?</label>
-                            <input type="text" name="title" class="form-control form-control-sm input-circle"
-                                id="add-title" placeholder="Informe um titulo" autofocus>
+                            <input type="text" name="title" class="form-control form-control-sm input-circle" id="add-title" placeholder="Informe um titulo"
+                                autofocus>
                             <div id="add-titlevalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="add-desc">Descrição:</label>
-                            <textarea name="desc" class="form-control form-control-sm input-circle" id="add-desc"
-                                placeholder="Descreva a sua dúvida"></textarea>
+                            <textarea name="desc" class="form-control form-control-sm input-circle" id="add-desc" placeholder="Descreva a sua dúvida"></textarea>
                             <div id="add-descvalidator"></div>
                         </div>
 
-                        <button type="submit" name="send"
-                            class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle d-flex justify-content-center"
-                            id="cadastroHelpCenter"><i
-                                class="small material-icons mr-2 align-middle">help</i>Perguntar</button>
+                        <button type="submit" name="send" class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle d-flex justify-content-center"
+                            id="cadastroHelpCenter">
+                            <i class="small material-icons mr-2 align-middle">help</i>Perguntar</button>
 
-                        <button type="button"
-                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle d-flex justify-content-center"
-                            data-dismiss="modal" id="cancel"><i
-                                class="small material-icons mr-1 align-middle">close</i>Cancelar</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle d-flex justify-content-center"
+                            data-dismiss="modal" id="cancel">
+                            <i class="small material-icons mr-1 align-middle">close</i>Cancelar</button>
 
                     </form>
 

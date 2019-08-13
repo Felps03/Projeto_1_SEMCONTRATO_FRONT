@@ -16,9 +16,6 @@ if (cadastrar) cadastrar.addEventListener('submit', controller.registeredDaily.b
 if (cancel) cancel.addEventListener('click', controller.cancel.bind(controller));
 if (showDaylies) showDaylies.addEventListener('click', controller.showAllDailys.bind(controller))
 
-let m = document.getElementById('user-main');
-m.innerHTML = '';
-
 $(document).ready(() => {
     document.getElementById('showDaylies').click()
 

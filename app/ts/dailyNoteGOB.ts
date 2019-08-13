@@ -14,8 +14,6 @@ if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML
 if (listDate && dailyesResult) listDate.addEventListener('click', controller.listD.bind(controller));
 if (showDaylies) showDaylies.addEventListener('click', controller.showAllDailys.bind(controller))
 
-let m = document.getElementById('user-main');
-m.innerHTML = '';
 $(document).ready(() => {
     document.getElementById('showDaylies').click()
 

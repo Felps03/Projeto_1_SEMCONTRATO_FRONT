@@ -14,14 +14,7 @@
     <title>Área de Acesso</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js"
-        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
-        </script>
-    <script>
-        $(function () {
-            $("#header").load("header.html");
-            $("#footer").load("footer.html");
-        });
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
     </script>
 
     <title>Página Principal</title>
@@ -56,15 +49,15 @@
 
                         <div class="form-group mt-4">
                             <label for="email">E-mail:</label>
-                            <input type="text" name="email" class="form-control form-control-sm input-circle" id="email"
-                                placeholder="Informe seu e-mail" autofocus>
+                            <input type="text" name="email" class="form-control form-control-sm input-circle" id="email" placeholder="Informe seu e-mail"
+                                autofocus>
                             <div id="emailvalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="password">Senha:</label>
-                            <input type="password" name="password" class="form-control form-control-sm input-circle"
-                                id="password" placeholder="Informe sua senha" maxlength="8">
+                            <input type="password" name="password" class="form-control form-control-sm input-circle" id="password" placeholder="Informe sua senha"
+                                maxlength="8">
                             <div id="passwordvalidator"></div>
                         </div>
 
@@ -73,8 +66,7 @@
                                 <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                                     <label for="recovery_password">
                                         <span>
-                                            <a class="menu-item" href="#!" data-toggle="modal"
-                                                data-target="#recoveryModal">Esqueceu sua senha?</a>
+                                            <a class="menu-item" href="#!" data-toggle="modal" data-target="#recoveryModal">Esqueceu sua senha?</a>
                                         </span>
                                     </label>
                                 </div>
@@ -92,8 +84,7 @@
                         </div>
 
                         <div class="form-group" id="recaptcha" style="display: none;">
-                            <div class="g-recaptcha d-flex justify-content-center mb-3"
-                                data-sitekey="6LfhNKsUAAAAALZSy7RxiuZfFQv7B7yA_C8m2G9H"></div>
+                            <div class="g-recaptcha d-flex justify-content-center mb-3" data-sitekey="6LfhNKsUAAAAALZSy7RxiuZfFQv7B7yA_C8m2G9H"></div>
                         </div>
 
                         <div class="row">
@@ -101,8 +92,7 @@
 
                             </div>
                             <div class="col-12 col-sm-4">
-                                <button type="submit" name="send"
-                                    class="btn btn-outline-success btn-sm btn-block float-right pr-3 pl-3 mb-4 input-circle"
+                                <button type="submit" name="send" class="btn btn-outline-success btn-sm btn-block float-right pr-3 pl-3 mb-4 input-circle"
                                     id="access">Acessar</button>
                             </div>
 
@@ -114,8 +104,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="recoveryModal" tabindex="-1" role="dialog" aria-labelledby="recoveryTitle"
-        aria-hidden="true">
+    <div class="modal fade" id="recoveryModal" tabindex="-1" role="dialog" aria-labelledby="recoveryTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -124,8 +113,7 @@
                             <strong>Recuperar Senha</strong>
                         </h3>
                     </div>
-                    <button id="recoveryModal-close" type="button" class="close" data-dismiss="modal"
-                        aria-label="Fechar">
+                    <button id="recoveryModal-close" type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -133,15 +121,12 @@
                     <form class="formReset" method="POST" action="#" id="recovery-pass-form" autocomplete="off">
                         <div class="form-group">
                             <label for="email_rec">E-mail:</label>
-                            <input type="text" name="email" class="form-control form-control-sm input-circle"
-                                id="email_rec" placeholder="Informe seu e-mail" value="" autofocus>
+                            <input type="text" name="email" class="form-control form-control-sm input-circle" id="email_rec" placeholder="Informe seu e-mail"
+                                value="" autofocus>
                             <div id="emailvalidator_rec"></div>
                         </div>
-                        <button type="submit" name="send"
-                            class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle"
-                            id="recovery-pass">Recuperar</button>
-                        <button id="recoveryPasswordCancel" type="button"
-                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle"
+                        <button type="submit" name="send" class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle" id="recovery-pass">Recuperar</button>
+                        <button id="recoveryPasswordCancel" type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle"
                             data-dismiss="modal">Cancelar</button>
                     </form>
                 </div>

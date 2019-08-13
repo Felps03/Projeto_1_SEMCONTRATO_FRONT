@@ -1,6 +1,6 @@
 System.register(["./controllers/DailyNoteGobController", "./utils/userData"], function (exports_1, context_1) {
     "use strict";
-    var DailyNoteGobController_1, userData_1, userData, dayliesResult, dailyesResult, listDate, showDaylies, controller, m;
+    var DailyNoteGobController_1, userData_1, userData, dayliesResult, dailyesResult, listDate, showDaylies, controller;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -24,8 +24,6 @@ System.register(["./controllers/DailyNoteGobController", "./utils/userData"], fu
                 listDate.addEventListener('click', controller.listD.bind(controller));
             if (showDaylies)
                 showDaylies.addEventListener('click', controller.showAllDailys.bind(controller));
-            m = document.getElementById('user-main');
-            m.innerHTML = '';
             $(document).ready(() => {
                 document.getElementById('showDaylies').click();
                 setTimeout(() => {
