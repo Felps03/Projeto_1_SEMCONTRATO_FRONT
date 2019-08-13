@@ -210,6 +210,7 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                         return result.json();
                     })
                         .then((res) => {
+                        this.paginationView.update(this.currentPage, this.totalPages, this.type);
                         const posts = index_1.Posts.from(res.slice(0, -1));
                         this.postsView.update(posts, this.totalPages);
                         let aux = document.getElementById('search-joker');
@@ -240,6 +241,9 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                 }
                 cancelar(event) {
                     event.preventDefault();
+                    this.limpar();
+                }
+                limpar() {
                     let title = document.querySelector('#add-title');
                     let desc = document.querySelector('#add-desc');
                     title.value = "";

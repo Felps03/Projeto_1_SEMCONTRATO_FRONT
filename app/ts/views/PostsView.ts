@@ -7,7 +7,7 @@ import { publish } from "../utils/publish";
 export class PostsView extends View<Posts> {
     private didMountFn: Function
     template(model: Posts): string {
-        if (model.toArray().length == 0) {
+        if (model.toArray().reverse().length == 0) {
             return `<div class='text-black-50 mt-4'>Nenhuma pergunta encontrada.</div>`;
         } else {
             return `

@@ -77,7 +77,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                 }
                 set CurrentPage(page) {
                     this.currentPage = page;
-                    this.paginationView.update(this.currentPage, this.totalPages);
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
                 }
                 set TotalPages(total) {
                     this.totalPages = total;

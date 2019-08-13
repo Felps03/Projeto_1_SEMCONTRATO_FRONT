@@ -2,7 +2,7 @@ import { DailyNote } from '../models/DailyNote';
 import { DailyNotes } from '../models/DailyNotes';
 import { DailyNoteService } from '../services/DailyNoteService';
 
-import { validate, clean } from '../helpers/index'
+import { validate, clean} from '../helpers/index'
 import * as vals from '../validation/dailyNoteValidate';
 import { noFalse } from '../utils/listCheck';
 
@@ -93,7 +93,7 @@ export class DailyNoteController {
     // }
     set CurrentPage(page: number) {
         this.currentPage = page;
-        this.paginationView.update(this.currentPage, this.totalPages);
+        this.paginationView.update(this.currentPage, this.totalPages, this.type);
     }
     set TotalPages(total: number) {
         this.totalPages = total;

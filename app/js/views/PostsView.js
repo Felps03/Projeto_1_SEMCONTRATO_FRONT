@@ -14,7 +14,7 @@ System.register(["./View", "../utils/publish"], function (exports_1, context_1) 
         execute: function () {
             PostsView = class PostsView extends View_1.View {
                 template(model) {
-                    if (model.toArray().length == 0) {
+                    if (model.toArray().reverse().length == 0) {
                         return `<div class='text-black-50 mt-4'>Nenhuma pergunta encontrada.</div>`;
                     }
                     else {
