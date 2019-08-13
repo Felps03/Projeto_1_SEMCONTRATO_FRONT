@@ -17,41 +17,42 @@ System.register(["./View", "../config/index"], function (exports_1, context_1) {
                     return `
         <div class="container">
             ${model.toArray().map((post, i) => `
-            <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3 ${post.Solved ? 'border border-success' : ''}">
-                <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
-                    <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
-                        <div>
-                            <img class="rounded-circle" width="70" src="${post.Photo ? `${index_1.GOB_HOST}public/uploads/${post.Photo}` : `${index_1.GOB_HOST}public/img/user.png`}" alt="Card image cap">
-                            <h5 class="mt-2 mb-2">${post.AuthorName ? post.AuthorName : ""}</h5>
-                            <p class="mt-2 mb-2">${post.Date}</p>
-                        </div>
-                        <a href="http://gob-dev.azurewebsites.net/helpCenter/topico/${post.Id}" target="_blank">
-                            <button class="btn btn-default btn-sm btn-info">
-                                <i class="material-icons"> forum </i>
-                            </button>
-                        </a>
-
+            <hr style="height: 1px;">
+            <div class="col-sm-11 col-12 mt-n1 mb-n3 d-flex align-items-stretch responsive-full-help">
+                <div class="d-flex flex-column text-center align-items-center pl-3 pr-3 w-100">
+                    <div class="responsive-user-help">
+                    <img class="rounded-circle" width="55" src="${post.Photo ? `${index_1.GOB_HOST}public/uploads/${post.Photo}` : `${index_1.GOB_HOST}public/img/user.png`}" alt="Card image cap">
+                        <h6 class="mt-2 responsive-user-name">${post.AuthorName ? post.AuthorName : ""}</h6>
                     </div>
                 </div>
-                <div class="col-md-9 col-12 card-body">
 
-                    <div class="d-flex justify-content-end align-items-center">
-                        <div class="w-100 font-italic">
-                            ${post.Tags ? post.Tags.replace(/,/g, ', ') : ''}
-                        </div>
-                        <h3 class="mb-0 mr-2">${post.Likes}</h3>
-                        <i class="material-icons">favorite</i>
-                    </div>
+                <div class="col-9 col-sm-12 responsive-help-card">
+                    <div class="row">
+                        <div class="col-12 col-sm-12">
+  
+                            <h5><strong>${post.Title}</strong></h5>
+                         
+                            <i class="small material-icons mt-n4 mr-n3 align-middle float-right ${post.Solved ? 'text-success' : 'txt-primary'}">check</i>
+                     
+                            <a href="http://gob-dev.azurewebsites.net/helpCenter/topico/${post.Id}" target="_blank">
+                                <i class="material-icons float-right mt-2 mr-n3 txt-primary"> forum </i>
+                            </a>
 
-                    <div class="card mb-2">
-                        <div class="card-body">
-
-                            <h5>${post.Title}</h5>
-                            <p>${post.Desc}</p>
+                           
+                           
+                       
+                       
+                  
                             
+                            <div class="text-black-50 mt-n2">
+                                <i class="tiny material-icons align-middle">access_alarm</i>
+                                ${post.Date}
+                            </div>
+   
                         </div>
                     </div>
-                </div>
+                    <div class="mt-1 text-justify mb-2 mb-4">${post.Desc}</div> 
+                </div> 
             </div>
             `).join('')}
         </div>

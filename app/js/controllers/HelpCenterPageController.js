@@ -1,6 +1,6 @@
-System.register(["../models/index", "../services/index", "../views/QuestionView", "../views/AnswersView", "../views/PaginationView", "../helpers/index"], function (exports_1, context_1) {
+System.register(["../models/index", "../services/index", "../views/QuestionView", "../views/AnswersView", "../views/PaginationView", "../helpers/index", "../validation/helpCenterAskValidate"], function (exports_1, context_1) {
     "use strict";
-    var index_1, index_2, QuestionView_1, AnswersView_1, PaginationView_1, index_3, HelpCenterPageController;
+    var index_1, index_2, QuestionView_1, AnswersView_1, PaginationView_1, index_3, vals, HelpCenterPageController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -21,6 +21,9 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
             },
             function (index_3_1) {
                 index_3 = index_3_1;
+            },
+            function (vals_1) {
+                vals = vals_1;
             }
         ],
         execute: function () {
@@ -33,8 +36,17 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                     this.url_ask_id = this.url.get('id');
                     this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-asks.html');
                     this.answersView = new AnswersView_1.AnswersView('#post-ask-list');
+                    this.answersView.didMount(() => {
+                        Array.from(document.querySelectorAll('a.can-delete')).forEach(button => {
+                            const id = button.getAttribute('data-id');
+                            button.addEventListener('click', this.delete.bind(this, id));
+                        });
+                    });
                     this.addComment = document.querySelector('#answer');
                     this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
+                    this.answerValidator = [
+                        index_3.validate(this.addComment, vals.comment)
+                    ];
                 }
                 set CurrentPage(page) {
                     this.currentPage = page;
@@ -46,7 +58,7 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                 add(event) {
                     event.preventDefault();
                     const postAsk = new index_1.PostAsk(this.url_ask_id, this.addComment.value, localStorage.getItem('id') || '');
-                    const helpCenterService = new index_2.HelpCenterAskService();
+                    const helpCenterService = new index_2.HelpCenterServiceAsk();
                     helpCenterService.add(postAsk)
                         .then(result => {
                         return result.json();
@@ -69,7 +81,7 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                     if (!ID_POST) {
                         return;
                     }
-                    const helpCenterService = new index_2.HelpCenterAskService();
+                    const helpCenterService = new index_2.HelpCenterServiceAsk();
                     helpCenterService.list(1)
                         .then(result => {
                         return result.json();
@@ -90,19 +102,44 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                     })
                         .then((res) => {
                         this.TotalPages = res.pagination.totalPages;
-                        this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
                         this.questionView = new QuestionView_1.QuestionView('#ask_result');
+                        let pages = res.pagination.page;
+                        if (res.hasOwnProperty('answerData')) {
+                            let countAnswers = res.pagination.totalDocs;
+                            document.getElementById('response').textContent = `Total de ${countAnswers} resposta${countAnswers == 1 ? '' : 's'} registrada${countAnswers == 1 ? '' : 's'}. ${res[res.length - 1] == undefined ? '' : `(página ${pages})`}`;
+                            this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
+                        }
+                        else {
+                            document.getElementById('pagination').textContent = '';
+                            document.getElementById('response').textContent = '';
+                        }
                         let question = new index_1.Post(res.question.ask, res.question.text, res.question.id_user, res.question.owner, res.question.date, res.question.id_helpCenter);
                         this.questionView.update(question);
                         this.currentPage = res.pagination.page;
                         let postAsks = new index_1.PostAsks();
-                        this.answersView = new AnswersView_1.AnswersView('#aswers_result');
                         if (res.answerData || res.answerData != undefined)
-                            res.answerData.map((res) => new index_1.PostAsk(res.id_helpCenter, res.text, res.id_user, res.owner, res.id_answer))
+                            res.answerData.map((res) => new index_1.PostAsk(res.id_helpCenter, res.text, res.id_user, res.owner, res.id_answer, res.date))
                                 .forEach((res) => postAsks.add(res));
                         this.answersView.update(postAsks);
                     })
                         .catch((error) => {
+                        console.error(error);
+                    });
+                }
+                delete(id, event) {
+                    event.preventDefault();
+                    console.log(id);
+                    document.getElementById('id');
+                    console.log(document.getElementById('id'));
+                    const helpCenterService = new index_2.HelpCenterServiceAsk();
+                    helpCenterService.remove(id)
+                        .then(result => {
+                        return result.json();
+                    }).then(res => {
+                        console.log('response: ', res);
+                        this.list(event);
+                    })
+                        .catch(error => {
                         console.error(error);
                     });
                 }

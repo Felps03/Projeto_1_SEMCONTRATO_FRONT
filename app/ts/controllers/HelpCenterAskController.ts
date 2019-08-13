@@ -1,7 +1,8 @@
 
-import { HelpCenterAskService } from '../services/index';
+import { HelpCenterServiceAsk } from '../services/index';
 import { PostAsk } from '../models/PostAsk';
-import { PostAsksView } from "../views/PostAsksView";
+import { AnswerView } from "../views/AnswerView";
+import { AnswersView } from "../views/AnswersView";
 import { PostAsks } from '../models/index';
 import { validate } from '../helpers/index';
 import * as vals from '../validation/helpCenterAskValidate';
@@ -9,7 +10,9 @@ import { noFalse } from '../utils/index';
 
 export class HelpCenterAskController {
 
-    private postAsksView: PostAsksView
+    private AnswerView: AnswerView
+
+    private AnswersView: AnswersView
 
     private addComment: HTMLInputElement
     private editComments: HTMLInputElement[]
@@ -19,34 +22,13 @@ export class HelpCenterAskController {
     private editVals: Map<string, (() => boolean)[]>
 
     constructor() {
-        this.postAsksView = new PostAsksView('#post-ask-list')
+        this.AnswerView = new AnswerView('#answer_result')
 
         this.addComment = <HTMLInputElement>document.getElementById('comment')
 
         const addForm = document.getElementById('comment-form')
         if (addForm)
             addForm.addEventListener('submit', this.add.bind(this))
-
-        this.postAsksView.childrenDidMount((postAsk: PostAsk) => {
-
-            const editForm = document.getElementById(`comment-edit-form-${postAsk.Id}`)
-            const editField = <HTMLInputElement>document.getElementById(`comment-edit-${postAsk.Id}`)
-            // console.log(editForm);
-
-            const deleteBtn = document.getElementById(`comment-del-${postAsk.Id}`)
-            // console.log(' ~~~ ~', deleteBtn)
-
-            this.editVals.set(postAsk.Id, [
-                validate(editField, vals.comment)
-            ])
-
-            if (editForm) {
-                editForm.addEventListener('submit', this.update.bind(this, postAsk.Id))
-            }
-            if (deleteBtn) {
-                deleteBtn.addEventListener('click', this.delete.bind(this, postAsk.Id))
-            }
-        })
 
         // init validations
         this.addVals = [
@@ -73,7 +55,7 @@ export class HelpCenterAskController {
 
             const postAsk = new PostAsk(ID_POST, this.addComment.value, localStorage.getItem('id') || '');
 
-            const helpCenterService = new HelpCenterAskService();
+            const helpCenterService = new HelpCenterServiceAsk();
 
             helpCenterService.add(postAsk)
                 .then(result => {
@@ -115,7 +97,7 @@ export class HelpCenterAskController {
 
             // console.log(postAsk);
             // const postAsk = new PostAsk("teste", "teste", "teste");
-            const helpCenterService = new HelpCenterAskService();
+            const helpCenterService = new HelpCenterServiceAsk();
             helpCenterService.update(postAsk, id)
                 .then(result => {
                     return result.json()
@@ -131,7 +113,7 @@ export class HelpCenterAskController {
 
     list(event: Event) {
         event.preventDefault();
-        const helpCenterService = new HelpCenterAskService();
+        const helpCenterService = new HelpCenterServiceAsk();
         helpCenterService.list(1)
             .then(result => {
                 return result.json()
@@ -158,13 +140,13 @@ export class HelpCenterAskController {
             return
         }
 
-        const helpCenterService = new HelpCenterAskService();
+        const helpCenterService = new HelpCenterServiceAsk();
         helpCenterService.list(1)
             .then(result => {
                 return result.json()
             }).then(res => {
 
-                this.postAsksView.update(
+                this.AnswersView.update(
                     PostAsks.from(
                         res.filter((ask: any) => ask['id_helpCenter'] === ID_POST)
                     )
@@ -177,7 +159,7 @@ export class HelpCenterAskController {
 
     delete(id: string, event: Event) {
         event.preventDefault();
-        const helpCenterService = new HelpCenterAskService();
+        const helpCenterService = new HelpCenterServiceAsk();
         helpCenterService.remove(id)
             .then(result => {
                 return result.json()
@@ -190,10 +172,10 @@ export class HelpCenterAskController {
             });
     }
 
-    findByID(event: Event) {
+    findByID(id: string, event: Event) {
         event.preventDefault();
-        const helpCenterService = new HelpCenterAskService();
-        helpCenterService.findById('title')
+        const helpCenterService = new HelpCenterServiceAsk();
+        helpCenterService.findById(id)
             .then(result => {
                 return result.json()
             }).then(res => {

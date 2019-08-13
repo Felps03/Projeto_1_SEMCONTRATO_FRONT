@@ -27,11 +27,11 @@ export class DailyNoteGOBController {
     private dailyView: DailyNotesGOBView;
 
 
-    constructor(totalPages: number = 1){
+    constructor(totalPages: number = 1) {
         this.dateField = <HTMLInputElement>document.querySelector('#date_filter');
         this.listDate = <HTMLInputElement>document.querySelector('#filter');
     }
-   
+
     showAllDailys() {
         if (this.url.get('date') && this.url.get('page')) this.listD(event);
         let date = new Date();
@@ -42,6 +42,13 @@ export class DailyNoteGOBController {
         this.listD(event);
     }
 
+    logout(event: Event) {
+        event.preventDefault();
+
+        localStorage.clear();
+        window.location.href = 'index.html';
+    }
+
     listD(event: Event) {
         event.preventDefault();
 
@@ -50,12 +57,12 @@ export class DailyNoteGOBController {
         let dailyNoteGOBService = new DailyNoteGOBService();
 
         let fullDate = dateFormatYYYYMMDD(new Date)
-        
-        fullDate = this.dateField.value ;
+
+        fullDate = this.dateField.value;
 
         this.dateField.value = this.url_date || fullDate;
 
-        
+
         return dailyNoteGOBService.list(fullDate)
             .then(res => {
                 return res.json();
@@ -63,6 +70,12 @@ export class DailyNoteGOBController {
             .then(result => {
                 this.dailyView = new DailyNotesGOBView('#dayliesResult');
                 let dailyNotesGOB = new DailyNotesGOB();
+
+                if (result.length != 0) {
+					document.getElementById('response').textContent = `Total de ${result.length-1} daily${result.length-1 == 1 ? '' : 's'} registrada${result.length-1 == 1 ? '' : 's'}. (página única)`;
+				} else {
+					document.getElementById('response').textContent = '';
+				}
 
                 result.reverse().forEach((result: any) => {
                     let dailyNoteGOB = new DailyNoteGOB(result['imagem'], result['usuario'], result['data'], result.corpo['ontem'], result.corpo['hoje'], result.corpo['impedimento'])

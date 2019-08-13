@@ -1,6 +1,6 @@
-System.register(["./View", "../utils/escapeTag"], function (exports_1, context_1) {
+System.register(["./View", "../utils/escapeTag", "../utils/publish"], function (exports_1, context_1) {
     "use strict";
-    var View_1, escapeTag_1, RegisteredDailyView;
+    var View_1, escapeTag_1, publish_1, RegisteredDailyView;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -9,26 +9,64 @@ System.register(["./View", "../utils/escapeTag"], function (exports_1, context_1
             },
             function (escapeTag_1_1) {
                 escapeTag_1 = escapeTag_1_1;
+            },
+            function (publish_1_1) {
+                publish_1 = publish_1_1;
             }
         ],
         execute: function () {
             RegisteredDailyView = class RegisteredDailyView extends View_1.View {
                 template(model) {
-                    return `
+                    if (model.toArray().length == 0) {
+                        return `<div class='text-black-50 mt-4'>Nenhuma daily encontrada.</div>`;
+                    }
+                    else {
+                        return `
             ${model.toArray().map(registeredDaily => `
-                <tr>
-                <td>${escapeTag_1.escapeTag(registeredDaily.Owner)}</td>
-                <td>${registeredDaily.Date.getUTCDate() < 10 ? '0' + registeredDaily.Date.getUTCDate() : registeredDaily.Date.getUTCDate()}/${registeredDaily.Date.getUTCMonth() + 1 < 10 ? '0' + (registeredDaily.Date.getUTCMonth() + 1) : registeredDaily.Date.getUTCMonth() + 1}/${registeredDaily.Date.getUTCFullYear()} </td>
-                <td>${escapeTag_1.escapeTag(registeredDaily.Yesterday)}</td>
-                <td>${escapeTag_1.escapeTag(registeredDaily.Today)}</td>
-                <td>${escapeTag_1.escapeTag(registeredDaily.Impediment)}</td>
-                <td>${localStorage.getItem('isAdmin') === 'true' || registeredDaily.Id_user === localStorage.getItem('id') ? `
-                    <a href="daily-edit.html?id=${registeredDaily.Id_daily}&owner=${registeredDaily.Id_user}" class="btn btn-outline-warning btn-sm input-circle pt-2 mr-2" id="edit-daily">
-                        <i class="small material-icons" id="teste">edit</i>
-                    </a>` : ``}</td>
-                </tr>
+            <hr style="height: 1px;">
+            <div class="col-sm-11 col-12 mt-n2 mb-n3 d-flex align-items-stretch responsive-full-help">
+                <div class="d-flex flex-column text-center align-items-center pl-3 pr-3 w-100">
+                    <div class="responsive-user-help">
+                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle clock-image">
+                        <h6 class="mt-2 responsive-user-name">${registeredDaily.Owner ? registeredDaily.Owner : ""}</h6>
+                    </div>
+                </div>          
+
+                <div class="col-9 responsive-help-card">
+                    <div class="row">
+                        <div class="col-12">
+
+                        ${registeredDaily.Id_user == localStorage.getItem('id') || localStorage.getItem('isAdmin') == 'true' ? `
+                            <div id="user-main responsive-help-drop">
+                                ${window.innerWidth <= 576 ? `
+                                    <a href="daily-edit.html?id=${registeredDaily.Id_daily}&owner=${registeredDaily.Id_user}">
+                                        <i class="small material-icons mr-n4 align-middle float-right text-warning">edit</i>
+                                    </a>
+                                ` : ''}
+                            </div>` : ''}
+
+                        ${registeredDaily.Id_user == localStorage.getItem('id') || localStorage.getItem('isAdmin') == 'true' ? `
+                        <a href="daily-edit.html?id=${registeredDaily.Id_daily}&owner=${registeredDaily.Id_user}" class="float-right d-flex justify-content-center mt-4 mr-n5 can-edit">
+                            <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle responsive-help-buttons" id="edit-daily">
+                                <i class="small material-icons mr-2 align-middle">edit</i>
+                                <text class="responsive-help-buttons">Editar</text>
+                            </button>
+                        </a>` : ''}
+
+                        <div class="text-black-50 mb-2">
+                                <i class="tiny material-icons align-middle">access_alarm</i>
+                                ${publish_1.publish(registeredDaily.Date)}
+                            </div>
+                            <strong>Ontem:</strong> ${escapeTag_1.escapeTag(registeredDaily.Yesterday)}</a><br><br>
+                            <strong>Hoje:</strong> ${escapeTag_1.escapeTag(registeredDaily.Today)}<br><br>
+                            <strong>Impedimentos:</strong> ${escapeTag_1.escapeTag(registeredDaily.Impediment)}<br><br>
+                        </div>
+                    </div>
+                </div> 
+            </div>   
             `).join('')}
         `;
+                    }
                 }
             };
             exports_1("RegisteredDailyView", RegisteredDailyView);

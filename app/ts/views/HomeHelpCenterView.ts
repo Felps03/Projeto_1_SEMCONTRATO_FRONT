@@ -2,37 +2,62 @@ import { View } from './View';
 import { HomeHelpCenter } from '../models/index';
 import { HomeHelpCenters } from '../models/HomeHelpCenters';
 import { escapeTag } from '../utils/escapeTag';
+import { publish } from '../utils/publish';
 
 export class HomeHelpCenterView extends View<HomeHelpCenters> {
 
     template(model: HomeHelpCenters): string {
-        return `
-            ${model.toArray().map(homeHelpCenter => `
-                <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
-                    <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
-                        <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
-                            <div>
-                                <h5 class="mt-2 mb-2 ml-4">${escapeTag(homeHelpCenter.Owner)}</h5>
-                                <p class="mt-2 mb-2 ml-4">${homeHelpCenter.Date.getUTCDate() < 10 ? "0" + homeHelpCenter.Date.getUTCDate() : homeHelpCenter.Date.getUTCDate()}/${homeHelpCenter.Date.getUTCMonth() + 1 < 10 ? "0" + (homeHelpCenter.Date.getUTCMonth() + 1) : homeHelpCenter.Date.getUTCMonth() + 1}/${homeHelpCenter.Date.getUTCFullYear()}</p>
-                                <button type="button" name="view"
-                                    class="btn btn-outline-info btn-sm input-circle pt-2 ml-4" id="resp-view"
-                                    data-toggle="modal" data-target="#respModal">
-                                    <i class="small material-icons">description</i>
-                                </button>
-                            </div>  
-                        </div>
-                    </div>
-                    <div class="col-md-9 col-12 card-body">
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <h5>${escapeTag(homeHelpCenter.Title)}</h5>
-                                <p>${escapeTag(homeHelpCenter.Description)}</p>
-                                <p id="idHelp" style="display:none">${homeHelpCenter.Id}</p>
-                            </div>
-                        </div>
+        console.log(model.toArray());
+        if (model.toArray().length == 0) {
+            return `<div class='text-black-50 mt-4'>Nenhuma pergunta encontrada.</div>`;
+        } else {
+            return `
+            ${model.toArray().map((post, i) => `
+            <hr style="height: 1px;">
+            <div class="col-sm-11 col-12 mt-n2 mb-n3 d-flex align-items-stretch responsive-full-help">
+                <div class="d-flex flex-column text-center align-items-center pl-3 pr-3 w-100">
+                    <div class="responsive-user-help">
+                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle clock-image">
+                        <h6 class="mt-2 responsive-user-name">${post.Owner ? escapeTag(post.Owner) : ""}</h6>
                     </div>
                 </div>
-            `).join('')}
+
+                <div class="col-9 col-sm-12 responsive-help-card">
+                    <div class="row">
+                        <div class="col-12 col-sm-12">
+
+                            <div id="user-main responsive-help-drop">
+                                
+                                    
+
+                                        <a class= txt-primary res-help-resp" href="app-help-asks.html?id=${post.Id}" id="response-help">
+                                            <i class="material-icons mr-n4 mt-1 float-right response-help-mob">question_answer</i></a>
+ 
+                               
+                            </div>
+  
+                            <h5><strong>${post.Title}</strong></h5>
+                         
+                            <a href="app-help-asks.html?id=${post.Id}" class="float-right d-flex justify-content-center mr-n3">
+                                <button type="button" class="btn btn-outline-info btn-sm  pr-3 pl-3 mt-n4 input-circle responsive-help-buttons" id="response-help">
+                                    <i class="small material-icons mr-2 align-middle">question_answer</i>
+                                    <text class="responsive-help-buttons">Responder</text>
+                                </button>
+                            </a>
+
+                            <div class="text-black-50 mt-n2">
+                                <i class="tiny material-icons align-middle">access_alarm</i>
+                                ${publish(post.Date)}
+                            </div>
+   
+                        </div>
+                    </div>
+                    <div class="mt-1 text-justify mb-2 mb-4">${post.Description}</div> 
+                </div> 
+            </div>
+    
+            `).join('')}       
         `;
+        }
     }
 }

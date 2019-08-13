@@ -38,6 +38,11 @@ System.register(["../models/DailyNoteGOB", "../models/DailyNotesGOB", "../servic
                     this.dateField.value = this.url_date || today;
                     this.listD(event);
                 }
+                logout(event) {
+                    event.preventDefault();
+                    localStorage.clear();
+                    window.location.href = 'index.html';
+                }
                 listD(event) {
                     event.preventDefault();
                     let value = this.dateField.value;
@@ -52,6 +57,12 @@ System.register(["../models/DailyNoteGOB", "../models/DailyNotesGOB", "../servic
                         .then(result => {
                         this.dailyView = new DailyNotesGobView_1.DailyNotesGOBView('#dayliesResult');
                         let dailyNotesGOB = new DailyNotesGOB_1.DailyNotesGOB();
+                        if (result.length != 0) {
+                            document.getElementById('response').textContent = `Total de ${result.length - 1} daily${result.length - 1 == 1 ? '' : 's'} registrada${result.length - 1 == 1 ? '' : 's'}. (página única)`;
+                        }
+                        else {
+                            document.getElementById('response').textContent = '';
+                        }
                         result.reverse().forEach((result) => {
                             let dailyNoteGOB = new DailyNoteGOB_1.DailyNoteGOB(result['imagem'], result['usuario'], result['data'], result.corpo['ontem'], result.corpo['hoje'], result.corpo['impedimento']);
                             dailyNotesGOB.add(dailyNoteGOB);

@@ -61,6 +61,10 @@ System.register(["./controllers/HomeController", "./controllers/DailyNoteControl
                 .catch(err => {
                 console.log(err);
             });
+            if (window.innerWidth <= 576) {
+                document.getElementById('recovery-pass').classList.add('btn-block');
+                document.getElementById('recoveryPasswordCancel').classList.add('btn-block');
+            }
         }
     };
 });

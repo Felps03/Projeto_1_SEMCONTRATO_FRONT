@@ -1,5 +1,9 @@
-/* Colors */
+/* Remove default styles */
+a:hover {
+    text-decoration: none;
+}
 
+/* Colors */
 .bg-primary {
     background-color: #f8fdff;
 }
@@ -56,6 +60,11 @@
     border: 1px solid #ffc107 !important;
 }
 
+.btn-outline-info {
+    border: 1px solid #283772 !important;
+    color: #283772;
+}
+
 .btn-warning {
     border: 1px solid #ffc107 !important;
 }
@@ -64,6 +73,12 @@
     border: 1px solid #dddddd !important;
     background: #dddddd;
     color: #292b2c !important;
+}
+
+.btn-outline-info:hover {
+    background: #283772;
+    border: 1px solid #283772 !important;
+    color: #ffffff;
 }
 
 .btn-danger:hover {
@@ -106,6 +121,11 @@
     color: #e2504b;
 }
 
+.custom-icon-margin {
+    margin-top: -5%;
+    margin-bottom: -5%;
+}
+
 /* Lines */
 
 .custom-bx {
@@ -113,8 +133,8 @@
 }
 
 .login-line {
-    width: 50vh;
-    margin-left: -1.9rem;
+    width: 120%;
+    margin-left: -1.8rem;
 }
 
 .lastdaily-line {
@@ -123,13 +143,28 @@
 }
 
 .help-line {
-    width: 46vh;
+    width: 106%;
+    margin-left: -1.9rem;
+}
+
+.daily-line {
+    width: 106%;
+    margin-left: -1.9rem;
+}
+
+.daily-line-edit {
+    width: 106%;
     margin-left: -1.9rem;
 }
 
 .register-line {
     width: 120%;
     margin-left: -1.9rem;
+}
+
+.user-edit-line {
+    width: 120%;
+    margin-left: -1.8rem;
 }
 
 .vt-line {
@@ -140,6 +175,8 @@
 }
 
 /* Menu */
+
+
 
 .custom-icon {
     color: #f1be1d;
@@ -219,6 +256,16 @@ body {
 
 .mt-add-daily {
     margin-top: 36px;
+}
+
+.home-app-card {
+    transition: transform ease-out 0.2s;
+}
+
+.home-app-card:hover {
+    text-decoration: none;
+    transform: scale(1.01);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
 }
 
 /* User menu */
@@ -405,6 +452,124 @@ body {
     color: var(--dark);
 }
 
-.display-none{
+.clock-image {
+    width: 70px;
+}
+
+.responsive-help-drop {
     display: none;
+    color: #c5c5c5;
+}
+
+.responsive-add-daily-top {
+    display: none;
+}
+
+#mobile-add-label {
+    display: none;
+}
+
+/* Responsive */
+
+/* All pages */
+.section { z-index: 1 }
+
+#particles-js {
+    z-index: 0;
+    position: fixed;
+}
+
+.navbar-light {
+    z-index: 20;
+}
+
+.response-help-mob {
+    display: none;
+}
+
+/* Help Center */
+@media (max-width: 980px) {
+    .login-line {
+        width: 123%;
+    }
+
+    
+    .response-help-mob {
+        display: block;
+    }
+
+    .responsive-home-full {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #welcomeResponsive {
+        margin-top: 0;
+    }
+
+    .daily-line-edit {
+        width: 116%;
+    }
+
+    .responsive-add-daily-top {
+        display: block;
+    }
+    
+    .responsive-add-daily-bottom {
+        display: none;
+    }
+
+    #mobile-add-label {
+        display: block;
+    }
+
+    .help-line { width: 116% }
+    .daily-line { width: 116% }
+
+    .clock-image { 
+        width: 60px;
+        margin-top: 1%; 
+    }
+
+    .responsive-user-help {
+        margin-left: -1.9rem;
+    }
+
+    .responsive-user-name {
+        font-size: 95%;
+    }
+
+    .responsive-help-card {
+        margin-left: -8%;
+        margin-bottom: 4%;
+    }
+
+    .responsive-help-add {
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+
+    .responsive-section {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .responsive-full-help {
+        margin-top: -2%;
+        margin-bottom: -2%; 
+    }
+
+    .responsive-help-buttons {
+        display: none;
+    }
+
+    .responsive-help-drop {
+        display: block;
+    }
+
+  
+    .edit-help-resp:hover, .rmv-help-resp:hover, .res-help-resp:hover {
+        background: #c5c5c5;
+    }
+    
 }

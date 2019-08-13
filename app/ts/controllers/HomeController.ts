@@ -18,12 +18,12 @@ export class HomeController {
 
     constructor() { }
 
-    clickHelpASK(event: Event) {
-        let temp = (<HTMLElement>event.target).parentElement.parentElement.parentElement.parentElement.parentElement.lastElementChild;
-        let idHelpCenter = (temp.querySelector('.card .card-body #idHelp').textContent);
+    // clickHelpASK(event: Event) {
+    //     let temp = (<HTMLElement>event.target).parentElement.parentElement.parentElement.parentElement.parentElement.lastElementChild;
+    //     let idHelpCenter = (temp.querySelector('.card .card-body #idHelp').textContent);
 
-        window.location.href = `app-help-asks.html?id=${idHelpCenter}`;
-    }
+    //     window.location.href = `app-help-asks.html?id=${idHelpCenter}`;
+    // }
 
     getUser() {
         let data;
@@ -62,6 +62,11 @@ export class HomeController {
                 results.pop();
                 //results.reverse();
                 results.length = 3;
+
+                if(results.length <= 3) {
+                    document.getElementById('response').innerHTML = `Total de ${results.length} pergunta${results.length >= 1 ? 's': ''} listada${results.length >= 1 ? 's': ''}. <a href="app-help-center.html">(clique aqui para mais)</a>`
+                }
+                
                 results.map((result: any) => new HomeHelpCenter(result['_id'], result['owner'], result['date'], result['title'], result['desc']))
                     .forEach((result: any) => helpCenters.add(result))
 
@@ -84,11 +89,16 @@ export class HomeController {
                 return result.json();
             }).then(results => {
                 let dailyNotes = new HomeDailyNotes();
-                this.dailyView = new HomeDailyView('#all-dailys');
-
-
+                this.dailyView = new HomeDailyView('#all-dailys');           
 
                 results.pop();
+
+                console.log()
+
+                if(results.length > 0) {
+                    document.getElementById('response-two').innerHTML = `Total de ${results.length} daily${results.length >= 1 ? 's': ''} listada${results.length >= 1 ? 's': ''}. <a href="app-daily-note.html">(acessar o quadro)</a>`
+                }
+
                 results.reverse();
                 results.map((result: any) => new HomeDailyNote(result['owner'], result['yesterday'], result['today'], result['impediment']))
                     .forEach((result: any) => dailyNotes.add(result))
@@ -98,6 +108,13 @@ export class HomeController {
             .catch(error => {
                 console.log(error);
             })
+    }
+
+    logout(event: Event) {
+        event.preventDefault();
+
+        localStorage.clear();
+        window.location.href = 'index.html';
     }
 
     cancel(event: Event) {

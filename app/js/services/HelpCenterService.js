@@ -99,8 +99,8 @@ System.register(["../config/index"], function (exports_1, context_1) {
                     });
                 }
                 listByID(ID) {
-                    return fetch(`${index_1.HOST}helps/post/${ID}`, {
-                        method: 'DELETE',
+                    return fetch(`${index_1.HOST}helps/list/${ID}`, {
+                        method: 'GET',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json',

@@ -61,3 +61,9 @@ configurationService.listAll()
     .catch(err => {
         console.log(err);
     });
+
+    //Responsive
+if (window.innerWidth <= 576) {
+    document.getElementById('recovery-pass').classList.add('btn-block');
+    document.getElementById('recoveryPasswordCancel').classList.add('btn-block');
+}
