@@ -53,7 +53,7 @@ System.register(["./View", "../utils/escapeTag", "../utils/publish"], function (
                             </button>
                         </a>` : ''}
 
-                        <div class="text-black-50 mb-2">
+                            <div class="text-black-50 mb-2">
                                 <i class="tiny material-icons align-middle">access_alarm</i>
                                 ${publish_1.publish(registeredDaily.Date)}
                             </div>

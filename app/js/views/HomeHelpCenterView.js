@@ -17,7 +17,6 @@ System.register(["./View", "../utils/escapeTag", "../utils/publish"], function (
         execute: function () {
             HomeHelpCenterView = class HomeHelpCenterView extends View_1.View {
                 template(model) {
-                    console.log(model.toArray());
                     if (model.toArray().length == 0) {
                         return `<div class='text-black-50 mt-4'>Nenhuma pergunta encontrada.</div>`;
                     }
