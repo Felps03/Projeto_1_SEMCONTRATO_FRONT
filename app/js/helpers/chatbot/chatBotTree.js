@@ -147,7 +147,7 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                     greet: ['Ok. Que usuário?'],
                     children: [
                         {
-                            call: [/(\w+)/],
+                            call: [/^((?:[A-Za-z0-9]|_|\-|\.)+)$/],
                             normalize: false,
                             goto: 'main',
                             answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`],
