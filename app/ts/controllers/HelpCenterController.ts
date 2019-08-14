@@ -193,7 +193,7 @@ export class HelpCenterController {
 				let totalQuestions = res[res.length - 1].totalDocs;
 
 				let pages = res[res.length - 1].page;
-	
+
 				res.pop();
 				const posts = Posts.from(res.slice(0, 10));
 
@@ -261,8 +261,6 @@ export class HelpCenterController {
 				if (Math.floor(result.status / 100) === 2) {
 					result.json().then((res) => {
 						this.list(event);
-						document.getElementById('confirm-del-modal-close').click();
-						document.getElementById('view-modal-close').click();
 						this.messageView.update('Deletado com sucesso.');
 					});
 				} else {
