@@ -11,6 +11,10 @@
     <link href="./lib/materialize/fonts/fonts.css" rel="stylesheet">
     <link href="./lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
+    </script>
+
     <title>Help Center</title>
 </head>
 
@@ -25,84 +29,7 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-sm bg-light navbar-light shadow">
-        <div class="container">
-
-            <a href="index.html">
-                <img src="./img/logo_compasso.png">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-around" id="collapsibleNavbar">
-                <ul class="navbar-nav">
-                    <li class="nav-item ml-md-3 mr-md-3">
-                        <!-- <div class="vt-apps-line ml-2"></div> -->
-                        <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
-                            <h5>
-                                <strong>Daily Note</strong>
-                            </h5>
-                        </a>
-                    </li>
-                    <li class="nav-item ml-md-3 mr-md-3">
-                        <a href="app-help-center.html" class="menu-item mt-3 ml-4">
-                            <h5>
-                                <strong>Help Center</strong>
-                            </h5>
-                        </a>
-                    </li>
-                    <li class="nav-item ml-md-3 mr-md-3">
-                        <a href="app-daily-gob.html" class="menu-item mt-3 ml-4">
-                            <h5>
-                                <strong>Daily Note GOB</strong>
-                            </h5>
-                        </a>
-                    </li>
-                    <li class="nav-item ml-md-3 mr-md-1">
-                        <a href="app-help-center-gob.html" class="menu-item mt-3 ml-4">
-                            <h5>
-                                <strong>Help Center GOB</strong>
-                            </h5>
-                        </a>
-                    </li>
-
-                </ul>
-
-
-                <div id="user-main">
-                    <!-- <div class="dropdown ml-n2 txt-user">
-                        <div class="d-flex align-items-center btn ml-5" data-toggle="dropdown">
-                            <span id="nameSpan"></span>
-                            <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle"
-                                width="60px">
-                            <i class="material-icons ml-n2">arrow_drop_down</i>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-right align-user">
-                            <div class="dropdown-item">
-                                Usuário:
-                                <span id="userNameSpan"></span>
-                            </div>
-                            <div class="dropdown-divider"></div>
-
-                            <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
-                                <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
-                            <a class="dropdown-item d-flex align-items-center" href="index.html">
-                                <i class="material-icons mr-2">home</i>Home</a>
-
-                            <div class="dropdown-divider"></div>
-
-                            <a class="dropdown-item d-flex align-items-center" id="logout">
-                                <i class="material-icons mr-2">power_settings_new</i>
-                                <strong>Sair</strong>
-                            </a>
-                        </div>
-                    </div> -->
-                </div>
-
-
-            </div>
-        </div>
-    </nav>
+    <div id="header"></div>
 
     <div class="container page-position col-12 col-sm-7 responsive-section">
 
@@ -124,8 +51,7 @@
                         <div class="col-sm-10 col-12 mt-3">
                             <div class="form-group">
                                 <label for="search-joker">Buscar pergunta:</label>
-                                <input type="text" name="search-joker" class="form-control form-control-sm input-circle"
-                                    id="search-joker" placeholder="Informe as palavras-chave.">
+                                <input type="text" name="search-joker" class="form-control form-control-sm input-circle" id="search-joker" placeholder="Informe as palavras-chave.">
                                 <div id="search-jokervalidator"></div>
                                 <div class='text-black-50 mt-1' id="response_search"></div>
                             </div>
@@ -144,7 +70,9 @@
                         </nav>
 
                         <div class="vt-line mt-1">
-                            <h5><strong>Perguntas</strong></h5>
+                            <h5>
+                                <strong>Perguntas</strong>
+                            </h5>
                         </div>
                         <div id="response" class="text-black-50 mb-3"></div>
                     </div>
@@ -180,27 +108,24 @@
 
                         <div class="form-group">
                             <label for="add-title">Qual a sua dúvida?</label>
-                            <input type="text" name="title" class="form-control form-control-sm input-circle"
-                                id="add-title" placeholder="Informe um titulo" autofocus>
+                            <input type="text" name="title" class="form-control form-control-sm input-circle" id="add-title" placeholder="Informe um titulo"
+                                autofocus>
                             <div id="add-titlevalidator"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="add-desc">Descrição:</label>
-                            <textarea name="desc" class="form-control form-control-sm input-circle" id="add-desc"
-                                placeholder="Descreva a sua dúvida"></textarea>
+                            <textarea name="desc" class="form-control form-control-sm input-circle" id="add-desc" placeholder="Descreva a sua dúvida"></textarea>
                             <div id="add-descvalidator"></div>
                         </div>
 
-                        <button type="submit" name="send"
-                            class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle d-flex justify-content-center"
-                            id="cadastroHelpCenter"><i
-                                class="small material-icons mr-2 align-middle">help</i>Perguntar</button>
+                        <button type="submit" name="send" class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle d-flex justify-content-center"
+                            id="cadastroHelpCenter">
+                            <i class="small material-icons mr-2 align-middle">help</i>Perguntar</button>
 
-                        <button type="button"
-                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle d-flex justify-content-center"
-                            data-dismiss="modal" id="cancel"><i
-                                class="small material-icons mr-1 align-middle">close</i>Cancelar</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle d-flex justify-content-center"
+                            data-dismiss="modal" id="cancel">
+                            <i class="small material-icons mr-1 align-middle">close</i>Cancelar</button>
 
                     </form>
 
@@ -241,6 +166,7 @@
     <script src="lib/system.js"></script>
     <script>
         System.defaultJSExtensions = true;
+        System.import('js/header.js').catch(err => console.error(err));
         System.import('js/helpCenter.js').catch(err => console.error(err));
         System.import('js/logout.js').catch(err => console.error(err));
         System.import('js/chatbot.js').catch(err => console.error(err))
