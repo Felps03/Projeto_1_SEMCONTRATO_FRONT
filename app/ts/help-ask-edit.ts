@@ -21,7 +21,7 @@ if ((localStorage.getItem('isAdmin') == 'true') || (localStorage.getItem('id') =
     if (update) {
         const editController = new EditAskController();
         editController.getAskData(url_ask_id);
-        
+
         update.addEventListener("submit", (e: Event) => {
             editController.update(e)
                 .then((res: (any)) => {
