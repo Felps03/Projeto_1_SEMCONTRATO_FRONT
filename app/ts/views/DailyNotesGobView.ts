@@ -4,6 +4,7 @@ import { DailyNotesGOB } from '../models/DailyNotesGOB';
 import { GOB_HOST } from '../config/index';
 import { publish } from '../utils/publish';
 import { escapeTag } from '../utils/escapeTag';
+import { reverseDateGOB } from '../utils/dateGOB';
 
 export class DailyNotesGOBView extends View<DailyNotesGOB> {
 
@@ -13,7 +14,9 @@ export class DailyNotesGOBView extends View<DailyNotesGOB> {
             return `<div class='text-black-50 mt-4'>Nenhuma daily encontrada.</div>`;
         } else {
             return `
-            ${model.paraArray().map(dailyNote => `
+            ${model.paraArray().map(dailyNote => {
+                console.log('wwwtttff', dailyNote.Date, typeof dailyNote.Date)
+                return `
             <hr style="height: 1px;">
             <div class="col-sm-11 col-12 mt-n2 mb-n3 d-flex align-items-stretch responsive-full-help">
                 <div class="d-flex flex-column text-center align-items-center pl-3 pr-3 w-100">
@@ -29,7 +32,7 @@ export class DailyNotesGOBView extends View<DailyNotesGOB> {
 
                         <div class="text-black-50 mb-2">
                                 <i class="tiny material-icons align-middle">access_alarm</i>
-                                ${publish(new Date(dailyNote.Date))}
+                                ${publish(dailyNote.Date)}
                             </div>
                             <strong>Ontem:</strong> ${escapeTag(dailyNote.Yesterday)}</a><br><br>
                             <strong>Hoje:</strong> ${escapeTag(dailyNote.Today)}<br><br>
@@ -38,7 +41,7 @@ export class DailyNotesGOBView extends View<DailyNotesGOB> {
                     </div>
                 </div> 
             </div>  
-            `
+            `}
         ).join('')}
  
     `

@@ -28,14 +28,15 @@ System.register([], function (exports_1, context_1) {
             monthName[monthName["Dezembro"] = 11] = "Dezembro";
         })(monthName || (monthName = {}));
         let day = date.getUTCDate() < 10 ? '0' + date.getUTCDate() : '' + date.getUTCDate();
-        let week = weekDay[date.getDay() + 1];
+        let week = weekDay[(date.getDay() + 1) % 7];
         let month = monthName[date.getUTCMonth()];
         let year = date.getUTCFullYear();
+        const monthNumber = date.getUTCMonth() + 1;
         if (window.innerWidth > 576) {
             return `publicado em ${week}, ${day} de ${month} de ${year}.`;
         }
         else {
-            return `publicado em ${day}/${date.getUTCMonth() < 10 ? '0' + date.getUTCMonth() : date.getUTCMonth()}/${year}`;
+            return `publicado em ${day}/${monthNumber < 10 ? '0' + monthNumber : monthNumber}/${year}`;
         }
     }
     exports_1("publish", publish);

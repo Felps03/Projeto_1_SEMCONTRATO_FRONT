@@ -9,6 +9,7 @@ import { DailyStatusView } from '../views/DailyStatusView';
 import { DailyNotesGOBView } from '../views/DailyNotesGobView'
 import { dateFormatYYYYMMDD } from '../helpers/dateHelper';
 import { checkLoggedIn } from '../helpers/chatbot/chatBotProcess';
+import { reverseDateGOB } from '../utils/dateGOB';
 
 export class DailyNoteGOBController {
 
@@ -78,7 +79,7 @@ export class DailyNoteGOBController {
 				}
 
                 result.reverse().forEach((result: any) => {
-                    let dailyNoteGOB = new DailyNoteGOB(result['imagem'], result['usuario'], result['data'], result.corpo['ontem'], result.corpo['hoje'], result.corpo['impedimento'])
+                    let dailyNoteGOB = new DailyNoteGOB(result['imagem'], result['usuario'], new Date(reverseDateGOB(result['data'])), result.corpo['ontem'], result.corpo['hoje'], result.corpo['impedimento'])
                     dailyNotesGOB.add(dailyNoteGOB)
                 })
                 this.dailyView.update(dailyNotesGOB);

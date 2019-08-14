@@ -1,6 +1,6 @@
-System.register(["./View", "../config/index"], function (exports_1, context_1) {
+System.register(["./View", "../config/index", "../utils/publish", "../utils/dateGOB"], function (exports_1, context_1) {
     "use strict";
-    var View_1, index_1, PostsGOBView;
+    var View_1, index_1, publish_1, dateGOB_1, PostsGOBView;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -9,6 +9,12 @@ System.register(["./View", "../config/index"], function (exports_1, context_1) {
             },
             function (index_1_1) {
                 index_1 = index_1_1;
+            },
+            function (publish_1_1) {
+                publish_1 = publish_1_1;
+            },
+            function (dateGOB_1_1) {
+                dateGOB_1 = dateGOB_1_1;
             }
         ],
         execute: function () {
@@ -29,26 +35,21 @@ System.register(["./View", "../config/index"], function (exports_1, context_1) {
                 <div class="col-9 col-sm-12 responsive-help-card">
                     <div class="row">
                         <div class="col-12 col-sm-12">
-  
+
                             <h5><strong>${post.Title}</strong></h5>
-                         
+
                             <i class="small material-icons mt-n4 mr-n3 align-middle float-right ${post.Solved ? 'text-success' : 'txt-primary'}">check</i>
-                     
+
                             <a href="http://gob-dev.azurewebsites.net/helpCenter/topico/${post.Id}" target="_blank">
                                 <i class="material-icons float-right mt-2 mr-n3 txt-primary"> forum </i>
                             </a>
 
-                           
-                           
-                       
-                       
-                  
                             
                             <div class="text-black-50 mt-n2">
                                 <i class="tiny material-icons align-middle">access_alarm</i>
-                                ${post.Date}
+                                ${publish_1.publish(new Date(dateGOB_1.reverseDateGOB(post.Date)))}
                             </div>
-   
+
                         </div>
                     </div>
                     <div class="mt-1 text-justify mb-2 mb-4">${post.Desc}</div> 
