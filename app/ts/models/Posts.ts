@@ -21,13 +21,13 @@ export class Posts {
 
     static from(arr: any[]): Posts {
 
-        const newPosts = new Posts()
+        const newPosts:Posts = new Posts()
 
         arr.forEach((val: any) => {
             newPosts.add(new Post(val.title, val.desc, val.id_user, val.owner,  val.date, val._id))
         })
-        
-        return newPosts
+
+        return newPosts;
 
     }
 }

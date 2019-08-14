@@ -180,6 +180,15 @@ export class HelpCenterController {
 	// here be dragons
 	list(event: Event) {
 		event.preventDefault();
+
+		// let buttonAddHC = document.getElementById('help-add-ocult');
+
+		// if (localStorage.getItem('email')) {
+		// 	buttonAddHC.classList.remove('display-none');
+		// } else {
+		// 	buttonAddHC.classList.add('display-none');
+		// }
+
 		const helpCenterService = new HelpCenterService();
 		helpCenterService
 			.list(this.currentPage, null)
@@ -189,13 +198,15 @@ export class HelpCenterController {
 			.then((res) => {
 
 				this.TotalPages = res[res.length - 1].totalPages;
-
 				let totalQuestions = res[res.length - 1].totalDocs;
-
 				let pages = res[res.length - 1].page;
-	
+
 				res.pop();
+
 				const posts = Posts.from(res.slice(0, 10));
+
+				// this.paginationView.update(this.currentPage, this.totalPages, this.type);
+				// this.postsView.update(posts, this.totalPages);
 
 				if (posts.toArray().length != 0) {
 					document.getElementById('response').textContent = `Total de ${totalQuestions} pergunta${totalQuestions == 1 ? '' : 's'} registrada${totalQuestions == 1 ? '' : 's'}. (página ${res[res.length - 1] === undefined ? '' : pages})`;
@@ -261,8 +272,6 @@ export class HelpCenterController {
 				if (Math.floor(result.status / 100) === 2) {
 					result.json().then((res) => {
 						this.list(event);
-						document.getElementById('confirm-del-modal-close').click();
-						document.getElementById('view-modal-close').click();
 						this.messageView.update('Deletado com sucesso.');
 					});
 				} else {
@@ -287,8 +296,11 @@ export class HelpCenterController {
 				return result.json();
 			})
 			.then((res) => {
+				this.paginationView.update(this.currentPage, this.totalPages, this.type);
 				const posts = Posts.from(res.slice(0, -1));
 				this.postsView.update(posts, this.totalPages);
+
+				//this.postsView.update(posts, this.totalPages);
 
 				let aux = <HTMLInputElement>document.getElementById('search-joker');
 				let response = <HTMLInputElement>document.getElementById('response_search');
@@ -298,9 +310,6 @@ export class HelpCenterController {
 				} else {
 					response.textContent = `Aproximadamente ${res.length - 1} pergunta${res.length - 1 == 1 ? '' : 's'}.`;
 				}
-
-
-
 
 				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
 					const i = el.getAttribute('data-i');
@@ -325,7 +334,10 @@ export class HelpCenterController {
 
 	cancelar(event: Event) {
 		event.preventDefault();
+		this.limpar();
+	}
 
+	limpar() {
 		let title = <HTMLInputElement>document.querySelector('#add-title');
 		let desc = <HTMLInputElement>document.querySelector('#add-desc');
 
