@@ -44,11 +44,20 @@ System.register(["./View", "../config/index", "../utils/publish", "../utils/date
                                 <i class="material-icons float-right mt-2 mr-n3 txt-primary"> forum </i>
                             </a>
 
-                            
+                            <a href="#" class="float-right mt-n4 mr-1">
+                                <i class="material-icons text-danger"> favorite </i>${post.Likes}
+                            <a>
+         
                             <div class="text-black-50 mt-n2">
                                 <i class="tiny material-icons align-middle">access_alarm</i>
                                 ${publish_1.publish(new Date(dateGOB_1.reverseDateGOB(post.Date)))}
                             </div>
+
+                            <div class="w-100 mt-2 mb-2">${post.Tags ? '<strong>Tags: </strong>' : ''}
+                                ${post.Tags ? post.Tags.replace(/,/g, ', ') : ''}
+                            </div>
+
+                            
 
                         </div>
                     </div>
