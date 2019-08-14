@@ -1,13 +1,10 @@
 import * as process from './chatBotProcess'
 import { DailyNoteService, HelpCenterService, UserService } from "../../services/index";
-import { DailyNotesView } from '../../views/DailyNotesView';
-import { PostsView } from '../../views/PostsView';
-import uuidv4 from '../../utils/uuidv4'
 import { Post } from '../../models/Post';
 import { InputWrapper } from '../../utils/index';
 import * as valHelp from '../../validation/helpCenterValidate'
 import * as valDaily from '../../validation/dailyNoteValidate'
-import { DailyNote } from '../../models/index';
+import { toISODate } from '../../utils/toISODate';
 
 export type DialogBranch = {
     // go into branch if one call matches
@@ -30,7 +27,7 @@ export type DialogBranch = {
 
 export type Dialog = {
     // message to be sent upon arriving
-    greet?: string[]
+    greet?: (string | ((state: Map<string, any>) => (string | null | Promise<string | null>)))[]
 
     // possible continuations
     children?: DialogBranch[]
@@ -86,7 +83,6 @@ export const dialog: { [node: string]: Dialog } = {
             'Como posso ajudar? 😊',
             '{{button(DailyNote)}}',
             '{{button(HelpCenter)}}',
-            // '{{button(Login)}}',
         ],
 
         children: [
@@ -98,12 +94,6 @@ export const dialog: { [node: string]: Dialog } = {
                 call: ['helpcenter', 'help'],
                 goto: 'cr_help'
             }
-            // {
-            //     call: ['login'],
-            //     goto: 'main',
-            //     answer: NOT_IMPLEMENTED_ANSWER,
-            //     process: process.checkNotLoggedIn('main')
-            // }
         ]
     },
 
@@ -141,8 +131,16 @@ export const dialog: { [node: string]: Dialog } = {
 
         greet: [
             'Gostaria de filtrar por?..',
-            '{{button(Ver dailies de hoje)}}',
-            '{{button(Outra data)}}',
+            async () => {
+                const dailies = await dailyNoteService.listDate(toISODate(new Date()), 1).then(res => res.json())
+                console.log(dailies)
+                if (dailies.length > 1) { // because of the totalPages and stuff item
+                    return '{{button(Ver dailies de hoje)}}'
+                } else {
+                    return '(Nenhuma daily cadastrada hoje ainda)'
+                }
+            },
+            '{{button(Data)}}',
             '{{button(Usuário)}}',
         ],
 
@@ -188,7 +186,7 @@ export const dialog: { [node: string]: Dialog } = {
                         state.set('_GOTO', 'main')
                         state.set('_ANSWER', [
                             `Não existe nenhuma daily cadastrada pra essa data, nem tem por que ir lá.`,
-                            `Mas o link é {{link(esse, ${SELF_HTTPS_HOST}/app-daily-note.html?user=${date})}} anyway`
+                            `Mas o link é {{link(esse, ${SELF_HTTPS_HOST}/app-daily-note.html?date=${date})}} anyway`
                         ])
                         return
                     }
@@ -204,13 +202,12 @@ export const dialog: { [node: string]: Dialog } = {
 
         children: [
             {
-                call: [/(\w+)/],
+                call: [/^((?:[A-Za-z0-9]|_|\-|\.)+)$/],
                 normalize: false,
                 goto: 'main',
                 answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`],
                 process: async (state: Map<string, any>, match: RegExpExecArray) => {
 
-                    console.log('verifying')
                     const userName = match[1]
                     const status = (await userService.checkIfExists(userName)).status
 
@@ -307,13 +304,6 @@ export const dialog: { [node: string]: Dialog } = {
                 process: async (state: Map<string, any>, match: RegExpExecArray) => {
                     const impediment = match[0]
 
-                    // const dailyToAdd = new DailyNote(
-                    //     <string>state.get('add_daily_yesterday'),
-                    //     <string>state.get('add_daily_today'),
-                    //     impediment,
-                    //     new Date()
-                    // )
-
                     const val = valDaily.impediment(pseudoInput(impediment))
                     // means gone wrong
                     if (val) {
@@ -322,7 +312,6 @@ export const dialog: { [node: string]: Dialog } = {
                         return
                     }
 
-                    // dailyNoteService.add(dailyToAdd)
                     const resp = await dailyNoteService.add(
                         <string>state.get('add_daily_yesterday'),
                         <string>state.get('add_daily_today'),
@@ -353,16 +342,6 @@ export const dialog: { [node: string]: Dialog } = {
             {
                 call: ['listar', 'ver', 'mostrar'],
                 goto: 'main',
-                // answer: [
-                //     `{{helpView(list-help-id-$help_list_id, $help_list)}}`
-                // ],
-                // process: async (state: Map<string, any>, match: RegExpExecArray) => {
-                //     state.set('help_list_id', uuidv4())
-                //     state.set('help_list',
-                //         await helpCenterService.list(1, null)
-                //             .then(res => res.json())
-                //     )
-                // }
                 answer: [
                     `{{link(Clique aqui para ver os posts! 😃, ${SELF_HTTPS_HOST}/app-help-center.html)}}`,
                 ]

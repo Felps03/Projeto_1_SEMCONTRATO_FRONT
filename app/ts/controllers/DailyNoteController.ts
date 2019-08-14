@@ -2,7 +2,7 @@ import { DailyNote } from '../models/DailyNote';
 import { DailyNotes } from '../models/DailyNotes';
 import { DailyNoteService } from '../services/DailyNoteService';
 
-import { validate, clean } from '../helpers/index'
+import { validate, clean} from '../helpers/index'
 import * as vals from '../validation/dailyNoteValidate';
 import { noFalse } from '../utils/listCheck';
 
@@ -93,7 +93,7 @@ export class DailyNoteController {
     // }
     set CurrentPage(page: number) {
         this.currentPage = page;
-        this.paginationView.update(this.currentPage, this.totalPages);
+        this.paginationView.update(this.currentPage, this.totalPages, this.type);
     }
     set TotalPages(total: number) {
         this.totalPages = total;
@@ -156,6 +156,33 @@ export class DailyNoteController {
         return dailyNoteService.listUser(this.url_user, page).then(res => {
             return res.json()
         })
+            .then(result => {
+                //console.log(result[result.length - 1].totalPages);
+                let pages = result[result.length - 1].page;
+                if (result.length != 0) {
+                    document.getElementById('response').textContent = `Total de ${result.length - 1} daily${result.length - 1 == 1 ? '' : 's'} registrada${result.length - 1 == 1 ? '' : 's'}. (página ${result[result.length - 1] === undefined ? '' : pages})`;
+                    this.paginationView = new PaginationView('#pagination', 'app-daily-note.html');
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                } else {
+                    document.getElementById('response').textContent = '';
+                    // this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                    document.getElementById('pagination').textContent = '';
+                }
+
+                this.TotalPages = result[result.length - 1].totalPages;
+                this.paginationView.update(page, this.totalPages, this.type, null);
+                // console.log(result);
+                let registeredDaylies = new RegisteredDaylies();
+                this.dailyView = new RegisteredDailyView('#dayliesResult');
+
+                result.pop();
+                result.reverse().map((result: any) => new RegisteredDaily(result['id_daily'], result['id_user'], result['yesterday'], result['today'], result['impediment'], result['date'], result['owner']))
+                    .forEach((result: any) => registeredDaylies.add(result))
+
+                this.dailyView.update(registeredDaylies);
+
+                return result
+            });
     }
 
     cancel(event: Event) {
@@ -319,6 +346,7 @@ export class DailyNoteController {
         if (result) {
             result.then(result => {
                 result.forEach((r: any) => {
+                    console.log('>>>', r)
                     const daily = new DailyNote(
                         r.yesterday,
                         r.today,

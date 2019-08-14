@@ -1,6 +1,6 @@
-System.register(["../models/DailyNoteGOB", "../models/DailyNotesGOB", "../services/DailyNoteGOBService", "../views/DailyNotesGobView", "../helpers/dateHelper"], function (exports_1, context_1) {
+System.register(["../models/DailyNoteGOB", "../models/DailyNotesGOB", "../services/DailyNoteGOBService", "../views/DailyNotesGobView", "../helpers/dateHelper", "../utils/dateGOB"], function (exports_1, context_1) {
     "use strict";
-    var DailyNoteGOB_1, DailyNotesGOB_1, DailyNoteGOBService_1, DailyNotesGobView_1, dateHelper_1, DailyNoteGOBController;
+    var DailyNoteGOB_1, DailyNotesGOB_1, DailyNoteGOBService_1, DailyNotesGobView_1, dateHelper_1, dateGOB_1, DailyNoteGOBController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -18,6 +18,9 @@ System.register(["../models/DailyNoteGOB", "../models/DailyNotesGOB", "../servic
             },
             function (dateHelper_1_1) {
                 dateHelper_1 = dateHelper_1_1;
+            },
+            function (dateGOB_1_1) {
+                dateGOB_1 = dateGOB_1_1;
             }
         ],
         execute: function () {
@@ -64,7 +67,7 @@ System.register(["../models/DailyNoteGOB", "../models/DailyNotesGOB", "../servic
                             document.getElementById('response').textContent = '';
                         }
                         result.reverse().forEach((result) => {
-                            let dailyNoteGOB = new DailyNoteGOB_1.DailyNoteGOB(result['imagem'], result['usuario'], result['data'], result.corpo['ontem'], result.corpo['hoje'], result.corpo['impedimento']);
+                            let dailyNoteGOB = new DailyNoteGOB_1.DailyNoteGOB(result['imagem'], result['usuario'], new Date(dateGOB_1.reverseDateGOB(result['data'])), result.corpo['ontem'], result.corpo['hoje'], result.corpo['impedimento']);
                             dailyNotesGOB.add(dailyNoteGOB);
                         });
                         this.dailyView.update(dailyNotesGOB);

@@ -7,7 +7,6 @@ import { publish } from '../utils/publish';
 export class HomeHelpCenterView extends View<HomeHelpCenters> {
 
     template(model: HomeHelpCenters): string {
-        console.log(model.toArray());
         if (model.toArray().length == 0) {
             return `<div class='text-black-50 mt-4'>Nenhuma pergunta encontrada.</div>`;
         } else {

@@ -1,6 +1,6 @@
-System.register(["./chatBotProcess", "../../services/index", "../../models/Post", "../../utils/index", "../../validation/helpCenterValidate", "../../validation/dailyNoteValidate"], function (exports_1, context_1) {
+System.register(["./chatBotProcess", "../../services/index", "../../models/Post", "../../utils/index", "../../validation/helpCenterValidate", "../../validation/dailyNoteValidate", "../../utils/toISODate"], function (exports_1, context_1) {
     "use strict";
-    var process, index_1, Post_1, index_2, valHelp, valDaily, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, helpCenterService, dailyNoteService, userService, actualHours, greeting, mainBranch, dialog;
+    var process, index_1, Post_1, index_2, valHelp, valDaily, toISODate_1, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, helpCenterService, dailyNoteService, userService, actualHours, greeting, mainBranch, dialog;
     var __moduleName = context_1 && context_1.id;
     function pseudoInput(val) {
         const input = document.createElement('input');
@@ -26,6 +26,9 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
             },
             function (valDaily_1) {
                 valDaily = valDaily_1;
+            },
+            function (toISODate_1_1) {
+                toISODate_1 = toISODate_1_1;
             }
         ],
         execute: function () {
@@ -96,8 +99,17 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                 list_daily: {
                     greet: [
                         'Gostaria de filtrar por?..',
-                        '{{button(Ver dailies de hoje)}}',
-                        '{{button(Outra data)}}',
+                        async () => {
+                            const dailies = await dailyNoteService.listDate(toISODate_1.toISODate(new Date()), 1).then(res => res.json());
+                            console.log(dailies);
+                            if (dailies.length > 1) {
+                                return '{{button(Ver dailies de hoje)}}';
+                            }
+                            else {
+                                return '(Nenhuma daily cadastrada hoje ainda)';
+                            }
+                        },
+                        '{{button(Data)}}',
                         '{{button(Usuário)}}',
                     ],
                     children: [
@@ -135,7 +147,7 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                                     state.set('_GOTO', 'main');
                                     state.set('_ANSWER', [
                                         `Não existe nenhuma daily cadastrada pra essa data, nem tem por que ir lá.`,
-                                        `Mas o link é {{link(esse, ${SELF_HTTPS_HOST}/app-daily-note.html?user=${date})}} anyway`
+                                        `Mas o link é {{link(esse, ${SELF_HTTPS_HOST}/app-daily-note.html?date=${date})}} anyway`
                                     ]);
                                     return;
                                 }
@@ -147,12 +159,11 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                     greet: ['Ok. Que usuário?'],
                     children: [
                         {
-                            call: [/(\w+)/],
+                            call: [/^((?:[A-Za-z0-9]|_|\-|\.)+)$/],
                             normalize: false,
                             goto: 'main',
                             answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`],
                             process: async (state, match) => {
-                                console.log('verifying');
                                 const userName = match[1];
                                 const status = (await userService.checkIfExists(userName)).status;
                                 if (status === 204) {

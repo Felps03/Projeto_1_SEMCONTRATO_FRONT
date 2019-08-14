@@ -2,6 +2,7 @@ import { View } from './View';
 import { PostsGOB, User } from '../models/index';
 import { GOB_HOST } from '../config/index';
 import { publish } from '../utils/publish';
+import { reverseDateGOB } from '../utils/dateGOB';
 
 export class PostsGOBView extends View<PostsGOB> {
 
@@ -21,26 +22,21 @@ export class PostsGOBView extends View<PostsGOB> {
                 <div class="col-9 col-sm-12 responsive-help-card">
                     <div class="row">
                         <div class="col-12 col-sm-12">
-  
+
                             <h5><strong>${post.Title}</strong></h5>
-                         
+
                             <i class="small material-icons mt-n4 mr-n3 align-middle float-right ${post.Solved ? 'text-success' : 'txt-primary'}">check</i>
-                     
+
                             <a href="http://gob-dev.azurewebsites.net/helpCenter/topico/${post.Id}" target="_blank">
                                 <i class="material-icons float-right mt-2 mr-n3 txt-primary"> forum </i>
                             </a>
 
-                           
-                           
-                       
-                       
-                  
                             
                             <div class="text-black-50 mt-n2">
                                 <i class="tiny material-icons align-middle">access_alarm</i>
-                                ${post.Date}
+                                ${publish(new Date(reverseDateGOB(post.Date)))}
                             </div>
-   
+
                         </div>
                     </div>
                     <div class="mt-1 text-justify mb-2 mb-4">${post.Desc}</div> 

@@ -196,6 +196,18 @@ a:hover {
     color: #283772;
 }
 
+.navbar {
+   
+}
+
+.navbarDropdown {
+    color: #283772;
+}
+
+.nav-item dropdown {
+    color: #283772;
+}
+
 .menu-align {
     display: flex;
     flex-direction: row;
@@ -451,15 +463,6 @@ body {
 #chatbot-history ul li .card {
     color: var(--dark);
 }
-
-
-
-
-
-
-
-
-
 
 .clock-image {
     width: 70px;

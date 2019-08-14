@@ -77,7 +77,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                 }
                 set CurrentPage(page) {
                     this.currentPage = page;
-                    this.paginationView.update(this.currentPage, this.totalPages);
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
                 }
                 set TotalPages(total) {
                     this.totalPages = total;
@@ -123,6 +123,27 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     const dailyNoteService = new DailyNoteService_1.DailyNoteService();
                     return dailyNoteService.listUser(this.url_user, page).then(res => {
                         return res.json();
+                    })
+                        .then(result => {
+                        let pages = result[result.length - 1].page;
+                        if (result.length != 0) {
+                            document.getElementById('response').textContent = `Total de ${result.length - 1} daily${result.length - 1 == 1 ? '' : 's'} registrada${result.length - 1 == 1 ? '' : 's'}. (página ${result[result.length - 1] === undefined ? '' : pages})`;
+                            this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-daily-note.html');
+                            this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                        }
+                        else {
+                            document.getElementById('response').textContent = '';
+                            document.getElementById('pagination').textContent = '';
+                        }
+                        this.TotalPages = result[result.length - 1].totalPages;
+                        this.paginationView.update(page, this.totalPages, this.type, null);
+                        let registeredDaylies = new RegisteredDaylies_1.RegisteredDaylies();
+                        this.dailyView = new RegisteredDailyView_1.RegisteredDailyView('#dayliesResult');
+                        result.pop();
+                        result.reverse().map((result) => new RegisteredDaily_1.RegisteredDaily(result['id_daily'], result['id_user'], result['yesterday'], result['today'], result['impediment'], result['date'], result['owner']))
+                            .forEach((result) => registeredDaylies.add(result));
+                        this.dailyView.update(registeredDaylies);
+                        return result;
                     });
                 }
                 cancel(event) {
@@ -233,6 +254,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     if (result) {
                         result.then(result => {
                             result.forEach((r) => {
+                                console.log('>>>', r);
                                 const daily = new DailyNote_1.DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
                                 let totalPages;
                                 if (r.hasOwnProperty('totalPages')) {
