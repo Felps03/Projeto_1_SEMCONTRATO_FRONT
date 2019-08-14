@@ -272,8 +272,6 @@ export class HelpCenterController {
 				if (Math.floor(result.status / 100) === 2) {
 					result.json().then((res) => {
 						this.list(event);
-						document.getElementById('confirm-del-modal-close').click();
-						document.getElementById('view-modal-close').click();
 						this.messageView.update('Deletado com sucesso.');
 					});
 				} else {
