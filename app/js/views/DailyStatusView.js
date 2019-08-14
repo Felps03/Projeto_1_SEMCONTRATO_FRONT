@@ -20,6 +20,9 @@ System.register(["./View"], function (exports_1, context_1) {
             </div>
         `;
                 }
+                clear() {
+                    this._el.innerHTML = '';
+                }
             };
             exports_1("DailyStatusView", DailyStatusView);
         }

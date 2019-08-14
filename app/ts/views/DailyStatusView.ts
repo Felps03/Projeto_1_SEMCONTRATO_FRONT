@@ -13,5 +13,8 @@ export class DailyStatusView extends View<string> {
         `;
     }
 
+    clear() {
+        this._el.innerHTML = ''
+    }
     
 }

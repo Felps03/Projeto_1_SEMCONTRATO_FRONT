@@ -165,6 +165,10 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         this.dailyStatusView.update('Não são cadastradas dailys em datas futuras :(', 0, 0, typeAlert);
                     }
                     else if (result) {
+                        if (this.dailyStatusView) {
+                            this.dailyStatusView.clear();
+                            this.dailyButton(event);
+                        }
                         result.then((result) => {
                             result.forEach((r) => {
                                 const daily = new DailyNote_1.DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
@@ -203,7 +207,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         let typeAlert = 'alert-warning';
                         this.dailyStatusView = new DailyStatusView_1.DailyStatusView('#status_daily');
                         if (res.status == 400) {
-                            this.dailyStatusView.update('Você já cadastrou sua daily!', 0, 0, typeAlert);
+                            this.dailyStatusView.update('Você já cadastrou sua daily :)', 0, 0, typeAlert);
                             document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                         }
                         if (res.status == 400 || !(localStorage.getItem('tkn')))
