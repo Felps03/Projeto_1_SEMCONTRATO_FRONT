@@ -38,6 +38,8 @@ export class HelpCenterController {
 
 	private type: number;
 
+	private protected: boolean;
+
 	constructor(currentPage: number = 1, totalPages: number = 1) {
 		this.searchTitle = <HTMLInputElement>document.getElementById('search-joker');
 		// this.searchDesc = <HTMLInputElement>document.getElementById('search-desc')
@@ -67,8 +69,13 @@ export class HelpCenterController {
 				button.addEventListener('click', this.delete.bind(this, id))
 			})
 		})
+
+		this.protected = true
 	}
 
+	set CurrentSearch(term: string) {
+		this.searchTitle.value = term
+	}
 
 
 	cancel(event: Event) {
@@ -189,6 +196,8 @@ export class HelpCenterController {
 		// 	buttonAddHC.classList.add('display-none');
 		// }
 
+		console.log('listando whatever')
+
 		const helpCenterService = new HelpCenterService();
 		helpCenterService
 			.list(this.currentPage, null)
@@ -288,14 +297,37 @@ export class HelpCenterController {
 
 	findByJoker(event: Event) {
 		event.preventDefault();
+
+		console.log('jokando')
+
 		let title = this.searchTitle.value;
+		if (!title) {
+			this.list(event)
+			return false
+		}
+
+		console.log('realmente jokando')
+
 		const helpCenterService = new HelpCenterService();
 		helpCenterService
-			.findByJoker(title, 1)
+			.findByJoker(title, this.currentPage)
 			.then((result) => {
 				return result.json();
 			})
 			.then((res) => {
+
+				if (this.protected) {
+					this.currentPage = this.currentPage || 1
+					this.protected = false
+				} else {
+					this.currentPage = 1
+				}
+
+				// for some reason it's coming fractional
+				this.totalPages = Math.floor(res[res.length - 1].totalPages)
+
+				console.log(res)
+
 				this.paginationView.update(this.currentPage, this.totalPages, this.type);
 				const posts = Posts.from(res.slice(0, -1));
 				this.postsView.update(posts, this.totalPages);
@@ -305,20 +337,20 @@ export class HelpCenterController {
 				let aux = <HTMLInputElement>document.getElementById('search-joker');
 				let response = <HTMLInputElement>document.getElementById('response_search');
 
-				if (aux.value == '') {
+				if (aux.value === '') {
 					response.textContent = '';
 				} else {
-					response.textContent = `Aproximadamente ${res.length - 1} pergunta${res.length - 1 == 1 ? '' : 's'}.`;
+					response.textContent = `Aproximadamente ${res.length - 1} pergunta${res.length - 1 === 1 ? '' : 's'}.`;
 				}
 
-				Array.from(document.getElementsByClassName('post-expand')).forEach((el) => {
-					const i = el.getAttribute('data-i');
-					if (i) {
-						el.addEventListener('click', () => {
-							this.postView.update(posts.get(+i));
-						});
-					}
-				});
+				if (this.totalPages === 1) {
+					this.clearPagination(event)
+				} else {
+					this.paginationView.update(this.currentPage, this.totalPages, this.type);
+					Array.from(document.getElementsByClassName('page-link')).forEach((el: HTMLAnchorElement) => {
+						el.href = el.href + '&q=' + encodeURI(this.searchTitle.value)
+					})
+				}
 			})
 			.catch((error) => {
 				console.error(error);
@@ -377,4 +409,10 @@ export class HelpCenterController {
 	//             console.error(error)
 	//         });
 	// }
+
+	clearPagination(event: Event) {
+		event.preventDefault()
+		document.getElementById('pagination').innerHTML = ''
+		console.log('clearng')
+	}
 }
