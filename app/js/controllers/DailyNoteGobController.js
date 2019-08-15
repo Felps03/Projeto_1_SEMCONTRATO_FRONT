@@ -55,6 +55,9 @@ System.register(["../models/DailyNoteGOB", "../models/DailyNotesGOB", "../servic
                     this.dateField.value = this.url_date || fullDate;
                     return dailyNoteGOBService.list(fullDate)
                         .then(res => {
+                        if (res.status == 200) {
+                            document.getElementById('load-view').setAttribute('hidden', 'true');
+                        }
                         return res.json();
                     })
                         .then(result => {

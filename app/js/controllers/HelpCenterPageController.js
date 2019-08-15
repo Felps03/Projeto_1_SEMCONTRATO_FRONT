@@ -98,6 +98,9 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                     helpCenterService
                         .list(this.currentPage, this.url_ask_id)
                         .then((result) => {
+                        if (result.status == 200) {
+                            document.getElementById('load-view').setAttribute('hidden', 'true');
+                        }
                         return result.json();
                     })
                         .then((res) => {

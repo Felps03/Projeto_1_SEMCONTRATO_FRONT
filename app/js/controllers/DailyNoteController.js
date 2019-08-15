@@ -92,6 +92,9 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     let fullDate = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1) < 10 ? '0' + (date.getUTCMonth() + 1) : (date.getUTCMonth() + 1)}-${(date.getUTCDate()) < 10 ? '0' + (date.getUTCDate()) : (date.getUTCDate())}`;
                     return dailyNoteService.listDate(fullDate, page)
                         .then(res => {
+                        if (res.status == 200) {
+                            document.getElementById('load-view').setAttribute('hidden', 'true');
+                        }
                         return res.json();
                     })
                         .then(result => {

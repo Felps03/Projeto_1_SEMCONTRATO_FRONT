@@ -71,6 +71,9 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                     const helpCenterService = new HelpCenterService_1.HelpCenterService();
                     helpCenterService.listLastHelp()
                         .then(result => {
+                        if (result.status == 200) {
+                            document.getElementById('load-view').setAttribute('hidden', 'true');
+                        }
                         return result.json();
                     })
                         .then(results => {
@@ -96,6 +99,9 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                     const dailyNoteService = new DailyNoteService_1.DailyNoteService();
                     dailyNoteService.listDate(data, 1)
                         .then(result => {
+                        if (result.status == 200) {
+                            document.getElementById('load-view').setAttribute('hidden', 'true');
+                        }
                         return result.json();
                     }).then(results => {
                         let dailyNotes = new RegisteredDaylies_1.RegisteredDaylies();

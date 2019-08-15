@@ -132,6 +132,9 @@ export class UserController {
             const userService = new UserService();
             return userService.getData()
                 .then(res => {
+                    if (res.status == 200) {
+                        document.getElementById('load-view').setAttribute('hidden', 'true');
+                    }
                     return res.json();
                 })
                 .then(result => {
@@ -156,6 +159,7 @@ export class UserController {
 
     update(event: Event) {
         event.preventDefault();
+
 
         let id = <HTMLInputElement>document.querySelector('#id');
 
@@ -203,6 +207,7 @@ export class UserController {
                             </div>
                         `;
                     }
+
                     return result.json();
                 }).then(() => {
                     setTimeout(() => {
