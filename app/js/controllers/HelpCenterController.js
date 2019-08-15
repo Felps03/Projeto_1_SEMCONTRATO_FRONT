@@ -143,6 +143,9 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     helpCenterService
                         .list(this.currentPage, null)
                         .then((result) => {
+                        if (result.status == 200) {
+                            document.getElementById('load-view').setAttribute('hidden', 'true');
+                        }
                         return result.json();
                     })
                         .then((res) => {

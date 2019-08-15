@@ -119,6 +119,9 @@ export class HelpCenterPageController {
         helpCenterService
             .list(this.currentPage, this.url_ask_id)
             .then((result) => {
+                if (result.status == 200) {
+                    document.getElementById('load-view').setAttribute('hidden', 'true');
+                }
                 return result.json();
             })
             .then((res) => {
@@ -146,6 +149,7 @@ export class HelpCenterPageController {
 
                 if (res.answerData || res.answerData != undefined) res.answerData.map((res: any) => new PostAsk(res.id_helpCenter, res.text, res.id_user, res.owner, res.id_answer, res.date))
                     .forEach((res: any) => postAsks.add(res));
+
 
                 this.answersView.update(postAsks);
 

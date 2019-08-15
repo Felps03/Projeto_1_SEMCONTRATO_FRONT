@@ -12,8 +12,9 @@
     <link href="./lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
+        </script>
 
     <title>Help Center - GoB</title>
 </head>
@@ -46,6 +47,10 @@
                 </div>
                 <hr class="help-line">
 
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-warning" id="load-view"></div>
+                </div>
+
                 <div id="message-view"></div>
 
                 <form action="" id="search-form" class="mb-4" autocomplete="off">
@@ -53,7 +58,8 @@
                         <div class="col-sm-12 col-12 mt-3">
                             <div class="form-group">
                                 <label for="search-joker">Buscar pergunta:</label>
-                                <input type="text" name="search-joker" class="form-control form-control-sm input-circle" id="search-joker" placeholder="Informe as palavras-chave.">
+                                <input type="text" name="search-joker" class="form-control form-control-sm input-circle"
+                                    id="search-joker" placeholder="Informe as palavras-chave.">
                                 <div id="search-jokervalidator"></div>
                                 <div class='text-black-50 mt-1' id="response_search"></div>
                             </div>
@@ -63,6 +69,7 @@
                         <div class="col-sm-2 col-12 mt-3 responsive-help-add" id="help-add-ocult"></div>
                     </div>
                 </form>
+
 
                 <!-- paginação top -->
                 <div class="row mb-n4">
@@ -82,6 +89,8 @@
 
                 <!-- list -->
                 <div id="post-list"></div>
+
+                
 
             </div>
 

@@ -34,7 +34,12 @@ System.register(["../services/HelpCenterService", "../models/Post", "../helpers/
                 getHelpData(id) {
                     const helpService = new HelpCenterService_1.HelpCenterService();
                     return helpService.listByID(id)
-                        .then(res => res.json())
+                        .then(res => {
+                        if (res.status == 200) {
+                            document.getElementById('load-view').setAttribute('hidden', 'true');
+                        }
+                        return res.json();
+                    })
                         .then(result => {
                         console.log(result);
                         this.title.value = result.title;

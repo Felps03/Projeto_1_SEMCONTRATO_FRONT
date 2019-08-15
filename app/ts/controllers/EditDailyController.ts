@@ -26,14 +26,18 @@ export class EditDailyController {
             validate(this.impediment, vals.impediment),
         ];
     }
- 
+
     getDailyData(id: string) {
-        
+
         const dailyService = new DailyNoteService();
         return dailyService.listDailyById(id)
-            .then(res => res.json())
+            .then(res => {
+                if (res.status == 200) {
+                    document.getElementById('load-view').setAttribute('hidden', 'true');
+                }
+                return res.json()
+            })
             .then(result => {
-                
                 this.yesterday.value = result.yesterday;
                 this.today.value = result.today;
                 this.impediment.value = result.impediment;
@@ -55,10 +59,10 @@ export class EditDailyController {
                 this.impediment.value.toString(),
                 new Date()
             )
-  
+
             const dailyService = new DailyNoteService();
             return dailyService.update(daily, this.idDaily.value.toString())
-        
+
         }
     }
 }

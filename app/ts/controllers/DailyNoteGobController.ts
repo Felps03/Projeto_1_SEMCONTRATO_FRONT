@@ -66,6 +66,9 @@ export class DailyNoteGOBController {
 
         return dailyNoteGOBService.list(fullDate)
             .then(res => {
+                if (res.status == 200) {
+                    document.getElementById('load-view').setAttribute('hidden', 'true');
+                }
                 return res.json();
             })
             .then(result => {
@@ -73,10 +76,10 @@ export class DailyNoteGOBController {
                 let dailyNotesGOB = new DailyNotesGOB();
 
                 if (result.length != 0) {
-					document.getElementById('response').textContent = `Total de ${result.length-1} daily${result.length-1 == 1 ? '' : 's'} registrada${result.length-1 == 1 ? '' : 's'}. (página única)`;
-				} else {
-					document.getElementById('response').textContent = '';
-				}
+                    document.getElementById('response').textContent = `Total de ${result.length - 1} daily${result.length - 1 == 1 ? '' : 's'} registrada${result.length - 1 == 1 ? '' : 's'}. (página única)`;
+                } else {
+                    document.getElementById('response').textContent = '';
+                }
 
                 result.reverse().forEach((result: any) => {
                     let dailyNoteGOB = new DailyNoteGOB(result['imagem'], result['usuario'], new Date(reverseDateGOB(result['data'])), result.corpo['ontem'], result.corpo['hoje'], result.corpo['impedimento'])

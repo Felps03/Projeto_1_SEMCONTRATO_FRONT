@@ -62,6 +62,9 @@ export class HelpCenterGOBController {
         helpCenterService
             .list(this.currentPage)
             .then((result) => {
+                if (result.status == 200) {
+                    document.getElementById('load-view').setAttribute('hidden', 'true');
+                }
                 return result.json();
             })
             .then((res) => {

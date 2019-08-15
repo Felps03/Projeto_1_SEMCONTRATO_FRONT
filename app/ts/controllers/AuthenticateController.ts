@@ -86,49 +86,49 @@ export class AuthenticateController {
         event.preventDefault();
     }
 
-    resetPassword(event: Event) {
-        event.preventDefault();
+resetPassword(event: Event) {
+    event.preventDefault();
 
-        if (noFalse(this.passRecVals)) {
-            // /users/user/recover
-            const userService = new UserService();
-            const authenticateService = new AuthenticateService();
-
-            authenticateService.resetPassword(this.emailRec.value.toString())
-                .then(res => {
-                    if (Math.floor(res.status / 100) === 2) {
-                        res.json()
-                            .then(() => {
-                                document.getElementById('recoveryModal-close').click();
-                                this.messageView.update('Foi enviado um email para você, siga as instruções contidas nele para continuar.<br>Por favor verificar a seção de <i>spam</i>.');
-                            })
-                            .catch(error => {
-                                console.error(error);
-                            })
-                    } else {
-                        res.json()
-                            .then((erres) => {
-                                this.messageView.update(erres.erro);
-                            })
-                    }
-                });
-        }
-    }
-
-    logout(event: Event) {
-        event.preventDefault();
-
-        localStorage.clear();
-        window.location.href = 'index.html';
-    }
-
-    checkAdmin() {
-        event.preventDefault();
-
+    if (noFalse(this.passRecVals)) {
+        // /users/user/recover
+        const userService = new UserService();
         const authenticateService = new AuthenticateService();
-        return authenticateService.verifyAdmin();
 
+        authenticateService.resetPassword(this.emailRec.value.toString())
+            .then(res => {
+                if (Math.floor(res.status / 100) === 2) {
+                    res.json()
+                        .then(() => {
+                            document.getElementById('recoveryModal-close').click();
+                            this.messageView.update('Foi enviado um email para você, siga as instruções contidas nele para continuar.<br>Por favor verificar a seção de <i>spam</i>.');
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        })
+                } else {
+                    res.json()
+                        .then((erres) => {
+                            this.messageView.update(erres.erro);
+                        })
+                }
+            });
     }
+}
+
+logout(event: Event) {
+    event.preventDefault();
+
+    localStorage.clear();
+    window.location.href = 'index.html';
+}
+
+checkAdmin() {
+    event.preventDefault();
+
+    const authenticateService = new AuthenticateService();
+    return authenticateService.verifyAdmin();
+
+}
 
     // logout(event: Event) {
     //     event.preventDefault();
