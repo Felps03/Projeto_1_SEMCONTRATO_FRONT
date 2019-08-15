@@ -27,6 +27,7 @@ export class HomeController {
     //     window.location.href = `app-help-asks.html?id=${idHelpCenter}`;
     // }
 
+
     getUser() {
         let data;
 
@@ -55,6 +56,9 @@ export class HomeController {
 
         helpCenterService.listLastHelp()
             .then(result => {
+                if (result.status == 200) {
+                    document.getElementById('load-view').setAttribute('hidden', 'true');
+                }
                 return result.json();
             })
             .then(results => {
@@ -65,10 +69,10 @@ export class HomeController {
                 //results.reverse();
                 results.length = 3;
 
-                if(results.length <= 3) {
-                    document.getElementById('response').innerHTML = `Total de ${results.length} pergunta${results.length >= 1 ? 's': ''} listada${results.length >= 1 ? 's': ''}. <a href="app-help-center.html">(clique aqui para mais)</a>`
+                if (results.length <= 3) {
+                    document.getElementById('response').innerHTML = `Total de ${results.length} pergunta${results.length >= 1 ? 's' : ''} listada${results.length >= 1 ? 's' : ''}. <a href="app-help-center.html">(clique aqui para mais)</a>`
                 }
-                
+
                 results.map((result: any) => new HomeHelpCenter(result['_id'], result['owner'], result['date'], result['title'], result['desc']))
                     .forEach((result: any) => helpCenters.add(result))
 
@@ -91,24 +95,27 @@ export class HomeController {
 
         dailyNoteService.listDate(data, 1)
             .then(result => {
+                if (result.status == 200) {
+                    document.getElementById('load-view').setAttribute('hidden', 'true');
+                }
                 return result.json();
             }).then(results => {
                 let dailyNotes = new RegisteredDaylies();
-                this.dailyView = new HomeDailyView('#all-dailys');           
+                this.dailyView = new HomeDailyView('#all-dailys');
 
-                if(results.length == 1) {
-                    this.Dailydate.setDate(Dailydate.getDate()-1);
+                if (results.length == 1) {
+                    this.Dailydate.setDate(Dailydate.getDate() - 1);
                     this.listDailyDate(event, Dailydate);
                 }
 
                 results.pop();
-                if(results.length > 0) {
-                    document.getElementById('response-date').innerHTML = `Último registro em ${this.Dailydate.getDate() < 10 ? '0' + this.Dailydate.getDate() : this.Dailydate.getDate()}/${this.Dailydate.getMonth() < 10 ? '0' + (this.Dailydate.getMonth()+1) : (this.Dailydate.getMonth()+1)}/${this.Dailydate.getFullYear()}.`
-                    document.getElementById('response-two').innerHTML = `Total de ${results.length} daily${results.length >= 1 ? 's': ''} listada${results.length >= 1 ? 's': ''}. <a href="app-daily-note.html">(acessar o quadro)</a>`;
+                if (results.length > 0) {
+                    document.getElementById('response-date').innerHTML = `Último registro em ${this.Dailydate.getDate() < 10 ? '0' + this.Dailydate.getDate() : this.Dailydate.getDate()}/${this.Dailydate.getMonth() < 10 ? '0' + (this.Dailydate.getMonth() + 1) : (this.Dailydate.getMonth() + 1)}/${this.Dailydate.getFullYear()}.`
+                    document.getElementById('response-two').innerHTML = `Total de ${results.length} daily${results.length >= 1 ? 's' : ''} listada${results.length >= 1 ? 's' : ''}. <a href="app-daily-note.html">(acessar o quadro)</a>`;
                 }
-                
+
                 results.reverse();
-                results.map((result: any) => new RegisteredDaily(result['id_daily'], result['id_user'], result['yesterday'], result['today'], result['impediment'], result['date'],result['owner']))
+                results.map((result: any) => new RegisteredDaily(result['id_daily'], result['id_user'], result['yesterday'], result['today'], result['impediment'], result['date'], result['owner']))
                     .forEach((result: any) => dailyNotes.add(result))
 
                 this.dailyView.update(dailyNotes);

@@ -54,81 +54,80 @@ export class AuthenticateController {
             const configurationService = new ConfigurationService();
 
             authenticateService.authenticate(this.email.value, this.password.value)
-                .then((res: any) => {
-                    if (res.status === 400) {
+            if (res.status === 400) {
 
-                        grecaptcha.reset();
+                grecaptcha.reset();
 
-                        document.getElementById('message-view').innerHTML = `
+                document.getElementById('message-view').innerHTML = `
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">Email ou senha inválidos.
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         `;
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
+            }
+        })
+                .catch (err => {
+            console.log(err);
 
-                    grecaptcha.reset();
+            grecaptcha.reset();
 
-                    document.getElementById('message-view').innerHTML = `
+            document.getElementById('message-view').innerHTML = `
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                     `;
-                })
-        }
-
-        event.preventDefault();
+        })
     }
 
-    resetPassword(event: Event) {
-        event.preventDefault();
+    event.preventDefault();
+}
 
-        if (noFalse(this.passRecVals)) {
-            // /users/user/recover
-            const userService = new UserService();
-            const authenticateService = new AuthenticateService();
+resetPassword(event: Event) {
+    event.preventDefault();
 
-            authenticateService.resetPassword(this.emailRec.value.toString())
-                .then(res => {
-                    if (Math.floor(res.status / 100) === 2) {
-                        res.json()
-                            .then(() => {
-                                document.getElementById('recoveryModal-close').click();
-                                this.messageView.update('Foi enviado um email para você, siga as instruções contidas nele para continuar.<br>Por favor verificar a seção de <i>spam</i>.');
-                            })
-                            .catch(error => {
-                                console.error(error);
-                            })
-                    } else {
-                        res.json()
-                            .then((erres) => {
-                                this.messageView.update(erres.erro);
-                            })
-                    }
-                });
-        }
-    }
-
-    logout(event: Event) {
-        event.preventDefault();
-
-        localStorage.clear();
-        window.location.href = 'index.html';
-    }
-
-    checkAdmin() {
-        event.preventDefault();
-
+    if (noFalse(this.passRecVals)) {
+        // /users/user/recover
+        const userService = new UserService();
         const authenticateService = new AuthenticateService();
-        return authenticateService.verifyAdmin();
 
+        authenticateService.resetPassword(this.emailRec.value.toString())
+            .then(res => {
+                if (Math.floor(res.status / 100) === 2) {
+                    res.json()
+                        .then(() => {
+                            document.getElementById('recoveryModal-close').click();
+                            this.messageView.update('Foi enviado um email para você, siga as instruções contidas nele para continuar.<br>Por favor verificar a seção de <i>spam</i>.');
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        })
+                } else {
+                    res.json()
+                        .then((erres) => {
+                            this.messageView.update(erres.erro);
+                        })
+                }
+            });
     }
+}
+
+logout(event: Event) {
+    event.preventDefault();
+
+    localStorage.clear();
+    window.location.href = 'index.html';
+}
+
+checkAdmin() {
+    event.preventDefault();
+
+    const authenticateService = new AuthenticateService();
+    return authenticateService.verifyAdmin();
+
+}
 
     // logout(event: Event) {
     //     event.preventDefault();

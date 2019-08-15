@@ -2,7 +2,7 @@ import { DailyNote } from '../models/DailyNote';
 import { DailyNotes } from '../models/DailyNotes';
 import { DailyNoteService } from '../services/DailyNoteService';
 
-import { validate, clean} from '../helpers/index'
+import { validate, clean } from '../helpers/index'
 import * as vals from '../validation/dailyNoteValidate';
 import { noFalse } from '../utils/listCheck';
 
@@ -101,7 +101,6 @@ export class DailyNoteController {
 
     listD(event: Event) {
         event.preventDefault();
-
         let value = this.dateField.value || this.url_date;
 
         this.dateField.value = value;
@@ -116,6 +115,9 @@ export class DailyNoteController {
 
         return dailyNoteService.listDate(fullDate, page)
             .then(res => {
+                if (res.status == 200) {
+                    document.getElementById('load-view').setAttribute('hidden', 'true');
+                }
                 return res.json();
             })
             .then(result => {
@@ -234,12 +236,12 @@ export class DailyNoteController {
             this.dailyStatusView.update('Não são cadastradas dailys em datas futuras :(', 0, 0, typeAlert);
 
         } else if (result) {
-            
+
             if (this.dailyStatusView) {
                 this.dailyStatusView.clear();
                 this.dailyButton(event);
             }
-            
+
             result.then((result) => {
                 result.forEach((r: any) => {
                     const daily = new DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));

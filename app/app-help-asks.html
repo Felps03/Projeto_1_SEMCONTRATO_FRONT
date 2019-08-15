@@ -12,8 +12,9 @@
     <link href="./lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
+        </script>
 
     <title>Help Center - Respostas</title>
 </head>
@@ -35,6 +36,9 @@
 
                 <div id="show-question" hidden></div>
 
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-warning" id="load-view"></div>
+                </div>
 
                 <div id="ask_result" class="mt-4"></div>
                 <hr class="mt-4 help-line" style="height: 1px;">
@@ -60,34 +64,35 @@
 
                 <div class="form-group mt-4">
                     <label for="add-desc" id="label_answer">Você tem alguma solução para essa pergunta?</label>
-                    <textarea name="answer" class="form-control form-control-sm input-circle" id="answer" placeholder="Informe a sua solução."
-                        rows="5"></textarea>
+                    <textarea name="answer" class="form-control form-control-sm input-circle" id="answer"
+                        placeholder="Informe a sua solução." rows="5"></textarea>
                     <div id="answervalidator"></div>
                     <!-- adicionar answer validator-->
                 </div>
 
-                <button name="send_answer" class="btn btn-outline-success btn-sm float-right pr-4 pl-4 ml-2 input-circle d-flex justify-content-center"
+                <button name="send_answer"
+                    class="btn btn-outline-success btn-sm float-right pr-4 pl-4 ml-2 input-circle d-flex justify-content-center"
                     id="send_answer">
                     <i class="small material-icons mr-2 align-middle">textsms</i>Responder</button>
 
         </section>
-        </div>
+    </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
-        <script src="./lib/jquery/jquery.min.js"></script>
-        <script src="./lib/bootstrap/bootstrap.min.js"></script>
-        <script src="./lib/particlejs/particle.min.js"></script>
-        <script src="./lib/particlejs/particle-config.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="./lib/jquery/jquery.min.js"></script>
+    <script src="./lib/bootstrap/bootstrap.min.js"></script>
+    <script src="./lib/particlejs/particle.min.js"></script>
+    <script src="./lib/particlejs/particle-config.js"></script>
 
-        <script src="lib/system.js"></script>
-        <script>
-            System.defaultJSExtensions = true;
-            System.import('js/header.js').catch(err => console.error(err));
-            System.import('js/app-help-asks.js').catch(err => console.error(err));
-            System.import('js/logout.js').catch(err => console.error(err));
-            System.import('js/chatbot.js').catch(err => console.error(err))
-        </script>
+    <script src="lib/system.js"></script>
+    <script>
+        System.defaultJSExtensions = true;
+        System.import('js/header.js').catch(err => console.error(err));
+        System.import('js/app-help-asks.js').catch(err => console.error(err));
+        System.import('js/logout.js').catch(err => console.error(err));
+        System.import('js/chatbot.js').catch(err => console.error(err))
+    </script>
 
 </body>
 
