@@ -23,8 +23,6 @@ System.register(["./controllers/HelpCenterGOBController", "./utils/userData"], f
         ],
         execute: function () {
             userData = userData_1.getUser();
-            if (!localStorage.getItem('tkn'))
-                document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
             controller = new HelpCenterGOBController_1.HelpCenterGOBController();
             url = new URLSearchParams(location.search);
             if (url.get('page')) {

@@ -18,8 +18,6 @@ System.register(["./controllers/DailyNoteGobController", "./utils/userData"], fu
             listDate = document.querySelector('#filter');
             showDaylies = document.querySelector('#showDaylies');
             controller = new DailyNoteGobController_1.DailyNoteGOBController();
-            if (!localStorage.getItem('tkn'))
-                document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></font></a>`;
             if (listDate && dailyesResult)
                 listDate.addEventListener('click', controller.listD.bind(controller));
             if (showDaylies)
