@@ -32,6 +32,7 @@ a:hover {
 
 .page-position {
     position: sticky !important;
+    margin-top: 80px;
 }
 
 /* Inputs */
@@ -512,8 +513,60 @@ body {
     100% { transform: rotate(360deg); }
   }
 
+.header-fixed {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    top: 0;
+}
+
+.joker-image-st {
+    display: block;
+}
+
+#nameSpan {
+    margin-top: 15px;
+}
+
+.joker-image-nd {
+    display: none;
+}
+
+.user-slot {
+    display: inline-flex;
+}
+
+.slotter-menu {
+    color: #283772;
+}
+
+.slotter-menu:hover {
+    color: #f1be1d;
+}
+
+#drop-hidder {
+    display: none;
+}
+
 /* Help Center */
 @media (max-width: 980px) {
+    #drop-hidder {
+        display: block;
+    }
+
+    .joker-image-nd {
+        display: block;
+        margin-left: -8px;
+    }
+
+    .joker-image-st {
+        display: none;
+    }
+
+    .line-joker {
+        margin-bottom: 20px;
+    }
+    
     .login-line {
         width: 123%;
     }

@@ -32,7 +32,7 @@ System.register(["./View", "../config/index", "../utils/publish", "../utils/esca
             <div class="col-sm-11 col-12 mt-n2 mb-n3 d-flex align-items-stretch responsive-full-help">
                 <div class="d-flex flex-column text-center align-items-center pl-3 pr-3 w-100">
                     <div class="responsive-user-help">
-                    <img class="rounded-circle" height="55" src="${dailyNote.Photo ? `${index_1.GOB_HOST}public/uploads/${dailyNote.Photo}` : `${index_1.GOB_HOST}public/img/user.png`}"></td> 
+                    <img class="rounded-circle" height="55" src="${dailyNote.Photo ? `${index_1.GOB_HOST}public/uploads/${dailyNote.Photo}` : `https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png`}"></td> 
                         <h6 class="mt-2 responsive-user-name">${dailyNote.User ? dailyNote.User : ""}</h6>
                     </div>
                 </div>          
