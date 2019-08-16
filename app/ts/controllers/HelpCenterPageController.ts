@@ -8,11 +8,12 @@ import { MessageView } from '../views/MessageView';
 import { validate, clean } from '../helpers/index';
 import { InputWrapper } from '../utils/index';
 import * as vals from '../validation/helpCenterAskValidate';
+import { button } from '../helpers/chatbot/chatAnswerTemplates';
+
 
 export class HelpCenterPageController {
     private currentPage: number;
     private paginationView: PaginationView;
-
 
     private url = new URLSearchParams(location.search);
 
@@ -24,7 +25,7 @@ export class HelpCenterPageController {
     private totalPages: number;
     private type: number;
     private answerValidator: (() => boolean)[];
-
+    
     constructor(currentPage: number = 1, totalPages: number = 1) {
         this.currentPage = currentPage;
         this.totalPages = totalPages;
@@ -32,11 +33,30 @@ export class HelpCenterPageController {
         this.url_ask_id = this.url.get('id');
         this.paginationView = new PaginationView('#pagination', 'app-help-asks.html');
 
+        this.answerValidator = []
+
         this.answersView = new AnswersView('#post-ask-list')
         this.answersView.didMount(() => {
             Array.from(document.querySelectorAll('a.can-delete')).forEach(button => {
                 const id = button.getAttribute('data-id')
                 button.addEventListener('click', this.delete.bind(this, id))
+            })
+
+            const answer = <HTMLInputElement>document.querySelector('#answer')
+            if(answer) {
+                this.addComment = answer
+                this.answerValidator = [
+                    validate(answer, vals.comment)
+                ]
+            }
+        })
+
+        this.questionView = new QuestionView('#ask_result');
+
+        this.questionView.didMount(() => {
+            Array.from(document.querySelectorAll('a.can-del')).forEach(button => {
+                const id = button.getAttribute('data-id')
+                button.addEventListener('click', this.deleteQuestion.bind(this, id))
             })
         })
 
@@ -44,9 +64,14 @@ export class HelpCenterPageController {
 
         this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
 
-        this.answerValidator = [
-            validate(this.addComment, vals.comment)
-        ]
+        // if(localStorage.getItem('tkn')) {
+        //     this.answerValidator = [
+        //         validate(this.addComment, vals.comment)
+        //     ]
+        // } else {
+        //     this.answerValidator = []
+        // }
+        
 
     }
 
@@ -126,7 +151,10 @@ export class HelpCenterPageController {
             })
             .then((res) => {
                 this.TotalPages = res.pagination.totalPages;
-                this.questionView = new QuestionView('#ask_result');
+                // this.questionView = new QuestionView('#ask_result');
+
+                // document.querySelector('a.can-del');
+                // const idq = this.btn_question_del.addEventListener('click', this.deleteQuestion.bind(this, localStorage.getItem('id')));
 
                 let pages = res.pagination.page;
 
@@ -171,9 +199,6 @@ export class HelpCenterPageController {
         //let id = this.url.get('id_ask');
         console.log(id);
 
-        document.getElementById('id');
-        console.log(document.getElementById('id'));
-
         const helpCenterService = new HelpCenterServiceAsk();
         helpCenterService.remove(id)
             .then(result => {
@@ -188,4 +213,28 @@ export class HelpCenterPageController {
             });
     }
 
+    
+    deleteQuestion(id: string, event: Event) {
+        event.preventDefault();
+
+        const helpCenterService = new HelpCenterService();
+        helpCenterService
+            .remove(id)
+            .then((result) => {
+                if (Math.floor(result.status / 100) === 2) {
+                    result.json().then((res) => {
+                        console.log('fui apagado');
+                        window.location.href = "app-help-center.html"
+                    });
+                } else {
+                    result.json().then((res) => {
+                        this.list(event);
+                        
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 }
