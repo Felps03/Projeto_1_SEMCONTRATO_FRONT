@@ -28,7 +28,7 @@ System.register(["./View", "../config/index", "../utils/publish", "../utils/date
                 <div class="col-sm-11 col-12 mt-n1 mb-n3 d-flex align-items-stretch responsive-full-help">
                     <div class="d-flex flex-column text-center align-items-center pl-3 pr-3 w-100">
                         <div class="responsive-user-help">
-                        <img class="rounded-circle" width="55" src="${post.Photo ? `${index_1.GOB_HOST}public/uploads/${post.Photo}` : `https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" alt="Card image cap">
+                        <img class="rounded-circle" width="55" src="${post.Photo ? `${index_1.GOB_HOST}public/uploads/${post.Photo}` : `https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png`}" alt="Card image cap">
                             <h6 class="mt-2 responsive-user-name">${post.AuthorName ? post.AuthorName : ""}</h6>
                         </div>
 
@@ -41,7 +41,6 @@ System.register(["./View", "../config/index", "../utils/publish", "../utils/date
 
                                         <i class="small material-icons mt-n4 mr-n3 align-middle float-right ${post.Solved ? 'text-success' : 'txt-primary'}">check</i>
 
-<<<<<<< HEAD
                             <a class="float-right mt-n4 mr-1">
                                 <i class="material-icons text-danger"> favorite </i>${post.Likes}
                             <a>
@@ -50,16 +49,6 @@ System.register(["./View", "../config/index", "../utils/publish", "../utils/date
                                 <i class="tiny material-icons align-middle">access_alarm</i>
                                 ${publish_1.publish(new Date(dateGOB_1.reverseDateGOB(post.Date)))}
                             </div>
-=======
-                                        <a href="http://gob-dev.azurewebsites.net/helpCenter/topico/${post.Id}" target="_blank">
-                                        <i class="material-icons float-right mt-2 mr-n3 txt-primary"> forum </i>
-                                        </a>
-        
-                                        <div class="text-black-50 mt-n2">
-                                            <i class="tiny material-icons align-middle">access_alarm</i>
-                                            ${publish_1.publish(new Date(dateGOB_1.reverseDateGOB(post.Date)))}
-                                    </div>
->>>>>>> e4b63eccf6a6730fc5ea84ba1d89f603d62c4e44
 
                             <div class="w-100 mt-2 mb-2">${post.Tags ? '<strong>Tags: </strong>' : ''}
                                 ${post.Tags ? post.Tags.replace(/,/g, ', ') : ''}
@@ -72,7 +61,7 @@ System.register(["./View", "../config/index", "../utils/publish", "../utils/date
             </div>
         
         
-            `}`).join('')}
+            `).join('')}
         </div>
         `;
                 }
