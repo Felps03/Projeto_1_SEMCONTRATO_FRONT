@@ -33,7 +33,7 @@ System.register(["./View", "../utils/escapeTag", "../utils/publish"], function (
                     <div class="col-sm-11 col-12 mb-n3 d-flex align-items-stretch responsive-full-help">
                         <div class="d-flex flex-column text-center align-items-center mt-n2 pl-3 pr-3 w-100">
                             <div class="responsive-user-help">
-                                <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle clock-image">
+                                <img src="https://image.flaticon.com/icons/png/512/64/64572.png" class="user-default-image">
                                 <h6 class="mt-2 responsive-user-name">${PostAsk.AuthorName ? escapeTag_1.escapeTag(PostAsk.AuthorName) : ""}</h6>
                             </div>
                         </div>

@@ -801,3 +801,12 @@ body {
     
     /*break-words*/
 
+.user-default-image {
+    height: 50px; 
+    width: 50px;
+}
+
+.home-user-default {
+    height: 35px; 
+    width: 35px;
+}

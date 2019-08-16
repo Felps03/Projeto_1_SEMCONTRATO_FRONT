@@ -57,11 +57,11 @@ export class HeaderView extends View<string> {
                             <a class="txt-primary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                 <div class="user-slot">
-                                    <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle joker-image-nd" width="60px">
+                                    <img src="https://image.flaticon.com/icons/png/512/64/64572.png" class="joker-image-nd ml-1 mr-2 mt-1" width="40px">
                                     
                                     <span class="txt-primary" style="font-size: 15px" id="nameSpan"></span>
 
-                                    <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle joker-image-st" width="60px">
+                                    <img src="https://image.flaticon.com/icons/png/512/64/64572.png" class="joker-image-st mt-1 ml-2" width="45px">
                                 </div>
 
                             </a>
