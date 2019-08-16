@@ -10,7 +10,7 @@ let listDate = document.querySelector('#filter');
 let showDaylies = document.querySelector('#showDaylies');
 const controller = new DailyNoteGOBController();
 
-if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></font></a>`;
+// if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></font></a>`;
 if (listDate && dailyesResult) listDate.addEventListener('click', controller.listD.bind(controller));
 if (showDaylies) showDaylies.addEventListener('click', controller.showAllDailys.bind(controller))
 

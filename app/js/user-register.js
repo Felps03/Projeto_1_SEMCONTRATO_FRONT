@@ -37,13 +37,6 @@ System.register(["./controllers/UserController", "./utils/userData", "./services
                 .catch(err => {
                 console.log(err);
             });
-            if (window.innerWidth <= 576) {
-                document.getElementById('closing').classList.add('btn-block');
-                document.getElementById('canc').classList.add('btn-block');
-                document.getElementById('edit-user').classList.add('btn-block');
-                document.getElementById('cancelRegister').classList.add('btn-block');
-                document.getElementById('cancelRegister').classList.add('mb-n4');
-            }
         }
     };
 });

@@ -105,6 +105,9 @@ System.register(["../models/User", "../services/UserService", "../helpers/index"
                         const userService = new UserService_1.UserService();
                         return userService.getData()
                             .then(res => {
+                            if (res.status == 200) {
+                                document.getElementById('load-view').setAttribute('hidden', 'true');
+                            }
                             return res.json();
                         })
                             .then(result => {

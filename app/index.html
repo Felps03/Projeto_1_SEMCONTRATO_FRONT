@@ -21,8 +21,9 @@
 
     <link rel="stylesheet" href="./css/custom.css">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
+        </script>
 
     <title>Página Principal</title>
 </head>
@@ -34,25 +35,30 @@
     <!-- particles.js -->
     <div id="particles-js"></div>
 
-    <div id="header"></div>
+    <div id="header" class="header-fixed"></div>
 
-
-
+        
+    
     <div class="container page-position responsive-home-full">
+            
         <div id="welcomeMessage"></div>
 
         <!-- DailyNote e HelpCenter -->
+            
         <div class="row mt-3 mb-3 mx-0">
+                    
 
             <!-- HelpCenter -->
             <div class="col-12 section-help">
                 <div class="col-12">
                     <div class="vt-line mt-4 mb-4">
                         <h3>
-                            <strong>Perguntas Recentes</strong>
+                            <strong>Perguntas atuais</strong>
                         </h3>
                     </div>
-                    
+
+                        
+
                     <div id="response" class="text-black-50 mb-3 mt-n3"></div>
 
                     <div id="last-helps" class="mb-4"></div>
@@ -71,14 +77,23 @@
                             <strong>Última Daily</strong>
                         </h3>
                     </div>
+                    
+                    
+
                     <div id="response-date" class="txt-primary mb-1 mt-n3"></div>
                     <div id="response-two" class="text-black-50"></div>
                     <div id="all-dailys"></div>
                 </div>
             </div>
 
+            
+
         </div>
     </div>
+
+    <div class="d-flex justify-content-center">
+            <div class="spinner-border text-warning" id="load-view"></div>
+        </div>
 
     <button name="daily" id="mostra-daily" hidden></button>
     <button name="daily" id="mostra-help" hidden></button>

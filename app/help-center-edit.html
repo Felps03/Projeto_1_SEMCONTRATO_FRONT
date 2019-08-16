@@ -12,8 +12,9 @@
     <link href="./lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
+        </script>
 
     <title>Help Center - Respostas</title>
 </head>
@@ -23,9 +24,7 @@
     <!-- particles.js -->
     <div id="particles-js"></div>
 
-    <div id="header"></div>
-
-
+    <div id="header" class="header-fixed"></div>
 
     <div class="container page-position col-12 col-sm-7" id="">
 
@@ -40,13 +39,17 @@
                 </div>
                 <hr class="register-line">
 
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-warning" id="load-view"></div>
+                </div>
 
                 <div id="editResult"></div>
                 <form class="form" method="POST" id="edithelp-form" autocomplete="off">
                     <div class="form-group">
                         <label for="edit-title">Título:</label>
                         <div class="input-group">
-                            <input type="text" name="title" id="edit-title" class="form-control form-control input-circle" placeholder="Qual o seu problema?"
+                            <input type="text" name="title" id="edit-title"
+                                class="form-control form-control input-circle" placeholder="Qual o seu problema?"
                                 autofocus>
                             <div id="add-titlevalidator"></div>
                         </div>
@@ -54,33 +57,36 @@
                     <div class="form-group">
                         <label for="edit-desc">Descrição:</label>
                         <div class="input-group">
-                            <textarea name="desc" class="form-control input-circle" id="edit-desc" placeholder="Descreva-o aqui" autofocus></textarea>
+                            <textarea name="desc" class="form-control input-circle" id="edit-desc"
+                                placeholder="Descreva-o aqui" autofocus></textarea>
                             <div id="add-descvalidator"></div>
                         </div>
                     </div>
                     <input type="hidden" id="idHelp">
-                    <button type="submit" name="send" class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle" id="update_help">Editar</button>
+                    <button type="submit" name="send"
+                        class="btn btn-outline-warning btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle"
+                        id="update_help">Editar</button>
                     <!-- <button type="button" class="btn btn-outline-danger btn-sm float-right mt-2 pr-2 pl-2 input-circle"
                         data-dismiss="modal">Cancelar</button> -->
                 </form>
 
         </section>
-        </div>
+    </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-        <script src="./lib/jquery/jquery.min.js"></script>
-        <script src="./lib/bootstrap/bootstrap.min.js"></script>
-        <script src="./lib/particlejs/particle.min.js"></script>
-        <script src="./lib/particlejs/particle-config.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="./lib/jquery/jquery.min.js"></script>
+    <script src="./lib/bootstrap/bootstrap.min.js"></script>
+    <script src="./lib/particlejs/particle.min.js"></script>
+    <script src="./lib/particlejs/particle-config.js"></script>
 
-        <script src="lib/system.js"></script>
-        <script>
-            System.defaultJSExtensions = true;
-            System.import('js/header.js').catch(err => console.error(err));
-            System.import('js/help-center-edit.js').catch(err => console.error(err));
-            System.import('js/logout.js').catch(err => console.error(err));
-            System.import('js/chatbot.js').catch(err => console.error(err))
-        </script>
+    <script src="lib/system.js"></script>
+    <script>
+        System.defaultJSExtensions = true;
+        System.import('js/header.js').catch(err => console.error(err));
+        System.import('js/help-center-edit.js').catch(err => console.error(err));
+        System.import('js/logout.js').catch(err => console.error(err));
+        System.import('js/chatbot.js').catch(err => console.error(err))
+    </script>
 
 </body>
 

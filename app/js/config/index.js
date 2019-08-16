@@ -6,7 +6,7 @@ System.register([], function (exports_1, context_1) {
         setters: [],
         execute: function () {
             exports_1("HOST", HOST = 'https://reborn100contrato.azurewebsites.net/');
-            exports_1("GOB_HOST", GOB_HOST = 'https://gob-dev.azurewebsites.net/');
+            exports_1("GOB_HOST", GOB_HOST = 'https://gob-bols.azurewebsites.net/');
         }
     };
 });

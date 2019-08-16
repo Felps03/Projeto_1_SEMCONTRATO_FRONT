@@ -7,7 +7,7 @@ import { noFalse } from '../utils/listCheck';
 
 export class EditAskController {
 
-    private  id_helpCenter: string;
+    private id_helpCenter: string;
 
     private id_user: string;
 
@@ -22,7 +22,7 @@ export class EditAskController {
     private addVals: (() => boolean)[];
 
     constructor() {
-       // this.id_helpCenter = "";
+        // this.id_helpCenter = "";
         //this.id_helpCenter = "";
         this.desc = <HTMLInputElement>document.querySelector('#edit-desc');
         this.idAsk = <HTMLInputElement>document.querySelector('#idAsk');
@@ -36,10 +36,15 @@ export class EditAskController {
 
 
     getAskData(id: string) {
-        
+
         const askService = new HelpCenterServiceAsk();
         return askService.findById(id)
-            .then(res => res.json())
+            .then(res => {
+                if (res.status == 200) {
+                    document.getElementById('load-view').setAttribute('hidden', 'true');
+                }
+                return res.json()
+            })
             .then(result => {
                 this.id_helpCenter = result.id_helpCenter;
                 this.id_user = result.id_user;
@@ -62,16 +67,16 @@ export class EditAskController {
                 this.id_helpCenter,
                 this.desc.value.toString(),
                 this.id_user,
-                this.authorName="",
+                this.authorName = "",
                 id.value.toString(),
                 this.date
             )
             //console.log(this);
             console.log(postAsk);
-  
+
             const helpCenterServiceAsk = new HelpCenterServiceAsk();
             return helpCenterServiceAsk.update(postAsk, id.value.toString())
-        
+
         }
     }
 }

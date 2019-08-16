@@ -32,7 +32,12 @@ System.register(["../services/HelpCenterServiceAsk", "../models/PostAsk", "../he
                 getAskData(id) {
                     const askService = new HelpCenterServiceAsk_1.HelpCenterServiceAsk();
                     return askService.findById(id)
-                        .then(res => res.json())
+                        .then(res => {
+                        if (res.status == 200) {
+                            document.getElementById('load-view').setAttribute('hidden', 'true');
+                        }
+                        return res.json();
+                    })
                         .then(result => {
                         this.id_helpCenter = result.id_helpCenter;
                         this.id_user = result.id_user;

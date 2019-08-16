@@ -7,7 +7,7 @@ import { noFalse } from '../utils/listCheck';
 
 export class EditHelpController {
 
-    private  title: HTMLInputElement;
+    private title: HTMLInputElement;
 
     private authorId: string;
 
@@ -22,7 +22,7 @@ export class EditHelpController {
     private addVals: (() => boolean)[];
 
     constructor() {
-       
+
         this.title = <HTMLInputElement>document.querySelector('#edit-title');
         this.desc = <HTMLInputElement>document.querySelector('#edit-desc');
         this.idHelp = <HTMLInputElement>document.querySelector('#idHelp');
@@ -36,10 +36,15 @@ export class EditHelpController {
 
 
     getHelpData(id: string) {
-        
+
         const helpService = new HelpCenterService();
         return helpService.listByID(id)
-            .then(res => res.json())
+            .then(res => {
+                if (res.status == 200) {
+                    document.getElementById('load-view').setAttribute('hidden', 'true');
+                }
+                return res.json()
+            })
             .then(result => {
                 console.log(result);
                 this.title.value = result.title;
@@ -62,16 +67,16 @@ export class EditHelpController {
                 this.title.value.toString(),
                 this.desc.value.toString(),
                 this.authorId,
-                this.authorName="",
+                this.authorName = "",
                 this.date,
                 id.value.toString()
             )
             //console.log(this);
             console.log(post);
-  
+
             const helpCenterService = new HelpCenterService();
             return helpCenterService.update(post, id.value.toString())
-        
+
         }
     }
 }

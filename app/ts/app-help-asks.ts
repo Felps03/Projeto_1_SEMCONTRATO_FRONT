@@ -33,7 +33,7 @@ if (window.innerWidth <= 987) document.getElementById('send_answer').classList.a
 
 
 let answer_access = document.getElementById('answer_field');
-if(localStorage.getItem('tkn')) {
+if (localStorage.getItem('tkn')) {
     answer_access.innerHTML = `
         <div class="form-group mt-4">
             <label for="add-desc" id="label_answer">Você tem alguma solução para essa pergunta?</label>

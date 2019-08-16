@@ -50,6 +50,13 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                             ];
                         }
                     });
+                    this.questionView = new QuestionView_1.QuestionView('#ask_result');
+                    this.questionView.didMount(() => {
+                        Array.from(document.querySelectorAll('a.can-del')).forEach(button => {
+                            const id = button.getAttribute('data-id');
+                            button.addEventListener('click', this.deleteQuestion.bind(this, id));
+                        });
+                    });
                     this.addComment = document.querySelector('#answer');
                     this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
                 }
@@ -103,11 +110,13 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                     helpCenterService
                         .list(this.currentPage, this.url_ask_id)
                         .then((result) => {
+                        if (result.status == 200) {
+                            document.getElementById('load-view').setAttribute('hidden', 'true');
+                        }
                         return result.json();
                     })
                         .then((res) => {
                         this.TotalPages = res.pagination.totalPages;
-                        this.questionView = new QuestionView_1.QuestionView('#ask_result');
                         let pages = res.pagination.page;
                         if (res.hasOwnProperty('answerData')) {
                             let countAnswers = res.pagination.totalDocs;
@@ -134,8 +143,6 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                 delete(id, event) {
                     event.preventDefault();
                     console.log(id);
-                    document.getElementById('id');
-                    console.log(document.getElementById('id'));
                     const helpCenterService = new index_2.HelpCenterServiceAsk();
                     helpCenterService.remove(id)
                         .then(result => {
@@ -146,6 +153,28 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                     })
                         .catch(error => {
                         console.error(error);
+                    });
+                }
+                deleteQuestion(id, event) {
+                    event.preventDefault();
+                    const helpCenterService = new index_2.HelpCenterService();
+                    helpCenterService
+                        .remove(id)
+                        .then((result) => {
+                        if (Math.floor(result.status / 100) === 2) {
+                            result.json().then((res) => {
+                                console.log('fui apagado');
+                                window.location.href = "app-help-center.html";
+                            });
+                        }
+                        else {
+                            result.json().then((res) => {
+                                this.list(event);
+                            });
+                        }
+                    })
+                        .catch((error) => {
+                        console.log(error);
                     });
                 }
             };
