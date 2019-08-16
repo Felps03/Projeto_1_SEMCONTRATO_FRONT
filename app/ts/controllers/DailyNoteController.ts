@@ -156,6 +156,9 @@ export class DailyNoteController {
         const dailyNoteService = new DailyNoteService();
 
         return dailyNoteService.listUser(this.url_user, page).then(res => {
+            if (res.status == 200) {
+                document.getElementById('load-view').setAttribute('hidden', 'true');
+            }
             return res.json()
         })
             .then(result => {

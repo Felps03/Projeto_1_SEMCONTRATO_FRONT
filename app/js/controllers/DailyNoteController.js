@@ -125,6 +125,9 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     const page = +this.url_page || 1;
                     const dailyNoteService = new DailyNoteService_1.DailyNoteService();
                     return dailyNoteService.listUser(this.url_user, page).then(res => {
+                        if (res.status == 200) {
+                            document.getElementById('load-view').setAttribute('hidden', 'true');
+                        }
                         return res.json();
                     })
                         .then(result => {

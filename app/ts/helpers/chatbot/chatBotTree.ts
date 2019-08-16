@@ -223,7 +223,9 @@ export const dialog: { [node: string]: Dialog } = {
                     const result = await dailyNoteService.listUser(userName, 1)
                     const readableResult = await result.json()
 
-                    if (readableResult.length === 0) {
+                    console.log(readableResult)
+
+                    if (readableResult.length <= 1) {
                         state.set('_GOTO', 'main')
                         state.set('_ANSWER', [
                             `Não existe nenhuma daily cadastrada pra esse usuário, nem tem por que ir lá.`,
