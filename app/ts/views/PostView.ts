@@ -105,7 +105,7 @@ export class PostView extends View<Post> {
 
                 </div>
             </div>
-
+        
         `
     }
 

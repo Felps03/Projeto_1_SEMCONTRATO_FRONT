@@ -196,10 +196,6 @@ a:hover {
     color: #283772;
 }
 
-.navbar {
-   
-}
-
 .navbarDropdown {
     color: #283772;
 }
@@ -344,6 +340,21 @@ body {
     bottom: 0;
 
     background-color: var(--light);
+}
+
+.word-cut {
+    word-break: break-all;
+}
+
+.text-help {
+    color: #000;
+}
+.text-help:hover {
+    color: #000;
+}
+
+.clicker:hover {
+    background: #c5c5c5;
 }
 
 @media(max-width: 600px) {
@@ -584,4 +595,6 @@ body {
         background: #c5c5c5;
     }
     
+    /*break-words*/
+       
 }
