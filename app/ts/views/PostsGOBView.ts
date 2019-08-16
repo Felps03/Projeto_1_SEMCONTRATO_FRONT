@@ -14,7 +14,7 @@ export class PostsGOBView extends View<PostsGOB> {
             <div class="col-sm-11 col-12 mt-n1 mb-n3 d-flex align-items-stretch responsive-full-help">
                 <div class="d-flex flex-column text-center align-items-center pl-3 pr-3 w-100">
                     <div class="responsive-user-help">
-                    <img class="rounded-circle" width="55" src="${post.Photo ? `${GOB_HOST}public/uploads/${post.Photo}` : `https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" alt="Card image cap">
+                    <img class="rounded-circle" width="55" src="${post.Photo ? `${GOB_HOST}public/uploads/${post.Photo}` : `${GOB_HOST}public/img/user.png`}" alt="Card image cap">
                         <h6 class="mt-2 responsive-user-name">${post.AuthorName ? post.AuthorName : ""}</h6>
                     </div>
                 </div>
@@ -43,8 +43,6 @@ export class PostsGOBView extends View<PostsGOB> {
                             <div class="w-100 mt-2 mb-2">${post.Tags? '<strong>Tags: </strong>' : ''}
                                 ${post.Tags ? post.Tags.replace(/,/g, ', ') : ''}
                             </div>
-
-                            
 
                         </div>
                     </div>

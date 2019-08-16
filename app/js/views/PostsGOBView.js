@@ -57,8 +57,6 @@ System.register(["./View", "../config/index", "../utils/publish", "../utils/date
                                 ${post.Tags ? post.Tags.replace(/,/g, ', ') : ''}
                             </div>
 
-                            
-
                         </div>
                     </div>
                     <div class="mt-1 text-justify mb-2 mb-4">${post.Desc}</div> 
