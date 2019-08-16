@@ -38,10 +38,10 @@ System.register(["./controllers/HelpCenterPageController", "./utils/userData"], 
                 document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
             if (window.innerWidth <= 987)
                 document.getElementById('send_answer').classList.add('btn-block');
-            if (!localStorage.getItem('tkn')) {
-                document.getElementById('send_answer').setAttribute('hidden', 'true');
-                document.getElementById('answer').setAttribute('hidden', 'true');
-                document.getElementById('label_answer').setAttribute('hidden', 'true');
+            if (window.innerWidth <= 576) {
+                document.getElementById('cancel').classList.add('btn-block');
+                document.getElementById('cadastroHelpCenter').classList.add('btn-block');
+                document.getElementById('help-add-ocult').classList.remove('mt-3');
             }
         }
     };
