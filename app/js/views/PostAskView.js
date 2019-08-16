@@ -22,6 +22,7 @@ System.register(["./View", "../utils/escapeTag"], function (exports_1, context_1
                     this.lastModel = model;
                     const canEdit = model.Author === localStorage.getItem('id') || localStorage.getItem('isAdmin') === 'true';
                     return `
+        
             <div class="card mb-2">
                 <div class="card-body inline-block">
                     <h5>${escapeTag_1.escapeTag(model.AuthorName)}</h5>
@@ -55,6 +56,7 @@ System.register(["./View", "../utils/escapeTag"], function (exports_1, context_1
                     </button>
                 </div>
             </div>
+        
         `;
                 }
                 update(model) {

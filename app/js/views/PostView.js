@@ -105,7 +105,7 @@ System.register(["./View", "../utils/escapeTag"], function (exports_1, context_1
 
                 </div>
             </div>
-
+        
         `;
                 }
                 update(model) {

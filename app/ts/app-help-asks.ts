@@ -42,8 +42,9 @@ if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML
 //Responsive 
 if (window.innerWidth <= 987) document.getElementById('send_answer').classList.add('btn-block');
 
-if (!localStorage.getItem('tkn')) {
-    document.getElementById('send_answer').setAttribute('hidden', 'true');
-    document.getElementById('answer').setAttribute('hidden', 'true');
-    document.getElementById('label_answer').setAttribute('hidden', 'true');
+//Responsive
+if (window.innerWidth <= 576) {
+    document.getElementById('cancel').classList.add('btn-block');
+    document.getElementById('cadastroHelpCenter').classList.add('btn-block');
+    document.getElementById('help-add-ocult').classList.remove('mt-3');
 }
