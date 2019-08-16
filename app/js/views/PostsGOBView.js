@@ -44,7 +44,7 @@ System.register(["./View", "../config/index", "../utils/publish", "../utils/date
                                 <i class="material-icons float-right mt-2 mr-n3 txt-primary"> forum </i>
                             </a>
 
-                            <a href="#" class="float-right mt-n4 mr-1">
+                            <a class="float-right mt-n4 mr-1">
                                 <i class="material-icons text-danger"> favorite </i>${post.Likes}
                             <a>
          
