@@ -35,12 +35,20 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                     this.type = 2;
                     this.url_ask_id = this.url.get('id');
                     this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-help-asks.html');
+                    this.answerValidator = [];
                     this.answersView = new AnswersView_1.AnswersView('#post-ask-list');
                     this.answersView.didMount(() => {
                         Array.from(document.querySelectorAll('a.can-delete')).forEach(button => {
                             const id = button.getAttribute('data-id');
                             button.addEventListener('click', this.delete.bind(this, id));
                         });
+                        const answer = document.querySelector('#answer');
+                        if (answer) {
+                            this.addComment = answer;
+                            this.answerValidator = [
+                                index_3.validate(answer, vals.comment)
+                            ];
+                        }
                     });
                     this.questionView = new QuestionView_1.QuestionView('#ask_result');
                     this.questionView.didMount(() => {
@@ -51,9 +59,6 @@ System.register(["../models/index", "../services/index", "../views/QuestionView"
                     });
                     this.addComment = document.querySelector('#answer');
                     this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
-                    this.answerValidator = [
-                        index_3.validate(this.addComment, vals.comment)
-                    ];
                 }
                 set CurrentPage(page) {
                     this.currentPage = page;

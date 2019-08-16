@@ -33,12 +33,22 @@ export class HelpCenterPageController {
         this.url_ask_id = this.url.get('id');
         this.paginationView = new PaginationView('#pagination', 'app-help-asks.html');
 
+        this.answerValidator = []
+
         this.answersView = new AnswersView('#post-ask-list')
         this.answersView.didMount(() => {
             Array.from(document.querySelectorAll('a.can-delete')).forEach(button => {
                 const id = button.getAttribute('data-id')
                 button.addEventListener('click', this.delete.bind(this, id))
             })
+
+            const answer = <HTMLInputElement>document.querySelector('#answer')
+            if(answer) {
+                this.addComment = answer
+                this.answerValidator = [
+                    validate(answer, vals.comment)
+                ]
+            }
         })
 
         this.questionView = new QuestionView('#ask_result');
@@ -54,9 +64,14 @@ export class HelpCenterPageController {
 
         this.paginationView.update(this.currentPage, this.totalPages, this.type, this.url_ask_id);
 
-        this.answerValidator = [
-            validate(this.addComment, vals.comment)
-        ]
+        // if(localStorage.getItem('tkn')) {
+        //     this.answerValidator = [
+        //         validate(this.addComment, vals.comment)
+        //     ]
+        // } else {
+        //     this.answerValidator = []
+        // }
+        
 
     }
 
