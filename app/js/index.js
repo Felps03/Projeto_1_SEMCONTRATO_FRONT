@@ -16,12 +16,16 @@ System.register(["./controllers/HomeController", "./utils/userData"], function (
             homeController = new HomeController_1.HomeController();
             mostraDaily = document.getElementById("mostra-daily");
             mostraHelp = document.getElementById("mostra-help");
-            mostraDaily.addEventListener('click', homeController.listDailyDate.bind(homeController));
-            mostraHelp.addEventListener('click', homeController.listLastHelp.bind(homeController));
+            if (mostraDaily)
+                mostraDaily.addEventListener('click', homeController.listDailyDate.bind(homeController));
+            if (mostraHelp)
+                mostraHelp.addEventListener('click', homeController.listLastHelp.bind(homeController));
             clickHelp = document.getElementById("last-helps");
             $(document).ready(function () {
-                document.getElementById('mostra-daily').click();
-                document.getElementById('mostra-help').click();
+                if (mostraDaily)
+                    mostraDaily.click();
+                if (mostraHelp)
+                    mostraHelp.click();
                 setTimeout(() => {
                     let logout = document.getElementById("logout");
                     if (logout)

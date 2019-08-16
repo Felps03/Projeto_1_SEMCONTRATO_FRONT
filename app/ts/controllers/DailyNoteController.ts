@@ -2,7 +2,7 @@ import { DailyNote } from '../models/DailyNote';
 import { DailyNotes } from '../models/DailyNotes';
 import { DailyNoteService } from '../services/DailyNoteService';
 
-import { validate, clean} from '../helpers/index'
+import { validate, clean } from '../helpers/index'
 import * as vals from '../validation/dailyNoteValidate';
 import { noFalse } from '../utils/listCheck';
 
@@ -12,7 +12,7 @@ import { PaginationView } from '../views/PaginationView';
 import { RegisteredDailyView } from '../views/RegisteredDailyView';
 import { RegisteredDaylies } from '../models/RegisteredDaylies';
 import { RegisteredDaily } from '../models/RegisteredDaily';
-import { DailyStatusView } from '../views/DailyStatusView';
+import { MessageView } from '../views/MessageView';
 import { dateFormatYYYYMMDD } from '../helpers/dateHelper';
 
 export class DailyNoteController {
@@ -32,7 +32,7 @@ export class DailyNoteController {
     private url_user = this.url.get('user');
     private id_daily: string;
     private dailyView: RegisteredDailyView;
-    private dailyStatusView: DailyStatusView;
+    private dailyStatusView: MessageView;
     private dailyNotesView: DailyNotesView;
     private paginationView: PaginationView;
     private totalPages: number;
@@ -53,6 +53,7 @@ export class DailyNoteController {
 
         this.dailyNotesView = new DailyNotesView('#dayliesResult');
         this.paginationView = new PaginationView('#pagination', 'app-daily-note.html');
+        this.dailyStatusView = new MessageView('#status_daily');
 
         this.totalPages = totalPages;
         this.type = 0;
@@ -229,17 +230,15 @@ export class DailyNoteController {
         let newDate = new Date();
 
         if (lastDate > newDate) {
-            let typeAlert = 'alert-warning';
-            this.dailyStatusView = new DailyStatusView('#status_daily');
-            this.dailyStatusView.update('Não são cadastradas dailys em datas futuras :(', 0, 0, typeAlert);
-
+            let typeAlert = 'warning';
+            this.dailyStatusView.update('Não são cadastradas dailys em datas futuras :(', typeAlert);
         } else if (result) {
-            
+
             if (this.dailyStatusView) {
                 this.dailyStatusView.clear();
                 this.dailyButton(event);
             }
-            
+
             result.then((result) => {
                 result.forEach((r: any) => {
                     const daily = new DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
@@ -308,11 +307,10 @@ export class DailyNoteController {
     dailyButton(event: Event) {
         this.registered(event)
             .then((res) => {
-                let typeAlert = 'alert-warning';
-                this.dailyStatusView = new DailyStatusView('#status_daily');
+                let typeAlert = 'warning';
 
                 if (res.status == 400) {
-                    this.dailyStatusView.update('Você já cadastrou sua daily :)', 0, 0, typeAlert);
+                    this.dailyStatusView.update('Você já cadastrou sua daily!', typeAlert);
                     //setTimeout(() => $("#status_daily").hide(), 10000);
                     document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                 }
@@ -331,7 +329,7 @@ export class DailyNoteController {
                 document.getElementById('dailyModal').click();
                 document.getElementById('add_daily').setAttribute('hidden', 'true');
                 document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
-                this.dailyStatusView = new DailyStatusView('#status_daily');
+                this.dailyStatusView = new MessageView('#status_daily');
 
                 //alt="Hello World!"
 
@@ -346,7 +344,7 @@ export class DailyNoteController {
         if (result) {
             result.then(result => {
                 result.forEach((r: any) => {
-                    console.log('>>>', r)
+
                     const daily = new DailyNote(
                         r.yesterday,
                         r.today,

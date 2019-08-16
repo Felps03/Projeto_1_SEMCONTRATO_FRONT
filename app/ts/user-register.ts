@@ -30,9 +30,9 @@ configurationService.listAll()
 
 //Responsive document.getElementById('cancelEdit').classList.add('btn-block');
 if (window.innerWidth <= 576) {
-    document.getElementById('closing').classList.add('btn-block');
-    document.getElementById('canc').classList.add('btn-block');
+    // document.getElementById('closing').classList.add('btn-block');
+    // document.getElementById('canc').classList.add('btn-block');
     document.getElementById('edit-user').classList.add('btn-block');
-    document.getElementById('cancelRegister').classList.add('btn-block');
-    document.getElementById('cancelRegister').classList.add('mb-n4');
+    // document.getElementById('cancelRegister').classList.add('btn-block');
+    // document.getElementById('cancelRegister').classList.add('mb-n4');
 }

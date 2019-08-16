@@ -16,11 +16,14 @@ System.register([], function (exports_1, context_1) {
                     }
                     this._escape = escape;
                 }
-                update(model, totalPages = 0, type, value) {
-                    let template = this.template(model, totalPages, type, value);
+                update(model, ...args) {
+                    let template = this.template(model, ...args);
                     if (this._escape)
                         template = template.replace(/<script>[\s\S]*?<\/script>/g, '');
                     this._el.innerHTML = template;
+                }
+                clear() {
+                    this._el.innerHTML = '';
                 }
             };
             exports_1("View", View);

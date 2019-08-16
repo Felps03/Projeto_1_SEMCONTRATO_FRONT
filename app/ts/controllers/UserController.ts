@@ -98,27 +98,28 @@ export class UserController {
                 .catch(err => {
                     console.log(err);
                     if (err.status === 400) {
-
                         grecaptcha.reset();
 
-                        document.getElementById('message-view').innerHTML = `
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">Email ou senha inválidos.
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        `;
+                        this.messageView.update('Email já em uso.', 'warning')
+                        // document.getElementById('message-view').innerHTML = `
+                        // <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        //     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        //         <span aria-hidden="true">&times;</span>
+                        //     </button>
+                        // </div>
+                        // `;
                     }
                     else if (err.status === 406) {
                         grecaptcha.reset();
 
-                        document.getElementById('message-view').innerHTML = `
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        `;
+                        this.messageView.update('Marque a caixa de dialogo do reCAPTCHA!', 'danger')
+                        // document.getElementById('message-view').innerHTML = `
+                        //     <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
+                        //         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        //             <span aria-hidden="true">&times;</span>
+                        //         </button>
+                        //     </div>
+                        // `;
                     }
                 })
         };

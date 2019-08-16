@@ -10,16 +10,23 @@ let homeController = new HomeController();
 let mostraDaily = document.getElementById("mostra-daily");
 let mostraHelp = document.getElementById("mostra-help");
 
-mostraDaily.addEventListener('click', homeController.listDailyDate.bind(homeController));
-mostraHelp.addEventListener('click', homeController.listLastHelp.bind(homeController));
+if (mostraDaily)
+    mostraDaily.addEventListener('click', homeController.listDailyDate.bind(homeController));
+
+if (mostraHelp)
+    mostraHelp.addEventListener('click', homeController.listLastHelp.bind(homeController));
 
 let clickHelp = document.getElementById("last-helps");
 
 // clickHelp.addEventListener('click', homeController.clickHelpASK.bind(homeController));
 
 $(document).ready(function () {
-    document.getElementById('mostra-daily').click();
-    document.getElementById('mostra-help').click();
+
+    if (mostraDaily)
+        mostraDaily.click();
+
+    if (mostraHelp)
+        mostraHelp.click();
 
     setTimeout(() => {
         let logout = document.getElementById("logout");
