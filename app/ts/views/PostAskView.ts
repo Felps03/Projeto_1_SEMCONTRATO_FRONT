@@ -22,6 +22,7 @@ export class PostAskView extends View<PostAsk> {
         const canEdit = model.Author === localStorage.getItem('id') || localStorage.getItem('isAdmin') === 'true'
 
         return `
+        
             <div class="card mb-2">
                 <div class="card-body inline-block">
                     <h5>${escapeTag(model.AuthorName)}</h5>
@@ -55,6 +56,7 @@ export class PostAskView extends View<PostAsk> {
                     </button>
                 </div>
             </div>
+        
         `;
     }
 
