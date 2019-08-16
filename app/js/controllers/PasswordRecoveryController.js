@@ -1,6 +1,6 @@
-System.register(["../services/UserService", "../services/index", "../helpers/index", "../validation/userValidate", "../utils/listCheck"], function (exports_1, context_1) {
+System.register(["../services/UserService", "../services/index", "../helpers/index", "../validation/userValidate", "../utils/listCheck", "../views/MessageView"], function (exports_1, context_1) {
     "use strict";
-    var UserService_1, index_1, index_2, vals, listCheck_1, PasswordRecoveryController;
+    var UserService_1, index_1, index_2, vals, listCheck_1, MessageView_1, PasswordRecoveryController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -18,6 +18,9 @@ System.register(["../services/UserService", "../services/index", "../helpers/ind
             },
             function (listCheck_1_1) {
                 listCheck_1 = listCheck_1_1;
+            },
+            function (MessageView_1_1) {
+                MessageView_1 = MessageView_1_1;
             }
         ],
         execute: function () {
@@ -26,6 +29,7 @@ System.register(["../services/UserService", "../services/index", "../helpers/ind
                     this.email = document.querySelector('#email_rec');
                     this.password = document.querySelector('#password_rec');
                     this.passwordConfirm = document.querySelector('#password_rec_conf');
+                    this.messageView = new MessageView_1.MessageView('#link-expired');
                     this.changePasswordVals = [
                         index_2.validate(this.email, vals.email),
                         index_2.validate(this.password, vals.password),
@@ -34,7 +38,6 @@ System.register(["../services/UserService", "../services/index", "../helpers/ind
                 }
                 changePassword(event) {
                     event.preventDefault();
-                    let mesage = document.querySelector("#link-expired");
                     if (listCheck_1.noFalse(this.changePasswordVals)) {
                         let url_string = window.location.href;
                         let url = new URL(url_string);
@@ -52,15 +55,13 @@ System.register(["../services/UserService", "../services/index", "../helpers/ind
                                     console.log(res);
                                     console.log(res.status === 200);
                                     if (res.status === 200) {
-                                        document.getElementById("link-expired").style.display = "block";
-                                        mesage.textContent = "Senha alterada com sucesso";
+                                        this.messageView.update('Senha alterada com sucesso', 'success');
                                     }
                                 });
                             }
                             else {
                                 console.log(res.status);
-                                mesage.textContent = "Código Inválido";
-                                document.getElementById("link-expired").style.display = "block";
+                                this.messageView.update('Código Inválido', 'danger');
                             }
                         });
                     }

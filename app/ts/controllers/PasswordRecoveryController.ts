@@ -6,6 +6,7 @@ import { AuthenticateService } from '../services/index';
 import { validate } from '../helpers/index'
 import * as vals from '../validation/userValidate';
 import { noFalse } from '../utils/listCheck'
+import { MessageView } from '../views/MessageView';
 
 
 export class PasswordRecoveryController {
@@ -14,6 +15,8 @@ export class PasswordRecoveryController {
     private password: HTMLInputElement;
     private passwordConfirm: HTMLInputElement;
 
+    private messageView: MessageView
+
     private changePasswordVals: (() => boolean)[];
 
     constructor() {
@@ -21,8 +24,9 @@ export class PasswordRecoveryController {
         this.password = <HTMLInputElement>document.querySelector('#password_rec');
         this.passwordConfirm = <HTMLInputElement>document.querySelector('#password_rec_conf');
 
-        // init validations
+        this.messageView = new MessageView('#link-expired')
 
+        // init validations
 
         this.changePasswordVals = [
             validate(this.email, vals.email),
@@ -34,8 +38,6 @@ export class PasswordRecoveryController {
 
     changePassword(event: Event) {
         event.preventDefault();
-
-        let mesage = document.querySelector("#link-expired");
 
         if (noFalse(this.changePasswordVals)) {
 
@@ -60,16 +62,16 @@ export class PasswordRecoveryController {
                                 console.log(res.status === 200)
 
                                 if (res.status === 200) {
-
-                                    document.getElementById("link-expired").style.display = "block";
-                                    mesage.textContent = "Senha alterada com sucesso";
+                                    this.messageView.update('Senha alterada com sucesso', 'success')
+                                    // mesage.textContent = "Senha alterada com sucesso";
                                 }
                             })
                     }
                     else {
                         console.log(res.status)
-                        mesage.textContent = "Código Inválido";
-                        document.getElementById("link-expired").style.display = "block";
+                        // mesage.textContent = "Código Inválido";
+                        this.messageView.update('Código Inválido', 'danger')
+                        // document.getElementById("link-expired").style.display = "block";
 
                     }
                 })

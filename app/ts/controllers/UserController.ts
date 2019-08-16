@@ -177,8 +177,6 @@ export class UserController {
 
             const userService = new UserService();
 
-            let msg = document.getElementById('retrieve-msg')
-
             userService.update(user, id.value, recaptchaON)
                 .then(result => {
                     if (result.status == 201) {
@@ -186,28 +184,30 @@ export class UserController {
                         document.querySelector('#nameSpan').textContent = this.name.value;
                         document.querySelector('#userNameSpan').textContent = `(${this.userName.value})`;
 
-                        msg.innerHTML = `
-                        <div class="alert alert-success alert-dismissible fade show msg-status" role="alert">
-                            <strong>Dados atualizados com sucesso!</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    `;
+                        this.messageView.update('Dados atualizados com sucesso!', 'success')
+                        //     msg.innerHTML = `
+                        //     <div class="alert alert-success alert-dismissible fade show msg-status" role="alert">
+                        //         <strong>Dados atualizados com sucesso!</strong>
+                        //         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        //             <span aria-hidden="true">&times;</span>
+                        //         </button>
+                        //     </div>
+                        // `;
                     } else if (result.status >= 300) {
-                        msg.innerHTML = `
-                            <div class="alert alert-danger alert-dismissible fade show msg-status" role="alert">
-                                <strong>Erro ao atualizar os dados.</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        `;
+                        this.messageView.update('Erro ao atualizar os dados.', 'danger')
+                        // msg.innerHTML = `
+                        //     <div class="alert alert-danger alert-dismissible fade show msg-status" role="alert">
+                        //         <strong>Erro ao atualizar os dados.</strong>
+                        //         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        //             <span aria-hidden="true">&times;</span>
+                        //         </button>
+                        //     </div>
+                        // `;
                     }
                     return result.json();
                 }).then(() => {
                     setTimeout(() => {
-                        msg.innerHTML = "";
+                        this.messageView.clear()
                     }, 3000);
                 });
         }

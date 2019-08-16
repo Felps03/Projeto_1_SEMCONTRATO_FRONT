@@ -45,6 +45,8 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
             HomeController = class HomeController {
                 constructor() {
                     this.Dailydate = new Date();
+                    this.dailyView = new HomeDailyView_1.HomeDailyView('#all-dailys');
+                    this.helpCenterView = new HomeHelpCenterView_1.HomeHelpCenterView('#last-helps');
                 }
                 getUser() {
                     let data;
@@ -75,7 +77,6 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                     })
                         .then(results => {
                         let helpCenters = new HomeHelpCenters_1.HomeHelpCenters();
-                        this.helpCenterView = new HomeHelpCenterView_1.HomeHelpCenterView('#last-helps');
                         results.pop();
                         results.length = 3;
                         if (results.length <= 3) {
@@ -99,7 +100,6 @@ System.register(["../services/UserService", "../services/HelpCenterService", "..
                         return result.json();
                     }).then(results => {
                         let dailyNotes = new RegisteredDaylies_1.RegisteredDaylies();
-                        this.dailyView = new HomeDailyView_1.HomeDailyView('#all-dailys');
                         if (results.length == 1) {
                             this.Dailydate.setDate(Dailydate.getDate() - 1);
                             this.listDailyDate(event, Dailydate);
