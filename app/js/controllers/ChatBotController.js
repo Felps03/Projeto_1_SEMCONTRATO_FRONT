@@ -27,11 +27,14 @@ System.register(["../models/index", "../views/ChatBotView", "../helpers/chatbot/
                     this.chatBotView = new ChatBotView_1.ChatBotView('#chatbot-view');
                     this.chatBotView.didMount((model) => {
                         document.getElementById('chatbot-clear').addEventListener('click', this.clear.bind(this));
-                        Array.from(document.getElementById('chatbot-history').getElementsByTagName('button')).forEach(button => {
-                            button.addEventListener('click', this.message.bind(this, new Event(''), [index_1.ChatAgent.User, button.getAttribute('data-value')]));
-                        });
                         document.getElementById('chatbot-input-form').addEventListener('submit', this.message.bind(this));
                         this.messageInput = document.getElementById('chatbot-input-field');
+                    });
+                    this.chatBotView.innerDidMount((model) => {
+                        Array.from(document.getElementById('chatbot-history').getElementsByTagName('button'))
+                            .forEach(button => {
+                            button.addEventListener('click', this.message.bind(this, new Event(''), [index_1.ChatAgent.User, button.getAttribute('data-value')]));
+                        });
                     });
                     this.chatBotManager = new ChatBotManager_1.ChatBotManager();
                     (async () => {
@@ -56,12 +59,13 @@ System.register(["../models/index", "../views/ChatBotView", "../helpers/chatbot/
                     event.preventDefault();
                     if (!msg) {
                         msg = [index_1.ChatAgent.User, this.messageInput.value];
+                        this.messageInput.value = '';
                     }
-                    this.chatBotView.update(this.chatBotManager.message(msg));
+                    this.chatBotView.updateInner(this.chatBotManager.message(msg));
                     try {
                         for (var _b = __asyncValues(this.chatBotManager.answer()), _c; _c = await _b.next(), !_c.done;) {
                             const chat = _c.value;
-                            this.chatBotView.update(chat);
+                            this.chatBotView.updateInner(chat);
                         }
                     }
                     catch (e_2_1) { e_2 = { error: e_2_1 }; }
@@ -78,7 +82,7 @@ System.register(["../models/index", "../views/ChatBotView", "../helpers/chatbot/
                     try {
                         for (var _b = __asyncValues(this.chatBotManager.clear()), _c; _c = await _b.next(), !_c.done;) {
                             const chat = _c.value;
-                            this.chatBotView.update(chat);
+                            this.chatBotView.updateInner(chat);
                         }
                     }
                     catch (e_3_1) { e_3 = { error: e_3_1 }; }
