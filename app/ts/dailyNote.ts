@@ -16,6 +16,8 @@ if (cadastrar) cadastrar.addEventListener('submit', controller.registeredDaily.b
 if (cancel) cancel.addEventListener('click', controller.cancel.bind(controller));
 if (showDaylies) showDaylies.addEventListener('click', controller.showAllDailys.bind(controller))
 
+controller.checkImpediment()
+
 $(document).ready(() => {
     document.getElementById('showDaylies').click()
 
@@ -27,7 +29,6 @@ $(document).ready(() => {
 
 
 });
-
 
 
 //Responsive

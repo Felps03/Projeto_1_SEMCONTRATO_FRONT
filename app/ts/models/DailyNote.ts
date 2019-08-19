@@ -6,8 +6,7 @@ export class DailyNote {
     // private date: Date;
     // private id?: string
 
-    constructor(private yesterday: string, private today: string, private impediment: string, private date: Date, private id?: string) 
-    { }
+    constructor(private yesterday: string, private today: string, private date: Date, private impediment?: string, private id?: string) { }
 
     get Yesterday() {
         return this.yesterday;

@@ -27,6 +27,21 @@ export class EditDailyController {
         ];
     }
 
+    checkImpediment() {
+        let yesImpediment = document.getElementById('yesImpediment')
+        let noImpediment = document.getElementById('noImpediment')
+        let impediment = document.getElementById('edit-impediment')
+
+        noImpediment.addEventListener('click', () => {
+            impediment.setAttribute('hidden', 'true')
+            this.impediment.value = 'Nenhum'
+        })
+
+        yesImpediment.addEventListener('click', () => {
+            impediment.removeAttribute('hidden')
+        })
+    }
+
     getDailyData(id: string) {
 
         const dailyService = new DailyNoteService();
@@ -56,8 +71,8 @@ export class EditDailyController {
             const daily = new DailyNote(
                 this.yesterday.value.toString(),
                 this.today.value.toString(),
-                this.impediment.value.toString(),
-                new Date()
+                new Date(),
+                this.impediment.value.toString()
             )
 
             const dailyService = new DailyNoteService();

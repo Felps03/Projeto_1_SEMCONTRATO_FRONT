@@ -62,8 +62,26 @@ export class DailyNoteController {
         this.addVals = [
             validate(this.yesterday, vals.yesterday),
             validate(this.today, vals.today),
-            validate(this.impediment, vals.impediment)
+            validate(this.impediment, (input) => {
+                if (!input.el.getAttribute('hidden'))
+                    return vals.impediment(input)
+            })
         ];
+    }
+
+    checkImpediment() {
+        let yesImpediment = document.getElementById('yesImpediment')
+        let noImpediment = document.getElementById('noImpediment')
+        let impediment = document.getElementById('impediment')
+
+        noImpediment.addEventListener('click', () => {
+            impediment.setAttribute('hidden', 'true')
+            this.impediment.value = 'Nenhum'
+        })
+
+        yesImpediment.addEventListener('click', () => {
+            impediment.removeAttribute('hidden')
+        })
     }
 
     add(event: Event) {
@@ -73,8 +91,8 @@ export class DailyNoteController {
             let dailyNote = new DailyNote(
                 this.yesterday.value.toString(),
                 this.today.value.toString(),
-                this.impediment.value.toString(),
-                new Date()
+                new Date(),
+                this.impediment.value.toString()
             );
 
             let dailyNoteService = new DailyNoteService();
@@ -247,7 +265,7 @@ export class DailyNoteController {
 
             result.then((result) => {
                 result.forEach((r: any) => {
-                    const daily = new DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
+                    const daily = new DailyNote(r.yesterday, r.today, new Date(r.date), r.impediment);
 
                     //console.log('Resposta: ', r);
 
@@ -355,8 +373,8 @@ export class DailyNoteController {
                     const daily = new DailyNote(
                         r.yesterday,
                         r.today,
-                        r.impediment,
-                        new Date(r.date)
+                        new Date(r.date),
+                        r.impediment
                     )
 
                     let totalPages: number

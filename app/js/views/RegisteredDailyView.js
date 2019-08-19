@@ -59,7 +59,7 @@ System.register(["./View", "../utils/escapeTag", "../utils/publish"], function (
                             </div>
                             <strong>Ontem:</strong> ${escapeTag_1.escapeTag(registeredDaily.Yesterday)}</a><br><br>
                             <strong>Hoje:</strong> ${escapeTag_1.escapeTag(registeredDaily.Today)}<br><br>
-                            <strong>Impedimentos:</strong> ${escapeTag_1.escapeTag(registeredDaily.Impediment)}<br><br>
+                            <strong>Impedimentos:</strong> ${registeredDaily.Impediment ? escapeTag_1.escapeTag(registeredDaily.Impediment) : ''}<br><br>
                         </div>
                     </div>
                 </div> 
