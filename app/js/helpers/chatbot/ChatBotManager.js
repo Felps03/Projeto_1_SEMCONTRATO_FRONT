@@ -1,4 +1,4 @@
-System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./chatAnswerParser", "../../utils/promiser"], function (exports_1, context_1) {
+System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./chatAnswerParser", "../../utils/resolveAll"], function (exports_1, context_1) {
     "use strict";
     var __asyncValues = (this && this.__asyncValues) || function (o) {
         if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
@@ -24,7 +24,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
         function reject(value) { resume("throw", value); }
         function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
     };
-    var Chat_1, chatBotTree_1, index_1, chatAnswerParser_1, promiser_1, ChatBotManager;
+    var Chat_1, chatBotTree_1, index_1, chatAnswerParser_1, resolveAll_1, ChatBotManager;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -40,8 +40,8 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
             function (chatAnswerParser_1_1) {
                 chatAnswerParser_1 = chatAnswerParser_1_1;
             },
-            function (promiser_1_1) {
-                promiser_1 = promiser_1_1;
+            function (resolveAll_1_1) {
+                resolveAll_1 = resolveAll_1_1;
             }
         ],
         execute: function () {
@@ -55,7 +55,6 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                     return __asyncGenerator(this, arguments, function* init_1() {
                         this.getFromStorage();
                         if (this.chat.History.length === 0) {
-                            console.log('init');
                             yield __await(yield* __asyncDelegator(__asyncValues(this.answer())));
                         }
                         else {
@@ -97,13 +96,12 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                                 }
                                 if (!success) {
                                     this.store();
-                                    for (let msg of chatBotTree_1.dialog['understandnt'].children[0].answer) {
-                                        if (typeof msg === 'string') {
-                                            yield yield __await(index_1.delay(this.message([
-                                                Chat_1.ChatAgent.Bot,
-                                                chatAnswerParser_1.parseState(this.state, msg)
-                                            ]), this.DELAY_TIME));
-                                        }
+                                    for (let msg of yield __await(resolveAll_1.resolveAll(chatBotTree_1.dialog['understandnt'].greet, this.state))) {
+                                        yield yield __await(index_1.delay(this.message(msg), this.DELAY_TIME));
+                                    }
+                                    const actualBranch = chatBotTree_1.dialog[this.context];
+                                    for (const msg of yield __await(resolveAll_1.resolveAll(actualBranch.greet, this.state))) {
+                                        yield yield __await(index_1.delay(this.message(msg), this.DELAY_TIME));
                                     }
                                 }
                             }
@@ -117,7 +115,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                             }
                         }
                         else {
-                            this.context = Object.getOwnPropertyNames(chatBotTree_1.dialog)[0];
+                            this.context = chatBotTree_1.mainBranch.goto;
                         }
                     });
                 }
@@ -129,7 +127,6 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                     }));
                 }
                 async toBranch(branch, match) {
-                    console.log('>>', this.context);
                     if (typeof branch === 'string') {
                         if (branch === chatBotTree_1.mainBranch.goto) {
                             this.state = new Map();
@@ -166,23 +163,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                         this.state.delete('_ANSWER');
                     }
                     else {
-                        if (branch.answer) {
-                            msgs = branch.answer.reduce((msgs, msg) => {
-                                if (msg instanceof Function) {
-                                    const msgVal = promiser_1.promiser(msg(actualState));
-                                    promises.push(msgVal);
-                                }
-                                else
-                                    msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, msg)]);
-                                return msgs;
-                            }, []);
-                        }
-                        await Promise.all(promises).then((ress) => {
-                            ress.forEach(res => {
-                                if (res)
-                                    msgs.push([Chat_1.ChatAgent.Bot, chatAnswerParser_1.parseState(actualState, res)]);
-                            });
-                        });
+                        msgs = await resolveAll_1.resolveAll(branch.answer, actualState);
                     }
                     const possibleGreet = chatBotTree_1.dialog[this.context].greet;
                     const possibleProcess = chatBotTree_1.dialog[this.context].process;
@@ -191,12 +172,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                         possibleProcess(this.state);
                     }
                     if (possibleGreet) {
-                        possibleGreet.forEach(greet => {
-                            msgs.push([
-                                Chat_1.ChatAgent.Bot,
-                                chatAnswerParser_1.parseState(actualState, greet)
-                            ]);
-                        });
+                        msgs = msgs.concat(await resolveAll_1.resolveAll(possibleGreet, actualState));
                     }
                     if (possibleFlow) {
                         this.context = possibleFlow;

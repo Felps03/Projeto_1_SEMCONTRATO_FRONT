@@ -1,6 +1,6 @@
-System.register(["../models/DailyNote", "../services/DailyNoteService", "../helpers/index", "../validation/dailyNoteValidate", "../utils/listCheck", "../views/DailyNotesView", "../views/PaginationView", "../views/RegisteredDailyView", "../models/RegisteredDaylies", "../models/RegisteredDaily", "../views/DailyStatusView"], function (exports_1, context_1) {
+System.register(["../models/DailyNote", "../services/DailyNoteService", "../helpers/index", "../validation/dailyNoteValidate", "../utils/listCheck", "../views/DailyNotesView", "../views/PaginationView", "../views/RegisteredDailyView", "../models/RegisteredDaylies", "../models/RegisteredDaily", "../views/DailyStatusView", "../helpers/dateHelper"], function (exports_1, context_1) {
     "use strict";
-    var DailyNote_1, DailyNoteService_1, index_1, vals, listCheck_1, DailyNotesView_1, PaginationView_1, RegisteredDailyView_1, RegisteredDaylies_1, RegisteredDaily_1, DailyStatusView_1, DailyNoteController;
+    var DailyNote_1, DailyNoteService_1, index_1, vals, listCheck_1, DailyNotesView_1, PaginationView_1, RegisteredDailyView_1, RegisteredDaylies_1, RegisteredDaily_1, DailyStatusView_1, dateHelper_1, DailyNoteController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -36,6 +36,9 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
             },
             function (DailyStatusView_1_1) {
                 DailyStatusView_1 = DailyStatusView_1_1;
+            },
+            function (dateHelper_1_1) {
+                dateHelper_1 = dateHelper_1_1;
             }
         ],
         execute: function () {
@@ -74,25 +77,37 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                 }
                 set CurrentPage(page) {
                     this.currentPage = page;
-                    this.paginationView.update(this.currentPage, this.totalPages);
+                    this.paginationView.update(this.currentPage, this.totalPages, this.type);
                 }
                 set TotalPages(total) {
                     this.totalPages = total;
                 }
                 listD(event) {
                     event.preventDefault();
-                    let value = this.url_date || this.dateField.value;
+                    let value = this.dateField.value || this.url_date;
+                    this.dateField.value = value;
                     const page = parseInt(this.url_page) || 1;
                     let dailyNoteService = new DailyNoteService_1.DailyNoteService();
                     let date = new Date(value);
-                    let fullDate = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1) < 10 ? '0' + (date.getUTCMonth() + 1) : (date.getUTCMonth() + 1)}-${date.getUTCDate()}`;
+                    let fullDate = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1) < 10 ? '0' + (date.getUTCMonth() + 1) : (date.getUTCMonth() + 1)}-${(date.getUTCDate()) < 10 ? '0' + (date.getUTCDate()) : (date.getUTCDate())}`;
                     return dailyNoteService.listDate(fullDate, page)
                         .then(res => {
+                        if (res.status == 200) {
+                            document.getElementById('load-view').setAttribute('hidden', 'true');
+                        }
                         return res.json();
                     })
                         .then(result => {
-                        console.log(result);
-                        console.log(result[result.length - 1].totalPages);
+                        let pages = result[result.length - 1].page;
+                        if (result.length != 0) {
+                            document.getElementById('response').textContent = `Total de ${result.length - 1} daily${result.length - 1 == 1 ? '' : 's'} registrada${result.length - 1 == 1 ? '' : 's'}. (página ${result[result.length - 1] === undefined ? '' : pages})`;
+                            this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-daily-note.html');
+                            this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                        }
+                        else {
+                            document.getElementById('response').textContent = '';
+                            document.getElementById('pagination').textContent = '';
+                        }
                         this.TotalPages = result[result.length - 1].totalPages;
                         this.paginationView.update(page, this.totalPages, this.type, fullDate);
                         let registeredDaylies = new RegisteredDaylies_1.RegisteredDaylies();
@@ -110,7 +125,31 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     const page = +this.url_page || 1;
                     const dailyNoteService = new DailyNoteService_1.DailyNoteService();
                     return dailyNoteService.listUser(this.url_user, page).then(res => {
+                        if (res.status == 200) {
+                            document.getElementById('load-view').setAttribute('hidden', 'true');
+                        }
                         return res.json();
+                    })
+                        .then(result => {
+                        let pages = result[result.length - 1].page;
+                        if (result.length != 0) {
+                            document.getElementById('response').textContent = `Total de ${result.length - 1} daily${result.length - 1 == 1 ? '' : 's'} registrada${result.length - 1 == 1 ? '' : 's'}. (página ${result[result.length - 1] === undefined ? '' : pages})`;
+                            this.paginationView = new PaginationView_1.PaginationView('#pagination', 'app-daily-note.html');
+                            this.paginationView.update(this.currentPage, this.totalPages, this.type);
+                        }
+                        else {
+                            document.getElementById('response').textContent = '';
+                            document.getElementById('pagination').textContent = '';
+                        }
+                        this.TotalPages = result[result.length - 1].totalPages;
+                        this.paginationView.update(page, this.totalPages, this.type, null);
+                        let registeredDaylies = new RegisteredDaylies_1.RegisteredDaylies();
+                        this.dailyView = new RegisteredDailyView_1.RegisteredDailyView('#dayliesResult');
+                        result.pop();
+                        result.reverse().map((result) => new RegisteredDaily_1.RegisteredDaily(result['id_daily'], result['id_user'], result['yesterday'], result['today'], result['impediment'], result['date'], result['owner']))
+                            .forEach((result) => registeredDaylies.add(result));
+                        this.dailyView.update(registeredDaylies);
+                        return result;
                     });
                 }
                 cancel(event) {
@@ -127,7 +166,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     if (this.url.get('date') && this.url.get('page'))
                         this.listDateDaily(event);
                     let date = new Date();
-                    let today = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1) < 10 ? '0' + (date.getUTCMonth() + 1) : (date.getUTCMonth() + 1)}-${date.getUTCDate()}`;
+                    let today = dateHelper_1.dateFormatYYYYMMDD(new Date());
                     this.dateField.value = this.url_date || today;
                     if (this.url.get('user'))
                         this.listUserDaily(event);
@@ -136,10 +175,27 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     this.dailyButton(event);
                     this.login(event);
                 }
+                logout(event) {
+                    event.preventDefault();
+                    localStorage.clear();
+                    window.location.href = 'index.html';
+                }
                 listDateDaily(event) {
                     this.dayliesResult.innerHTML = '';
                     const result = this.listD(event);
-                    if (result) {
+                    let date = document.getElementById('date_filter');
+                    let lastDate = new Date(date.value.split('-').join('/'));
+                    let newDate = new Date();
+                    if (lastDate > newDate) {
+                        let typeAlert = 'alert-warning';
+                        this.dailyStatusView = new DailyStatusView_1.DailyStatusView('#status_daily');
+                        this.dailyStatusView.update('Não são cadastradas dailys em datas futuras :(', 0, 0, typeAlert);
+                    }
+                    else if (result) {
+                        if (this.dailyStatusView) {
+                            this.dailyStatusView.clear();
+                            this.dailyButton(event);
+                        }
                         result.then((result) => {
                             result.forEach((r) => {
                                 const daily = new DailyNote_1.DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
@@ -175,8 +231,16 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                 dailyButton(event) {
                     this.registered(event)
                         .then((res) => {
-                        if (res.status == 400)
-                            document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+                        let typeAlert = 'alert-warning';
+                        this.dailyStatusView = new DailyStatusView_1.DailyStatusView('#status_daily');
+                        if (res.status == 400) {
+                            this.dailyStatusView.update('Você já cadastrou sua daily :)', 0, 0, typeAlert);
+                            document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
+                        }
+                        if (res.status == 400 || !(localStorage.getItem('tkn')))
+                            document.getElementById('add_daily').setAttribute('hidden', 'true');
+                        if (res.status == 400 || !(localStorage.getItem('tkn')))
+                            document.querySelector('.responsive-add-daily-bottom').setAttribute('hidden', 'true');
                     });
                 }
                 registeredDaily(event) {
@@ -184,7 +248,8 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         .then((res) => {
                         this.listDateDaily(event);
                         document.getElementById('dailyModal').click();
-                        document.getElementById('add_daily').setAttribute('disabled', 'disabled');
+                        document.getElementById('add_daily').setAttribute('hidden', 'true');
+                        document.getElementById("add_daily").setAttribute('title', " Você já cadastrou sua daily");
                         this.dailyStatusView = new DailyStatusView_1.DailyStatusView('#status_daily');
                         this.dailyStatusView.update(res.status == 200 ? 'Daily cadastrada com sucesso!' : res.status == 400 ? 'Você já cadastrou sua daily!' : '');
                     });
@@ -195,6 +260,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     if (result) {
                         result.then(result => {
                             result.forEach((r) => {
+                                console.log('>>>', r);
                                 const daily = new DailyNote_1.DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
                                 let totalPages;
                                 if (r.hasOwnProperty('totalPages')) {

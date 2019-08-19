@@ -2,6 +2,7 @@ import { View } from './View';
 import { DailyNote, User } from '../models/index';
 import { Chat, ChatAgent } from '../models/Chat';
 import { parseView } from '../helpers/chatbot/chatAnswerParser';
+import { escapeTag } from '../utils/escapeTag';
 
 export class ChatBotView extends View<Chat> {
 
@@ -25,6 +26,10 @@ export class ChatBotView extends View<Chat> {
         <i class="material-icons">chat</i>
         <h5 class="m-1">Chat</h5>
 
+        <div class="w-100">
+            <img class="float-right mr-3" src="./img/contratinhoduck.png" height="30" style="transform:scaleX(-1)">
+        </div>
+
         <!--<a class="w-100" href="#" id="refresh-chat">
             <i class="material-icons float-right mr-3">refresh</i>
         </a>-->
@@ -39,7 +44,7 @@ export class ChatBotView extends View<Chat> {
             let processedMsg
             // if the author is the user, escape it
             if (author === ChatAgent.User) {
-                processedMsg = msg[1].replace('<', '&lt;').replace('>', '&gt;')
+                processedMsg = escapeTag(msg[1])
             } else {
                 processedMsg = parseView(msg[1])
             }

@@ -1,11 +1,14 @@
-System.register(["./View"], function (exports_1, context_1) {
+System.register(["./View", "../utils/escapeTag"], function (exports_1, context_1) {
     "use strict";
-    var View_1, PostView;
+    var View_1, escapeTag_1, PostView;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (View_1_1) {
                 View_1 = View_1_1;
+            },
+            function (escapeTag_1_1) {
+                escapeTag_1 = escapeTag_1_1;
             }
         ],
         execute: function () {
@@ -38,12 +41,12 @@ System.register(["./View"], function (exports_1, context_1) {
                             <div class="input-group">
                                 <input type="text" name="title" id="edit-title"
                                     class="form-control form-control input-circle"
-                                    placeholder="Pesquisar por título" value="${model.Title}">
+                                    placeholder="Pesquisar por título" value="${escapeTag_1.escapeTag(model.Title)}">
                                 <div id="edit-titlevalidator"></div>
                             </div>
                         </div>` : `
                         <div class="d-flex align-items-center">
-                            <h2>${model.Title}</h2>
+                            <h2>${escapeTag_1.escapeTag(model.Title)}</h2>
                             <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
                         </div>` : ''}
 
@@ -52,11 +55,11 @@ System.register(["./View"], function (exports_1, context_1) {
                             <label for="edit-desc">Descrição:</label>
                             <div class="input-group">
                                 <textarea name="desc" class="form-control input-circle" id="edit-desc"
-                                    placeholder="Pesquisar por descrição" autofocus>${model.Desc}</textarea>
+                                    placeholder="Pesquisar por descrição" autofocus>${escapeTag_1.escapeTag(model.Desc)}</textarea>
                                 <div id="edit-descvalidator"></div>
                             </div>
                         </div>` : `
-                        <p>${model.Desc.replace('\n', '<br>')}</p>` : ''}
+                        <p>${escapeTag_1.escapeTag(model.Desc).replace('\n', '<br>')}</p>` : ''}
 
                         ${model.AuthorId ? canEdit && this.editing ? `
                         <button type="submit"
@@ -102,7 +105,7 @@ System.register(["./View"], function (exports_1, context_1) {
 
                 </div>
             </div>
-
+        
         `;
                 }
                 update(model) {

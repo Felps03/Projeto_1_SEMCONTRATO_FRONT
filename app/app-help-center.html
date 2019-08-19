@@ -11,6 +11,11 @@
     <link href="./lib/materialize/fonts/fonts.css" rel="stylesheet">
     <link href="./lib/particlejs/particle.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
+        </script>
+
     <title>Help Center</title>
 </head>
 
@@ -19,198 +24,151 @@
     <!-- particles.js -->
     <div id="particles-js"></div>
 
-    <div id="">
-        <!-- view modal -->
-        <div id="view-modal" class="modal fade show" tabindex="-1" role="dialog">
-            <div id="view-view-modal" class="modal-dialog" role="document">
-            </div>
+    <!-- view modal -->
+    <div id="view-modal" class="modal fade show" tabindex="-1" role="dialog">
+        <div id="view-view-modal" class="modal-dialog" role="document">
         </div>
     </div>
 
-    <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
-        <div class="container">
-            <div class="row navbar-header align-baseline ml-n3">
-                <a href="index.html"><img src="./img/logo_compasso.png"></a>
-                <div class="vt-apps-line ml-2"></div>
-                <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
-                    <h5><strong>Daily Note</strong></h5>
-                </a>
-                <a href="app-help-center.html" class="menu-item mt-3 ml-4">
-                    <h5><strong>Help Center</strong></h5>
-                </a>
-            </div>
+    <div id="header" class="header-fixed"></div>
 
-            <!-- User menu -->
-            <!-- <div id="user-menu-login-link"></div> -->
-            <div id="user-main">
-                <div class="dropdown mr-n4 txt-user" style="float:right;">
-                    <div class="d-flex align-items-center btn" data-toggle="dropdown">
-                        <span id="nameSpan"></span>
-                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle" width="60px">
-                        <i class="material-icons ml-n2">arrow_drop_down</i>
-                    </div>
-                    <div class="dropdown-menu dropdown-menu-right align-user">
-                        <div class="dropdown-item">
-                            Usuário: <span id="userNameSpan"></span>
-                        </div>
-                        <div class="dropdown-divider"></div>
+    <div class="container page-position col-12 col-sm-7 responsive-section">
 
-                        <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
-                            <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
-                        <a class="dropdown-item d-flex align-items-center" href="index.html">
-                            <i class="material-icons mr-2">home</i>Home</a>
-
-                        <div class="dropdown-divider"></div>
-
-                        <a class="dropdown-item d-flex align-items-center" id="logout">
-                            <i class="material-icons mr-2">power_settings_new</i><strong>Sair</strong></a>
-                    </div>
-                </div>
-            </div>
-            <!-- end User menu -->
-
-        </div>
-    </nav>
-
-    <div class="container page-position col-12 col-sm-7" id="">
-
-        <section class="section-register custom-bx">
+        <section class="section-help custom-bx">
 
             <div class="pt-1 pl-4 pr-4 pb-4">
 
                 <div class="vt-line mt-4 mb-4">
-                    <h3><strong>Help Center</strong></h3>
+                    <h3>
+                        <strong>Help Center</strong>
+                    </h3>
                 </div>
-                <hr class="register-line">
+                <hr class="help-line">
 
-                <form action="" id="search-form">
-                    <div class="row mb-5">
-                        <div class="col-sm-10 col-12">
-
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="material-icons">search</i></span>
-                                </div>
-                                <input type="text" name="search-joker" id="search-joker" class="form-control form-control input-circle" placeholder="Pesquisa" autofocus>
-                                <div id="search-jokervalidator"></div>
-                            </div>
-
-                            <!-- <div class="form-group">
-                                <label for="search-desc">Descrição:</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="material-icons">search</i></span>
-                                    </div>
-                                    <textarea name="search-desc" class="form-control input-circle" id="search-desc"
-                                        placeholder="Pesquisar por descrição" autofocus></textarea>
-                                    <div id="search-descvalidator"></div>
-                                </div>
-                            </div> -->
-                        </div>
-
-                        <div class="col-sm-2 col-12 d-flex justify-content-center align-items-center mb-3 mb-sm-0">
-                            <button type="button" class="btn btn-lg btn-outline-primary d-flex justify-content-center align-items-center" data-toggle="modal" data-target="#add-modal"><i class="material-icons">add</i></button>
-                        </div>
-
-                    </div>
-                </form>
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-warning" id="load-view"></div>
+                </div>
 
                 <div id="message-view"></div>
 
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h4 class="mb-0">Perguntas e Respostas</h4>
+                <form action="" id="search-form" class="mb-4" autocomplete="off">
+                    <div class="row mb-3">
+                        <div class="col-sm-10 col-12 mt-3">
+                            <div class="form-group">
+                                <label for="search-joker">Buscar pergunta:</label>
+                                <input type="text" name="search-joker" class="form-control form-control-sm input-circle"
+                                    id="search-joker" placeholder="Informe as palavras-chave.">
+                                <div id="search-jokervalidator"></div>
+                                <div class='text-black-50 mt-1' id="response_search"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-2 col-12 mt-3 responsive-help-add" id="help-add-ocult"></div>
+                    </div>
+                </form>
+
+                <!-- paginação top -->
+                <div class="row mb-n4">
+                    <div class="col-sm-12 mb-1">
+                        <nav class="float-right">
+                            <ul id="pagination" class="pagination"></ul>
+                        </nav>
+
+                        <div class="vt-line mt-1">
+                            <h5>
+                                <strong>Perguntas</strong>
+                            </h5>
+                        </div>
+                        <div id="response" class="text-black-50 mb-3"></div>
                     </div>
                 </div>
 
-                <!-- list -->
+                
+
                 <div id="post-list"></div>
 
             </div>
-
-            <nav class="float-right mt-1">
-                <ul id="pagination" class="pagination">
-                    <!-- <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Anterior">
-                            <span aria-hidden="true" class="txt-primary">&laquo;</span>
-                            <span class="sr-only txt-primary">Anterior</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link txt-primary" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link txt-primary" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link txt-primary" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Próximo">
-                            <span aria-hidden="true" class="txt-primary">&raquo;</span>
-                            <span class="sr-only txt-primary">Próximo</span>
-                        </a>
-                    </li> -->
-                </ul>
-            </nav>
 
     </div>
     </section>
 
     </div>
 
-    <!-- add modal -->
-    <div id="add-modal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+    <!-- New Help modal -->
+    <div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Pergunta</h5>
-                    <button id="add-modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <div class="modal-title vt-line mt-2" id="dailyTitle">
+                        <h3>
+                            <strong>Nova Pergunta</strong>
+                        </h3>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" id="add-modal-close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <div id="newResult"> </div>
                 <div class="modal-body">
-                    <form action="" id="add-form">
+
+                    <form class="form" method="post" id="daily-form" autocomplete="off">
+
                         <div class="form-group">
-                            <label for="add-title">Título:</label>
-                            <div class="input-group">
-                                <input type="text" name="title" id="add-title" class="form-control form-control input-circle" placeholder="Qual o seu problema?" autofocus>
-                                <div id="add-titlevalidator"></div>
-                            </div>
+                            <label for="add-title">Qual a sua dúvida?</label>
+                            <input type="text" name="title" class="form-control form-control-sm input-circle"
+                                id="add-title" placeholder="Informe um titulo" autofocus>
+                            <div id="add-titlevalidator"></div>
                         </div>
+
                         <div class="form-group">
                             <label for="add-desc">Descrição:</label>
-                            <div class="input-group">
-                                <textarea name="desc" class="form-control input-circle" id="add-desc" placeholder="Descreva-o aqui" autofocus></textarea>
-                                <div id="add-descvalidator"></div>
-                            </div>
+                            <textarea name="desc" class="form-control form-control-sm input-circle" id="add-desc"
+                                placeholder="Descreva a sua dúvida"></textarea>
+                            <div id="add-descvalidator"></div>
                         </div>
+
+                        <button type="submit" name="send"
+                            class="btn btn-outline-success btn-sm float-right mt-2 pr-3 pl-3 ml-2 input-circle d-flex justify-content-center"
+                            id="cadastroHelpCenter">
+                            <i class="small material-icons mr-2 align-middle">help</i>Perguntar</button>
+
+                        <button type="button"
+                            class="btn btn-outline-danger btn-sm float-right mt-2 pr-3 pl-3 input-circle d-flex justify-content-center"
+                            data-dismiss="modal" id="cancel">
+                            <i class="small material-icons mr-1 align-middle">close</i>Cancelar</button>
+
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" id="cadastroHelpCenter" class="btn btn-primary d-flex align-items-center">Enviar <i class="material-icons ml-2"
-                            data-dismiss="modal">send</i></button>
+
                 </div>
             </div>
         </div>
     </div>
 
     <!-- confirm delete modal -->
-    <div id="confirm-del-modal" class="modal fade" tabindex="-1" role="dialog">
+    <!-- <div id="confirm-del-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Certeza que deseja excluir a postagem?</h5>
-                    <button id="confirm-del-modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button id="confirm-del-modal-close" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" id="confirm-del-btn" class="btn btn-success d-flex align-items-center">Confirmar</button>
+                    <button type="submit" id="confirm-del-btn"
+                        class="btn btn-success d-flex align-items-center">Confirmar</button>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <button name="daily" id="mostra-help" hidden></button>
+    <button name="help" id="mostra-help" hidden></button>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="./lib/jquery/jquery.min.js"></script>
     <script src="./lib/bootstrap/bootstrap.min.js"></script>
     <script src="./lib/particlejs/particle.min.js"></script>
@@ -219,6 +177,7 @@
     <script src="lib/system.js"></script>
     <script>
         System.defaultJSExtensions = true;
+        System.import('js/header.js').catch(err => console.error(err));
         System.import('js/helpCenter.js').catch(err => console.error(err));
         System.import('js/logout.js').catch(err => console.error(err));
         System.import('js/chatbot.js').catch(err => console.error(err))

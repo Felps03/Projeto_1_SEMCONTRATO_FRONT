@@ -5,12 +5,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+
     <link rel="icon" href="./img/logo_compasso.ico">
+
     <link rel="stylesheet" href="./lib/bootstrap/bootstrap.min.css">
+
     <link href="./lib/materialize/icons/icons.css" rel="stylesheet">
+
     <link href="./lib/materialize/fonts/fonts.css" rel="stylesheet">
+
     <link href="./lib/particlejs/particle.css" rel="stylesheet">
+
     <link rel="stylesheet" href="./css/custom.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
+        </script>
+
     <title>Página Principal</title>
 </head>
 
@@ -21,170 +35,65 @@
     <!-- particles.js -->
     <div id="particles-js"></div>
 
-    <nav class="navbar navbar-inverse bg-light navbar-light fixed-top shadow header-position">
-        <div class="container">
-            <div class="row navbar-header align-baseline ml-n3">
-                <a href="index.html">
-                    <img src="./img/logo_compasso.png">
-                </a>
-                <div class="vt-apps-line ml-2"></div>
-                <a href="app-daily-note.html" class="menu-item mt-3 ml-4">
-                    <h5>
-                        <strong>Daily Note</strong>
-                    </h5>
-                </a>
-                <a href="app-help-center.html" class="menu-item mt-3 ml-4">
-                    <h5>
-                        <strong>Help Center</strong>
-                    </h5>
-                </a>
-            </div>
+    <div id="header" class="header-fixed"></div>
 
-            <!-- User menu -->
-            <!-- <div id="user-menu-login-link"></div> -->
-            <div id="user-main">
-                <div class="dropdown mr-n4 txt-user" style="float:right;">
-                    <div class="d-flex align-items-center btn" data-toggle="dropdown">
-                        <span id="nameSpan"></span>
-                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle"
-                            width="60px">
-                        <i class="material-icons ml-n2">arrow_drop_down</i>
-                    </div>
-                    <div class="dropdown-menu dropdown-menu-right align-user">
-                        <div class="dropdown-item">
-                            Usuário:
-                            <span id="userNameSpan"></span>
-                        </div>
-                        <div class="dropdown-divider"></div>
-
-                        <a class="dropdown-item d-flex align-items-center" href="user-edit.html">
-                            <i class="material-icons mr-2">edit</i>Alterar Cadastro</a>
-                        <a class="dropdown-item d-flex align-items-center" href="index.html">
-                            <i class="material-icons mr-2">home</i>Home</a>
-
-                        <div class="dropdown-divider"></div>
-
-                        <a class="dropdown-item d-flex align-items-center" id="logout">
-                            <i class="material-icons mr-2">power_settings_new</i>
-                            <strong>Sair</strong>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- end User menu -->
-        </div>
-    </nav>
-
-    <div class="container page-position">
-        <div class="row mt-5 d-flex justify-content-center">
-
-            <!-- Daily Note -->
-            <div class="card card-size">
-                <img class="card-img-top" src="./img/daily-card.jpeg" alt="Card image cap">
-
-                <div class="card-body">
-                    <div class="vt-line mb-3">
-                        <h5 class="card-title">
-                            <strong>Daily Note</strong>
-                        </h5>
-                    </div>
-                    <p class="card-text text-justify">Registre e modifique as informações da sua Daily, e também, visualize as reuniões diárias do seu time.</p>
-                    <a href="app-daily-note.html">
-                        <button name="daily" class="btn btn-outline-success btn-sm pr-3 pl-3 float-right input-circle">Acessar</button>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Help Center -->
-            <div class="card card-size ml-4">
-                <img class="card-img-top" src="./img/help-card.jpg" alt="Card image cap">
-
-                <div class="card-body">
-                    <div class="vt-line mb-3">
-                        <h5 class="card-title">
-                            <strong>Help Center</strong>
-                        </h5>
-                    </div>
-                    <p class="card-text text-justify">Envie perguntas sobre os erros durante o uso de ferramentas e receba soluções através de respostas de
-                        outros usuários.</p>
-                    <a href="app-help-center.html">
-                        <button name="daily" class="btn btn-outline-success btn-sm pr-3 pl-3 float-right input-circle">Acessar</button>
-                    </a>
-                </div>
-            </div>
-        </div>
+        
+    
+    <div class="container page-position responsive-home-full">
+            
+        <div id="welcomeMessage"></div>
 
         <!-- DailyNote e HelpCenter -->
-        <div class="row mt-5 mb-5 justify-content-between">
+            
+        <div class="row mt-3 mb-3 mx-0">
+                    
+
+            <!-- HelpCenter -->
+            <div class="col-12 section-help">
+                <div class="col-12">
+                    <div class="vt-line mt-4 mb-4">
+                        <h3>
+                            <strong>Perguntas atuais</strong>
+                        </h3>
+                    </div>
+
+                        
+
+                    <div id="response" class="text-black-50 mb-3 mt-n3"></div>
+
+                    <div id="last-helps" class="mb-4"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row mb-5 mx-0">
 
             <!-- DailyNote -->
-            <div id="dailyTable" class="dailyTable col-12 col-sm-7 section-lastdaily">
+            <div id="dailyTable" class="dailyTable col-12 section-lastdaily pb-4">
                 <div class="col-12">
                     <div class="vt-line mt-4 mb-4">
                         <h3>
                             <strong>Última Daily</strong>
                         </h3>
                     </div>
+                    
+                    
 
-                    <!-- <hr class="lastdaily-line"> -->
-
-                    <div id="table-container" class="mt-4 mb-4">
-                        <table class="table table-hover mt-4">
-                            <thead class="bg-light">
-                                <tr>
-                                    <th style="width:15%;" scope="col">Autor</th>
-                                    <th style="width:29%;" scope="col">Ontem</th>
-                                    <th style="width:28%;" scope="col">Hoje</th>
-                                    <th style="width:28%;" scope="col">Impedimentos</th>
-                                </tr>
-                            </thead>
-                            <tbody id="all-dailys"></tbody>
-                        </table>
-                    </div>
+                    <div id="response-date" class="txt-primary mb-1 mt-n3"></div>
+                    <div id="response-two" class="text-black-50"></div>
+                    <div id="all-dailys"></div>
                 </div>
             </div>
 
+            
 
-            <!-- HelpCenter -->
-            <div class="col-12 col-sm-4 section-help">
-                <div class="col-12">
-                    <div class="vt-line mt-4 mb-4">
-                        <h3>
-                            <strong>Perguntas Recentes</strong>
-                        </h3>
-                    </div>
-
-                    <hr class="help-line">
-
-                    <div id="last-helps"></div>
-                </div>
-            </div>
         </div>
     </div>
 
-
-    <!-- View resp modal -->
-    <div class="modal fade" id="respModal" tabindex="-1" role="dialog" aria-labelledby="respTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title vt-line mt-2" id="respTitle">
-                        <h3>
-                            <strong>Respostas</strong>
-                        </h3>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <!-- respostas -->
-
-                </div>
-            </div>
+    <div class="d-flex justify-content-center">
+            <div class="spinner-border text-warning" id="load-view"></div>
         </div>
-    </div>
 
     <button name="daily" id="mostra-daily" hidden></button>
     <button name="daily" id="mostra-help" hidden></button>
@@ -199,6 +108,7 @@
     <script src="lib/system.js"></script>
     <script>
         System.defaultJSExtensions = true;
+        System.import('js/header.js').catch(err => console.error(err));
         System.import('js/index.js').catch(err => console.error(err));
         System.import('js/logout.js').catch(err => console.error(err));
         System.import('js/chatbot.js').catch(err => console.error(err));

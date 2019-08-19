@@ -1,13 +1,10 @@
 import * as process from './chatBotProcess'
-import { DailyNoteService, HelpCenterService } from "../../services/index";
-import { DailyNotesView } from '../../views/DailyNotesView';
-import { PostsView } from '../../views/PostsView';
-import uuidv4 from '../../utils/uuidv4'
+import { DailyNoteService, HelpCenterService, UserService } from "../../services/index";
 import { Post } from '../../models/Post';
 import { InputWrapper } from '../../utils/index';
 import * as valHelp from '../../validation/helpCenterValidate'
 import * as valDaily from '../../validation/dailyNoteValidate'
-import { DailyNote } from '../../models/index';
+import { toISODate } from '../../utils/toISODate';
 
 export type DialogBranch = {
     // go into branch if one call matches
@@ -30,7 +27,7 @@ export type DialogBranch = {
 
 export type Dialog = {
     // message to be sent upon arriving
-    greet?: string[]
+    greet?: (string | ((state: Map<string, any>) => (string | null | Promise<string | null>)))[]
 
     // possible continuations
     children?: DialogBranch[]
@@ -51,6 +48,7 @@ const SELF_HTTPS_HOST = 'https://' + window.location.host
 // initialiazing stuff
 const helpCenterService = new HelpCenterService()
 const dailyNoteService = new DailyNoteService()
+const userService = new UserService()
 
 // greeting mechanics
 const actualHours = new Date().getHours()
@@ -80,57 +78,41 @@ export const mainBranch = {
 // dialog afterwards
 export const dialog: { [node: string]: Dialog } = {
     main: {
+
         greet: [
             'Como posso ajudar? 😊',
             '{{button(DailyNote)}}',
             '{{button(HelpCenter)}}',
-            // '{{button(Login)}}',
         ],
 
         children: [
             {
                 call: ['dailynote', 'daily'],
-                goto: 'cr_daily',
-                answer: [
-                    'Ok. Sobre DailyNote, o que você quer fazer?',
-                    '{{button(Ver)}}',
-                    '{{button(Adicionar)}}'
-                ]
+                goto: 'cr_daily'
             },
             {
                 call: ['helpcenter', 'help'],
-                goto: 'cr_help',
-                answer: [
-                    'Ok. Sobre HelpCenter, o que você quer fazer?',
-                    '{{button(Ver)}}',
-                    '{{button(Adicionar)}}'
-                ]
+                goto: 'cr_help'
             }
-            // {
-            //     call: ['login'],
-            //     goto: 'main',
-            //     answer: NOT_IMPLEMENTED_ANSWER,
-            //     process: process.checkNotLoggedIn('main')
-            // }
         ]
     },
 
     cr_daily: {
+
+        greet: [
+            'Ok. Sobre DailyNote, o que você quer fazer?',
+            '{{button(Ver)}}',
+            '{{button(Adicionar)}}'
+        ],
+
         children: [
             {
                 call: ['listar', 'ver', 'mostrar'],
-                goto: 'list_daily',
-                answer: [
-                    'Gostaria de filtrar por?..',
-                    '{{button(Ver dailies de hoje)}}',
-                    '{{button(Outra data)}}',
-                    '{{button(Usuário)}}',
-                ]
+                goto: 'list_daily'
             },
             {
                 call: ['adicionar', 'incluir', 'inserir'],
                 goto: 'add_daily_yesterday',
-                answer: ['O que você fez ontem? 😃'],
                 process: async (state: Map<string, any>, match: RegExpExecArray) => {
                     await process.checkLoggedIn('cr_daily')(state, match)
 
@@ -146,16 +128,30 @@ export const dialog: { [node: string]: Dialog } = {
     },
 
     list_daily: {
+
+        greet: [
+            'Gostaria de filtrar por?..',
+            async () => {
+                const dailies = await dailyNoteService.listDate(toISODate(new Date()), 1).then(res => res.json())
+                console.log(dailies)
+                if (dailies.length > 1) { // because of the totalPages and stuff item
+                    return '{{button(Ver dailies de hoje)}}'
+                } else {
+                    return '(Nenhuma daily cadastrada hoje ainda)'
+                }
+            },
+            '{{button(Data)}}',
+            '{{button(Usuário)}}',
+        ],
+
         children: [
             {
                 call: ['data', 'dia'],
-                goto: 'list_daily_date',
-                answer: ['Ok. Que dia? (formato dd/mm/aaaa)']
+                goto: 'list_daily_date'
             },
             {
                 call: ['usuario'],
-                goto: 'list_daily_user',
-                answer: ['Ok. Que usuário?']
+                goto: 'list_daily_user'
             },
             {
                 call: ['nao', 'nop', 'hoje'],
@@ -168,29 +164,86 @@ export const dialog: { [node: string]: Dialog } = {
     },
 
     list_daily_date: {
+
+        greet: ['Ok. Que dia? (formato dd/mm/aaaa)'],
+
         children: [
             {
                 call: [/(\d{1,2})\/(\d{1,2})\/(\d+)/],
                 goto: 'main',
                 answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?date=$list_daily_note_date)}}`],
-                process: process.entDate('list_daily_note_date')
+                process: async (state: Map<string, any>, match: RegExpExecArray) => {
+
+                    const dateSlot = 'list_daily_note_date'
+
+                    process.entDate(dateSlot)(state, match)
+                    const date = state.get(dateSlot)
+
+                    const result = await dailyNoteService.listDate(date, 1)
+                    const readableResult = await result.json()
+
+                    if (readableResult.length <= 1) {
+                        state.set('_GOTO', 'main')
+                        state.set('_ANSWER', [
+                            `Não existe nenhuma daily cadastrada pra essa data, nem tem por que ir lá.`,
+                            `Mas o link é {{link(esse, ${SELF_HTTPS_HOST}/app-daily-note.html?date=${date})}} anyway`
+                        ])
+                        return
+                    }
+
+                }
             }
         ]
     },
 
     list_daily_user: {
+
+        greet: ['Ok. Que usuário?'],
+
         children: [
             {
-                call: [/(\w+)/],
+                call: [/^((?:[A-Za-z0-9]|_|\-|\.)+)$/],
                 normalize: false,
                 goto: 'main',
                 answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`],
-                process: process.entRaw('list_daily_note_user')
+                process: async (state: Map<string, any>, match: RegExpExecArray) => {
+
+                    const userName = match[1]
+                    const status = (await userService.checkIfExists(userName)).status
+
+                    if (status === 204) {
+                        state.set('_GOTO', 'list_daily_user')
+                        state.set('_ANSWER', [
+                            'Algo de errado não está certo 🤔',
+                            `Usuário ${userName} não está cadastrado.`
+                        ])
+                        return
+                    }
+
+                    const result = await dailyNoteService.listUser(userName, 1)
+                    const readableResult = await result.json()
+
+                    console.log(readableResult)
+
+                    if (readableResult.length <= 1) {
+                        state.set('_GOTO', 'main')
+                        state.set('_ANSWER', [
+                            `Não existe nenhuma daily cadastrada pra esse usuário, nem tem por que ir lá.`,
+                            `Mas o link é {{link(esse, ${SELF_HTTPS_HOST}/app-daily-note.html?user=${userName})}} anyway`
+                        ])
+                        return
+                    }
+
+                    process.entRaw('list_daily_note_user')(state, match)
+                }
             }
         ]
     },
 
     add_daily_yesterday: {
+
+        greet: ['O que você fez ontem? 😃'],
+
         children: [
             {
                 call: [/^.*$/],
@@ -209,13 +262,15 @@ export const dialog: { [node: string]: Dialog } = {
                     }
 
                     state.set('add_daily_yesterday', yesterday)
-                },
-                answer: ['O que fará hoje? 🙂']
+                }
             }
         ]
     },
 
     add_daily_today: {
+
+        greet: ['O que fará hoje? 🙂'],
+
         children: [
             {
                 call: [/^.*$/],
@@ -234,13 +289,15 @@ export const dialog: { [node: string]: Dialog } = {
                     }
 
                     state.set('add_daily_today', today)
-                },
-                answer: ['Algum impedimento? 🙂']
+                }
             }
         ]
     },
 
     add_daily_impediment: {
+
+        greet: ['Algum impedimento? 🙂'],
+
         children: [
             {
                 call: [/^.*$/],
@@ -248,13 +305,6 @@ export const dialog: { [node: string]: Dialog } = {
                 goto: 'main',
                 process: async (state: Map<string, any>, match: RegExpExecArray) => {
                     const impediment = match[0]
-
-                    // const dailyToAdd = new DailyNote(
-                    //     <string>state.get('add_daily_yesterday'),
-                    //     <string>state.get('add_daily_today'),
-                    //     impediment,
-                    //     new Date()
-                    // )
 
                     const val = valDaily.impediment(pseudoInput(impediment))
                     // means gone wrong
@@ -264,7 +314,6 @@ export const dialog: { [node: string]: Dialog } = {
                         return
                     }
 
-                    // dailyNoteService.add(dailyToAdd)
                     const resp = await dailyNoteService.add(
                         <string>state.get('add_daily_yesterday'),
                         <string>state.get('add_daily_today'),
@@ -284,20 +333,17 @@ export const dialog: { [node: string]: Dialog } = {
     },
 
     cr_help: {
+
+        greet: [
+            'Ok. Sobre HelpCenter, o que você quer fazer?',
+            '{{button(Ver)}}',
+            '{{button(Adicionar)}}'
+        ],
+
         children: [
             {
                 call: ['listar', 'ver', 'mostrar'],
                 goto: 'main',
-                // answer: [
-                //     `{{helpView(list-help-id-$help_list_id, $help_list)}}`
-                // ],
-                // process: async (state: Map<string, any>, match: RegExpExecArray) => {
-                //     state.set('help_list_id', uuidv4())
-                //     state.set('help_list',
-                //         await helpCenterService.list(1, null)
-                //             .then(res => res.json())
-                //     )
-                // }
                 answer: [
                     `{{link(Clique aqui para ver os posts! 😃, ${SELF_HTTPS_HOST}/app-help-center.html)}}`,
                 ]
@@ -305,13 +351,15 @@ export const dialog: { [node: string]: Dialog } = {
             {
                 call: ['adicionar', 'incluir', 'inserir'],
                 goto: 'add_help_title',
-                process: process.checkLoggedIn('cr_help'),
-                answer: ['Qual o seu problema? 😋 (título)']
+                process: process.checkLoggedIn('cr_help')
             }
         ]
     },
 
     add_help_title: {
+
+        greet: ['Qual o seu problema? 😋 (título)'],
+
         children: [
             {
                 call: [/^.*$/],
@@ -330,13 +378,15 @@ export const dialog: { [node: string]: Dialog } = {
                     }
 
                     state.set('add_help_title', title)
-                },
-                answer: ['O que tem a dizer sobre o problema? 🙂']
+                }
             }
         ]
     },
 
     add_help_desc: {
+
+        greet: ['O que tem a dizer sobre o problema? 🙂'],
+
         children: [
             {
                 call: [/^.*$/],
@@ -378,11 +428,6 @@ export const dialog: { [node: string]: Dialog } = {
     },
 
     understandnt: {
-        children: [
-            {
-                goto: 'main',
-                answer: ['Hm... Desculpe, não entendi 😕']
-            }
-        ]
+        greet: ['Hm... Desculpe, não entendi 😕']
     }
 }

@@ -3,6 +3,7 @@ import { HOST } from '../config/index';
 import { dateOfBirth } from '../validation/userValidate';
 
 declare const grecaptcha: any
+
 export class UserService {
 
     add(user: User) {
@@ -152,6 +153,18 @@ export class UserService {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('tkn')}`
             },
+        })
+    }
+
+    checkIfExists(userName: string) {
+        return fetch(`${HOST}user/exists/${userName}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+            }
         })
     }
 }

@@ -45,18 +45,30 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                 authenticate(event) {
                     if (listCheck_1.noFalse(this.authVals)) {
                         const authenticateService = new index_1.AuthenticateService();
+                        const configurationService = new index_1.ConfigurationService();
                         authenticateService.authenticate(this.email.value, this.password.value)
-                            .catch(res => res.json())
                             .then((res) => {
+                            if (res.status === 400) {
+                                grecaptcha.reset();
+                                document.getElementById('message-view').innerHTML = `
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">Email ou senha inválidos.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        `;
+                            }
+                        })
+                            .catch(err => {
+                            console.log(err);
+                            grecaptcha.reset();
                             document.getElementById('message-view').innerHTML = `
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     `;
-                            if (res.erro)
-                                this.messageView.update(res.erro);
                         });
                     }
                     event.preventDefault();
@@ -90,7 +102,12 @@ System.register(["../services/index", "../views/MessageView", "../helpers/index"
                 logout(event) {
                     event.preventDefault();
                     localStorage.clear();
-                    window.location.href = 'home.html';
+                    window.location.href = 'index.html';
+                }
+                checkAdmin() {
+                    event.preventDefault();
+                    const authenticateService = new index_1.AuthenticateService();
+                    return authenticateService.verifyAdmin();
                 }
             };
             exports_1("AuthenticateController", AuthenticateController);

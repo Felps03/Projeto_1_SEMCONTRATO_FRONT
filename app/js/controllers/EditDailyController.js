@@ -36,7 +36,12 @@ System.register(["../services/DailyNoteService", "../models/DailyNote", "../help
                 getDailyData(id) {
                     const dailyService = new DailyNoteService_1.DailyNoteService();
                     return dailyService.listDailyById(id)
-                        .then(res => res.json())
+                        .then(res => {
+                        if (res.status == 200) {
+                            document.getElementById('load-view').setAttribute('hidden', 'true');
+                        }
+                        return res.json();
+                    })
                         .then(result => {
                         this.yesterday.value = result.yesterday;
                         this.today.value = result.today;

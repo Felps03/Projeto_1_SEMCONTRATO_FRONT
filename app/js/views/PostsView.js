@@ -1,49 +1,75 @@
-System.register(["./View"], function (exports_1, context_1) {
+System.register(["./View", "../utils/publish", "../utils/escapeTag"], function (exports_1, context_1) {
     "use strict";
-    var View_1, PostsView;
+    var View_1, publish_1, escapeTag_1, PostsView;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (View_1_1) {
                 View_1 = View_1_1;
+            },
+            function (publish_1_1) {
+                publish_1 = publish_1_1;
+            },
+            function (escapeTag_1_1) {
+                escapeTag_1 = escapeTag_1_1;
             }
         ],
         execute: function () {
             PostsView = class PostsView extends View_1.View {
                 template(model) {
-                    return `
-        <div class="container">
-            ${model.toArray().map((post, i) => `
-            <div class="card d-flex flex-row justify-content-center align-items-stretch row mb-3">
-                <div class="col-md-3 col-12 text-center d-flex align-items-stretch">
-                    <div class="d-flex flex-row flex-md-column align-items-center justify-content-around p-3 w-100">
-                        <div>
-                            <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
-                            <h5 class="mt-2 mb-2">${post.AuthorName ? post.AuthorName : ""}</h5>
-                            <p class="mt-2 mb-2">${post.Date}</p>
+                    if (model.toArray().reverse().length == 0) {
+                        return `<div class='text-black-50 mt-4'>Nenhuma pergunta encontrada.</div>`;
+                    }
+                    else {
+                        return `
+            ${model.toArray().map((post, i) => {
+                            const canEdit = post.AuthorId === localStorage.getItem('id') || localStorage.getItem('isAdmin') === 'true';
+                            return `
+               
+                <div class="clicker">
+                <hr style="height: 1px;">
+                <a href="app-help-asks.html?id=${post.Id}" class="text-help">
+            
+                <div class="col-sm-11 col-12 mt-n2 mb-n3 d-flex align-items-stretch responsive-full-help">
+                    <div class="d-flex flex-column text-center align-items-center pl-3 pr-3 w-100">
+                        <div class="responsive-user-help">
+                            <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class=" clock-image">
+                            <h6 class="mt-2 responsive-user-name">${post.AuthorName ? escapeTag_1.escapeTag(post.AuthorName) : ""}</h6>
                         </div>
-                        <a href="app-help-asks.html?id=${post.Id}">
-                            <button class="btn btn-default btn-sm btn-info">
-                                <i class="material-icons"> forum </i>
-                            </button>
-                        </a>
-
                     </div>
-                </div>
-                <div class="col-md-9 col-12 card-body">
-                    <div class="card mb-2">
-                        <div class="card-body">
 
-                            <h5>${post.Title}</h5>
-                            <p>${post.Desc}</p>
+                    <div class="col-9 col-sm-12 responsive-help-card">
+                        <div class="row">
+                            <div class="col-12 col-sm-12">
+    
+                                <div class="word-cut"><h5><strong>${escapeTag_1.escapeTag(post.Title)}</strong></h5></div>
+                                
+                                <div class="text-black-50 mt-n2">
+                                    <i class="tiny material-icons align-middle">access_alarm</i>
+                                    ${publish_1.publish(post.Date)}
+                                </div>
+    
+                            </div>
+                        </div>
                             
-                        </div>
-                    </div>
+                    </div> 
                 </div>
-            </div>
-            `).join('')}
-        </div>
+        
+                </a>  
+                </div>
+            
+            `;
+                        }).join('')}       
         `;
+                    }
+                }
+                update(model, totalPages) {
+                    super.update(model, totalPages);
+                    if (this.didMountFn)
+                        this.didMountFn();
+                }
+                didMount(cb) {
+                    this.didMountFn = cb;
                 }
             };
             exports_1("PostsView", PostsView);

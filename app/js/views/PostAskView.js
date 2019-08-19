@@ -1,11 +1,14 @@
-System.register(["./View"], function (exports_1, context_1) {
+System.register(["./View", "../utils/escapeTag"], function (exports_1, context_1) {
     "use strict";
-    var View_1, PostAskView;
+    var View_1, escapeTag_1, PostAskView;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (View_1_1) {
                 View_1 = View_1_1;
+            },
+            function (escapeTag_1_1) {
+                escapeTag_1 = escapeTag_1_1;
             }
         ],
         execute: function () {
@@ -19,9 +22,10 @@ System.register(["./View"], function (exports_1, context_1) {
                     this.lastModel = model;
                     const canEdit = model.Author === localStorage.getItem('id') || localStorage.getItem('isAdmin') === 'true';
                     return `
+        
             <div class="card mb-2">
                 <div class="card-body inline-block">
-                    <h5>${model.AuthorName}</h5>
+                    <h5>${escapeTag_1.escapeTag(model.AuthorName)}</h5>
                     <p class="mt-2 mb-2">${model.Date}</p>
                     <form action="" class="comment-edit" id="comment-edit-form-${model.Id}">
 
@@ -29,10 +33,10 @@ System.register(["./View"], function (exports_1, context_1) {
                     <div class="form-group">
                         <textarea name="first" class="form-control form-control-sm input-circle"
                             id="comment-edit-${model.Id}" placeholder="Sugira soluções ou contribua à discussão"
-                            autofocus>${model.Desc}</textarea>
+                            autofocus>${escapeTag_1.escapeTag(model.Desc)}</textarea>
                         <div id="comment-editvalidator"></div>
                     </div>
-                    ` : `<p>${model.Desc}</p>` : ''}
+                    ` : `<p>${escapeTag_1.escapeTag(model.Desc)}</p>` : ''}
 
                     ${model.Author ? canEdit && this.editing ? `
                     <button type="submit"
@@ -52,6 +56,7 @@ System.register(["./View"], function (exports_1, context_1) {
                     </button>
                 </div>
             </div>
+        
         `;
                 }
                 update(model) {

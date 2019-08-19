@@ -4,7 +4,6 @@ import { HelpCenterController } from "./controllers/HelpCenterController";
 import { DailyNoteController } from "./controllers/DailyNoteController";
 import { getUser } from "./utils/userData";
 import { AuthenticateController } from "./controllers/AuthenticateController";
-import { ChatBotController } from "./controllers/ChatBotController";
 import { PasswordRecoveryController } from "./controllers/PasswordRecoveryController";
 
 import { ConfigurationService } from "./services/ConfigurationService";
@@ -15,8 +14,6 @@ declare const grecaptcha: any;
 let userData = getUser();
 
 let homeController = new HomeController();
-let chatBotController = new ChatBotController();
-
 if (localStorage.getItem('tkn')) {
     window.location.href = "index.html";
 }
@@ -44,14 +41,29 @@ if (recoveryPasswordCancel) {
     recoveryPasswordCancel.addEventListener('click', homeController.cancel.bind(homeController));
 }
 let configurationService = new ConfigurationService();
+let captcha: any;
 configurationService.listAll()
-    .then(res => res.json())
     .then(res => {
-        if(res.recaptcha) $("#recaptcha").show()
-        else $("#recaptcha").hide()
+        // console.log(res);
+        return res.json()
+    })
+    .then(res => {
+        // console.log("res: ", res);
+        // console.log("res.recaptcha: ", res.recaptcha);
+        captcha = res.recaptcha;
+        if (res.recaptcha) $("#recaptcha").show()
+        else $("#recaptcha").hide();
+        // console.log(res.captcha);
+
+        // console.log('captcha: ', captcha);
+        return res.captcha;
     })
     .catch(err => {
         console.log(err);
-    })
+    });
 
-
+    //Responsive
+if (window.innerWidth <= 576) {
+    document.getElementById('recovery-pass').classList.add('btn-block');
+    document.getElementById('recoveryPasswordCancel').classList.add('btn-block');
+}

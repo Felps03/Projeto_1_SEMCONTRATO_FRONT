@@ -3,6 +3,7 @@ import { dialog, DialogBranch, mainBranch } from './chatBotTree'
 import { normalize, delay } from '../../utils/index'
 import { parseState } from './chatAnswerParser'
 import { promiser } from '../../utils/promiser';
+import { resolveAll } from '../../utils/resolveAll';
 
 export class ChatBotManager {
     private chat: Chat
@@ -24,7 +25,6 @@ export class ChatBotManager {
 
         // simpler conditions weren't possible for some reason
         if (this.chat.History.length === 0) {
-            console.log('init')
             yield* this.answer()
         } else {
             yield this.chat
@@ -85,16 +85,20 @@ export class ChatBotManager {
 
                     this.store()
 
-                    for (let msg of dialog['understandnt'].children[0].answer) {
-                        if (typeof msg === 'string') {
-                            yield delay(this.message(
-                                [
-                                    ChatAgent.Bot,
-                                    parseState(this.state, msg)
-                                ]
-                            ), this.DELAY_TIME)
-                        }
+                    for (let msg of await resolveAll(dialog['understandnt'].greet, this.state)) {
+
+                        yield delay(this.message(
+                            msg
+                        ), this.DELAY_TIME)
+
                     }
+
+                    // because people were confused
+                    const actualBranch = dialog[this.context]
+                    for (const msg of await resolveAll(actualBranch.greet, this.state)) {
+                        yield delay(this.message(msg), this.DELAY_TIME)
+                    }
+
                 }
                 // if answering to nothing
             } else {
@@ -117,7 +121,7 @@ export class ChatBotManager {
             }
 
         } else {
-            this.context = Object.getOwnPropertyNames(dialog)[0]
+            this.context = mainBranch.goto;
         }
         // })
     }
@@ -135,7 +139,7 @@ export class ChatBotManager {
 
     // here be dragons
     async toBranch(branch: DialogBranch | string, match: RegExpExecArray): Promise<[ChatAgent, string][]> {
-        console.log('>>', this.context)
+        // console.log('>>', this.context)
         if (typeof branch === 'string') {
             if (branch === mainBranch.goto) {
                 this.state = new Map<string, any>()
@@ -181,26 +185,7 @@ export class ChatBotManager {
 
         } else {
 
-            if (branch.answer) {
-                msgs = branch.answer.reduce((msgs, msg) => {
-                    if (msg instanceof Function) {
-                        const msgVal = promiser(msg(actualState))
-                        promises.push(msgVal)
-
-                    } else
-                        msgs.push([ChatAgent.Bot, parseState(actualState, msg)])
-
-                    return msgs
-
-                }, ([] as [ChatAgent, string][]))
-            }
-
-            await Promise.all(promises).then((ress: string[]) => {
-                ress.forEach(res => {
-                    if (res)
-                        msgs.push([ChatAgent.Bot, parseState(actualState, res)])
-                })
-            })
+            msgs = await resolveAll(branch.answer, actualState)
         }
 
         const possibleGreet = dialog[this.context].greet
@@ -212,12 +197,7 @@ export class ChatBotManager {
         }
 
         if (possibleGreet) {
-            possibleGreet.forEach(greet => {
-                msgs.push([
-                    ChatAgent.Bot,
-                    parseState(actualState, greet)
-                ])
-            })
+            msgs = msgs.concat(await resolveAll(possibleGreet, actualState))
         }
 
         if (possibleFlow) {

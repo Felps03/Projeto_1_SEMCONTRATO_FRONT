@@ -25,7 +25,11 @@ System.register(["../config/index"], function (exports_1, context_1) {
                                 "g-recaptcha-response": grecaptcha.getResponse()
                             })
                         }).then(res => {
-                            if (res.status !== 200) {
+                            console.log(res.status);
+                            if (res.status === 400) {
+                                return resolve(res);
+                            }
+                            if (res.status === 406) {
                                 return reject(res);
                             }
                             const token = res.headers.get("Token");
@@ -38,7 +42,7 @@ System.register(["../config/index"], function (exports_1, context_1) {
                                 localStorage.setItem('id', result[0]['_id']);
                                 localStorage.setItem('isAdmin', result[0]['isAdmin']);
                                 window.location.href = "index.html";
-                                resolve();
+                                resolve(res);
                             });
                         });
                     });
@@ -66,9 +70,16 @@ System.register(["../config/index"], function (exports_1, context_1) {
                             "emailCode": emailCode,
                             "email": email
                         })
-                    }).catch(err => {
-                        console.log(err);
-                        return err;
+                    });
+                }
+                verifyAdmin() {
+                    return fetch(`${index_1.HOST}users/user/check`, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json, text/plain, */*',
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                        },
                     });
                 }
             };

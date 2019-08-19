@@ -1,10 +1,13 @@
 import { Authenticate } from "../models/index";
-import { AuthenticateService, UserService } from "../services/index";
+import { AuthenticateService, UserService, ConfigurationService } from "../services/index";
 import { MessageView } from '../views/MessageView'
 
 import { validate } from '../helpers/index'
 import * as vals from '../validation/userValidate';
-import { noFalse } from '../utils/listCheck'
+import { noFalse } from '../utils/listCheck';
+import { getCaptchaConfig } from '../utils/getConfig';
+
+declare const grecaptcha: any
 
 export class AuthenticateController {
 
@@ -48,60 +51,84 @@ export class AuthenticateController {
         if (noFalse(this.authVals)) {
 
             const authenticateService = new AuthenticateService();
+            const configurationService = new ConfigurationService();
 
             authenticateService.authenticate(this.email.value, this.password.value)
-                .catch(res => res.json())
                 .then((res: any) => {
-                    document.getElementById('message-view').innerHTML = `
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    `;
-                    if (res.erro)
-                        this.messageView.update(res.erro)
-                });
-        }
+                    if (res.status === 400) {
 
-        event.preventDefault();
-    }
+                        grecaptcha.reset();
 
-    resetPassword(event: Event) {
-        event.preventDefault();
-
-        if (noFalse(this.passRecVals)) {
-            // /users/user/recover
-            const userService = new UserService();
-            const authenticateService = new AuthenticateService();
-
-            authenticateService.resetPassword(this.emailRec.value.toString())
-                .then(res => {
-                    if (Math.floor(res.status / 100) === 2) {
-                        res.json()
-                            .then(() => {
-                                document.getElementById('recoveryModal-close').click();
-                                this.messageView.update('Foi enviado um email para você, siga as instruções contidas nele para continuar.<br>Por favor verificar a seção de <i>spam</i>.');
-                            })
-                            .catch(error => {
-                                console.error(error);
-                            })
-                    } else {
-                        res.json()
-                            .then((erres) => {
-                                this.messageView.update(erres.erro);
-                            })
+                        document.getElementById('message-view').innerHTML = `
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">Email ou senha inválidos.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        `;
                     }
-                });
+                })
+                .catch(err => {
+                    console.log(err);
+
+                    grecaptcha.reset();
+
+                    document.getElementById('message-view').innerHTML = `
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">Marque a caixa de dialogo do reCAPTCHA!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    `;
+                })
         }
-    }
 
-    logout(event: Event) {
         event.preventDefault();
-
-        localStorage.clear();
-        window.location.href = 'home.html';
     }
+
+resetPassword(event: Event) {
+    event.preventDefault();
+
+    if (noFalse(this.passRecVals)) {
+        // /users/user/recover
+        const userService = new UserService();
+        const authenticateService = new AuthenticateService();
+
+        authenticateService.resetPassword(this.emailRec.value.toString())
+            .then(res => {
+                if (Math.floor(res.status / 100) === 2) {
+                    res.json()
+                        .then(() => {
+                            document.getElementById('recoveryModal-close').click();
+                            this.messageView.update('Foi enviado um email para você, siga as instruções contidas nele para continuar.<br>Por favor verificar a seção de <i>spam</i>.');
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        })
+                } else {
+                    res.json()
+                        .then((erres) => {
+                            this.messageView.update(erres.erro);
+                        })
+                }
+            });
+    }
+}
+
+logout(event: Event) {
+    event.preventDefault();
+
+    localStorage.clear();
+    window.location.href = 'index.html';
+}
+
+checkAdmin() {
+    event.preventDefault();
+
+    const authenticateService = new AuthenticateService();
+    return authenticateService.verifyAdmin();
+
+}
 
     // logout(event: Event) {
     //     event.preventDefault();
@@ -127,4 +154,5 @@ export class AuthenticateController {
     //     });
 
     // }
+
 }

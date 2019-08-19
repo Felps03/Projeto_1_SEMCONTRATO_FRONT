@@ -45,7 +45,7 @@ export const helpView = (id: string, model: string) => {
         const parsedModel = JSON.parse(model)
 
         const posts = Posts.from(parsedModel.slice(0, -1));
-        postsView.update(posts)
+        // postsView.update(posts)
 
         // ad-hoc
         const chatBotHistory = document.getElementById('chatbot-history')
