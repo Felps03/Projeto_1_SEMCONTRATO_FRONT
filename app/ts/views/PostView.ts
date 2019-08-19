@@ -1,5 +1,6 @@
 import { View } from './View';
 import { Post } from '../models/index';
+import { escapeTag } from '../utils/escapeTag';
 
 export class PostView extends View<Post> {
 
@@ -40,12 +41,12 @@ export class PostView extends View<Post> {
                             <div class="input-group">
                                 <input type="text" name="title" id="edit-title"
                                     class="form-control form-control input-circle"
-                                    placeholder="Pesquisar por título" value="${model.Title}">
+                                    placeholder="Pesquisar por título" value="${escapeTag(model.Title)}">
                                 <div id="edit-titlevalidator"></div>
                             </div>
                         </div>` : `
                         <div class="d-flex align-items-center">
-                            <h2>${model.Title}</h2>
+                            <h2>${escapeTag(model.Title)}</h2>
                             <!-- <img class="rounded-circle" width="70" src="app/img/teste.jpg" alt="Card image cap"> -->
                         </div>`: ''}
 
@@ -54,11 +55,11 @@ export class PostView extends View<Post> {
                             <label for="edit-desc">Descrição:</label>
                             <div class="input-group">
                                 <textarea name="desc" class="form-control input-circle" id="edit-desc"
-                                    placeholder="Pesquisar por descrição" autofocus>${model.Desc}</textarea>
+                                    placeholder="Pesquisar por descrição" autofocus>${escapeTag(model.Desc)}</textarea>
                                 <div id="edit-descvalidator"></div>
                             </div>
                         </div>` : `
-                        <p>${model.Desc.replace('\n', '<br>')}</p>` : ''}
+                        <p>${escapeTag(model.Desc).replace('\n', '<br>')}</p>` : ''}
 
                         ${model.AuthorId ? canEdit && this.editing ? `
                         <button type="submit"
@@ -104,7 +105,7 @@ export class PostView extends View<Post> {
 
                 </div>
             </div>
-
+        
         `
     }
 

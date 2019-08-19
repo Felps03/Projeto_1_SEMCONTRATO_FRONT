@@ -6,11 +6,15 @@ System.register([], function (exports_1, context_1) {
         setters: [],
         execute: function () {
             HomeHelpCenter = class HomeHelpCenter {
-                constructor(owner, date, title, description) {
+                constructor(id, owner, date, title, description) {
+                    this.id = id;
                     this.owner = owner;
                     this.date = new Date(date);
                     this.title = title;
                     this.description = description;
+                }
+                get Id() {
+                    return this.id;
                 }
                 get Owner() {
                     return this.owner;

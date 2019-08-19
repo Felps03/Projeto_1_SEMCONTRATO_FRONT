@@ -34,7 +34,6 @@ System.register(["../config/index"], function (exports_1, context_1) {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${localStorage.getItem('tkn')}`,
-                            'id_user': localStorage.getItem('id')
                         },
                         body: JSON.stringify({
                             "id_user": localStorage.getItem('id'),
@@ -63,7 +62,7 @@ System.register(["../config/index"], function (exports_1, context_1) {
                     });
                 }
                 listLastHelp() {
-                    return fetch(`${index_1.HOST}helps/list/post/1`, {
+                    return fetch(`${index_1.HOST}helps/last`, {
                         method: 'GET',
                         headers: {
                             'Accept': 'application/json',
@@ -99,8 +98,8 @@ System.register(["../config/index"], function (exports_1, context_1) {
                     });
                 }
                 listByID(ID) {
-                    return fetch(`${index_1.HOST}helps/post/${ID}`, {
-                        method: 'DELETE',
+                    return fetch(`${index_1.HOST}helps/list/${ID}`, {
+                        method: 'GET',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json',

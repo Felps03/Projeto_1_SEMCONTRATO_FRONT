@@ -1,5 +1,6 @@
 import { View } from './View';
 import { PostAsk } from '../models/index';
+import { escapeTag } from '../utils/escapeTag';
 
 export class PostAskView extends View<PostAsk> {
 
@@ -21,9 +22,10 @@ export class PostAskView extends View<PostAsk> {
         const canEdit = model.Author === localStorage.getItem('id') || localStorage.getItem('isAdmin') === 'true'
 
         return `
+        
             <div class="card mb-2">
                 <div class="card-body inline-block">
-                    <h5>${model.AuthorName}</h5>
+                    <h5>${escapeTag(model.AuthorName)}</h5>
                     <p class="mt-2 mb-2">${model.Date}</p>
                     <form action="" class="comment-edit" id="comment-edit-form-${model.Id}">
 
@@ -31,10 +33,10 @@ export class PostAskView extends View<PostAsk> {
                     <div class="form-group">
                         <textarea name="first" class="form-control form-control-sm input-circle"
                             id="comment-edit-${model.Id}" placeholder="Sugira soluções ou contribua à discussão"
-                            autofocus>${model.Desc}</textarea>
+                            autofocus>${escapeTag(model.Desc)}</textarea>
                         <div id="comment-editvalidator"></div>
                     </div>
-                    ` : `<p>${model.Desc}</p>` : ''}
+                    ` : `<p>${escapeTag(model.Desc)}</p>` : ''}
 
                     ${ model.Author ? canEdit && this.editing ? `
                     <button type="submit"
@@ -54,6 +56,7 @@ export class PostAskView extends View<PostAsk> {
                     </button>
                 </div>
             </div>
+        
         `;
     }
 

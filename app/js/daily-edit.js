@@ -45,6 +45,9 @@ System.register(["./controllers/EditDailyController", "./utils/userData"], funct
             else {
                 window.location.href = "index.html";
             }
+            if (window.innerWidth <= 576) {
+                document.getElementById('access').classList.add('btn-block');
+            }
         }
     };
 });
