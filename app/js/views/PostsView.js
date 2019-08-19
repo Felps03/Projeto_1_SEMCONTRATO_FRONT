@@ -31,22 +31,22 @@ System.register(["./View", "../utils/publish", "../utils/escapeTag"], function (
                 <a href="app-help-asks.html?id=${post.Id}" class="text-help">
             
                 <div class="col-sm-11 col-12 mt-n2 mb-n3 d-flex align-items-stretch responsive-full-help">
-                    <div class="d-flex flex-column text-center align-items-center pl-3 pr-3 w-100">
+                    <div class="d-flex flex-column text-center align-items-center w-100">
                         <div class="responsive-user-help">
-                            <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class=" clock-image">
-                            <h6 class="mt-2 responsive-user-name">${post.AuthorName ? escapeTag_1.escapeTag(post.AuthorName) : ""}</h6>
+                            <img src="https://image.flaticon.com/icons/png/512/64/64572.png" class="user-def-image">
+                            
                         </div>
                     </div>
 
                     <div class="col-9 col-sm-12 responsive-help-card">
                         <div class="row">
-                            <div class="col-12 col-sm-12">
-    
+                            <div class="col-12 col-sm-12 px-0 card-description-responsive">
+                           
                                 <div class="word-cut"><h5><strong>${escapeTag_1.escapeTag(post.Title)}</strong></h5></div>
                                 
-                                <div class="text-black-50 mt-n2">
+                                <div class="text-black-50 mt-n2 mb-2">
                                     <i class="tiny material-icons align-middle">access_alarm</i>
-                                    ${publish_1.publish(post.Date)}
+                                    ${publish_1.publish(post.Date)} por ${post.AuthorName ? escapeTag_1.escapeTag(post.AuthorName) : ""}.
                                 </div>
     
                             </div>

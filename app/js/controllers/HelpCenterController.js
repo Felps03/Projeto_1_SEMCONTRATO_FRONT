@@ -143,7 +143,6 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                 }
                 list(event) {
                     event.preventDefault();
-                    console.log('listando whatever');
                     const helpCenterService = new index_2.HelpCenterService();
                     helpCenterService
                         .list(this.currentPage, null)
@@ -208,13 +207,11 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                 }
                 findByJoker(event) {
                     event.preventDefault();
-                    console.log('jokando');
                     let title = this.searchTitle.value;
                     if (!title) {
                         this.list(event);
                         return false;
                     }
-                    console.log('realmente jokando');
                     const helpCenterService = new index_2.HelpCenterService();
                     helpCenterService
                         .findByJoker(title, this.currentPage)
@@ -276,7 +273,6 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                 clearPagination(event) {
                     event.preventDefault();
                     document.getElementById('pagination').innerHTML = '';
-                    console.log('clearng');
                 }
             };
             exports_1("HelpCenterController", HelpCenterController);
