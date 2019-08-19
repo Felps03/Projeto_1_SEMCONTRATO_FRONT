@@ -5,7 +5,7 @@ System.register([], function (exports_1, context_1) {
     return {
         setters: [],
         execute: function () {
-            exports_1("HOST", HOST = 'https://reborn100contrato.azurewebsites.net/');
+            exports_1("HOST", HOST = 'https://100contratoo.azurewebsites.net/');
             exports_1("GOB_HOST", GOB_HOST = 'https://gob-bols.azurewebsites.net/');
         }
     };
