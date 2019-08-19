@@ -1,6 +1,6 @@
 System.register(["./chatBotProcess", "../../services/index", "../../models/Post", "../../utils/index", "../../validation/helpCenterValidate", "../../validation/dailyNoteValidate", "../../utils/toISODate"], function (exports_1, context_1) {
     "use strict";
-    var process, index_1, Post_1, index_2, valHelp, valDaily, toISODate_1, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, helpCenterService, dailyNoteService, userService, actualHours, greeting, mainBranch, dialog;
+    var process, index_1, Post_1, index_2, valHelp, valDaily, toISODate_1, BOT_NAME, NOT_IMPLEMENTED_ANSWER, SELF_HTTPS_HOST, helpCenterService, dailyNoteService, userService, chatBotService, actualHours, greeting, mainBranch, dialog;
     var __moduleName = context_1 && context_1.id;
     function pseudoInput(val) {
         const input = document.createElement('input');
@@ -38,6 +38,7 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
             helpCenterService = new index_1.HelpCenterService();
             dailyNoteService = new index_1.DailyNoteService();
             userService = new index_1.UserService();
+            chatBotService = new index_1.ChatBotService();
             actualHours = new Date().getHours();
             if (actualHours >= 4 && actualHours < 12) {
                 greeting = 'Bom dia';
@@ -123,7 +124,7 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                         },
                         {
                             call: ['nao', 'nop', 'hoje'],
-                            goto: 'main',
+                            goto: 'was_i_helpful',
                             answer: [
                                 `{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html)}}`,
                             ],
@@ -135,7 +136,7 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                     children: [
                         {
                             call: [/(\d{1,2})\/(\d{1,2})\/(\d+)/],
-                            goto: 'main',
+                            goto: 'was_i_helpful',
                             answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?date=$list_daily_note_date)}}`],
                             process: async (state, match) => {
                                 const dateSlot = 'list_daily_note_date';
@@ -161,7 +162,7 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                         {
                             call: [/^((?:[A-Za-z0-9]|_|\-|\.)+)$/],
                             normalize: false,
-                            goto: 'main',
+                            goto: 'was_i_helpful',
                             answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`],
                             process: async (state, match) => {
                                 const userName = match[1];
@@ -235,7 +236,7 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                         {
                             call: [/^.*$/],
                             normalize: false,
-                            goto: 'main',
+                            goto: 'was_i_helpful',
                             process: async (state, match) => {
                                 const impediment = match[0];
                                 const val = valDaily.impediment(pseudoInput(impediment));
@@ -263,7 +264,7 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                     children: [
                         {
                             call: ['listar', 'ver', 'mostrar'],
-                            goto: 'main',
+                            goto: 'was_i_helpful',
                             answer: [
                                 `{{link(Clique aqui para ver os posts! 😃, ${SELF_HTTPS_HOST}/app-help-center.html)}}`,
                             ]
@@ -301,7 +302,7 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                         {
                             call: [/^.*$/],
                             normalize: false,
-                            goto: 'main',
+                            goto: 'was_i_helpful',
                             process: async (state, match) => {
                                 const desc = match[0];
                                 const val = valHelp.desc(pseudoInput(desc));
@@ -321,12 +322,27 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                         }
                     ]
                 },
-                login: {
+                was_i_helpful: {
+                    greet: ['Consegui te ajudar? 😋'],
                     children: [
                         {
+                            call: ['s'],
                             goto: 'main',
-                            answer: NOT_IMPLEMENTED_ANSWER
-                        }
+                            answer: ['Que bom! 🙂'],
+                            process: (state, match) => {
+                                const withoutLast = /.*(?=\.)/.exec(state.get('_PATH'))[0];
+                                chatBotService.feedback(true, withoutLast);
+                            }
+                        },
+                        {
+                            call: ['n'],
+                            goto: 'main',
+                            answer: ['Hm... Espero melhorar no futuro. 🤔'],
+                            process: (state, match) => {
+                                const withoutLast = /.*(?=\.)/.exec(state.get('_PATH'))[0];
+                                chatBotService.feedback(false, withoutLast);
+                            }
+                        },
                     ]
                 },
                 understandnt: {

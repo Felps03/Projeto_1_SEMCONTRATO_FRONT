@@ -69,6 +69,12 @@ export class ChatBotManager {
                             if (processed) {
                                 success = true
 
+                                if (!(synonym instanceof RegExp)) {
+                                    const actualPath = this.state.get('_PATH')
+                                    const first = actualPath === undefined
+                                    this.state.set('_PATH', `${first ? '' : `${actualPath}.`}${synonym}`)
+                                }
+
                                 const msgs = await this.toBranch(branch, processed)
 
                                 for (const msg of msgs) {

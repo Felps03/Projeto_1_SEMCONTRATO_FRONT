@@ -5,3 +5,4 @@ export * from './HelpCenterService';
 export * from './HelpCenterServiceAsk';
 export * from './ConfigurationService';
 export * from './HelpCenterGOBService';
+export * from './ChatBotService'
