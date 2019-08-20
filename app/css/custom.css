@@ -392,12 +392,12 @@ body {
 
 @media(max-width: 600px) {
     #chatbot-area {
-        right: calc(50vw - calc(var(--chat-open-width) / 2) - 9px);
-        /*right: 0;*/
-
         --chat-tab-height: 70px;
         --chat-total-height: 99vh;
         --chat-open-width: calc(99vw - 17px);
+
+        right: calc(50vw - calc(var(--chat-open-width) / 2));
+        /*right: 0;*/
     }
     #chatbot-ducky {
         z-index: 999;
@@ -504,7 +504,7 @@ body {
 }
 
 #chatbot-input {
-    height: var(--chat-input-height);
+    /* height: var(--chat-input-height); */
 }
 
 #chatbot-history ul li .chatbot-options {
