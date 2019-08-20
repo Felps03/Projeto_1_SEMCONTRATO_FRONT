@@ -38,9 +38,9 @@ System.register(["./View", "../utils/publish", "../utils/escapeTag"], function (
                         </div>
                     </div>
 
-                    <div class="col-9 col-sm-12 responsive-help-card">
+                    <div class="col-11 col-sm-12 responsive-help-card">
                         <div class="row">
-                            <div class="col-12 col-sm-12 px-0 card-description-responsive">
+                            <div class="col-12 col-sm-12 card-description-responsive">
                            
                                 <div class="word-cut"><h5><strong>${escapeTag_1.escapeTag(post.Title)}</strong></h5></div>
                                 
