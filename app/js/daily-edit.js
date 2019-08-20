@@ -1,6 +1,6 @@
 System.register(["./controllers/EditDailyController", "./utils/userData"], function (exports_1, context_1) {
     "use strict";
-    var url, url_owner, url_daily, EditDailyController_1, userData_1, idResult, userData;
+    var url, url_owner, url_daily, EditDailyController_1, userData_1, idResult, editController, userData;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -16,9 +16,11 @@ System.register(["./controllers/EditDailyController", "./utils/userData"], funct
             url_owner = url.get('owner');
             url_daily = url.get('id');
             idResult = document.querySelector('#editResult');
+            editController = new EditDailyController_1.EditDailyController();
             userData = userData_1.getUser();
             if (!localStorage.getItem('tkn'))
                 document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+            editController.checkImpediment();
             $('#daily_cancel').click((e) => {
                 e.preventDefault();
                 window.location.href = "app-daily-note.html";

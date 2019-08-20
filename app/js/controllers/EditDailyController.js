@@ -33,6 +33,20 @@ System.register(["../services/DailyNoteService", "../models/DailyNote", "../help
                         index_1.validate(this.impediment, vals.impediment),
                     ];
                 }
+                checkImpediment() {
+                    let yesImpediment = document.getElementById('yesImpediment');
+                    let noImpediment = document.getElementById('noImpediment');
+                    let impediment = document.getElementById('edit-impediment');
+                    noImpediment.addEventListener('change', () => {
+                        impediment.setAttribute('hidden', 'true');
+                        this.impediment.value = 'Nenhum';
+                    });
+                    yesImpediment.addEventListener('change', () => {
+                        impediment.removeAttribute('hidden');
+                        impediment.setAttribute('autofocus', 'true');
+                        this.impediment.value = '';
+                    });
+                }
                 getDailyData(id) {
                     const dailyService = new DailyNoteService_1.DailyNoteService();
                     return dailyService.listDailyById(id)
@@ -46,6 +60,10 @@ System.register(["../services/DailyNoteService", "../models/DailyNote", "../help
                         this.yesterday.value = result.yesterday;
                         this.today.value = result.today;
                         this.impediment.value = result.impediment;
+                        if (this.impediment.value === 'Nenhum') {
+                            this.impediment.value = '';
+                        }
+                        console.log('oi', this.impediment.value);
                         this.idDaily.value = result._id;
                     });
                 }
@@ -53,7 +71,7 @@ System.register(["../services/DailyNoteService", "../models/DailyNote", "../help
                     event.preventDefault();
                     let id = document.querySelector('#idDaily');
                     if (listCheck_1.noFalse(this.addVals)) {
-                        const daily = new DailyNote_1.DailyNote(this.yesterday.value.toString(), this.today.value.toString(), this.impediment.value.toString(), new Date());
+                        const daily = new DailyNote_1.DailyNote(this.yesterday.value.toString(), this.today.value.toString(), new Date(), this.impediment.value.toString());
                         const dailyService = new DailyNoteService_1.DailyNoteService();
                         return dailyService.update(daily, this.idDaily.value.toString());
                     }

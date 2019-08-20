@@ -61,12 +61,16 @@
                         <div id="secondvalidator"></div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="impediment_check">
                         <label for="third">
-                            <strong>3. </strong>Você tem impedimentos? Se sim, qual(is)?
+                            <strong>3. </strong>Você tem impedimentos?
                         </label>
-                        <textarea name="third" class="form-control form-control-sm input-circle"
-                            id="edit-impediment"></textarea>
+
+                        <input type="radio" name="impediment_check" id="yesImpediment" checked> Sim
+                        <input type="radio" name="impediment_check" id="noImpediment"> Não
+
+                        <textarea name="third" class="form-control form-control-sm input-circle" id="edit-impediment"
+                            placeholder="Informe sua resposta aqui"></textarea>
                         <div id="thirdvalidator"></div>
                     </div>
 
