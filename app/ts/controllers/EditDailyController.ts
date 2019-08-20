@@ -32,13 +32,15 @@ export class EditDailyController {
         let noImpediment = document.getElementById('noImpediment')
         let impediment = document.getElementById('edit-impediment')
 
-        noImpediment.addEventListener('click', () => {
+        noImpediment.addEventListener('change', () => {
             impediment.setAttribute('hidden', 'true')
             this.impediment.value = 'Nenhum'
         })
 
-        yesImpediment.addEventListener('click', () => {
+        yesImpediment.addEventListener('change', () => {
             impediment.removeAttribute('hidden')
+            impediment.setAttribute('autofocus', 'true')
+            this.impediment.value = ''
         })
     }
 
@@ -56,6 +58,12 @@ export class EditDailyController {
                 this.yesterday.value = result.yesterday;
                 this.today.value = result.today;
                 this.impediment.value = result.impediment;
+
+                if (this.impediment.value === 'Nenhum') {
+
+                    this.impediment.value = ''
+                }
+                console.log('oi', this.impediment.value);
                 this.idDaily.value = result._id;
 
             })

@@ -87,7 +87,6 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     if (listCheck_1.noFalse(this.addVals)) {
                         let dailyNote = new DailyNote_1.DailyNote(this.yesterday.value.toString(), this.today.value.toString(), new Date(), this.impediment.value.toString());
                         let dailyNoteService = new DailyNoteService_1.DailyNoteService();
-                        console.table(dailyNote);
                         return dailyNoteService.add(this.yesterday.value, this.today.value, this.impediment.value, new Date());
                     }
                 }
