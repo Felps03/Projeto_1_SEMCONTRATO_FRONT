@@ -3,64 +3,47 @@ import { DailyNote, User } from '../models/index';
 import { Chat, ChatAgent } from '../models/Chat';
 import { parseView } from '../helpers/chatbot/chatAnswerParser';
 import { escapeTag } from '../utils/escapeTag';
+import { ChatHistoryView } from './ChatHistoryView';
 
 export class ChatBotView extends View<Chat> {
 
     private didMountFn: Function
-    private lastModel: Chat | null
-    private active: boolean
+    // private lastModel: Chat | null
+    private innerDidMountFn: Function
+
+    private chatHistoryView: ChatHistoryView
 
     constructor(selector: string, escape: boolean = false) {
         super(selector, escape)
-
-        this.active = false
     }
 
     template(model: Chat): string {
-
-        this.lastModel = model
-
         return `
-<div id="chatbot-area" class="position-fixed rounded-0 shadow ${this.active ? 'active' : ''}">
+<div id="chatbot-ducky" class="position-fixed rounded-circle p-1 shadow">
+    <img src="./img/contratinhoduck.png" height="90" style="transform:scaleX(-1)">
+</div>
+
+<div id="chatbot-area" class="position-fixed rounded-0 shadow">
+
+
     <div id="chatbot-tab" class="align-items-center d-flex right-0 pl-3">
         <i class="material-icons">chat</i>
         <h5 class="m-1">Chat</h5>
 
-        <div class="w-100">
-            <img class="float-right mr-3" src="./img/contratinhoduck.png" height="30" style="transform:scaleX(-1)">
+        <div class="ml-auto mr-3">
+            <i class="material-icons">keyboard_arrow_down</i>
         </div>
 
         <!--<a class="w-100" href="#" id="refresh-chat">
             <i class="material-icons float-right mr-3">refresh</i>
         </a>-->
     </div>
-    <div id="chatbot-body">
+    <div id="chatbot-body" class="d-flex">
 
-        <div id="chatbot-history">
-            <ul>
-            ${model.History.map((msg: [ChatAgent, string]) => {
-
-            const author = msg[0]
-            let processedMsg
-            // if the author is the user, escape it
-            if (author === ChatAgent.User) {
-                processedMsg = escapeTag(msg[1])
-            } else {
-                processedMsg = parseView(msg[1])
-            }
-
-            processedMsg = processedMsg.replace(/\n/g, '<br>')
-
-            return `
-                    <li data-author="${author}" class="shadow-sm ${/^\s*{{button\(.*\)}}\s*$/.test(msg[1]) ? 'w-100 p-0' : ''}">
-                        ${processedMsg}
-                    </li>
-                `
-        }).join('')} 
-            </ul>
+        <div id="chatbot-history-view">
         </div>
 
-        <div id="chatbot-input">
+        <div id="chatbot-input" class="mt-auto">
             <div class="p-1 h-100">
                 <form action="" id="chatbot-input-form">
                     <div class="form-group m-1">
@@ -91,17 +74,34 @@ export class ChatBotView extends View<Chat> {
 
     update(model: Chat) {
         super.update(model)
+        this.chatHistoryView = new ChatHistoryView('#chatbot-history-view')
+        this.chatHistoryView.update(model)
 
-        const chatBotHistory = document.getElementById('chatbot-history')
-        chatBotHistory.scrollTo(0, chatBotHistory.scrollHeight)
+        const chatBotArea = document.getElementById('chatbot-area')
 
-        document.getElementById('chatbot-tab').addEventListener('click', () => {
-            this.active = !this.active
-            this.update(this.lastModel)
-        })
+        const handleActive = () => {
+            chatBotArea.classList.toggle('active')
+            //this.updateInner(this.lastModel)
+        }
+
+        document.getElementById('chatbot-tab').addEventListener('click', handleActive)
+        document.getElementById('chatbot-ducky').addEventListener('click', handleActive)
 
         if (this.didMountFn)
             this.didMountFn(model)
+        if (this.innerDidMountFn)
+            this.innerDidMountFn(model)
+    }
+
+    updateInner(model: Chat) {
+        this.chatHistoryView.update(model)
+
+        if (this.innerDidMountFn)
+            this.innerDidMountFn(model)
+    }
+
+    innerDidMount(cb: Function) {
+        this.innerDidMountFn = cb
     }
 
     didMount(cb: Function) {
