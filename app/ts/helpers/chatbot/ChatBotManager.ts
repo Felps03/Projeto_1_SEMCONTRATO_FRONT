@@ -25,6 +25,7 @@ export class ChatBotManager {
 
         // simpler conditions weren't possible for some reason
         if (this.chat.History.length === 0) {
+            this.context = mainBranch.goto
             yield* this.answer()
         } else {
             yield this.chat

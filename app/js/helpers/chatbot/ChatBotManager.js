@@ -55,6 +55,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                     return __asyncGenerator(this, arguments, function* init_1() {
                         this.getFromStorage();
                         if (this.chat.History.length === 0) {
+                            this.context = chatBotTree_1.mainBranch.goto;
                             yield __await(yield* __asyncDelegator(__asyncValues(this.answer())));
                         }
                         else {
