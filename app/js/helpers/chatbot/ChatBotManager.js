@@ -55,6 +55,7 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                     return __asyncGenerator(this, arguments, function* init_1() {
                         this.getFromStorage();
                         if (this.chat.History.length === 0) {
+                            this.context = chatBotTree_1.mainBranch.goto;
                             yield __await(yield* __asyncDelegator(__asyncValues(this.answer())));
                         }
                         else {
@@ -85,6 +86,11 @@ System.register(["../../models/Chat", "./chatBotTree", "../../utils/index", "./c
                                             const processed = new RegExp(synonym).exec(branch.normalize ? normalizedMsg : lastMsg[1]);
                                             if (processed) {
                                                 success = true;
+                                                if (!(synonym instanceof RegExp)) {
+                                                    const actualPath = this.state.get('_PATH');
+                                                    const first = actualPath === undefined;
+                                                    this.state.set('_PATH', `${first ? '' : `${actualPath}.`}${synonym}`);
+                                                }
                                                 const msgs = yield __await(this.toBranch(branch, processed));
                                                 for (const msg of msgs) {
                                                     yield yield __await(index_1.delay(this.message(msg), branch.artificialDelay ? this.DELAY_TIME : 0));
