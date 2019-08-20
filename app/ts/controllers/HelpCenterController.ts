@@ -196,8 +196,6 @@ export class HelpCenterController {
 		// 	buttonAddHC.classList.add('display-none');
 		// }
 
-		console.log('listando whatever')
-
 		const helpCenterService = new HelpCenterService();
 		helpCenterService
 			.list(this.currentPage, null)
@@ -301,15 +299,11 @@ export class HelpCenterController {
 	findByJoker(event: Event) {
 		event.preventDefault();
 
-		console.log('jokando')
-
 		let title = this.searchTitle.value;
 		if (!title) {
 			this.list(event)
 			return false
 		}
-
-		console.log('realmente jokando')
 
 		const helpCenterService = new HelpCenterService();
 		helpCenterService
@@ -415,7 +409,6 @@ export class HelpCenterController {
 
 	clearPagination(event: Event) {
 		event.preventDefault()
-		document.getElementById('pagination').innerHTML = ''
-		console.log('clearng')
+		document.getElementById('pagination').innerHTML = '';
 	}
 }

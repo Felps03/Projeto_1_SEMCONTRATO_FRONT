@@ -17,9 +17,14 @@ export class ChatBotController {
         this.chatBotView.didMount((model: Chat) => {
 
             document.getElementById('chatbot-clear').addEventListener('click', this.clear.bind(this))
+            document.getElementById('chatbot-input-form').addEventListener('submit', this.message.bind(this))
 
-            Array.from(
-                document.getElementById('chatbot-history').getElementsByTagName('button')).forEach(button => {
+            this.messageInput = <HTMLInputElement>document.getElementById('chatbot-input-field')
+        })
+
+        this.chatBotView.innerDidMount((model: Chat) => {
+            Array.from(document.getElementById('chatbot-history').getElementsByTagName('button'))
+                .forEach(button => {
 
                     button.addEventListener('click',
                         this.message.bind(
@@ -29,9 +34,6 @@ export class ChatBotController {
                     )
 
                 })
-            document.getElementById('chatbot-input-form').addEventListener('submit', this.message.bind(this))
-
-            this.messageInput = <HTMLInputElement>document.getElementById('chatbot-input-field')
         })
 
         this.chatBotManager = new ChatBotManager();
@@ -49,14 +51,15 @@ export class ChatBotController {
 
         if (!msg) {
             msg = [ChatAgent.User, this.messageInput.value]
+            this.messageInput.value = ''
         }
 
-        this.chatBotView.update(
+        this.chatBotView.updateInner(
             this.chatBotManager.message(msg)
         )
 
         for await (const chat of this.chatBotManager.answer()) {
-            this.chatBotView.update(chat)
+            this.chatBotView.updateInner(chat)
         }
     }
 
@@ -64,7 +67,7 @@ export class ChatBotController {
         event.preventDefault()
 
         for await (const chat of this.chatBotManager.clear()) {
-            this.chatBotView.update(
+            this.chatBotView.updateInner(
                 chat
             )
         }
