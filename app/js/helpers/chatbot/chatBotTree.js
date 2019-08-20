@@ -323,7 +323,11 @@ System.register(["./chatBotProcess", "../../services/index", "../../models/Post"
                     ]
                 },
                 was_i_helpful: {
-                    greet: ['Consegui te ajudar? 😋'],
+                    greet: [
+                        'Consegui te ajudar? 😋',
+                        '{{button(Sim)}}',
+                        '{{button(Não)}}'
+                    ],
                     children: [
                         {
                             call: ['s'],

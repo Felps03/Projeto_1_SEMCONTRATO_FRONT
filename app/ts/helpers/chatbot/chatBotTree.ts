@@ -420,7 +420,11 @@ export const dialog: { [node: string]: Dialog } = {
 
     was_i_helpful: {
 
-        greet: ['Consegui te ajudar? 😋'],
+        greet: [
+            'Consegui te ajudar? 😋',
+            '{{button(Sim)}}',
+            '{{button(Não)}}'
+        ],
 
         children: [
             {
