@@ -45,9 +45,13 @@ System.register(["./View", "../utils/publish", "../utils/escapeTag"], function (
                                     
                                     <div class="text-black-50 mt-n2 mb-2">
                                         <i class="tiny material-icons align-middle">access_alarm</i>
-                                        ${publish_1.publish(post.Date)} por ${post.AuthorName ? escapeTag_1.escapeTag(post.AuthorName) : ""}.
+                                        ${publish_1.publish(post.Date)}
                                     </div>
-        
+
+                                    <div class="text-black-50 mt-n2 mb-2">
+                                        <i class="tiny material-icons align-middle">perm_identity</i>
+                                        <strong>${post.AuthorName ? escapeTag_1.escapeTag(post.AuthorName) : ""}</strong>
+                                    </div>
                                 </div>
                             </div>
                                 

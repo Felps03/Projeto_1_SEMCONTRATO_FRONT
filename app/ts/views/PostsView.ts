@@ -36,9 +36,13 @@ export class PostsView extends View<Posts> {
                                     
                                     <div class="text-black-50 mt-n2 mb-2">
                                         <i class="tiny material-icons align-middle">access_alarm</i>
-                                        ${publish(post.Date)} por ${post.AuthorName ? escapeTag(post.AuthorName) : ""}.
+                                        ${publish(post.Date)}
                                     </div>
-        
+
+                                    <div class="text-black-50 mt-n2 mb-2">
+                                        <i class="tiny material-icons align-middle">perm_identity</i>
+                                        <strong>${post.AuthorName ? escapeTag(post.AuthorName) : ""}</strong>
+                                    </div>
                                 </div>
                             </div>
                                 
