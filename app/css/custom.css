@@ -581,7 +581,11 @@ body {
 
 
 
-
+@media (min-width: 1578px) {
+    .card-description-responsive {
+        margin-left: -1px;
+    }
+}
 
 
 /* FIXME */
@@ -606,6 +610,7 @@ body {
 
     .resp-add-help-icon {
         display: block;
+        margin-bottom: 0.01px;
     }
 
     .page-position {
@@ -788,8 +793,6 @@ body {
     .responsive-help-buttons {
         display: none;
     }
-
-    
   
     .edit-help-resp:hover, .rmv-help-resp:hover, .res-help-resp:hover {
         background: #c5c5c5;
@@ -821,7 +824,7 @@ body {
     }
 
     .help-line {
-        width: 110%;
+        width: 116%;
     }
 
     #send_answer {
