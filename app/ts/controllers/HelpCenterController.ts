@@ -70,6 +70,9 @@ export class HelpCenterController {
 			})
 		})
 
+		// prevent search submit  (enter)
+		document.getElementById('search-form').addEventListener('submit', e => e.preventDefault())
+
 		this.protected = true
 	}
 
@@ -315,6 +318,9 @@ export class HelpCenterController {
 		helpCenterService
 			.findByJoker(title, this.currentPage)
 			.then((result) => {
+				if (result.status == 200) {
+					document.getElementById('load-view').setAttribute('hidden', 'true');
+				}
 				return result.json();
 			})
 			.then((res) => {

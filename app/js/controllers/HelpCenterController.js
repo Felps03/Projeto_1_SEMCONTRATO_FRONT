@@ -51,6 +51,7 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                             button.addEventListener('click', this.delete.bind(this, id));
                         });
                     });
+                    document.getElementById('search-form').addEventListener('submit', e => e.preventDefault());
                     this.protected = true;
                 }
                 set CurrentSearch(term) {
@@ -219,6 +220,9 @@ System.register(["../models/index", "../services/index", "../helpers/index", "..
                     helpCenterService
                         .findByJoker(title, this.currentPage)
                         .then((result) => {
+                        if (result.status == 200) {
+                            document.getElementById('load-view').setAttribute('hidden', 'true');
+                        }
                         return result.json();
                     })
                         .then((res) => {
