@@ -64,13 +64,28 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                     this.addVals = [
                         index_1.validate(this.yesterday, vals.yesterday),
                         index_1.validate(this.today, vals.today),
-                        index_1.validate(this.impediment, vals.impediment)
+                        index_1.validate(this.impediment, (input) => {
+                            if (!input.el.getAttribute('hidden'))
+                                return vals.impediment(input);
+                        })
                     ];
+                }
+                checkImpediment() {
+                    let yesImpediment = document.getElementById('yesImpediment');
+                    let noImpediment = document.getElementById('noImpediment');
+                    let impediment = document.getElementById('impediment');
+                    noImpediment.addEventListener('click', () => {
+                        impediment.setAttribute('hidden', 'true');
+                        this.impediment.value = 'Nenhum';
+                    });
+                    yesImpediment.addEventListener('click', () => {
+                        impediment.removeAttribute('hidden');
+                    });
                 }
                 add(event) {
                     event.preventDefault();
                     if (listCheck_1.noFalse(this.addVals)) {
-                        let dailyNote = new DailyNote_1.DailyNote(this.yesterday.value.toString(), this.today.value.toString(), this.impediment.value.toString(), new Date());
+                        let dailyNote = new DailyNote_1.DailyNote(this.yesterday.value.toString(), this.today.value.toString(), new Date(), this.impediment.value.toString());
                         let dailyNoteService = new DailyNoteService_1.DailyNoteService();
                         return dailyNoteService.add(this.yesterday.value, this.today.value, this.impediment.value, new Date());
                     }
@@ -198,7 +213,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         }
                         result.then((result) => {
                             result.forEach((r) => {
-                                const daily = new DailyNote_1.DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
+                                const daily = new DailyNote_1.DailyNote(r.yesterday, r.today, new Date(r.date), r.impediment);
                                 let totalPages;
                                 if (r.hasOwnProperty('totalPages')) {
                                     totalPages = parseInt(r.totalPages);
@@ -261,7 +276,7 @@ System.register(["../models/DailyNote", "../services/DailyNoteService", "../help
                         result.then(result => {
                             result.forEach((r) => {
                                 console.log('>>>', r);
-                                const daily = new DailyNote_1.DailyNote(r.yesterday, r.today, r.impediment, new Date(r.date));
+                                const daily = new DailyNote_1.DailyNote(r.yesterday, r.today, new Date(r.date), r.impediment);
                                 let totalPages;
                                 if (r.hasOwnProperty('totalPages')) {
                                     totalPages = parseInt(r.totalPages);

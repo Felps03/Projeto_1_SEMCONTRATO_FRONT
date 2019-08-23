@@ -27,6 +27,7 @@ System.register(["./controllers/DailyNoteController", "./utils/userData"], funct
                 cancel.addEventListener('click', controller.cancel.bind(controller));
             if (showDaylies)
                 showDaylies.addEventListener('click', controller.showAllDailys.bind(controller));
+            controller.checkImpediment();
             $(document).ready(() => {
                 document.getElementById('showDaylies').click();
                 setTimeout(() => {

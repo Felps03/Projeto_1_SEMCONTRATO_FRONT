@@ -1,68 +1,48 @@
-System.register(["./View", "../models/Chat", "../helpers/chatbot/chatAnswerParser", "../utils/escapeTag"], function (exports_1, context_1) {
+System.register(["./View", "./ChatHistoryView"], function (exports_1, context_1) {
     "use strict";
-    var View_1, Chat_1, chatAnswerParser_1, escapeTag_1, ChatBotView;
+    var View_1, ChatHistoryView_1, ChatBotView;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (View_1_1) {
                 View_1 = View_1_1;
             },
-            function (Chat_1_1) {
-                Chat_1 = Chat_1_1;
-            },
-            function (chatAnswerParser_1_1) {
-                chatAnswerParser_1 = chatAnswerParser_1_1;
-            },
-            function (escapeTag_1_1) {
-                escapeTag_1 = escapeTag_1_1;
+            function (ChatHistoryView_1_1) {
+                ChatHistoryView_1 = ChatHistoryView_1_1;
             }
         ],
         execute: function () {
             ChatBotView = class ChatBotView extends View_1.View {
                 constructor(selector, escape = false) {
                     super(selector, escape);
-                    this.active = false;
                 }
                 template(model) {
-                    this.lastModel = model;
                     return `
-<div id="chatbot-area" class="position-fixed rounded-0 shadow ${this.active ? 'active' : ''}">
+<div id="chatbot-ducky" class="position-fixed rounded-circle p-1 shadow">
+    <img src="./img/contratinhoduck.png" height="90" style="transform:scaleX(-1)">
+</div>
+
+<div id="chatbot-area" class="position-fixed rounded-0 shadow">
+
+
     <div id="chatbot-tab" class="align-items-center d-flex right-0 pl-3">
         <i class="material-icons">chat</i>
         <h5 class="m-1">Chat</h5>
 
-        <div class="w-100">
-            <img class="float-right mr-3" src="./img/contratinhoduck.png" height="30" style="transform:scaleX(-1)">
+        <div class="ml-auto mr-3">
+            <i class="material-icons">keyboard_arrow_down</i>
         </div>
 
         <!--<a class="w-100" href="#" id="refresh-chat">
             <i class="material-icons float-right mr-3">refresh</i>
         </a>-->
     </div>
-    <div id="chatbot-body">
+    <div id="chatbot-body" class="d-flex">
 
-        <div id="chatbot-history">
-            <ul>
-            ${model.History.map((msg) => {
-                        const author = msg[0];
-                        let processedMsg;
-                        if (author === Chat_1.ChatAgent.User) {
-                            processedMsg = escapeTag_1.escapeTag(msg[1]);
-                        }
-                        else {
-                            processedMsg = chatAnswerParser_1.parseView(msg[1]);
-                        }
-                        processedMsg = processedMsg.replace(/\n/g, '<br>');
-                        return `
-                    <li data-author="${author}" class="shadow-sm ${/^\s*{{button\(.*\)}}\s*$/.test(msg[1]) ? 'w-100 p-0' : ''}">
-                        ${processedMsg}
-                    </li>
-                `;
-                    }).join('')} 
-            </ul>
+        <div id="chatbot-history-view">
         </div>
 
-        <div id="chatbot-input">
+        <div id="chatbot-input" class="mt-auto">
             <div class="p-1 h-100">
                 <form action="" id="chatbot-input-form">
                     <div class="form-group m-1">
@@ -92,14 +72,26 @@ System.register(["./View", "../models/Chat", "../helpers/chatbot/chatAnswerParse
                 }
                 update(model) {
                     super.update(model);
-                    const chatBotHistory = document.getElementById('chatbot-history');
-                    chatBotHistory.scrollTo(0, chatBotHistory.scrollHeight);
-                    document.getElementById('chatbot-tab').addEventListener('click', () => {
-                        this.active = !this.active;
-                        this.update(this.lastModel);
-                    });
+                    this.chatHistoryView = new ChatHistoryView_1.ChatHistoryView('#chatbot-history-view');
+                    this.chatHistoryView.update(model);
+                    const chatBotArea = document.getElementById('chatbot-area');
+                    const handleActive = () => {
+                        chatBotArea.classList.toggle('active');
+                    };
+                    document.getElementById('chatbot-tab').addEventListener('click', handleActive);
+                    document.getElementById('chatbot-ducky').addEventListener('click', handleActive);
                     if (this.didMountFn)
                         this.didMountFn(model);
+                    if (this.innerDidMountFn)
+                        this.innerDidMountFn(model);
+                }
+                updateInner(model) {
+                    this.chatHistoryView.update(model);
+                    if (this.innerDidMountFn)
+                        this.innerDidMountFn(model);
+                }
+                innerDidMount(cb) {
+                    this.innerDidMountFn = cb;
                 }
                 didMount(cb) {
                     this.didMountFn = cb;

@@ -48,12 +48,13 @@ export class RegisteredDailyView extends View<RegisteredDaylies> {
                             </div>
                             <strong>Ontem:</strong> ${escapeTag(registeredDaily.Yesterday)}</a><br><br>
                             <strong>Hoje:</strong> ${escapeTag(registeredDaily.Today)}<br><br>
-                            <strong>Impedimentos:</strong> ${escapeTag(registeredDaily.Impediment)}<br><br>
+                            <strong>Impedimentos:</strong> ${registeredDaily.Impediment ? escapeTag(registeredDaily.Impediment) : ''}<br><br>
                         </div>
                     </div>
                 </div> 
             </div>   
             `).join('')}
         `;
+        }
     }
-}}
+}

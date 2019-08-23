@@ -318,7 +318,7 @@ body {
 :root {
     --chat-tab-height: 40px;
     --chat-total-height: 66vh;
-    --chat-input-height: 148px;
+    /*--chat-input-height: 148px;*/
 
     --chat-closed-width: 300px;
     --chat-open-width: 40vw;
@@ -331,16 +331,48 @@ body {
     border-top-right-radius: 0.25rem !important;
 
     height: var(--chat-total-height);
-    width: var(--chat-closed-width);
-    min-width: var(--chat-closed-width);
+    width: var(--chat-open-width);
 
-    transform: translateY(calc(var(--chat-total-height) - var(--chat-tab-height) + 1px));
+    transform: translateY(calc(var(--chat-total-height) + 1px));
     transition: transform ease-out 0.2s;
 
     right: 2rem;
     bottom: 0;
 
     background-color: var(--light);
+}
+
+@keyframes rotateDuck {
+    0% {
+        transform: rotateY(0deg);
+    }
+    50% {
+        transform: rotateY(90deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+#chatbot-ducky {
+    z-index: 999;
+
+    bottom: 50px;
+    right: 50px;
+
+    background-color: var(--light);
+
+    cursor: pointer;
+
+    image-rendering: crisp-edges;
+
+    transform: scale(.95);
+    transition: transform ease-out .2s;
+}
+
+#chatbot-ducky:hover {
+    transform: scale(1);
+    animation: rotateDuck .5s ease-out 1s;
 }
 
 .word-cut {
@@ -360,7 +392,18 @@ body {
 
 @media(max-width: 600px) {
     #chatbot-area {
-        right: calc(50vw - calc(var(--chat-closed-width) / 2));
+        --chat-tab-height: 70px;
+        --chat-total-height: 99vh;
+        --chat-open-width: calc(99vw - 17px);
+
+        right: calc(50vw - calc(var(--chat-open-width) / 2));
+        /*right: 0;*/
+    }
+    #chatbot-ducky {
+        z-index: 999;
+    
+        bottom: 25px;
+        right: 25px;
     }
 }
 
@@ -388,11 +431,17 @@ body {
     flex-direction: column;
     align-items: stretch;
 
-    height: 100%;
+    height: calc(var(--chat-total-height) - var(--chat-tab-height));
+}
+
+#chatbot-history-view{
+    flex-grow: 1;
+
+    overflow: hidden;
 }
 
 #chatbot-history {
-    height: calc(var(--chat-total-height) - var(--chat-input-height));
+    height: 100%;
 
     overflow-y: scroll;
 }
@@ -455,7 +504,7 @@ body {
 }
 
 #chatbot-input {
-    height: var(--chat-input-height);
+    /* height: var(--chat-input-height); */
 }
 
 #chatbot-history ul li .chatbot-options {
