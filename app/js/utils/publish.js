@@ -32,12 +32,10 @@ System.register([], function (exports_1, context_1) {
         let month = monthName[date.getUTCMonth()];
         let year = date.getUTCFullYear();
         const monthNumber = date.getUTCMonth() + 1;
-        if (window.innerWidth > 576) {
-            return `publicado em ${week}, ${day} de ${month} de ${year}.`;
-        }
-        else {
-            return `publicado em ${day}/${monthNumber < 10 ? '0' + monthNumber : monthNumber}/${year}`;
-        }
+        const returnData = `&nbsp
+    <text class="desk-date">publicado em ${week}, ${day} de ${month} de ${year}.</text>
+    <text class="mob-date">publicado em ${day}/${monthNumber < 10 ? '0' + monthNumber : monthNumber}/${year}</text>`;
+        return returnData;
     }
     exports_1("publish", publish);
     return {

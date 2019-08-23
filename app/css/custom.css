@@ -626,13 +626,25 @@ body {
     margin-left: -1.9rem;
 }
 
+.responsive-daily-edit {
+    margin-right: -32%;
+}
+
+.responsive-help-drop {
+    display: none;
+}
+
+.daily-btn-mob {
+    display: none;
+}
+
+
 
 @media (min-width: 1578px) {
     .card-description-responsive {
         margin-left: -1px;
     }
 }
-
 
 /* FIXME */
 @media (min-width: 1407px) and (max-width: 1577px) { 
@@ -673,7 +685,31 @@ body {
 
 }
 
+.mob-date {
+    display: none;
+}
+
+.desk-date {
+    display: block;
+}
+
+/* mobile joker */
 @media (max-width: 991px) {
+    .mob-date {
+        display: block;
+    }
+    
+    .desk-date {
+        display: none;
+    }
+
+    .daily-btn-mob {
+        display: block;
+    }    
+
+    .daily-btn-joker {
+        display: none;
+    }
    
     #drop-hidder {
         display: block;
@@ -851,9 +887,7 @@ body {
         margin-top: 10px;
     }
 
-    .responsive-help-drop {
-        display: block;
-    }
+    
 
     .page-position {
         margin-top: 70px;

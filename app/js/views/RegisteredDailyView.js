@@ -24,39 +24,43 @@ System.register(["./View", "../utils/escapeTag", "../utils/publish"], function (
                         return `
             ${model.toArray().map(registeredDaily => `
             <hr style="height: 1px;">
-            <div class="col-sm-11 col-12 mt-n2 mb-n3 d-flex align-items-stretch responsive-full-help">
-                <div class="d-flex flex-column text-center align-items-center pl-3 pr-3 w-100">
+            <div class="col-sm-12 col-12 mt-n2 mb-n3 d-flex align-items-stretch responsive-full-help">
+                <div class=" pl-3 pr-3">
                     <div class="responsive-user-help">
-                        <img src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" class="rounded-circle clock-image">
-                        <h6 class="mt-2 responsive-user-name">${registeredDaily.Owner ? registeredDaily.Owner : ""}</h6>
+                        <img src="../../img/user-icon.png" class="user-def-image ml-3">
                     </div>
                 </div>          
 
                 <div class="col-9 responsive-help-card">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 ml-n2">
 
+                        
                         ${registeredDaily.Id_user == localStorage.getItem('id') || localStorage.getItem('isAdmin') == 'true' ? `
-                            <div id="user-main responsive-help-drop">
-                                ${window.innerWidth <= 576 ? `
-                                    <a href="daily-edit.html?id=${registeredDaily.Id_daily}&owner=${registeredDaily.Id_user}">
-                                        <i class="small material-icons mr-n4 align-middle float-right text-warning">edit</i>
-                                    </a>
-                                ` : ''}
-                            </div>` : ''}
-
+                        <div id="user-main responsive-help-drop">
+                            <a href="daily-edit.html?id=${registeredDaily.Id_daily}&owner=${registeredDaily.Id_user}">
+                                <i class="small material-icons mr-n4 align-middle float-right text-warning daily-btn-mob">edit</i>
+                            </a>
+                        </div>` : ''}
+                        
                         ${registeredDaily.Id_user == localStorage.getItem('id') || localStorage.getItem('isAdmin') == 'true' ? `
-                        <a href="daily-edit.html?id=${registeredDaily.Id_daily}&owner=${registeredDaily.Id_user}" class="float-right d-flex justify-content-center mt-4 mr-n5 can-edit">
-                            <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle responsive-help-buttons" id="edit-daily">
+                        <a href="daily-edit.html?id=${registeredDaily.Id_daily}&owner=${registeredDaily.Id_user}" class="float-right d-flex justify-content-center mt-4 can-edit responsive-daily-edit">
+                            <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mt-n4 mr-4 input-circle responsive-help-buttons daily-btn-joker" id="edit-daily">
                                 <i class="small material-icons mr-2 align-middle">edit</i>
                                 <text class="responsive-help-buttons">Editar</text>
                             </button>
                         </a>` : ''}
 
-                            <div class="text-black-50 mb-2">
-                                <i class="tiny material-icons align-middle">access_alarm</i>
+                            <div class="text-black-50 mb-2 d-flex align-items-center">
+                                <i class="tiny material-icons align-middle ml-n1">access_alarm</i>
                                 ${publish_1.publish(registeredDaily.Date)}
                             </div>
+
+                            <div class="text-black-50 mt-n2 mb-2">
+                                <i class="tiny material-icons align-middle ml-n1">perm_identity</i>
+                                <strong>${registeredDaily.Owner ? registeredDaily.Owner : ""}</strong>
+                            </div>
+
                             <strong>Ontem:</strong> ${escapeTag_1.escapeTag(registeredDaily.Yesterday)}</a><br><br>
                             <strong>Hoje:</strong> ${escapeTag_1.escapeTag(registeredDaily.Today)}<br><br>
                             <strong>Impedimentos:</strong> ${registeredDaily.Impediment ? escapeTag_1.escapeTag(registeredDaily.Impediment) : ''}<br><br>

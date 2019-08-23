@@ -32,22 +32,22 @@ $(document).ready(() => {
 
 
 //Responsive
-if (window.innerWidth <= 576) {
-    document.getElementById('recovery-pass').classList.add('btn-block');
-    document.getElementById('cancel').classList.add('btn-block');
+// if (window.innerWidth <= 576) {
+//     document.getElementById('recovery-pass').classList.add('btn-block');
+//     document.getElementById('cancel').classList.add('btn-block');
 
-    document.getElementById('filter').classList.add('btn-block');
-    document.getElementById('filter').classList.add('mt-0');
-    document.getElementById('filter').classList.add('mb-4');
-    document.getElementById('filter').classList.remove('col-sm-6');
-    document.getElementById('filter').classList.add('col-sm-12');
-    // document.getElementById('add_daily').classList.add('');
-    document.getElementById('add_daily').classList.add('mb-4');
+//     document.getElementById('filter').classList.add('btn-block');
+//     document.getElementById('filter').classList.add('mt-0');
+//     document.getElementById('filter').classList.add('mb-4');
+//     document.getElementById('filter').classList.remove('col-sm-6');
+//     document.getElementById('filter').classList.add('col-sm-12');
+//     // document.getElementById('add_daily').classList.add('');
+//     document.getElementById('add_daily').classList.add('mb-4');
 
-    var btn = document.querySelector('.responsive-add-daily-bottom');
-    if (btn.parentNode) btn.parentNode.removeChild(btn);
+//     var btn = document.querySelector('.responsive-add-daily-bottom');
+//     if (btn.parentNode) btn.parentNode.removeChild(btn);
 
-} else {
-    var btn = document.querySelector('.responsive-add-daily-top');
-    if (btn.parentNode) btn.parentNode.removeChild(btn);
-}
+// } else {
+//     var btn = document.querySelector('.responsive-add-daily-top');
+//     if (btn.parentNode) btn.parentNode.removeChild(btn);
+// }

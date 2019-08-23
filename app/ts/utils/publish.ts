@@ -8,10 +8,9 @@ export function publish(date: Date): string {
 
     const monthNumber = date.getUTCMonth() + 1
 
-    if (window.innerWidth > 576) {
-        return `publicado em ${week}, ${day} de ${month} de ${year}.`;
-    } else {
-        return `publicado em ${day}/${monthNumber < 10 ? '0' + monthNumber : monthNumber}/${year}`
-    }
+    const returnData = `&nbsp
+    <text class="desk-date">publicado em ${week}, ${day} de ${month} de ${year}.</text>
+    <text class="mob-date">publicado em ${day}/${monthNumber < 10 ? '0' + monthNumber : monthNumber}/${year}</text>`;   
 
+    return returnData;
 }
