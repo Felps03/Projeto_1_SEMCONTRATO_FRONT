@@ -30,8 +30,6 @@ System.register(["./controllers/HelpCenterPageController", "./utils/userData"], 
             $(document).ready(function () {
                 document.getElementById('show-question').click();
             });
-            if (window.innerWidth <= 987)
-                document.getElementById('send_answer').classList.add('btn-block');
             answer_access = document.getElementById('answer_field');
             if (localStorage.getItem('tkn')) {
                 answer_access.innerHTML = `

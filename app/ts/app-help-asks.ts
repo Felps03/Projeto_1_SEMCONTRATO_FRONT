@@ -29,10 +29,6 @@ $(document).ready(function () {
     document.getElementById('show-question').click();
 });
 
-//Responsive 
-if (window.innerWidth <= 987) document.getElementById('send_answer').classList.add('btn-block');
-
-
 let answer_access = document.getElementById('answer_field');
 if (localStorage.getItem('tkn')) {
     answer_access.innerHTML = `

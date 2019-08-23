@@ -56,19 +56,16 @@ System.register(["./controllers/HelpCenterController", "./utils/userData"], func
                 cancel.addEventListener('click', controller.cancel.bind(controller));
             $('#search-joker').keyup(delay(controller.findByJoker.bind(controller), 500));
             buttonAddHC = document.getElementById("help-add-ocult");
-            console.log(localStorage.getItem('email'));
             if (localStorage.getItem('email') == null) {
-                console.log("älsjfalf");
                 buttonAddHC.innerHTML = ``;
             }
             else {
-                console.log(buttonAddHC);
-                buttonAddHC.innerHTML = `<label for="search-joker">Deseja perguntar algo?</label>
+                buttonAddHC.innerHTML = `<label for="search-joker" class="resp-label-add">Deseja perguntar?</label>
                             <button type="button" name="new_help"
-                                class="btn btn-sm btn-outline-success btn-block float-right input-circle"
+                                class="btn btn-sm btn-outline-success w-100 float-right input-circle help-add-margin-align button-helper"
                                 data-toggle="modal" data-toggle="modal" data-target="#add-modal">
-                                <i class="small material-icons mr-2 align-middle custom-icon-margin">help</i>
-                                Perguntar
+                                <i class="small material-icons mr-2 align-middle custom-icon-margin resp-add-help-icon">help</i>
+                                <text class="add-help-text">Perguntar</text>
                             </button>`;
             }
             $(document).ready(() => {

@@ -25,6 +25,7 @@ export class ChatBotManager {
 
         // simpler conditions weren't possible for some reason
         if (this.chat.History.length === 0) {
+            this.context = mainBranch.goto
             yield* this.answer()
         } else {
             yield this.chat
@@ -68,6 +69,12 @@ export class ChatBotManager {
 
                             if (processed) {
                                 success = true
+
+                                if (!(synonym instanceof RegExp)) {
+                                    const actualPath = this.state.get('_PATH')
+                                    const first = actualPath === undefined
+                                    this.state.set('_PATH', `${first ? '' : `${actualPath}.`}${synonym}`)
+                                }
 
                                 const msgs = await this.toBranch(branch, processed)
 

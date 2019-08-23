@@ -6,9 +6,13 @@ import { EditDailyController } from "./controllers/EditDailyController";
 import { getUser } from "./utils/userData";
 
 const idResult = document.querySelector('#editResult')
+const editController = new EditDailyController();
 
 let userData = getUser();
 if (!localStorage.getItem('tkn')) document.getElementById('user-main').innerHTML = `<a href="home.html" class="menu-item"><h5><strong>Login</strong></h5></a>`;
+
+editController.checkImpediment()
+
 
 $('#daily_cancel').click((e) => {
     e.preventDefault();

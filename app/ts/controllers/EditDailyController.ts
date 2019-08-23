@@ -27,6 +27,23 @@ export class EditDailyController {
         ];
     }
 
+    checkImpediment() {
+        let yesImpediment = document.getElementById('yesImpediment')
+        let noImpediment = document.getElementById('noImpediment')
+        let impediment = document.getElementById('edit-impediment')
+
+        noImpediment.addEventListener('change', () => {
+            impediment.setAttribute('hidden', 'true')
+            this.impediment.value = 'Nenhum'
+        })
+
+        yesImpediment.addEventListener('change', () => {
+            impediment.removeAttribute('hidden')
+            impediment.setAttribute('autofocus', 'true')
+            this.impediment.value = ''
+        })
+    }
+
     getDailyData(id: string) {
 
         const dailyService = new DailyNoteService();
@@ -41,6 +58,12 @@ export class EditDailyController {
                 this.yesterday.value = result.yesterday;
                 this.today.value = result.today;
                 this.impediment.value = result.impediment;
+
+                if (this.impediment.value === 'Nenhum') {
+
+                    this.impediment.value = ''
+                }
+                console.log('oi', this.impediment.value);
                 this.idDaily.value = result._id;
 
             })
@@ -56,8 +79,8 @@ export class EditDailyController {
             const daily = new DailyNote(
                 this.yesterday.value.toString(),
                 this.today.value.toString(),
-                this.impediment.value.toString(),
-                new Date()
+                new Date(),
+                this.impediment.value.toString()
             )
 
             const dailyService = new DailyNoteService();
