@@ -41,21 +41,23 @@ System.register(["./View", "../utils/escapeTag", "../utils/publish"], function (
                             <div class="row">
                                 <div class="col-12 col-sm-12 pr-0">
                                 
-                                    <div id="responsive-help-drop">
+                                    <div>
                                         <div class="dropdown txt-user" style="float:right;">
                                             <div class="d-flex align-items-center btn mr-n4 " data-toggle="dropdown">
                                                 
-                                                <i class="small material-icons align-middle float-right responsive-help-drop">more_vert</i>  
+                                                <i class="small material-icons align-middle float-right responsive-help-drop answer_op">more_vert</i>  
                                             </div>
 
                                             <div class="dropdown-menu dropdown-menu-right align-user pt-0 pb-0 mr-n3">
 
                                                 ${localStorage.getItem('id') === PostAsk.Author || localStorage.getItem('isAdmin') == 'true' ? `
+                                                <div class="mobile-operation">
                                                     <a class="dropdown-item d-flex align-items-center text-warning edit-help-resp can-edit" data-id="${PostAsk.Id}" href="./../help-ask-edit.html?id=${PostAsk.Id}&owner=${PostAsk.Id_user}">
                                                         <i class="material-icons mr-2">edit</i>Editar</a>
                                         
                                                     <a class="dropdown-item d-flex align-items-center text-danger rmv-help-resp can-delete" data-id="${PostAsk.Id}" href="#">
-                                                        <i class="material-icons mr-2">delete</i>Excluir</a>`
+                                                        <i class="material-icons mr-2">delete</i>Excluir</a>
+                                                </div>`
                             : ''}
 
                                             </div>
@@ -63,6 +65,7 @@ System.register(["./View", "../utils/escapeTag", "../utils/publish"], function (
                                     </div>
 
                                     ${localStorage.getItem('id') === PostAsk.Author || localStorage.getItem('isAdmin') == 'true' ? `
+                                    <div class="desktop-operation">
                                         <a data-id="${PostAsk.Id}" href="./../help-ask-edit.html?id=${PostAsk.Id}&owner=${PostAsk.Id_user}" class="float-right d-flex justify-content-center mr-n3 can-edit">
                                             <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mt-n2 mr-4 mb-2 input-circle responsive-help-buttons" id="edit-help">
                                                 <i class="small material-icons mr-2 align-middle">edit</i>
@@ -76,6 +79,7 @@ System.register(["./View", "../utils/escapeTag", "../utils/publish"], function (
                                                 <text class="responsive-help-buttons">Excluir</text>
                                             </button>
                                         </a>
+                                    </div>
                                     ` : ``}
                                     
                                     
