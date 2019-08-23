@@ -1,5 +1,5 @@
 import * as process from './chatBotProcess'
-import { DailyNoteService, HelpCenterService, UserService } from "../../services/index";
+import { DailyNoteService, HelpCenterService, UserService, ChatBotService } from "../../services/index";
 import { Post } from '../../models/Post';
 import { InputWrapper } from '../../utils/index';
 import * as valHelp from '../../validation/helpCenterValidate'
@@ -49,6 +49,7 @@ const SELF_HTTPS_HOST = 'https://' + window.location.host
 const helpCenterService = new HelpCenterService()
 const dailyNoteService = new DailyNoteService()
 const userService = new UserService()
+const chatBotService = new ChatBotService()
 
 // greeting mechanics
 const actualHours = new Date().getHours()
@@ -155,7 +156,8 @@ export const dialog: { [node: string]: Dialog } = {
             },
             {
                 call: ['nao', 'nop', 'hoje'],
-                goto: 'main',
+                // goto: 'main',
+                goto: 'was_i_helpful',
                 answer: [
                     `{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html)}}`,
                 ],
@@ -170,7 +172,7 @@ export const dialog: { [node: string]: Dialog } = {
         children: [
             {
                 call: [/(\d{1,2})\/(\d{1,2})\/(\d+)/],
-                goto: 'main',
+                goto: 'was_i_helpful',
                 answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?date=$list_daily_note_date)}}`],
                 process: async (state: Map<string, any>, match: RegExpExecArray) => {
 
@@ -204,7 +206,7 @@ export const dialog: { [node: string]: Dialog } = {
             {
                 call: [/^((?:[A-Za-z0-9]|_|\-|\.)+)$/],
                 normalize: false,
-                goto: 'main',
+                goto: 'was_i_helpful',
                 answer: [`{{link(Clique aqui para ver as dailies! 😃, ${SELF_HTTPS_HOST}/app-daily-note.html?user=$list_daily_note_user)}}`],
                 process: async (state: Map<string, any>, match: RegExpExecArray) => {
 
@@ -302,7 +304,7 @@ export const dialog: { [node: string]: Dialog } = {
             {
                 call: [/^.*$/],
                 normalize: false,
-                goto: 'main',
+                goto: 'was_i_helpful',
                 process: async (state: Map<string, any>, match: RegExpExecArray) => {
                     const impediment = match[0]
 
@@ -343,7 +345,7 @@ export const dialog: { [node: string]: Dialog } = {
         children: [
             {
                 call: ['listar', 'ver', 'mostrar'],
-                goto: 'main',
+                goto: 'was_i_helpful',
                 answer: [
                     `{{link(Clique aqui para ver os posts! 😃, ${SELF_HTTPS_HOST}/app-help-center.html)}}`,
                 ]
@@ -391,7 +393,7 @@ export const dialog: { [node: string]: Dialog } = {
             {
                 call: [/^.*$/],
                 normalize: false,
-                goto: 'main',
+                goto: 'was_i_helpful',
                 process: async (state: Map<string, any>, match: RegExpExecArray) => {
                     // PROCESSING DESC
                     const desc = match[0]
@@ -418,12 +420,33 @@ export const dialog: { [node: string]: Dialog } = {
         ]
     },
 
-    login: {
+    was_i_helpful: {
+
+        greet: [
+            'Consegui te ajudar? 😋',
+            '{{button(Sim)}}',
+            '{{button(Não)}}'
+        ],
+
         children: [
             {
+                call: ['s'],
                 goto: 'main',
-                answer: NOT_IMPLEMENTED_ANSWER
-            }
+                answer: ['Que bom! 🙂'],
+                process: (state: Map<string, any>, match: RegExpMatchArray) => {
+                    const withoutLast = /.*(?=\.)/.exec(state.get('_PATH'))[0]
+                    chatBotService.feedback(true, withoutLast)
+                }
+            },
+            {
+                call: ['n'],
+                goto: 'main',
+                answer: ['Hm... Espero melhorar no futuro. 🤔'],
+                process: (state: Map<string, any>, match: RegExpMatchArray) => {
+                    const withoutLast = /.*(?=\.)/.exec(state.get('_PATH'))[0]
+                    chatBotService.feedback(false, withoutLast)
+                }
+            },
         ]
     },
 

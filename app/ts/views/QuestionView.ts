@@ -18,53 +18,61 @@ export class QuestionView extends View<Post> {
                 </div>
                 
                 <div class="col-9 col-sm-12 responsive-help-card">
-                    <div class="row">
+
+            <div>
+                <div class="dropdown mr-n4 txt-user"">
+                    <div class="d-flex align-items-center btn mr-n4 mt-n1" data-toggle="dropdown">
+
+                        <i class="small material-icons align-middle float-right responsive-help-drop teaster">more_vert</i>
+                    </div>
+
+                    <div class="dropdown-menu dropdown-menu-right align-user pt-0 pb-0 mr-n3">
+
+                        ${canEdit ? `
+                        <div class="mobile-operation">
+                            <a class="dropdown-item d-flex align-items-center text-warning edit-help-resp can-edit" data-id="${model.Id}" href="./../help-center-edit.html?id=${model.Id}&owner=${model.AuthorId}">
+                                <i class="material-icons mr-2">edit</i>Editar</a>
+
+                            <a class="dropdown-item d-flex align-items-center text-danger rmv-help-resp can-del" data-id="${model.Id}" href="#">
+                                <i class="material-icons mr-2">delete</i>Excluir</a>
+                        </div>`
+                        : ''}
+
+                    </div>
+                </div>
+            </div>
+
+                    <div class="row mt-n5">
+
+                            
+                    
                         <div class="word-cut">
+
+                            
                             <div class="col-12 col-sm-12 pr-0">
                                 
-                                <div id="user-main responsive-help-drop">
-                                <div class="dropdown mr-n4 txt-user" style="float:right;">
-                                    <div class="d-flex align-items-center btn mr-n4 mt-n1" data-toggle="dropdown">
-
-                                        <i class="small material-icons align-middle float-right responsive-help-drop">more_vert</i>
-                                    </div>
-                                    <div class="dropdown-menu dropdown-menu-right align-user pt-0 pb-0">
-
-                                        ${canEdit ? `
-                                            <a class="dropdown-item d-flex align-items-center text-warning edit-help-resp can-edit" data-id="${model.Id}" href="./../help-center-edit.html?id=${model.Id}&owner=${model.AuthorId}">
-                                                <i class="material-icons mr-2">edit</i>Editar</a>`
-                : ''}
-
-                                        ${canEdit ? `
-                                            <a class="dropdown-item d-flex align-items-center text-danger rmv-help-resp can-del" data-id="${model.Id}" href="#">
-                                                <i class="material-icons mr-2">delete</i>Excluir</a>`
-                : ''}
- 
-                                    </div>
-                                </div>
-                            </div>
+                            
   
                             <div class="word-cut"><h5><strong>${escapeTag(model.Title)}</strong></h5></div>
                          
                             
-
                             ${canEdit ? `
-                                <a data-id="${model.Id}" href="./../help-center-edit.html?id=${model.Id}&owner=${model.AuthorId}" class="float-right d-flex justify-content-center can-edit">
-                                    <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mr-4 input-circle responsive-help-buttons" id="edit-help">
-                                        <i class="small material-icons mr-2 align-middle">edit</i>
-                                        <text class="responsive-help-buttons">Editar</text>
-                                    </button>
-                                </a>
-                                ` : ``}
-
-                            ${canEdit ? `
-                                <a data-id="${model.Id}" href="#" class="float-right d-flex justify-content-center can-del">
-                                    <button type="button" class="btn btn-outline-danger btn-sm pr-3 pl-3 mr-4 input-circle responsive-help-buttons" id="remove-help">
-                                        <i class="small material-icons mr-2 align-middle">delete</i>
-                                        <text class="responsive-help-buttons">Excluir</text>
-                                    </button>
-                                </a>
-                            ` : ``}
+                            <div class="desktop-operation">
+                            <a data-id="${model.Id}" href="./../help-center-edit.html?id=${model.Id}&owner=${model.AuthorId}" class="d-flex justify-content-center can-edit">
+                                <button type="button" class="btn btn-outline-warning btn-sm pr-3 pl-3 mr-4 input-circle responsive-help-buttons float-right" id="edit-help">
+                                    <i class="small material-icons mr-2 align-middle">edit</i>
+                                    <text class="responsive-help-buttons">Editar</text>
+                                </button>
+                            </a>
+                 
+                            <a data-id="${model.Id}" href="#" class="float-right d-flex justify-content-center can-del">
+                                <button type="button" class="btn btn-outline-danger btn-sm pr-3 pl-3 mr-4 input-circle responsive-help-buttons float-right" id="remove-help">
+                                    <i class="small material-icons mr-2 align-middle">delete</i>
+                                    <text class="responsive-help-buttons">Excluir</text>
+                                </button>
+                            </a>
+                            </div>
+                        ` : ``}
 
                                 <div class="text-black-50 mt-n2 mb-2">
                                     <i class="tiny material-icons align-middle">access_alarm</i>
@@ -72,10 +80,15 @@ export class QuestionView extends View<Post> {
                                 </div>
     
                             </div>
-                        </div>    
+                        </div>   
+                         
                     </div>
+                    
                     <div class="mt-1 text-justify">${escapeTag(model.Desc)}</div> 
+                            
+                    
                 </div> 
+                
             </div>
             
         `

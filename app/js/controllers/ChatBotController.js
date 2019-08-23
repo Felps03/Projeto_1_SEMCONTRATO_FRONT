@@ -1,4 +1,4 @@
-System.register(["../models/index", "../views/ChatBotView", "../helpers/chatbot/ChatBotManager"], function (exports_1, context_1) {
+System.register(["../models/index", "../views/ChatBotView", "../helpers/chatbot/ChatBotManager", "../services/index"], function (exports_1, context_1) {
     "use strict";
     var __asyncValues = (this && this.__asyncValues) || function (o) {
         if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
@@ -7,7 +7,7 @@ System.register(["../models/index", "../views/ChatBotView", "../helpers/chatbot/
         function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
         function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
     };
-    var index_1, ChatBotView_1, ChatBotManager_1, ChatBotController;
+    var index_1, ChatBotView_1, ChatBotManager_1, index_2, ChatBotController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -19,12 +19,16 @@ System.register(["../models/index", "../views/ChatBotView", "../helpers/chatbot/
             },
             function (ChatBotManager_1_1) {
                 ChatBotManager_1 = ChatBotManager_1_1;
+            },
+            function (index_2_1) {
+                index_2 = index_2_1;
             }
         ],
         execute: function () {
             ChatBotController = class ChatBotController {
                 constructor() {
                     this.chatBotView = new ChatBotView_1.ChatBotView('#chatbot-view');
+                    this.chatBotService = new index_2.ChatBotService();
                     this.chatBotView.didMount((model) => {
                         document.getElementById('chatbot-clear').addEventListener('click', this.clear.bind(this));
                         document.getElementById('chatbot-input-form').addEventListener('submit', this.message.bind(this));
@@ -61,6 +65,8 @@ System.register(["../models/index", "../views/ChatBotView", "../helpers/chatbot/
                         msg = [index_1.ChatAgent.User, this.messageInput.value];
                         this.messageInput.value = '';
                     }
+                    if (msg[0] === index_1.ChatAgent.User)
+                        this.chatBotService.used();
                     this.chatBotView.updateInner(this.chatBotManager.message(msg));
                     try {
                         for (var _b = __asyncValues(this.chatBotManager.answer()), _c; _c = await _b.next(), !_c.done;) {

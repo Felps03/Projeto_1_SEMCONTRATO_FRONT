@@ -2,17 +2,20 @@ import { Chat, ChatAgent } from '../models/index';
 // import { HelpCenterService, UserService } from '../services/index';
 import { ChatBotView } from '../views/ChatBotView';
 import { ChatBotManager } from '../helpers/chatbot/ChatBotManager';
+import { ChatBotService } from '../services/index';
 
 export class ChatBotController {
 
     private chatBotView: ChatBotView
     private chatBotManager: ChatBotManager
+    private chatBotService: ChatBotService
 
     private messageInput: HTMLInputElement
 
     constructor() {
 
         this.chatBotView = new ChatBotView('#chatbot-view')
+        this.chatBotService = new ChatBotService()
 
         this.chatBotView.didMount((model: Chat) => {
 
@@ -53,6 +56,8 @@ export class ChatBotController {
             msg = [ChatAgent.User, this.messageInput.value]
             this.messageInput.value = ''
         }
+        if (msg[0] === ChatAgent.User)
+            this.chatBotService.used()
 
         this.chatBotView.updateInner(
             this.chatBotManager.message(msg)

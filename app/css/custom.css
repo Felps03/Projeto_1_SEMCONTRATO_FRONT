@@ -617,6 +617,7 @@ body {
 }
 
 .user-def-image {
+    margin-top: 2px;
     margin-left: 30px;
     width: 45px;
 }
@@ -626,11 +627,11 @@ body {
 }
 
 
-
-
-
-
-
+@media (min-width: 1578px) {
+    .card-description-responsive {
+        margin-left: -1px;
+    }
+}
 
 
 /* FIXME */
@@ -654,27 +655,55 @@ body {
     }
 
     .resp-add-help-icon {
-        display: none;
+        display: block;
+        margin-bottom: 0.01px;
     }
 
     .page-position {
         margin-top: 70px;
     }
+
+    .add-help-text {
+        display: none;
+    }
+
+    .help-line {
+        width: 122%;
+    }
+
 }
 
 @media (max-width: 991px) {
+   
     #drop-hidder {
         display: block;
+    }
+
+    .joker-image-nd {
+        display: block;
+        margin-left: -8px;
+    }
+
+    .joker-image-st {
+        display: none;
+    }
+
+    .help-line {
+        width: 118%;
     }
 }
 
 @media (min-width: 577px) and (max-width: 767px) {
     .resp-add-help-icon {
-        display: none;
+        display: block;
     }
 
     .add-help-text {
-        display: block;
+        display: none;
+    }
+
+    .button-helper {
+        padding-left: 15px;
     }
 
     .responsive-help-add {
@@ -691,6 +720,10 @@ body {
 
     .page-position {
         margin-top: 70px;
+    }
+
+    .help-line {
+        width: 110%;
     }
 }
 
@@ -731,15 +764,6 @@ body {
         margin-top: 70px;
     }
 
-    .joker-image-nd {
-        display: block;
-        margin-left: -8px;
-    }
-
-    .joker-image-st {
-        display: none;
-    }
-
     .line-joker {
         margin-bottom: 20px;
     }
@@ -747,7 +771,6 @@ body {
     .login-line {
         width: 123%;
     }
-
     
     .response-help-mob {
         display: block;
@@ -816,11 +839,6 @@ body {
     .responsive-help-buttons {
         display: none;
     }
-
-    .responsive-help-drop {
-        display: block;
-    }
-
   
     .edit-help-resp:hover, .rmv-help-resp:hover, .res-help-resp:hover {
         background: #c5c5c5;
@@ -828,11 +846,48 @@ body {
 }
 
 @media (max-width: 575px) {
+    .teaster {
+        margin-left: 312px;
+        margin-top: 10px;
+    }
+
+    .responsive-help-drop {
+        display: block;
+    }
+
     .page-position {
         margin-top: 70px;
         padding-left: 0px;
         padding-right: 0px;
     }
+
+    .user-def-image {
+        margin-left: 25px;
+    }
+
+    .card-description-responsive {
+        margin-left: 5px;
+    }
+
+    .help-line {
+        width: 116%;
+    }
+
+    #send_answer {
+        width: 100%;
+    }
+
+    .mobile-operation {
+        display: block;
+    }
+
+    .desktop-operation {
+        display: none;
+    }
+}
+
+.answer_op {
+    margin-top: -15px;
 }
 
 /** iphone 5 **/
