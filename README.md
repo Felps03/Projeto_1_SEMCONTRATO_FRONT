@@ -1,1 +1,1 @@
-# typeAzure
+# typeAzure.
